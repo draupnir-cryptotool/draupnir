@@ -7,3 +7,4 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 4. nodemon
 5. node-fetch
 6. eslint
+7. lodash
