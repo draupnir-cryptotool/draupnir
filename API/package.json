@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.11.1"
+  },
+  "name": "Draupnir",
+  "version": "0.0.1",
+  "description": "A tool for calculating the best price of cryptocurrencies over mutiple exchanges",
+  "main": "index.js",
+  "repository": "https://github.com/draupnir-cryptotool/draupnir",
+  "author": "Chris, Vigi, Jaime",
+  "license": "MIT"
+}
