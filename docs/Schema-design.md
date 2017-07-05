@@ -12,6 +12,7 @@
 ```
 
 ### Clients
+```
 {
     _id: String,
     firstname: String,
@@ -24,8 +25,10 @@
       depositCleared: Boolean
     }
 }
+```
   
 ### Order
+```
 {
     _id: String
     amount: Number,
@@ -37,8 +40,10 @@
       admin: String(adminId)
     }
 }
+```
 
 ### messages
+```
 {
     _id: String,
     message: String,
@@ -46,7 +51,9 @@
     Admin: String(AdminId),
     time: String(Javascript Date object - year, month, hours)
 }
+```
 ### Graph
+```
 {
   askprice: {
     amount: Number,
@@ -54,3 +61,4 @@
     time: Date(Javascript Date object - year, month, hours)
   }
 }
+```
