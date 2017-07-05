@@ -2,7 +2,9 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "mongoose": "^4.11.1"
+    "lodash": "^4.17.4",
+    "mongoose": "^4.11.1",
+    "node-fetch": "^1.7.1"
   },
   "name": "Draupnir",
   "version": "0.0.1",
@@ -10,5 +12,10 @@
   "main": "index.js",
   "repository": "https://github.com/draupnir-cryptotool/draupnir",
   "author": "Chris, Vigi, Jaime",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.1.1",
+    "eslint-config-google": "^0.8.0",
+    "nodemon": "^1.11.0"
+  }
 }
