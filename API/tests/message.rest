@@ -1,0 +1,8 @@
+POST http://localhost:3000/message/new
+content-type: application/json
+
+{
+    "message": "Again, that Chris guy! What a complete knob!",
+    "clientId": "595c9074c72526142f3e46e5",
+    "adminId": "595c87721bf2fd11256d870c"
+}

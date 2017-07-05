@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const usersRouter = require('./routes/usersRouter')
 const clientRouter = require('./routes/clientRouter')
 const orderRouter = require('./routes/orderRouter')
+const messageRouter = require('./routes/messageRouter')
 require('dotenv')
 
 const server = express()
@@ -20,6 +21,8 @@ require('dotenv').config({ path: '.env' });
 server.use(usersRouter)
 server.use(clientRouter)
 server.use(orderRouter)
+server.use(messageRouter)
+
 
 server.listen(3000, () => {
   console.log('Server listening on port 3000')
