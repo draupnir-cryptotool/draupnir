@@ -3,6 +3,5 @@ const mongoose = require('mongoose')
 mongoose.Promise = Promise
 mongoose.connect(process.env.DATABASE)
 
-const db = mongoose.connection
 
 module.exports = mongoose
