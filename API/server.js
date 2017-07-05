@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const usersRouter = require('./routes/usersRouter')
 const clientRouter = require('./routes/clientRouter')
+const orderRouter = require('./routes/orderRouter')
 require('dotenv')
 
 const server = express()
@@ -18,6 +19,7 @@ require('dotenv').config({ path: '.env' });
 // routes
 server.use(usersRouter)
 server.use(clientRouter)
+server.use(orderRouter)
 
 server.listen(3000, () => {
   console.log('Server listening on port 3000')
