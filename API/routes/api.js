@@ -7,7 +7,7 @@ const fetch = require('node-fetch');
 const _ = require('lodash');
 
 // Temporary route for testing
-router.get('/refresh', function(req, res, next) {
+router.get('/btcusd/:amount', function(req, res, next) {
 
   // Create a fetch promise for each API call. These will all be called by a Promise.all later
   const fetchBitfinex = fetch('https://api.bitfinex.com/v1/book/btcusd/?limit_bids=0')
@@ -76,10 +76,42 @@ router.get('/refresh', function(req, res, next) {
   Promise.all([fetchBTCe, fetchBitfinex, fetchBitstamp])
     .then(orderBooks => {
       // Promise.all gives us an array of the returned values, so we flatten them into a single array
-      orderBooks = _.flattenDeep(orderBooks);
+      fullOrderBook = _.flattenDeep(orderBooks);
       // We now have a single array of objects, so we sort them by their price property
-      orderBooks = _.sortBy(orderBooks, ['price']);
-      res.send(orderBooks);
+      fullOrderBook = _.sortBy(fullOrderBook, ['price']);
+
+      orderAmount = req.params.amount;
+      fulfilledOrderBook = [];
+      orderTally = 0;
+
+      for (let order of fullOrderBook) {
+        if (orderTally >= orderAmount) {
+          break;
+        }
+        else if(order.orderTotal < (orderAmount - orderTally)) {
+          orderTally += order.orderTotal;
+          fulfilledOrderBook.push(order);
+        }
+        // Order is more than what we need to fulfil requested amount, we only need part of it
+        else {
+          partialOrder = order;
+          partialOrder.amount = (orderAmount - orderTally) / partialOrder.price;
+          partialOrder.orderTotal = partialOrder.price * partialOrder.amount;
+          orderTally += partialOrder.orderTotal;
+          fulfilledOrderBook.push(partialOrder);
+        }
+      };
+
+      reducedOrders = fulfilledOrderBook.reduce((result, x) => {
+        result[x['exchange']] = result[x['exchange']] ? result[x['exchange']] + x['orderTotal'] :  x['orderTotal'];
+        return result;
+      }, {});
+
+      reducedOrders.currencyTotal = fulfilledOrderBook.reduce((currencyTotal, order) => {
+        return currencyTotal + order.amount;
+      }, 0);
+
+      res.send(reducedOrders);
   });
 });
 
