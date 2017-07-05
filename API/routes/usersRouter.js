@@ -1,9 +1,9 @@
 const express = require('express')
 const User = require('../models/user')
-const Router = express.Router()
+const router = express.Router()
 
 // create new user
-Router.post('/user/new', (req, res) => {
+router.post('/user/new', (req, res) => {
   const newUser = req.body
   User.create(newUser)
     .then(user => {
@@ -15,4 +15,4 @@ Router.post('/user/new', (req, res) => {
 })
 
 
-module.exports = Router
+module.exports = router

@@ -1,0 +1,14 @@
+POST http://localhost:3000/client/new
+content-type: application/json
+
+{
+    "firstname": "Chris",
+    "lastname": "Robertson",
+    "phonenumber": "0416034878",
+    "email": "jaime@something.com",
+    "status": {
+      "phonecall": false,
+      "email": false,
+      "depositCleared": false
+    }
+}
