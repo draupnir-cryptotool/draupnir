@@ -1,4 +1,5 @@
 ### User
+```
 {
     _id: String,
     email: String,
@@ -8,7 +9,7 @@
       lastname: String
     }
 }
-
+```
 
 ### Clients
 {
