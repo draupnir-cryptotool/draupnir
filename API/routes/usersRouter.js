@@ -2,6 +2,19 @@ const express = require('express')
 const User = require('../models/user')
 const router = express.Router()
 
+// get all users
+router.get('/users', (req, res) => {
+  User.find()
+  .then((users) => {
+    res.json(users)
+  })
+  .catch((err) => {
+    if(err) {
+      res.json({err: err})
+    }
+  })
+})
+
 // create new user
 router.post('/user/new', (req, res) => {
   const newUser = req.body
@@ -14,6 +27,7 @@ router.post('/user/new', (req, res) => {
     })
 })
 
+// Delete user
 router.delete('/user/:id', (req, res) => {
   User.findByIdAndRemove(req.params.id)
   .then((user) => {
@@ -24,4 +38,4 @@ router.delete('/user/:id', (req, res) => {
   })
 })
 
-module.exports = router
+module.exports = router;
