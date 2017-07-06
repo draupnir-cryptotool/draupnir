@@ -9,6 +9,7 @@ const messageRouter = require('./routes/messageRouter');
 const GraphRouter = require('./routes/graphRouter');
 const walletBalanceRouter = require('./routes/walletBalanceRouter');
 const liveCoinPricesUsd = require('./routes/liveCoinPricesUsd');
+const api = require('./routes/api.js');
 
 const server = express();
 
@@ -24,6 +25,7 @@ server.use('/api', messageRouter)
 server.use('/api', GraphRouter)
 server.use('/api', walletBalanceRouter)
 server.use('/api', liveCoinPricesUsd)
+server.use('/api', api)
 
 server.listen(8000, () => {
   console.log('Server listening on port 8000')
