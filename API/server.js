@@ -17,13 +17,15 @@ server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true })) 
 
 // routes
-server.use('/api', usersRouter)
-server.use('/api', clientRouter)
-server.use('/api', orderRouter)
-server.use('/api', messageRouter)
-server.use('/api', GraphRouter)
-server.use('/api', walletBalanceRouter)
-server.use('/api', liveCoinPricesUsd)
+server.use('/api', [
+  usersRouter,
+  clientRouter,
+  orderRouter,
+  messageRouter,
+  GraphRouter,
+  walletBalanceRouter,
+  liveCoinPricesUsd
+])
 
 server.listen(8000, () => {
   console.log('Server listening on port 8000')
