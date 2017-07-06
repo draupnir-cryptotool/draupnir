@@ -27,4 +27,24 @@ router.post('/message/new', (req, res) => {
   })
 })
 
+// Update message
+router.post('/message/:id', (req, res) => {
+  Message.findByIdAndUpdate(req.params.id, { message: req.body.message })
+  .then((newMessage) => {
+    res.json(newMessage)
+  })
+  .catch((err) => {
+    res.json({err: err})
+  })
+})
+
+// delete a particular message
+router.delete('/message/:id', (req, res) => {
+  Message.findByIdAndRemove(req.params.id)
+  .catch((err) => {
+    if(err) {
+      resp.json({err: err})
+    }
+  })
+})
 module.exports = router
