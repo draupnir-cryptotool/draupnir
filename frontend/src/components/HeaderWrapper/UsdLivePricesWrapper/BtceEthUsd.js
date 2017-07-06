@@ -5,7 +5,7 @@ export default function BtceEthUsd({
 }) {
   return (
     <div>
-      <h4>Btce_ETH/USD - { btceEthValue.ethPrice }</h4>
+      <h4>{ btceEthValue }</h4>
     </div>
   )
 }
