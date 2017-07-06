@@ -100,14 +100,17 @@ router.get('/btcusd/:amount', function(req, res, next) {
         }
       };
 
-      reducedOrders = fulfilledOrderBook.reduce((result, x) => {
-        result[x['exchange']] = result[x['exchange']] ? result[x['exchange']] + x['orderTotal'] :  x['orderTotal'];
-        return result;
+      reducedOrders = fulfilledOrderBook.reduce((exchangeTotal, order) => {
+        exchangeTotal[order.exchange] = exchangeTotal[order.exchange]
+          ? exchangeTotal[order.exchange] + order.orderTotal
+          : order.orderTotal;
+        return exchangeTotal;
       }, {});
 
-      reducedOrders.currencyTotal = fulfilledOrderBook.reduce((currencyTotal, order) => {
-        return currencyTotal + order.amount;
-      }, 0);
+      reducedOrders.currencyTotal = fulfilledOrderBook.reduce(
+        (currencyTotal, order) => {
+          return currencyTotal + order.amount;
+        }, 0);
 
       res.send(reducedOrders);
   });
