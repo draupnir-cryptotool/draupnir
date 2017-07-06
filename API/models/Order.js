@@ -7,10 +7,10 @@ orderSchema = mongoose.Schema({
   currency: String,
   processed: {
     successful: Boolean,
-    adminId: String
+    adminId: String,
   }
-})
+});
 
-Order = mongoose.model('Order', orderSchema)
+Order = mongoose.model('Order', orderSchema);
 
-module.exports = Order
+module.exports = Order;

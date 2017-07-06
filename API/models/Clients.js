@@ -8,10 +8,10 @@ const clientSchema = mongoose.Schema({
   status: {
     phonecall: Boolean,
     email: Boolean,
-    depositCleared: Boolean
-  }
-})
+    depositCleared: Boolean,
+  },
+});
 
-const Client = mongoose.model('Client', clientSchema)
+const Client = mongoose.model('Client', clientSchema);
 
-module.exports = Client
+module.exports = Client;

@@ -1,15 +1,15 @@
-const mongoose = require('./init')
+const mongoose = require('./init');
 
 const messageSchema = mongoose.Schema({
   message: String,
-  clientId: String,
-  adminId: String,
+  for: String,
+  from: String,
   time: {
     type: Date,
-    default: Date.now
-  }
-})
+    default: Date.now,
+  },
+});
 
-Message = mongoose.model('Message', messageSchema)
+Message = mongoose.model('Message', messageSchema);
 
-module.exports = Message
+module.exports = Message;
