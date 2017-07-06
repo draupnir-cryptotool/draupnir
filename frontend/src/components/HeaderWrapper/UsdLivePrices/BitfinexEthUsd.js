@@ -1,11 +1,11 @@
 import React from 'react'
 
 export default function BitfinexEthUsd({
-  ethValue
+  bitfinexEthValue
 }) {
   return (
     <div>
-      <h4>Bitfinex_ETH/USD - { ethValue.ethPrice }</h4>
+      <h4>Bitfinex_ETH/USD - { bitfinexEthValue.ethPrice }</h4>
     </div>
   )
 }

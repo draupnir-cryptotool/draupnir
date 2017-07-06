@@ -3,12 +3,12 @@ import BitfinexBitcoinUsd from './BitfinexBitcoinUsd'
 import BitfinexEthUsd from './BitfinexEthUsd'
 
 export default function BitfinexWrapper({
-  btcValue,ethValue
+  bitfinexBtcValue, bitfinexEthValue
 }) {
   return (
     <div>
-      <BitfinexBitcoinUsd btcValue={ btcValue } />
-      <BitfinexEthUsd ethValue={ ethValue } />
+      <BitfinexBitcoinUsd bitfinexBtcValue={ bitfinexBtcValue } />
+      <BitfinexEthUsd bitfinexEthValue={ bitfinexEthValue } />
     </div>
   )
 }

@@ -2,11 +2,11 @@ import React from 'react'
 import BitstampBitcoinPrice from './BitstampBitcoinPrice'
 
 export default function BitstampWrapper({
-  btcValue
+  bitstampBtcValue
 }) {
   return (
     <div>
-      <BitstampBitcoinPrice btcValue={ btcValue } />
+      <BitstampBitcoinPrice bitstampBtcValue={ bitstampBtcValue } />
     </div>
   )
 }

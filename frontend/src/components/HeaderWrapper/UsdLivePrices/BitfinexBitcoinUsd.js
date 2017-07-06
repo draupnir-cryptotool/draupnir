@@ -1,11 +1,11 @@
 import React from 'react'
 
 export default function BitfinexBitcoinUsd({
-  btcValue
+  bitfinexBtcValue
 }) {
   return (
     <div>
-      <h4>Bitfinex_BTC/USD - { btcValue.btcPrice }</h4>
+      <h4>Bitfinex_BTC/USD - { bitfinexBtcValue.btcPrice }</h4>
     </div>
   )
 }
