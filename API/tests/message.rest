@@ -1,0 +1,24 @@
+GET http://localhost:3000/messages/595cfa6cef8d4c07e900a483
+###
+POST http://localhost:3000/message/new
+content-type: application/json
+
+{
+    "message": "Guys a tool",
+    "for": "595cfa6cef8d4c07e900a483",
+    "from": "595c87721bf2fd11256d870c"
+}
+
+###
+
+POST http://localhost:3000/message/595cfd7022aca608f1a81d19
+content-type: application/json
+
+{
+    "message": "TOTAL TOOL!!",
+    "for": "595cfa6cef8d4c07e900a483",
+    "from": "595c87721bf2fd11256d870c"
+}
+
+###
+DELETE http://localhost:3000/message/595cfd7022aca608f1a81d19

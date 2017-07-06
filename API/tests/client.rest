@@ -1,0 +1,38 @@
+
+GET http://localhost:3000/client/595c9074c72526142f3e46e5
+###
+POST http://localhost:3000/client/new
+content-type: application/json
+
+{
+    "firstname": "Jaime",
+    "lastname": "Terreu",
+    "phonenumber": "0416034878",
+    "email": "jaime@something.com",
+    "status": {
+      "phonecall": false,
+      "email": false,
+      "depositCleared": false
+    }
+}
+
+###
+
+PUT http://localhost:3000/client/595cfa6cef8d4c07e900a483
+content-type: application/json
+
+{
+  "firstname": "Chris",
+    "lastname": "knobetson",
+    "phonenumber": "0416034878",
+    "email": "jaime@something.com",
+    "status": {
+      "phonecall": false,
+      "email": false,
+      "depositCleared": false
+    }
+}
+
+###
+
+DELETE http://localhost:3000/client/595cfa6cef8d4c07e900a483
