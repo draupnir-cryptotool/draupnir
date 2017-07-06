@@ -3,3 +3,23 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.walletwrapper {
+  max-width: 25rem;
+  font-size: 10px;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+button {
+  height: 1em;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.coincomponent {
+  height: auto;
+}
