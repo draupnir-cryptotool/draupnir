@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const graphSchema = mongoose.Schema({
   askPrice: {
@@ -6,11 +6,11 @@ const graphSchema = mongoose.Schema({
     currency: String,
     time: {
       type: Date,
-      default: Date.now
+      default: Date.now,
     }
-  }
-})
+  },
+});
 
-const GraphData = mongoose.model('Graph', graphSchema)
+const GraphData = mongoose.model('Graph', graphSchema);
 
-module.exports = GraphData
+module.exports = GraphData;
