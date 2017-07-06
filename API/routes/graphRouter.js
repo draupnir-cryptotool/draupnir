@@ -1,5 +1,5 @@
 const express = require('express')
-const GraphData = require('../models/Graph')
+const GraphData = require('../models/GraphData')
 const router = express.Router()
 
 // receive graph data to render

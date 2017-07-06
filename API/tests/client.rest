@@ -1,3 +1,6 @@
+
+GET http://localhost:3000/client/595c9074c72526142f3e46e5
+###
 POST http://localhost:3000/client/new
 content-type: application/json
 

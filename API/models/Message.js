@@ -2,8 +2,8 @@ const mongoose = require('./init')
 
 const messageSchema = mongoose.Schema({
   message: String,
-  clientId: String,
-  adminId: String,
+  for: String,
+  from: String,
   time: {
     type: Date,
     default: Date.now
