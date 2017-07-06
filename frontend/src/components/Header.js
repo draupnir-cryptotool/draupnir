@@ -1,6 +1,6 @@
 import React from 'react';
 import WalletWrapper from './HeaderWrapper/WalletWrapper'
-import UsdLivePriceWrapper from './HeaderWrapper/UsdLivePrices/UsdLivePriceWrapper'
+import UsdLivePriceWrapper from './HeaderWrapper/UsdLivePricesWrapper/UsdLivePriceWrapper'
 
 
 class Header extends React.Component {
