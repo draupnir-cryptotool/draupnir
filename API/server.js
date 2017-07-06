@@ -7,7 +7,7 @@ const clientRouter = require('./routes/clientRouter')
 const orderRouter = require('./routes/orderRouter')
 const messageRouter = require('./routes/messageRouter')
 const GraphRouter = require('./routes/graphRouter')
-require('dotenv')
+const walletBalanceRouter = require('./routes/walletBalance')
 
 const server = express()
 
@@ -15,17 +15,14 @@ const server = express()
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true })) 
 
-// sets up the dotenv file for secret variables.
-require('dotenv').config({ path: '.env' });
-
 // routes
-server.use(usersRouter)
-server.use(clientRouter)
-server.use(orderRouter)
-server.use(messageRouter)
-server.use(GraphRouter)
+server.use('/api', usersRouter)
+server.use('/api', clientRouter)
+server.use('/api', orderRouter)
+server.use('/api', messageRouter)
+server.use('/api', GraphRouter)
+server.use('/api', walletBalanceRouter)
 
-
-server.listen(3000, () => {
-  console.log('Server listening on port 3000')
+server.listen(8000, () => {
+  console.log('Server listening on port 8000')
 })
