@@ -1,4 +1,4 @@
-const mongoose = require('./init')
+const mongoose = require('./init');
 
 const clientSchema = mongoose.Schema({
   firstname: String,

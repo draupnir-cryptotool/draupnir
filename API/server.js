@@ -1,16 +1,16 @@
-require('dotenv').config()
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-const usersRouter = require('./routes/usersRouter')
-const clientRouter = require('./routes/clientRouter')
-const orderRouter = require('./routes/orderRouter')
-const messageRouter = require('./routes/messageRouter')
-const GraphRouter = require('./routes/graphRouter')
-const walletBalanceRouter = require('./routes/walletBalanceRouter')
-const liveCoinPricesUsd = require('./routes/liveCoinPricesUsd')
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const usersRouter = require('./routes/usersRouter');
+const clientRouter = require('./routes/clientRouter');
+const orderRouter = require('./routes/orderRouter');
+const messageRouter = require('./routes/messageRouter');
+const GraphRouter = require('./routes/graphRouter');
+const walletBalanceRouter = require('./routes/walletBalanceRouter');
+const liveCoinPricesUsd = require('./routes/liveCoinPricesUsd');
 
-const server = express()
+const server = express();
 
 // middleware
 server.use(bodyParser.json())
