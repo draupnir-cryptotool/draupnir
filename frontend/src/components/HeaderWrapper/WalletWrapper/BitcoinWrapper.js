@@ -1,6 +1,6 @@
 import React from 'react'
 import Bitcoin from './Bitcoin'
-import Refresh from '../Refresh'
+import Refresh from '../../Refresh'
 
 export default function BitcoinWrapper({
   bitBalance, onUpdate

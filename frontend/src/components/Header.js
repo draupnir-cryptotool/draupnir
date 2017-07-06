@@ -1,5 +1,5 @@
 import React from 'react';
-import WalletWrapper from './HeaderWrapper/WalletWrapper'
+import WalletWrapper from './HeaderWrapper/WalletWrapper/WalletWrapper'
 import UsdLivePriceWrapper from './HeaderWrapper/UsdLivePricesWrapper/UsdLivePriceWrapper'
 
 
