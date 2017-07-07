@@ -15,6 +15,7 @@ class Header extends React.Component {
     bitstampBitcoinPrice: null,
   }
 
+
   // Get Bitcoin balance from wallet api
   fetchBitcoinPrice = () => {
     fetch('/api/bitcoinbalance')
@@ -120,42 +121,53 @@ class Header extends React.Component {
         setTimeout(this.fetchBitstampBitcoinUsdPrice, 10000)
       })
   }
-
+  
   render() {
     const { error, bitcoinBalance, ethereumBalance, bitfinexBitcoinUsdPrice,
             bitfinexEthUsdPrice, btceBitcoinUsdPrice, btceEthUsdPrice, bitstampBitcoinPrice
           } = this.state
+
+          const divStyle = {
+            display: 'flex'
+          }
     return (
       <main>
-        { !!error && <p>{ error.message }</p> }
-        {
-          !!bitcoinBalance && !!ethereumBalance ?
-          (
-            <WalletWrapper
-              bitBalance={ bitcoinBalance }
-              onBtcUpdate={ this.fetchBitcoinPrice }
-              etherBalance={ ethereumBalance }
-              onEthUpdate={ this.fetchEthereumPrice }
-            />
-          ) : (
-            <p>loading...</p>
-          )
-        }
-        {
-          bitfinexBitcoinUsdPrice && bitfinexEthUsdPrice && btceBitcoinUsdPrice 
-          && btceEthUsdPrice && bitstampBitcoinPrice ? (
-            <UsdLivePriceWrapper
-              bitfinexBtcValue={ bitfinexBitcoinUsdPrice }
-              bitfinexEthValue={ bitfinexEthUsdPrice }
-              btceBtcValue={ btceBitcoinUsdPrice }
-              btceEthValue={ btceEthUsdPrice }
-              bitstampBtcValue={ bitstampBitcoinPrice }
-            />
-          ) :
-          (
-            <p>loading</p>
-          )
-        }
+        <div style={ divStyle }>
+          { !!error && <p>{ error.message }</p> }
+          <div>
+          {
+            !!bitcoinBalance && !!ethereumBalance ?
+              (
+                <WalletWrapper
+                  bitBalance={ bitcoinBalance }
+                  onBtcUpdate={ this.fetchBitcoinPrice }
+                  etherBalance={ ethereumBalance }
+                  onEthUpdate={ this.fetchEthereumPrice }
+                />
+              ) : 
+              (
+                <p>loading...</p>
+              )
+          }
+          </div>
+          <div>
+            {
+              bitfinexBitcoinUsdPrice && bitfinexEthUsdPrice && btceBitcoinUsdPrice 
+              && btceEthUsdPrice && bitstampBitcoinPrice ? (
+                <UsdLivePriceWrapper
+                  bitfinexBtcValue={ bitfinexBitcoinUsdPrice }
+                  bitfinexEthValue={ bitfinexEthUsdPrice }
+                  btceBtcValue={ btceBitcoinUsdPrice }
+                  btceEthValue={ btceEthUsdPrice }
+                  bitstampBtcValue={ bitstampBitcoinPrice }
+                />
+              ) :
+              (
+                <p>loading</p>
+              )
+            }
+          </div>
+        </div>
       </main>
     );
   }
