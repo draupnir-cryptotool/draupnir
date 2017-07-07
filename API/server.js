@@ -8,14 +8,18 @@ const orderRouter = require('./routes/orderRouter');
 const messageRouter = require('./routes/messageRouter');
 const GraphRouter = require('./routes/graphRouter');
 const walletBalanceRouter = require('./routes/walletBalanceRouter');
-const liveCoinPrices = require('./routes/liveCoinPrices');
+const liveCoinPricesRouter = require('./routes/liveCoinPricesRouter');
 const api = require('./routes/api.js');
+const authMiddlware = require('./middleware/auth')
 
 const server = express();
 
 // middleware
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true })) 
+
+// Connect passport to express
+server.use(authMiddlware.initialize)
 
 // routes
 server.use('/api', [
@@ -25,7 +29,7 @@ server.use('/api', [
   messageRouter,
   GraphRouter,
   walletBalanceRouter,
-  liveCoinPrices
+  liveCoinPricesRouter
 ])
 
 server.listen(8000, () => {

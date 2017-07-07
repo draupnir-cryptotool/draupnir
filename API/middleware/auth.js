@@ -1,4 +1,4 @@
-const passport = require('passort')
+const passport = require('passport')
 const User = require('../models/user')
 
 // Add local strategy
