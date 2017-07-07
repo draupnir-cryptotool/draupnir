@@ -23,3 +23,10 @@ button {
 .coincomponent {
   height: auto;
 }
+
+.activecurrency {
+  background-color: #22E917;
+  font-size: .8em;
+  width: 50px;
+  height: auto;
+}

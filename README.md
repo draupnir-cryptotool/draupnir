@@ -8,3 +8,8 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 5. node-fetch
 6. eslint
 7. lodash
+8. react-router-dom
+9. react-bootstrap
+10. lodash(react)
+11. babel-plugin-lodash(react)
+12. babel-preset-env(react)
