@@ -3,12 +3,18 @@ import BtceBitcoinUsd from './BtceBitcoinUsd'
 import BtceEthUsd from './BtceEthUsd'
 
 export default function BtceWrapper({
-  btceBtcValue, btceEthValue
+  currentCurrency, btceBtcValue, btceEthValue
 }) {
   return (
     <div>
-      <BtceBitcoinUsd btceBtcValue={ btceBtcValue } />
-      <BtceEthUsd btceEthValue={ btceEthValue } />
+      <BtceBitcoinUsd
+        btceBtcValue={ btceBtcValue }
+        currentCurrency={ currentCurrency }
+      />
+      <BtceEthUsd
+        btceEthValue={ btceEthValue }
+        currentCurrency={ currentCurrency }
+      />
     </div>
   )
 }

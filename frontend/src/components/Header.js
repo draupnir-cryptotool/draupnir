@@ -1,6 +1,7 @@
 import React from 'react';
 import WalletWrapper from './HeaderWrapper/WalletWrapper/WalletWrapper'
 import LivePriceWrapper from './HeaderWrapper/LivePricesWrapper/LivePriceWrapper'
+import SwitchCurrency from '../components/HeaderWrapper/LivePricesWrapper/SwitchCurrency'
 
 class Header extends React.Component {
   state = {
@@ -121,6 +122,21 @@ class Header extends React.Component {
       })
   }
 
+  onSwitchUSDCurrency = () => {
+    this.setState({
+      // this.state.items will be changed
+      currentCurrency: 'usd'
+    })
+  }
+
+  onSwitchAUDCurrency = () => {
+    this.setState({
+      // this.state.items will be changed
+      currentCurrency: 'aud'
+    })
+  }
+  
+
   render() {
     const { error, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice
@@ -144,14 +160,21 @@ class Header extends React.Component {
         {
           bitfinexBitcoinPrice && bitfinexEthPrice && btceBitcoinPrice 
           && btceEthPrice && bitstampBitcoinPrice ? (
-            <LivePriceWrapper
-              currentCurrency={ currentCurrency }
-              bitfinexBtcValue={ bitfinexBitcoinPrice }
-              bitfinexEthValue={ bitfinexEthPrice }
-              btceBtcValue={ btceBitcoinPrice }
-              btceEthValue={ btceEthPrice }
-              bitstampBtcValue={ bitstampBitcoinPrice }
-            />
+            <div>
+              <LivePriceWrapper
+                currentCurrency={ currentCurrency }
+                bitfinexBtcValue={ bitfinexBitcoinPrice }
+                bitfinexEthValue={ bitfinexEthPrice }
+                btceBtcValue={ btceBitcoinPrice }
+                btceEthValue={ btceEthPrice }
+                bitstampBtcValue={ bitstampBitcoinPrice }
+              />
+              <SwitchCurrency
+                currentCurrency={ currentCurrency }
+                onSwitchUSD={ this.onSwitchUSDCurrency }
+                onSwitchAUD={ this.onSwitchAUDCurrency }
+              />
+            </div>  
           ) :
           (
             <p>loading..</p>

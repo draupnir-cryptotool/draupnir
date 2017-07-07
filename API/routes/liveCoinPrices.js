@@ -31,8 +31,8 @@ router.get('/livecoinprices/bitfinex/btc', (req,res) => {
     var priceAud = priceUsd * audRate
     res.json({
       audRate,
-      btcAudPrice: priceAud,
-      btcUsdPrice: priceUsd
+      audPrice: priceAud,
+      usdPrice: priceUsd
     })
   })
   .catch((error) => {
@@ -54,8 +54,8 @@ router.get('/livecoinprices/btc-e/btc', (req,res) => {
     var priceAud = priceUsd * audRate
     res.json({
       audRate,
-      btcAudPrice: priceAud,
-      btcUsdPrice: priceUsd
+      audPrice: priceAud,
+      usdPrice: priceUsd
     })
   })
   .catch((error) => {
@@ -77,8 +77,8 @@ router.get('/livecoinprices/bitstamp/btc', (req,res) => {
     var priceAud = priceUsd * audRate
     res.json({
       audRate,
-      btcAudPrice: priceAud,
-      btcUsdPrice: priceUsd
+      audPrice: priceAud,
+      usdPrice: priceUsd
     })
   })
   .catch((error) => {
@@ -100,8 +100,8 @@ router.get('/livecoinprices/bitfinex/eth', (req,res) => {
     var priceAud = priceUsd * audRate
     res.json({
       audRate,
-      btcAudPrice: priceAud,
-      btcUsdPrice: priceUsd
+      audPrice: priceAud,
+      usdPrice: priceUsd
     })
   })
   .catch((error) => {
@@ -124,8 +124,8 @@ router.get('/livecoinprices/btc-e/eth', (req,res) => {
     var priceAud = priceUsd * audRate
     res.json({
       audRate,
-      btcAudPrice: priceAud,
-      btcUsdPrice: priceUsd
+      audPrice: priceAud,
+      usdPrice: priceUsd
     })
   })
   .catch((error) => {

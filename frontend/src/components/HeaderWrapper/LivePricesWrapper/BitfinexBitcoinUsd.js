@@ -6,7 +6,15 @@ export default function BitfinexBitcoinUsd({
 }) {
   return (
     <div>
-      <h4>Bitfinex_BTC/USD - { bitfinexBtcValue.btcUsdPrice }</h4>
+      <h4>
+        Bitfinex_BTC - 
+        { currentCurrency === 'usd' ? bitfinexBtcValue.usdPrice : bitfinexBtcValue.audPrice }
+      </h4>
     </div>
   )
 }
+
+
+
+
+
