@@ -11,6 +11,7 @@ const walletBalanceRouter = require('./routes/walletBalanceRouter');
 const liveCoinPricesRouter = require('./routes/liveCoinPricesRouter');
 const api = require('./routes/api.js');
 const authMiddlware = require('./middleware/auth')
+const authRouter = require('./routes/auth')
 
 const server = express();
 
@@ -22,6 +23,7 @@ server.use(bodyParser.urlencoded({ extended: true }))
 server.use(authMiddlware.initialize)
 
 // routes
+server.use(authRouter)
 server.use('/api', [
   usersRouter,
   clientRouter,
@@ -31,6 +33,7 @@ server.use('/api', [
   walletBalanceRouter,
   liveCoinPricesRouter
 ])
+
 
 server.listen(8000, () => {
   console.log('Server listening on port 8000')

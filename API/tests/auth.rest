@@ -1,0 +1,20 @@
+
+POST http://localhost:8000/auth
+Content-Type: application/json
+
+{
+  "firstname": "bat",
+  "lastname": "man",
+  "email": "bat@man.com",
+  "password": "password"
+}
+
+###
+
+POST http://localhost:8000/signin
+Content-Type: application/json
+
+{
+  "email": "bat@man.com",
+  "password": "password"
+}

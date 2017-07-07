@@ -13,4 +13,4 @@ router.post('/signin', authMiddleware.authenticateSignIn, (req,res) => {
 })
 
 
-mudule.exports = router
+module.exports = router
