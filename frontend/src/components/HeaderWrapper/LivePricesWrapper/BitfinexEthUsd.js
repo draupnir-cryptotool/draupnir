@@ -5,7 +5,7 @@ export default function BitfinexEthUsd({
 }) {
   return (
     <div>
-      <h4>Bitfinex_ETH/USD - { bitfinexEthValue.ethPrice }</h4>
+      <h4>Bitfinex_ETH/USD - { bitfinexEthValue.btcUsdPrice }</h4>
     </div>
   )
 }

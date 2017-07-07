@@ -5,7 +5,7 @@ export default function BtceBitcoinUsd({
 }) {
   return (
     <div>
-      <h4>Btce_BTC/USD - { btceBtcValue.btcPrice }</h4>
+      <h4>Btce_BTC/USD - { btceBtcValue.btcUsdPrice }</h4>
     </div>
   )
 }

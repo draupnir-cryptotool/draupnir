@@ -5,7 +5,7 @@ export default function BitstampBitcoinUsd({
 }) {
   return (
     <div>
-      <h4>Bitstamp_BTC/USD - { bitstampBtcValue.btcPrice }</h4>
+      <h4>Bitstamp_BTC/USD - { bitstampBtcValue.btcUsdPrice }</h4>
     </div>
   )
 }
