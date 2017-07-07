@@ -1,17 +1,18 @@
 import React from 'react';
-import WalletWrapper from './HeaderWrapper/WalletWrapper'
-import UsdLivePriceWrapper from './HeaderWrapper/UsdLivePricesWrapper/UsdLivePriceWrapper'
-
+import WalletWrapper from './HeaderWrapper/WalletWrapper/WalletWrapper'
+import LivePriceWrapper from './HeaderWrapper/LivePricesWrapper/LivePriceWrapper'
+import SwitchCurrency from '../components/HeaderWrapper/LivePricesWrapper/SwitchCurrency'
 
 class Header extends React.Component {
   state = {
     error: null,
+    currentCurrency: 'usd',
     bitcoinBalance: null,
     ethereumBalance: null,
-    bitfinexBitcoinUsdPrice: null,
-    bitfinexEthUsdPrice: null,
-    btceBitcoinUsdPrice: null,
-    btceEthUsdPrice: null,
+    bitfinexBitcoinPrice: null,
+    bitfinexEthPrice: null,
+    btceBitcoinPrice: null,
+    btceEthPrice: null,
     bitstampBitcoinPrice: null,
   }
 
@@ -43,88 +44,103 @@ class Header extends React.Component {
   }
 
   // get bitcoin/usd price from bitfinex
-  fetchBitfinexBitcoinUsdPrice = () => {
-    fetch('/api/livecoinprices/bitfinex/btcusd')
+  fetchBitfinexBitcoinPrice = () => {
+    fetch('/api/livecoinprices/bitfinex/btc')
     // bring in json data
       .then(res => res.json())
-      .then(bitfinexBitcoinUsdPrice => {
-        this.setState({ bitfinexBitcoinUsdPrice })
+      .then(bitfinexBitcoinPrice => {
+        this.setState({ bitfinexBitcoinPrice })
         // fetch data from api every 10 seconds
-        setTimeout(this.fetchBitfinexBitcoinUsdPrice, 10000)
+        setTimeout(this.fetchBitfinexBitcoinPrice, 10000)
       })
       .catch(error => {
         this.setState({ error })
-        setTimeout(this.fetchBitfinexBitcoinUsdPrice, 10000)
+        setTimeout(this.fetchBitfinexBitcoinPrice, 10000)
       })
   }
 
   // get eth/usd price from bitfinex
-  fetchBitfinexEthUsdPrice = () => {
-    fetch('/api/livecoinprices/bitfinex/ethusd')
+  fetchBitfinexEthPrice = () => {
+    fetch('/api/livecoinprices/bitfinex/eth')
     // bring in json data
       .then(res => res.json())
-      .then(bitfinexEthUsdPrice => {
-        this.setState({ bitfinexEthUsdPrice })
+      .then(bitfinexEthPrice => {
+        this.setState({ bitfinexEthPrice })
         // fetch data from api every 10 seconds
-        setTimeout(this.fetchBitfinexEthUsdPrice, 10000)
+        setTimeout(this.fetchBitfinexEthPrice, 10000)
       })
       .catch(error => {
         this.setState({ error })
-        setTimeout(this.fetchBitfinexEthUsdPrice, 10000)
+        setTimeout(this.fetchBitfinexEthPrice, 10000)
       })
   }
 
   // get bitcoin/usd price from BTC-E
-  fetchBtceBitcoinUsdPrice = () => {
-    fetch('/api/livecoinprices/btc-e/btcusd')
+  fetchBtceBitcoinPrice = () => {
+    fetch('/api/livecoinprices/btc-e/btc')
     // bring in json data
       .then(res => res.json())
-      .then(btceBitcoinUsdPrice => {
-        this.setState({ btceBitcoinUsdPrice })
+      .then(btceBitcoinPrice => {
+        this.setState({ btceBitcoinPrice })
         // fetch data from api every 10 seconds
-        setTimeout(this.fetchBtceBitcoinUsdPrice, 10000)
+        setTimeout(this.fetchBtceBitcoinPrice, 10000)
       })
       .catch(error => {
         this.setState({ error })
-        setTimeout(this.fetchBtceBitcoinUsdPrice, 10000)
+        setTimeout(this.fetchBtceBitcoinPrice, 10000)
       })
   }
 
   // get eth/usd price from BTC-E
-  fetchBtceEthUsdPrice = () => {
-    fetch('/api/livecoinprices/btc-e/ethusd')
+  fetchBtceEthPrice = () => {
+    fetch('/api/livecoinprices/btc-e/eth')
     // bring in json data
       .then(res => res.json())
-      .then(btceEthUsdPrice => {
-        this.setState({ btceEthUsdPrice })
+      .then(btceEthPrice => {
+        this.setState({ btceEthPrice })
         // fetch data from api every 10 seconds
-        setTimeout(this.fetchBtceEthUsdPrice, 10000)
+        setTimeout(this.fetchBtceEthPrice, 10000)
       })
       .catch(error => {
         this.setState({ error })
-        setTimeout(this.fetchBtceEthUsdPrice, 10000)
+        setTimeout(this.fetchBtceEthPrice, 10000)
       })
   }
 
   // get bitcoin/usd price from bitstamp
-  fetchBitstampBitcoinUsdPrice = () => {
-    fetch('/api/livecoinprices/bitstamp/btcusd')
+  fetchBitstampBitcoinPrice = () => {
+    fetch('/api/livecoinprices/bitstamp/btc')
     // bring in json data
       .then(res => res.json())
       .then(bitstampBitcoinPrice => {
         this.setState({ bitstampBitcoinPrice })
         // fetch data from api every 10 seconds
-        setTimeout(this.fetchBitstampBitcoinUsdPrice, 10000)
+        setTimeout(this.fetchBitstampBitcoinPrice, 10000)
       })
       .catch(error => {
         this.setState({ error })
-        setTimeout(this.fetchBitstampBitcoinUsdPrice, 10000)
+        setTimeout(this.fetchBitstampBitcoinPrice, 10000)
       })
   }
+
+  onSwitchUSDCurrency = () => {
+    this.setState({
+      // this.state.items will be changed
+      currentCurrency: 'usd'
+    })
+  }
+
+  onSwitchAUDCurrency = () => {
+    this.setState({
+      // this.state.items will be changed
+      currentCurrency: 'aud'
+    })
+  }
   
+
   render() {
-    const { error, bitcoinBalance, ethereumBalance, bitfinexBitcoinUsdPrice,
-            bitfinexEthUsdPrice, btceBitcoinUsdPrice, btceEthUsdPrice, bitstampBitcoinPrice
+    const { error, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
+            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice
           } = this.state
 
           const divStyle = {
@@ -132,42 +148,43 @@ class Header extends React.Component {
           }
     return (
       <main>
-        <div style={ divStyle }>
-          { !!error && <p>{ error.message }</p> }
-          <div>
-          {
-            !!bitcoinBalance && !!ethereumBalance ?
-              (
-                <WalletWrapper
-                  bitBalance={ bitcoinBalance }
-                  onBtcUpdate={ this.fetchBitcoinPrice }
-                  etherBalance={ ethereumBalance }
-                  onEthUpdate={ this.fetchEthereumPrice }
-                />
-              ) : 
-              (
-                <p>loading...</p>
-              )
-          }
-          </div>
-          <div>
-            {
-              bitfinexBitcoinUsdPrice && bitfinexEthUsdPrice && btceBitcoinUsdPrice 
-              && btceEthUsdPrice && bitstampBitcoinPrice ? (
-                <UsdLivePriceWrapper
-                  bitfinexBtcValue={ bitfinexBitcoinUsdPrice }
-                  bitfinexEthValue={ bitfinexEthUsdPrice }
-                  btceBtcValue={ btceBitcoinUsdPrice }
-                  btceEthValue={ btceEthUsdPrice }
-                  bitstampBtcValue={ bitstampBitcoinPrice }
-                />
-              ) :
-              (
-                <p>loading</p>
-              )
-            }
-          </div>
-        </div>
+        { !!error && <p>{ error.message }</p> }
+        {
+          !!bitcoinBalance && !!ethereumBalance ?
+          (
+            <WalletWrapper
+              bitBalance={ bitcoinBalance }
+              onBtcUpdate={ this.fetchBitcoinPrice }
+              etherBalance={ ethereumBalance }
+              onEthUpdate={ this.fetchEthereumPrice }
+            />
+          ) : (
+            <p>loading...</p>
+          )
+        }
+        {
+          bitfinexBitcoinPrice && bitfinexEthPrice && btceBitcoinPrice 
+          && btceEthPrice && bitstampBitcoinPrice ? (
+            <div>
+              <LivePriceWrapper
+                currentCurrency={ currentCurrency }
+                bitfinexBtcValue={ bitfinexBitcoinPrice }
+                bitfinexEthValue={ bitfinexEthPrice }
+                btceBtcValue={ btceBitcoinPrice }
+                btceEthValue={ btceEthPrice }
+                bitstampBtcValue={ bitstampBitcoinPrice }
+              />
+              <SwitchCurrency
+                currentCurrency={ currentCurrency }
+                onSwitchUSD={ this.onSwitchUSDCurrency }
+                onSwitchAUD={ this.onSwitchAUDCurrency }
+              />
+            </div>  
+          ) :
+          (
+            <p>loading..</p>
+          )
+        }
       </main>
     );
   }
@@ -175,12 +192,14 @@ class Header extends React.Component {
   componentDidMount() {
     this.fetchBitcoinPrice()
     this.fetchEthereumPrice()
-    this.fetchBitfinexBitcoinUsdPrice()
-    this.fetchBitfinexEthUsdPrice()
-    this.fetchBtceBitcoinUsdPrice()
-    this.fetchBtceEthUsdPrice()
-    this.fetchBitstampBitcoinUsdPrice()
+    this.fetchBitfinexBitcoinPrice()
+    this.fetchBitfinexEthPrice()
+    this.fetchBtceBitcoinPrice()
+    this.fetchBtceEthPrice()
+    this.fetchBitstampBitcoinPrice()
   }
 }
 
 export default Header;
+
+
