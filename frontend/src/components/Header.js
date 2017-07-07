@@ -1,7 +1,8 @@
 import React from 'react';
 import WalletWrapper from './HeaderWrapper/WalletWrapper/WalletWrapper'
-import LivePriceWrapper from './HeaderWrapper/LivePricesWrapper/LivePriceWrapper'
-import SwitchCurrency from '../components/HeaderWrapper/LivePricesWrapper/SwitchCurrency'
+// import LivePriceWrapper from './HeaderWrapper/LivePricesWrapper/LivePriceWrapper'
+import SwitchCurrency from '../components/HeaderWrapper/UsdLivePricesWrapper/LivePriceWrapper'
+import LivePriceWrapper from '../components/HeaderWrapper/UsdLivePricesWrapper/LivePriceWrapper'
 
 class Header extends React.Component {
   state = {
