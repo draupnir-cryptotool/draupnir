@@ -1,14 +1,8 @@
 import React from 'react';
-<<<<<<< HEAD
-import WalletWrapper from './HeaderWrapper/WalletWrapper'
-// import LivePriceWrapper from './HeaderWrapper/LivePricesWrapper'
-import UsdLivePriceWrapper from './HeaderWrapper/UsdLivePricesWrapper/UsdLivePriceWrapper'
-=======
 import WalletWrapper from './HeaderWrapper/WalletWrapper/WalletWrapper'
 // import LivePriceWrapper from './HeaderWrapper/LivePricesWrapper/LivePriceWrapper'
 import SwitchCurrency from '../components/HeaderWrapper/UsdLivePricesWrapper/LivePriceWrapper'
 import LivePriceWrapper from '../components/HeaderWrapper/UsdLivePricesWrapper/LivePriceWrapper'
->>>>>>> master
 
 class Header extends React.Component {
   state = {
@@ -173,11 +167,7 @@ class Header extends React.Component {
           bitfinexBitcoinPrice && bitfinexEthPrice && btceBitcoinPrice 
           && btceEthPrice && bitstampBitcoinPrice ? (
             <div>
-<<<<<<< HEAD
-              <UsdLivePriceWrapper
-=======
               <LivePriceWrapper
->>>>>>> master
                 currentCurrency={ currentCurrency }
                 bitfinexBtcValue={ bitfinexBitcoinPrice }
                 bitfinexEthValue={ bitfinexEthPrice }
@@ -185,14 +175,11 @@ class Header extends React.Component {
                 btceEthValue={ btceEthPrice }
                 bitstampBtcValue={ bitstampBitcoinPrice }
               />
-<<<<<<< HEAD
-=======
               <SwitchCurrency /> 
                 currentCurrency={ currentCurrency }
                 onSwitchUSD={ this.onSwitchUSDCurrency }
                 onSwitchAUD={ this.onSwitchAUDCurrency }
               />
->>>>>>> master
             </div>  
           ) :
           (
