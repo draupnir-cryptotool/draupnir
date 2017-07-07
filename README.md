@@ -8,3 +8,42 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 5. node-fetch
 6. eslint
 7. lodash
+
+## Order API Breakdown
+### URL
+`draupnir.com/api/order?buying=btc&tally=usd&amount=20000&btceLimit=5000&bitstampLimit=5000&bitfinexLimit=5000`
+
+### Queries:
+  - **buying**
+    - string
+    - currency that this order wants to purchase
+    - Example: ?buying=btc
+  - **tally**
+    - string
+    - currency to tally the order by i.e. do you want 5 btc or 10000 worth?
+    - Example: ?tally=usd
+  - **amount**
+    - integer
+    - amount of buying currency to tally to i.e how much do you want?
+    - Example: ?amount=10000
+  - **btceLimit**
+    - integer
+    - maximum amount (in usd) that can be purchases from BTC-e exchange
+    - Example: ?btceLimit=5000
+  - **bitstampLimit**
+    - integer
+    - maximum amount (in usd) that can be purchases from Bitstamp exchange
+    - Example: ?bitstampLimit=5000
+  - **bitfinexLimit**
+    - integer
+    - maximum amount (in usd) that can be purchases from Bitfinex exchange
+    - Example: ?bitfinexLimit=5000
+
+### Example API Calls
+**Purchase 5 BTC at best price, with USD$5000 limit on each exchange**
+
+`draupnir.com/api/order?buying=btc&tally=btc&amount=5&btceLimit=5000&bitstampLimit=5000&bitfinexLimit=5000`
+
+**Purchase USD$10,000 worth of Ether with USD$0 on BTC-e and USD$20,000 on each of the other exchanges**
+
+`draupnir.com/api/order?buying=eth&tally=usd&amount=10000&btceLimit=0&bitstampLimit=20000&bitfinexLimit=20000`

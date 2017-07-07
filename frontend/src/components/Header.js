@@ -16,6 +16,7 @@ class Header extends React.Component {
     bitstampBitcoinPrice: null,
   }
 
+
   // Get Bitcoin balance from wallet api
   fetchBitcoinPrice = () => {
     fetch('/api/bitcoinbalance')
@@ -141,6 +142,10 @@ class Header extends React.Component {
     const { error, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice
           } = this.state
+
+          const divStyle = {
+            display: 'flex'
+          }
     return (
       <main>
         { !!error && <p>{ error.message }</p> }

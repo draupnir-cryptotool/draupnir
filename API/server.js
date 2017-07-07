@@ -8,8 +8,8 @@ const orderRouter = require('./routes/orderRouter');
 const messageRouter = require('./routes/messageRouter');
 const GraphRouter = require('./routes/graphRouter');
 const walletBalanceRouter = require('./routes/walletBalanceRouter');
-const liveCoinPricesUsd = require('./routes/liveCoinPricesUsd');
 const liveCoinPrices = require('./routes/liveCoinPrices');
+const api = require('./routes/api.js');
 
 const server = express();
 
@@ -25,7 +25,6 @@ server.use('/api', [
   messageRouter,
   GraphRouter,
   walletBalanceRouter,
-  liveCoinPricesUsd,
   liveCoinPrices
 ])
 
