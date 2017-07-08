@@ -15,11 +15,12 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 12. passport-local
 13. passport-local-mongoose
 14. axios
-8. react-router-dom
-9. react-bootstrap
-10. lodash(react)
-11. babel-plugin-lodash(react)
-12. babel-preset-env(react)
+15. react-router-dom
+16. react-bootstrap
+17. lodash(react)
+18. babel-plugin-lodash(react)
+19. babel-preset-env(react)
+
 ## Order API Breakdown
 ### URL
 `draupnir.com/api/order?buying=btc&tally=usd&amount=20000&btceLimit=5000&bitstampLimit=5000&bitfinexLimit=5000`
@@ -58,3 +59,4 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 **Purchase USD$10,000 worth of Ether with USD$0 on BTC-e and USD$20,000 on each of the other exchanges**
 
 `draupnir.com/api/order?buying=eth&tally=usd&amount=10000&btceLimit=0&bitstampLimit=20000&bitfinexLimit=20000`
+
