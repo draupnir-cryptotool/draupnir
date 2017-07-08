@@ -34,6 +34,14 @@ server.use('/api', [
   liveCoinPricesRouter
 ])
 
+// Handle errors by returning JSON
+server.use((error, req, res, next) => {
+  const status = error.status || 500
+  res.status(status).json({
+    error: { message: error.message }
+  })
+})
+
 
 server.listen(8000, () => {
   console.log('Server listening on port 8000')

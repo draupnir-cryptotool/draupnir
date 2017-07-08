@@ -1,5 +1,7 @@
-GET http://localhost:3000/messages/595cfa6cef8d4c07e900a483
+GET http://localhost:8000/messages/595cfa6cef8d4c07e900a483
+
 ###
+
 POST http://localhost:3000/message/new
 content-type: application/json
 

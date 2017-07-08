@@ -9,7 +9,7 @@ router.post('/auth', authMiddleware.register, (req,res) => {
 
 // Sign in: POST /auth
 router.post('/signin', authMiddleware.authenticateSignIn, (req,res) => {
-  res.json({ success: true })
+  res.json({ user: req.user })
 })
 
 

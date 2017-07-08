@@ -1,10 +1,21 @@
 const express = require('express')
 const Client = require('../models/Clients')
+const authMiddleWare = require('../middleware/auth')
 const router = express.Router()
 
 
+router.get('/clients', authMiddleWare.authenticateJWT, (req,res) => {
+  Client.find()
+  .then((clients) => {
+      res.json(clients)
+    })
+    .catch((error) => {
+      res.json({ error: error })
+    })
+})
+
 // Get a particular client
-router.get('/client/:id', (req, res) => {
+router.get('/client/:id',  (req, res) => {
   client = Client.findById(req.params.id)
   .then((clientFound) => {
     res.json(clientFound)

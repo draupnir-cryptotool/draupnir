@@ -18,3 +18,8 @@ Content-Type: application/json
   "email": "bat@man.com",
   "password": "password"
 }
+
+###
+
+GET http://localhost:8000/api/client/595f77ac9e51de1269b0afd1
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1OTVmNzdhYzllNTFkZTEyNjliMGFmZDEifQ.hH5zOEhrfbNi2MzrQ2z3EKye7VxThGP7C6DgeJzG5OI
