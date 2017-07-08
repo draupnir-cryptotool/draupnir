@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from './components/Header'
-import MainNav from './components/MainNav'
+import RegistrationForm from './components/RegistrationForm'
+import SignInform from './components/SignInForm';
+import Header from './components/Header';
+import MainNav from './components/MainNav';
+
 
 class App extends Component {
+  state = {
+    token: null
+  }
+
   render() {
+    const { token } = this.state
     return (
       <main>
+        <RegistrationForm />
+        <SignInform />
         <Header />
         <MainNav />
       
