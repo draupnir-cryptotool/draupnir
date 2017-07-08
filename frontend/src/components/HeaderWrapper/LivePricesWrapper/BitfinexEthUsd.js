@@ -1,15 +1,11 @@
 import React from 'react'
 
 export default function BitfinexEthUsd({
-  currentCurrency,
   bitfinexEthValue
 }) {
   return (
     <div>
-      <h4>
-        Bitfinex_ETH - 
-        { currentCurrency === 'usd' ? bitfinexEthValue.usdPrice : bitfinexEthValue.audPrice }
-      </h4>
+      <h4>{ bitfinexEthValue }</h4>
     </div>
   )
 }

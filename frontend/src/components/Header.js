@@ -1,8 +1,7 @@
 import React from 'react';
 import WalletWrapper from './HeaderWrapper/WalletWrapper/WalletWrapper'
 // import LivePriceWrapper from './HeaderWrapper/LivePricesWrapper/LivePriceWrapper'
-import SwitchCurrency from '../components/HeaderWrapper/UsdLivePricesWrapper/LivePriceWrapper'
-import LivePriceWrapper from '../components/HeaderWrapper/UsdLivePricesWrapper/LivePriceWrapper'
+import LivePriceWrapper from '../components/HeaderWrapper/LivePricesWrapper/LivePriceWrapper'
 
 class Header extends React.Component {
   state = {
@@ -149,43 +148,41 @@ class Header extends React.Component {
           }
     return (
       <main>
-        { !!error && <p>{ error.message }</p> }
-        {
-          !!bitcoinBalance && !!ethereumBalance ?
-          (
-            <WalletWrapper
-              bitBalance={ bitcoinBalance }
-              onBtcUpdate={ this.fetchBitcoinPrice }
-              etherBalance={ ethereumBalance }
-              onEthUpdate={ this.fetchEthereumPrice }
-            />
-          ) : (
-            <p>loading...</p>
-          )
-        }
-        {
-          bitfinexBitcoinPrice && bitfinexEthPrice && btceBitcoinPrice 
-          && btceEthPrice && bitstampBitcoinPrice ? (
-            <div>
-              <LivePriceWrapper
-                currentCurrency={ currentCurrency }
-                bitfinexBtcValue={ bitfinexBitcoinPrice }
-                bitfinexEthValue={ bitfinexEthPrice }
-                btceBtcValue={ btceBitcoinPrice }
-                btceEthValue={ btceEthPrice }
-                bitstampBtcValue={ bitstampBitcoinPrice }
+        <div style={ divStyle }>
+          { !!error && <p>{ error.message }</p> }
+          {
+            !!bitcoinBalance && !!ethereumBalance ?
+            (
+              <WalletWrapper
+                bitBalance={ bitcoinBalance }
+                onBtcUpdate={ this.fetchBitcoinPrice }
+                etherBalance={ ethereumBalance }
+                onEthUpdate={ this.fetchEthereumPrice }
               />
-              <SwitchCurrency /> 
-                currentCurrency={ currentCurrency }
-                onSwitchUSD={ this.onSwitchUSDCurrency }
-                onSwitchAUD={ this.onSwitchAUDCurrency }
-              />
-            </div>  
-          ) :
-          (
-            <p>loading..</p>
-          )
-        }
+            ) : (
+              <p>loading...</p>
+            )
+          }
+          {
+            bitfinexBitcoinPrice && bitfinexEthPrice && btceBitcoinPrice 
+            && btceEthPrice && bitstampBitcoinPrice ? (
+              <div>
+                <LivePriceWrapper
+                  bitfinexBtcValue={ currentCurrency === 'usd' ? bitfinexBitcoinPrice.usdPrice : bitfinexBitcoinPrice.audPrice }
+                  bitfinexEthValue={ currentCurrency === 'usd' ? bitfinexEthPrice.usdPrice : bitfinexEthPrice.audPrice }
+                  btceBtcValue={ currentCurrency === 'usd' ? btceBitcoinPrice.usdPrice : btceBitcoinPrice.audPrice }
+                  btceEthValue={ currentCurrency === 'usd' ? btceEthPrice.usdPrice : btceEthPrice.audPrice }
+                  bitstampBtcValue={ currentCurrency === 'usd' ? bitstampBitcoinPrice.usdPrice : bitstampBitcoinPrice.audPrice }
+                  onCurrencyChangeUsd={ this.onSwitchUSDCurrency }
+                  onCurrencyChangeAud={ this.onSwitchAUDCurrency }
+                />
+              </div>  
+            ) :
+            (
+              <p>loading..</p>
+            )
+          }
+        </div>
       </main>
     );
   }
