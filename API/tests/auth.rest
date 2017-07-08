@@ -21,5 +21,5 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8000/api/client/595f77ac9e51de1269b0afd1
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1OTVmNzdhYzllNTFkZTEyNjliMGFmZDEifQ.hH5zOEhrfbNi2MzrQ2z3EKye7VxThGP7C6DgeJzG5OI
+GET http://localhost:8000/api/client/595db1d9216bbc0d7907e4ca
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhdEBtYW4uY29tIiwiaWF0IjoxNDk5NDk0MDQyLCJleHAiOjE0OTk1MTU2NDIsInN1YiI6IjU5NWY3N2FjOWU1MWRlMTI2OWIwYWZkMSJ9.SSwK3e9GHmFiLrQKyQZXCLUd8dEkZzj4BHk132SIo8U

@@ -15,7 +15,7 @@ router.get('/clients', authMiddleWare.authenticateJWT, (req,res) => {
 })
 
 // Get a particular client
-router.get('/client/:id',  (req, res) => {
+router.get('/client/:id', authMiddleWare.authenticateJWT,  (req, res) => {
   client = Client.findById(req.params.id)
   .then((clientFound) => {
     res.json(clientFound)
