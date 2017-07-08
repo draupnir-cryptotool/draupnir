@@ -8,6 +8,18 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 5. node-fetch
 6. eslint
 7. lodash
+8. cors
+9. dotenv
+10. jsonwebtoken
+11. passport-jwt
+12. passport-local
+13. passport-local-mongoose
+14. axios
+15. react-router-dom
+16. react-bootstrap
+17. lodash(react)
+18. babel-plugin-lodash(react)
+19. babel-preset-env(react)
 
 ## Order API Breakdown
 ### URL
@@ -47,3 +59,4 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 **Purchase USD$10,000 worth of Ether with USD$0 on BTC-e and USD$20,000 on each of the other exchanges**
 
 `draupnir.com/api/order?buying=eth&tally=usd&amount=10000&btceLimit=0&bitstampLimit=20000&bitfinexLimit=20000`
+
