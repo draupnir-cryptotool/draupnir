@@ -1,6 +1,8 @@
-GET http://localhost:3000/users
+GET http://localhost:8000/users
+
 ###
-POST http://localhost:3000/user/new
+
+POST http://localhost:8000/user/new
 content-type: application/json
 
 {
@@ -10,4 +12,4 @@ content-type: application/json
 
 ###
 
-DELETE http://localhost:3000/user/595c7a1baa92d60d88650773
+DELETE http://localhost:8000/user/595c7a1baa92d60d88650773

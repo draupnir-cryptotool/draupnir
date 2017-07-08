@@ -1,7 +1,9 @@
 
-GET http://localhost:3000/client/595c9074c72526142f3e46e5
+GET http://localhost:8000/api/client/596060fc9797ed2d0c4a0071
+
 ###
-POST http://localhost:3000/client/new
+
+POST http://localhost:8000/api/client/new
 content-type: application/json
 
 {
@@ -18,7 +20,7 @@ content-type: application/json
 
 ###
 
-PUT http://localhost:3000/client/595cfa6cef8d4c07e900a483
+PUT http://localhost:8000/client/595cfa6cef8d4c07e900a483
 content-type: application/json
 
 {
@@ -36,3 +38,7 @@ content-type: application/json
 ###
 
 DELETE http://localhost:3000/client/595cfa6cef8d4c07e900a483
+
+###
+
+GET http://localhost:8000/api/clients

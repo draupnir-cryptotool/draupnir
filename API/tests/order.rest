@@ -1,7 +1,7 @@
-GET http://localhost:3000/orders 
+GET http://localhost:8000/orders 
 
 ###
-POST http://localhost:3000/order/new
+POST http://localhost:8000/order/new
 content-type: application/json
 
 {
@@ -16,7 +16,7 @@ content-type: application/json
 
 ###
 
-PATCH http://localhost:3000/order/595cac99e883c61aaa43c092
+PATCH http://localhost:8000/order/595cac99e883c61aaa43c092
 content-type: application/json
 
 {
@@ -29,4 +29,4 @@ content-type: application/json
     }
 }
 ###
-DELETE http://localhost:3000/order/595dc80cb25550134872be43
+DELETE http://localhost:8000/order/595dc80cb25550134872be43
