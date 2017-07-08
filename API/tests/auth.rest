@@ -3,9 +3,9 @@ POST http://localhost:8000/auth
 Content-Type: application/json
 
 {
-  "firstname": "bat",
+  "firstname": "Super",
   "lastname": "man",
-  "email": "bat@man.com",
+  "email": "sper@man.com",
   "password": "password"
 }
 
@@ -15,11 +15,11 @@ POST http://localhost:8000/signin
 Content-Type: application/json
 
 {
-  "email": "bat@man.com",
+  "email": "sper@man.com",
   "password": "password"
 }
 
 ###
 
-GET http://localhost:8000/api/client/595db1d9216bbc0d7907e4ca
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhdEBtYW4uY29tIiwiaWF0IjoxNDk5NDk0MDQyLCJleHAiOjE0OTk1MTU2NDIsInN1YiI6IjU5NWY3N2FjOWU1MWRlMTI2OWIwYWZkMSJ9.SSwK3e9GHmFiLrQKyQZXCLUd8dEkZzj4BHk132SIo8U
+GET http://localhost:8000/api/client/596060f69797ed2d0c4a0070
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhdEBtYW4uY29tIiwiaWF0IjoxNDk5NDk0MDQyLCJleHAiOjE0OTk1MTU2NDIsInN1YiI6IjU5NWY3N2FjOWU1MWRlMTI2OWIwYWZkMSJ9.SSwK3e9GHmFiLrQKyQZXCLUd8dEkZzj4BHk132SIo8Uhhq
