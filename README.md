@@ -8,6 +8,13 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 5. node-fetch
 6. eslint
 7. lodash
+8. cors
+9. dotenv
+10. jsonwebtoken
+11. passport-jwt
+12. passport-local
+13. passport-local-mongoose
+14. axios
 
 ## Order API Breakdown
 ### URL
