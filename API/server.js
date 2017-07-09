@@ -10,14 +10,20 @@ const GraphRouter = require('./routes/graphRouter');
 const walletBalanceRouter = require('./routes/walletBalanceRouter');
 const liveCoinPricesRouter = require('./routes/liveCoinPricesRouter');
 const api = require('./routes/api.js');
-const authMiddlware = require('./middleware/auth')
-const authRouter = require('./routes/auth')
+const authMiddlware = require('./middleware/auth');
+const authRouter = require('./routes/auth');
+const cors = require('cors');
 
 const server = express();
 
 // middleware
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true })) 
+
+// CORS
+server.use(cors({
+  origin: process.env.CORS_ORIGINS.split(',')
+}))
 
 // Connect passport to express
 server.use(authMiddlware.initialize)
