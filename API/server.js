@@ -9,7 +9,7 @@ const messageRouter = require('./routes/messageRouter');
 const GraphRouter = require('./routes/graphRouter');
 const walletBalanceRouter = require('./routes/walletBalanceRouter');
 const liveCoinPricesRouter = require('./routes/liveCoinPricesRouter');
-const api = require('./routes/api.js');
+const order = require('./routes/order.js');
 const authMiddlware = require('./middleware/auth');
 const authRouter = require('./routes/auth');
 const cors = require('cors');
@@ -37,7 +37,8 @@ server.use('/api', [
   messageRouter,
   GraphRouter,
   walletBalanceRouter,
-  liveCoinPricesRouter
+  liveCoinPricesRouter,
+  order,
 ])
 
 // Handle errors by returning JSON
