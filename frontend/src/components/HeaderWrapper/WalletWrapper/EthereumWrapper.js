@@ -1,6 +1,6 @@
 import React from 'react'
 import Ethereum from './Ethereum'
-import Refresh from '../Refresh'
+import Refresh from '../../Refresh'
 
 export default function EthereumWrapper({
   etherBalance, onUpdate

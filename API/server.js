@@ -8,8 +8,11 @@ const orderRouter = require('./routes/orderRouter');
 const messageRouter = require('./routes/messageRouter');
 const GraphRouter = require('./routes/graphRouter');
 const walletBalanceRouter = require('./routes/walletBalanceRouter');
-const liveCoinPricesUsd = require('./routes/liveCoinPricesUsd');
+const liveCoinPricesRouter = require('./routes/liveCoinPricesRouter');
 const api = require('./routes/api.js');
+const authMiddlware = require('./middleware/auth');
+const authRouter = require('./routes/auth');
+const cors = require('cors');
 
 const server = express();
 
@@ -17,15 +20,34 @@ const server = express();
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true })) 
 
+// CORS
+server.use(cors({
+  origin: process.env.CORS_ORIGINS.split(',')
+}))
+
+// Connect passport to express
+server.use(authMiddlware.initialize)
+
 // routes
-server.use('/api', usersRouter)
-server.use('/api', clientRouter)
-server.use('/api', orderRouter)
-server.use('/api', messageRouter)
-server.use('/api', GraphRouter)
-server.use('/api', walletBalanceRouter)
-server.use('/api', liveCoinPricesUsd)
-server.use('/api', api)
+server.use(authRouter)
+server.use('/api', [
+  usersRouter,
+  clientRouter,
+  orderRouter,
+  messageRouter,
+  GraphRouter,
+  walletBalanceRouter,
+  liveCoinPricesRouter
+])
+
+// Handle errors by returning JSON
+server.use((error, req, res, next) => {
+  const status = error.status || 500
+  res.status(status).json({
+    error: { message: error.message }
+  })
+})
+
 
 server.listen(8000, () => {
   console.log('Server listening on port 8000')

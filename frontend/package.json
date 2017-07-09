@@ -3,9 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "EventEmitter": "^1.0.0",
+    "axios": "^0.16.2",
+    "babel-cli": "^6.24.1",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-preset-env": "^1.6.0",
+    "event-emitter": "^0.3.5",
+    "fbemitter": "^2.1.1",
+    "lodash": "^4.17.4",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.1",
     "react-scripts": "1.0.10"
   },
   "scripts": {
@@ -13,6 +22,5 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "proxy": "http://localhost:8000"
+  }
 }
