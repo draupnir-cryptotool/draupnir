@@ -8,7 +8,6 @@ export default function EthereumWrapper({
   return (
     <div className="flex-row">
       <Ethereum etherBalance={ etherBalance }  />
-      <Refresh onUpdate={ onUpdate } />
     </div>
   )
 }

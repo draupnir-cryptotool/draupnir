@@ -7,7 +7,7 @@ import _ from 'lodash'
 class MainNav extends React.Component {
   render() {
   const style = {
-    margin: '5px',
+    margin: '10px',
     fontSize: '2.5rem',
     textDecoration: 'none'
   }
