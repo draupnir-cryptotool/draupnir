@@ -115,13 +115,13 @@ router.get('/order', function(req, res, next) {
         // Work out how much is left to order in total and also from this
         // particular exchange
         let tallyRemaining = qs.amount - tally.total;
-        let exchangeDifference = limit[order.exchange] - tally[order.exchange];
+        let exchangeDifference = limits[order.exchange] - tally[order.exchange];
 
         // If we have hit our requested order amount, or gone over slightly, we
         // can stop looking at orders
         if (tally.total >= qs.amount) {
           break;
-        };
+        }
 
         // Check if the exchange this order is from is over its limit and jump 
         // to the next order if it is.
@@ -130,49 +130,87 @@ router.get('/order', function(req, res, next) {
           continue;
         }
 
+        // Check if the limit remaining on the exchange is equal or larger than
+        // the total order amount remaining. Otherwise, the maximum we can take
+        // from this order will be the exchange limit amount remaining.
+        if (exchangeDifference < tallyRemaining) {
+          tallyRemaining = exchangeDifference;
+        }
+
         // If the order is more than we have left in the exchange limit. We 
         // can just take the remaining limit amount from this order, up to the 
         // order amount
-        if (order.orderTotal > exchangeDifference) {
-          partialOrder.amount = tallyRemaining / partialOrder.price;
+        // if (order.orderTotal > exchangeDifference) {
+        //   partialOrder.amount = tallyRemaining / partialOrder.price;
 
-        }
+        // }
 
         // Order is more than what we need to fulfil requested amount, we only
         // need part of it
         if (order.orderTotal > tallyRemaining) {
           let partialOrder = order;
-          // Tally by fiat
+          // Here we can chack if the partial order amount is:
+          // 1. More than the remaining limit for the exchange, then we take 
+          //    the limit amount from the order
+          // 2. Less than the remaining limit for the exchange, then we take 
+          //    the full remaining amount for the order
+
           if (qs.tally === 'usd') {
             partialOrder.amount = tallyRemaining / partialOrder.price;
-          // Tally by crypto
+
+            // Set the total price of the order based on adjusted amount
+            partialOrder.orderTotal = partialOrder.price * partialOrder.amount;
+            tally.total += order.orderTotal;
           } else if (qs.tally === 'btc' || qs.tally === 'eth') {
             partialOrder.amount = qs.amount - tally.total;
+            partialOrder.orderTotal = partialOrder.price * partialOrder.amount;
+            tally.total += order.amount;
           } else {
               // THROW ERROR
           }
-          partialOrder.orderTotal = partialOrder.price * partialOrder.amount;
-          qs.tally === 'usd' ?
-            tally.total += order.orderTotal :
-            qs.tally === 'btc' || qs.tally === 'eth' ?
-                tally.total += order.amount :
-                ''; // THROW ERROR
+
+          // Update exchange limit remaining. This is always tallied in usd.
+          tally[order.exchange] += partialOrder.orderTotal;
+
+          // Update the tally
+          // if (qs.tally === 'usd') {
+          //   tally.total += order.orderTotal;
+          // } else if (qs.tally === 'btc' || qs.tally === 'eth') {
+          //   tally.total += order.amount;
+          // } else {
+          //   ''; // THROW ERROR
+          // }
           fulfilledOrderBook.push(partialOrder);
 
-          // If the order in the book is less than the requested amount, grab
-          // the whole order and move onto the next one
+        // If the order in the book is less than the requested amount, grab
+        // the whole order and move onto the next one
         } else {
           // Check if the order amount is measured in fiat or crypto and tally
           // accordingly
-          qs.tally === 'usd' ?
-            tally.total += order.orderTotal :
-            qs.tally === 'btc' || qs.tally === 'eth' ?
-              tally.total += order.amount :
+          if (qs.tally === 'usd') {
+            tally.total += order.orderTotal;
+          } else if (qs.tally === 'btc' || qs.tally === 'eth') {
+              tally.total += order.amount;
+          } else {
               ''; // THROW ERROR
+          }
+
+          // Update exchange limit remaining. This is always tallied in usd.
+          tally[order.exchange] += order.orderTotal;
 
           fulfilledOrderBook.push(order);
         }
       };
+
+      // Tally the total order amount for each exchange
+      // reducedOrders = fulfilledOrderBook.reduce((exchangeTotal, order) => {
+      //   if (exchangeTotal[order.exchange] = exchangeTotal[order.exchange]) {
+      //     exchangeTotal[order.exchange] + order.orderTotal;
+      //   } else {
+      //     order.orderTotal;
+      //   }
+      //   return exchangeTotal;
+      // }, {});
 
       // Tally the total order amount for each exchange
       reducedOrders = fulfilledOrderBook.reduce((exchangeTotal, order) => {
