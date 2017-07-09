@@ -149,20 +149,22 @@ class Header extends React.Component {
     return (
       <main>
         <div style={ divStyle }>
-          { !!error && <p>{ error.message }</p> }
-          {
-            !!bitcoinBalance && !!ethereumBalance ?
-            (
-              <WalletWrapper
-                bitBalance={ bitcoinBalance }
-                onBtcUpdate={ this.fetchBitcoinPrice }
-                etherBalance={ ethereumBalance }
-                onEthUpdate={ this.fetchEthereumPrice }
-              />
-            ) : (
-              <p>loading...</p>
-            )
-          }
+          <div>
+            { !!error && <p>{ error.message }</p> }
+            {
+              !!bitcoinBalance && !!ethereumBalance ?
+              (
+                <WalletWrapper
+                  bitBalance={ bitcoinBalance }
+                  onBtcUpdate={ this.fetchBitcoinPrice }
+                  etherBalance={ ethereumBalance }
+                  onEthUpdate={ this.fetchEthereumPrice }
+                />
+              ) : (
+                <p>loading...</p>
+              )
+            }
+          </div>
           {
             bitfinexBitcoinPrice && bitfinexEthPrice && btceBitcoinPrice 
             && btceEthPrice && bitstampBitcoinPrice ? (
