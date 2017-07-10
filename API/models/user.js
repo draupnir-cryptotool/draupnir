@@ -4,6 +4,9 @@ const passportLocalMongoose = require('passport-local-mongoose')
 const userSchema = mongoose.Schema({
     firstname: String,
     lastname: String,
+    two_factor_secret: String,
+    // two_factor_enabled is set by developer admin
+    two_factor_enabled: { type: Boolean, default: false }
 });
 userSchema.plugin(passportLocalMongoose, {
   usernameField: 'email',
