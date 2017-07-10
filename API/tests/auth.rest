@@ -3,10 +3,11 @@ POST http://localhost:8000/register
 Content-Type: application/json
 
 {
-  "firstname": "Wonder",
-  "lastname": "woman",
-  "email": "wonder@woman.com",
-  "password": "password"
+  "firstname": "bat",
+  "lastname": "man",
+  "email": "bat@man.com",
+  "password": "password",
+  "two_factor_secret": "KRNGIYKPNA7TKN2IIZWHCTK5IFEGYQZFLAWDEVCUNM2CUTDLJB3A"
 }
 
 ###

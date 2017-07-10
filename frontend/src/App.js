@@ -22,8 +22,8 @@ class App extends Component {
     })
   }
 
-  handleSignIn = ({email, password}) => {
-    authAPI.signIn({email, password})
+  handleSignIn = ({email, password, OTP}) => {
+    authAPI.signIn({email, password, OTP})
     .then(json => {
       this.setState({ token: json.token })
     })
@@ -41,7 +41,7 @@ class App extends Component {
           <p>Welcome</p>
       ) : (
         <div>
-          <RegistrationForm onRegistration={ this.handleRegistration } />
+          
           <SignInform onSignIn={ this.handleSignIn } />
         </div>
       )
@@ -56,3 +56,4 @@ class App extends Component {
 }
 
 export default App;
+// <RegistrationForm onRegistration={ this.handleRegistration } />
