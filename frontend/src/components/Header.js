@@ -4,6 +4,7 @@ import WalletWrapper from './HeaderWrapper/WalletWrapper/WalletWrapper'
 import LivePriceWrapper from '../components/HeaderWrapper/LivePricesWrapper/LivePriceWrapper'
 import * as walletApi from '../api/wallet'
 import * as livePriceApi from '../api/livePrice'
+import XchangeBalanceWrapper from '../components/HeaderWrapper/XchangeBalanceWrapper/XchangeBalanceWrapper'
 
 class Header extends React.Component {
   state = {
@@ -16,8 +17,10 @@ class Header extends React.Component {
     btceBitcoinPrice: null,
     btceEthPrice: null,
     bitstampBitcoinPrice: null,
+    bitfinexBalance: 25000,
+    BTCEBalance: 25000,
+    bitstampBalance: 25000
   }
-
 
   // Get Bitcoin balance from wallet api
   fetchBitcoinPrice = () => {
@@ -135,33 +138,49 @@ class Header extends React.Component {
 
   render() {
     const { error, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
-            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice
+            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, bitfinexBalance,
+            BTCEBalance, bitstampBalance
           } = this.state
 
           const divStyle = {
-            display: 'flex'
+            display: 'flex',
+            justifyContent: 'space-around'
+          }
+
+          const wrapperStyle = {
+            border: 'solid 1px',
+            padding: '30px'
           }
     return (
       <main>
         <div style={ divStyle }>
-          { !!error && <p>{ error.message }</p> }
-          {
-            !!bitcoinBalance && !!ethereumBalance ?
-            (
-              <WalletWrapper
-                bitBalance={ bitcoinBalance }
-                onBtcUpdate={ this.fetchBitcoinPrice }
-                etherBalance={ ethereumBalance }
-                onEthUpdate={ this.fetchEthereumPrice }
-              />
-            ) : (
-              <p>loading...</p>
-            )
-          }
+          <div style={wrapperStyle}>
+            <XchangeBalanceWrapper 
+            bitfinexBalance={bitfinexBalance} 
+            BTCEBalance={BTCEBalance} 
+            bitstampBalance={ bitstampBalance }
+            />
+          </div>
+          <div style={wrapperStyle}>
+            { !!error && <p>{ error.message }</p> }
+            {
+              !!bitcoinBalance && !!ethereumBalance ?
+              (
+                <WalletWrapper
+                  bitBalance={ bitcoinBalance }
+                  onBtcUpdate={ this.fetchBitcoinPrice }
+                  etherBalance={ ethereumBalance }
+                  onEthUpdate={ this.fetchEthereumPrice }
+                />
+              ) : (
+                <p>loading...</p>
+              )
+            }
+          </div>
           {
             bitfinexBitcoinPrice && bitfinexEthPrice && btceBitcoinPrice 
             && btceEthPrice && bitstampBitcoinPrice ? (
-              <div>
+              <div style={wrapperStyle}>
                 <LivePriceWrapper
                   bitfinexBtcValue={ currentCurrency === 'usd' ? bitfinexBitcoinPrice.usdPrice : bitfinexBitcoinPrice.audPrice }
                   bitfinexEthValue={ currentCurrency === 'usd' ? bitfinexEthPrice.usdPrice : bitfinexEthPrice.audPrice }

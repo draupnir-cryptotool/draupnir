@@ -7,6 +7,7 @@ import BtceBitUsd from './BtceBitcoinUsd'
 import BitstampBitUsd from './BitstampBitcoinPrice'
 import BtceEthUsd from './BtceEthUsd'
 import { Button } from 'react-bootstrap'
+import './livePrice.css'
 
 export default function LivePriceWrapper({
   bitfinexBtcValue, bitfinexEthValue, btceBtcValue, btceEthValue, bitstampBtcValue, onCurrencyChangeUsd,
@@ -25,22 +26,22 @@ export default function LivePriceWrapper({
         </thead>
         <tbody>
           <tr>
-            <td>BTC-E:</td>
+            <td><h4>BTC-E:</h4></td>
             <td><BitfinexBitUsd bitfinexBtcValue={ parseFloat(bitfinexBtcValue).toFixed(2) }/> </td>
             <td> <BtceBitUsd btceBtcValue={ parseFloat(btceBtcValue).toFixed(2) }/> </td>
             <td> <BitstampBitUsd bitstampBtcValue={ parseFloat(bitstampBtcValue).toFixed(2) } /> </td>
           </tr>
           <tr>
-            <td>ETH:</td>
+            <td><h4>ETH:</h4></td>
             <td> <BitfinexEthUsd bitfinexEthValue={ parseFloat(bitfinexEthValue).toFixed(2) }/> </td>
             <td> <BtceEthUsd btceEthValue={ parseFloat(btceEthValue).toFixed(2) }/> </td>
             <td></td>
           </tr>
         </tbody>
       </Table>
-      <div>
-        <Button  bsStyle='default' bsSize='lg' onClick={onCurrencyChangeUsd}>USD</Button>
-        <Button  bsStyle='default' bsSize='lg' onClick={onCurrencyChangeAud}>AUD</Button>
+      <div style={{ textAlign: 'center' }}>
+        <Button  className='currencySwitch' bsStyle='default' bsSize='lg' onClick={onCurrencyChangeUsd}>USD</Button>
+        <Button  className='currencySwitch' bsStyle='default' bsSize='lg' onClick={onCurrencyChangeAud}>AUD</Button>
       </div>
     </div>
   )
