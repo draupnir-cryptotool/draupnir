@@ -1,17 +1,18 @@
 const passport = require('passport');
 const passportJWT = require('passport-jwt');
 const jwt = require('jsonwebtoken');
+const speakeasy = require('speakeasy');
 const User = require('../models/user');
+
 
 const jwtSecret = 'SECRET!' // TODO: Set this up in .env later
 const jwtAlgorithm = 'HS256'
 
-// Create a valid JWT
-function signtokenHandler(req, res) {
-  const user = req.user
-  const token = jwt.sign(
-    { // Payload
-      email: user.email
+function signToken(user, { hasVerified2FA = false }) {
+  return jwt.sign(
+    { // Payload   
+      email: user.email,
+      hasVerified2FA: hasVerified2FA
     },
     jwtSecret,
     { // Options
@@ -20,7 +21,45 @@ function signtokenHandler(req, res) {
       expiresIn: '1h' // change this according to our clients requirements
     }
   )
+}
+
+// Create a valid JWT
+function signtokenHandler(req, res) {
+  const user = req.user
+  const otpTokenVerified = req.otpTokenVerified
+  const token = signToken(user, { hasVerified2FA: otpTokenVerified })
   res.json({ token: token })
+}
+
+function askForOTPHandler(req, res) {
+  res.json({ needsOTP: true })
+}
+
+function verifyOTP(req, res, next) {
+  const user = req.user
+  const two_factor_secret = user.two_factor_secret
+  if (!two_factor_secret) {
+    next(new Error('2 factor OTP is not enabled for this account'))
+    return
+  }
+
+  const otp = req.body.OTP // Six digit code
+  // Verify OTP using code from that example
+  const tokenValidates = speakeasy.totp.verify({
+    //secret: secret.base32,
+    secret: two_factor_secret,
+    encoding: 'base32',
+    token: otp,
+    window: 6
+  });
+  if (!tokenValidates) {
+    next(new Error('2 factor OTP was not correct'))
+    return
+  }
+
+  // OTP verified
+  req.otpTokenVerified = true
+  next()
 }
 
 // Add local strategy(email, password, firstname and last name)
@@ -63,7 +102,8 @@ function registerMiddleware(req, res, next) {
   const user = new User({
     email: req.body.email,
     firstname: req.body.firstname,
-    lastname: req.body.lastname
+    lastname: req.body.lastname,
+    two_factor_secret: req.body.two_factor_secret
   })
   User.register(user, req.body.password, (error, user) => {
     // Error in registration
@@ -84,5 +124,7 @@ module.exports = {
   authenticateSignIn: passport.authenticate('local', {session: false}),
   authenticateJWT: passport.authenticate('jwt', {session: false}),
   register: registerMiddleware,
+  askForOTPHandler: askForOTPHandler,
+  verifyOTP: verifyOTP,
   signtokenHandler: signtokenHandler
 }
