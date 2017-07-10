@@ -17,8 +17,7 @@ export default function WalletWrapper({
 
         <EthereumBalance
           etherBalance={ etherBalance }
-        />
-        
+        /> 
       </div>
       <div style={{display: 'grid'}}>
         <Button className='refreshBtn' onClick={ onBtcUpdate }>Refresh</Button>

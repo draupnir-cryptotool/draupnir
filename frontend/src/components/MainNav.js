@@ -7,14 +7,14 @@ import _ from 'lodash'
 class MainNav extends React.Component {
   render() {
   const style = {
-    margin: '10px',
+    margin: '3.5%',
     fontSize: '2.5rem',
     textDecoration: 'none'
   }
     return (
       <Router>
         <div>
-          <div>
+          <div style={{ marginTop: '6%'}}>
             <Link style={style} to={'#'}> Staging </Link>
             <Link style={style} to={'#'}> Messages </Link>
             <Link style={style} to={'#'}> Logs </Link>
