@@ -1,9 +1,9 @@
 const passport = require('passport');
 const passportJWT = require('passport-jwt');
 const jwt = require('jsonwebtoken');
+const speakeasy = require('speakeasy');
 const User = require('../models/user');
-var GoogleAuthenticator = require('passport-2fa-totp').GoogeAuthenticator;
-var TwoFAStartegy = require('passport-2fa-totp').Strategy;
+
 
 const jwtSecret = 'SECRET!' // TODO: Set this up in .env later
 const jwtAlgorithm = 'HS256'
@@ -43,14 +43,14 @@ function verifyOTP(req, res, next) {
     return
   }
 
-  const otp = req.body.otp // Six digit code
+  const otp = req.body.OTP // Six digit code
   // Verify OTP using code from that example
   const tokenValidates = speakeasy.totp.verify({
     //secret: secret.base32,
     secret: two_factor_secret,
     encoding: 'base32',
     token: otp,
-    window: 30 // seconds
+    window: 6
   });
   if (!tokenValidates) {
     next(new Error('2 factor OTP was not correct'))
@@ -102,7 +102,8 @@ function registerMiddleware(req, res, next) {
   const user = new User({
     email: req.body.email,
     firstname: req.body.firstname,
-    lastname: req.body.lastname
+    lastname: req.body.lastname,
+    two_factor_secret: req.body.two_factor_secret
   })
   User.register(user, req.body.password, (error, user) => {
     // Error in registration

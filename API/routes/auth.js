@@ -10,14 +10,6 @@ router.post('/register', authMiddleware.register, authMiddleware.signtokenHandle
 //router.post('/register/2fa', authMiddleware.generateOTPSecret, authMiddleware.verifyOTP, authMiddleware.register, authMiddleware.signtokenHandler)
 
 // Sign in: POST /auth
-router.post('/signin', authMiddleware.authenticateSignIn, authMiddleware.askForOTPHandler)
-// Verify user-entered OTP is correct
-router.post('/signin/2fa', authMiddleware.authenticateSignIn, authMiddleware.verifyOTP, authMiddleware.signtokenHandler)
-
-
-// JWT
-// sub: (userID),
-// 2faEnabled: true / false
-
+router.post('/signin', authMiddleware.authenticateSignIn, authMiddleware.verifyOTP, authMiddleware.signtokenHandler)
 
 module.exports = router
