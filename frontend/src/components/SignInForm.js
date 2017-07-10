@@ -6,7 +6,8 @@ function submitSignIn(event, onSignIn) {
   const form = event.target
   const email = form.elements['email'].value
   const password = form.elements['password'].value
-  onSignIn({ email, password })
+  const OTP = form.elements['OTP'].value
+  onSignIn({ email, password, OTP })
 }
 
 export default function SignInForm({
@@ -16,6 +17,7 @@ export default function SignInForm({
     <form onSubmit={ (event) => submitSignIn(event, onSignIn) }>
       <Field label="Email" name="email" />
       <Field label="Password" name="password" type="password" />
+      <Field label="Google Authenticator Code" name="OTP" />
       <button>Sign In</button>
     </form>
   )

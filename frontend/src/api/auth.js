@@ -1,9 +1,10 @@
-import axios from 'axios'
+import axios from './init'
 
-export function signIn({ email, password }) {
+export function signIn({ email, password, OTP }) {
   return axios.post('/signin', {
       email,
-      password
+      password,
+      OTP
   })
   .then(res => res.data)
 }
