@@ -2,6 +2,8 @@ import React from 'react';
 import WalletWrapper from './HeaderWrapper/WalletWrapper/WalletWrapper'
 // import LivePriceWrapper from './HeaderWrapper/LivePricesWrapper/LivePriceWrapper'
 import LivePriceWrapper from '../components/HeaderWrapper/LivePricesWrapper/LivePriceWrapper'
+import * as walletApi from '../api/wallet'
+import * as livePriceApi from '../api/livePrice'
 
 class Header extends React.Component {
   state = {
@@ -19,22 +21,20 @@ class Header extends React.Component {
 
   // Get Bitcoin balance from wallet api
   fetchBitcoinPrice = () => {
-    fetch('/api/bitcoinbalance')
-    // bring in json data
-      .then(res => res.json())
+    // Fetching from axios folder, fetchBitcoinPrice()
+    walletApi.fetchBitcoinPrice()
       .then(bitcoinBalance => {
         this.setState({ bitcoinBalance })
       })
       .catch(error => {
         this.setState({ error })
       })
-  }   
+  }
 
   // Get Ethereum balance from wallet api
   fetchEthereumPrice = () => {
-    fetch('/api/ethereumbalance')
-    // bring in json data
-      .then(res => res.json())
+    // Fetching from axios folder, fetchBitcoinPrice()
+    walletApi.fetchEthereumPrice()
       .then(ethereumBalance => {
         this.setState({ ethereumBalance })
       })
@@ -45,9 +45,8 @@ class Header extends React.Component {
 
   // get bitcoin/usd price from bitfinex
   fetchBitfinexBitcoinPrice = () => {
-    fetch('/api/livecoinprices/bitfinex/btc')
-    // bring in json data
-      .then(res => res.json())
+    // Fetching from axios folder, fetchBitfinexBitcoinPrice()
+    livePriceApi.fetchBitfinexBitcoinPrice()
       .then(bitfinexBitcoinPrice => {
         this.setState({ bitfinexBitcoinPrice })
         // fetch data from api every 10 seconds
@@ -61,9 +60,8 @@ class Header extends React.Component {
 
   // get eth/usd price from bitfinex
   fetchBitfinexEthPrice = () => {
-    fetch('/api/livecoinprices/bitfinex/eth')
-    // bring in json data
-      .then(res => res.json())
+    // Fetching from axios folder, fetchBitfinexBitcoinPrice()
+    livePriceApi.fetchBitfinexEthPrice()
       .then(bitfinexEthPrice => {
         this.setState({ bitfinexEthPrice })
         // fetch data from api every 10 seconds
@@ -77,9 +75,8 @@ class Header extends React.Component {
 
   // get bitcoin/usd price from BTC-E
   fetchBtceBitcoinPrice = () => {
-    fetch('/api/livecoinprices/btc-e/btc')
-    // bring in json data
-      .then(res => res.json())
+    // Fetching from axios folder, fetchBtceBitcoinPrice()
+    livePriceApi.fetchBtceBitcoinPrice()
       .then(btceBitcoinPrice => {
         this.setState({ btceBitcoinPrice })
         // fetch data from api every 10 seconds
@@ -93,9 +90,8 @@ class Header extends React.Component {
 
   // get eth/usd price from BTC-E
   fetchBtceEthPrice = () => {
-    fetch('/api/livecoinprices/btc-e/eth')
-    // bring in json data
-      .then(res => res.json())
+    // Fetching from axios folder, fetchBtceEthPrice()
+    livePriceApi.fetchBtceEthPrice()
       .then(btceEthPrice => {
         this.setState({ btceEthPrice })
         // fetch data from api every 10 seconds
@@ -109,9 +105,8 @@ class Header extends React.Component {
 
   // get bitcoin/usd price from bitstamp
   fetchBitstampBitcoinPrice = () => {
-    fetch('/api/livecoinprices/bitstamp/btc')
-    // bring in json data
-      .then(res => res.json())
+    // Fetching from axios folder, fetchBitstampBitcoinPrice()
+    livePriceApi.fetchBitstampBitcoinPrice()
       .then(bitstampBitcoinPrice => {
         this.setState({ bitstampBitcoinPrice })
         // fetch data from api every 10 seconds
