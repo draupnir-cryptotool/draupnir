@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import LogInform from './components/LogInForm';
+import LogInform from './components/logIn/LogInForm';
 import Header from './components/Header';
 import MainNav from './components/MainNav';
 import Order from './components/Order';
@@ -188,7 +188,7 @@ class App extends Component {
         <Route exact path='/login' render={() => (
           <div>
           { !!error && <p>{ error.message }</p> }
-          <LogIn/>
+       
           <LogInform onSignIn={ this.handleSignIn } />
           </div>
         )
