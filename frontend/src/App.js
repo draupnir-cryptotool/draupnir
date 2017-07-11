@@ -3,9 +3,9 @@ import './App.css';
 import LogInform from './components/LogInForm';
 import Header from './components/Header';
 import MainNav from './components/MainNav';
+import Order from './components/Order';
 import * as authAPI from './api/auth';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import LogIn from './components/logIn/LogIn'
 import * as walletApi from './api/wallet'
 import * as livePriceApi from './api/livePrice'
 import * as settingsAPI from './api/settings'
@@ -153,7 +153,6 @@ class App extends Component {
         setTimeout(this.fetchBitstampBitcoinPrice, 10000)
       })
   }
-
   // get settings state to update exchange cash balances
   fetchSettings = () => {
     // Fetching from axios folder, fetchSettings()
@@ -192,9 +191,10 @@ class App extends Component {
           <LogIn/>
           <LogInform onSignIn={ this.handleSignIn } />
           </div>
-        )}/>
+        )
+        }/>
         <Route path='/home' render={() => (
-          
+
           <div>
             <div>
             {
@@ -225,6 +225,13 @@ class App extends Component {
                 onUpdate={ this.handleUpdateSettings }
               />
             </div>
+          </div>
+        )
+        } />
+        <Route path='/order' render={() => (
+          
+          <div>
+            <Order />
           </div>
         )
         } />

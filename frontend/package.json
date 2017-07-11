@@ -8,6 +8,8 @@
     "babel-cli": "^6.24.1",
     "babel-plugin-lodash": "^3.2.11",
     "babel-preset-env": "^1.6.0",
+    "eslint": "^4.2.0",
+    "eslint-plugin-react": "^7.1.0",
     "event-emitter": "^0.3.5",
     "fbemitter": "^2.1.1",
     "lodash": "^4.17.4",
