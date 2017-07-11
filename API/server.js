@@ -12,7 +12,9 @@ const liveCoinPricesRouter = require('./routes/liveCoinPricesRouter');
 const order = require('./routes/order.js');
 const authMiddlware = require('./middleware/auth');
 const authRouter = require('./routes/auth');
+const setingsRouter = require('./routes/settingsRouter')
 const cors = require('cors');
+
 
 const server = express();
 
@@ -22,7 +24,7 @@ server.use(bodyParser.urlencoded({ extended: true }))
 
 // CORS
 server.use(cors({
-  origin: process.env.CORS_ORIGINS.split(',')
+  origin: process.env.CORS_ORIGINS
 }))
 
 // Connect passport to express
@@ -39,6 +41,7 @@ server.use('/api', [
   walletBalanceRouter,
   liveCoinPricesRouter,
   order,
+  setingsRouter
 ])
 
 // Handle errors by returning JSON

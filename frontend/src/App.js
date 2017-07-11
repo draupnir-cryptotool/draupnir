@@ -4,9 +4,10 @@ import RegistrationForm from './components/RegistrationForm';
 import SignInform from './components/SignInForm';
 import Header from './components/Header';
 import MainNav from './components/MainNav';
-import * as authAPI from './api/auth';
 import Order from './components/Order';
-
+import * as authAPI from './api/auth';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import LogIn from './components/logIn/LogIn'
 
 class App extends Component {
   state = {
@@ -23,8 +24,8 @@ class App extends Component {
     })
   }
 
-  handleSignIn = ({email, password}) => {
-    authAPI.signIn({email, password})
+  handleSignIn = ({email, password, OTP}) => {
+    authAPI.signIn({email, password, OTP})
     .then(json => {
       this.setState({ token: json.token })
     })
@@ -36,25 +37,28 @@ class App extends Component {
   render() {
     const { token } = this.state
     return (
-      <main>
-      {
-        !!token? (
-          <p>Welcome</p>
-      ) : (
-        <div>
-          <RegistrationForm onRegistration={ this.handleRegistration } />
+      <Router>
+        <main>
+        <Route exact path='/login' render={() => (
+          <div>
+          <LogIn/>
           <SignInform onSignIn={ this.handleSignIn } />
-        </div>
-      )
-      }
-        
-        <Header />
-        <MainNav />
-        <Order />
-      
-      </main>
+          </div>
+        )}/>
+        <Route path='/home' render={() => (
+          
+          <div>
+            <Header />
+            <MainNav />
+            <Order />
+          </div>
+        )
+        } />
+        </main>
+      </Router>
     );
   }
 }
 
 export default App;
+// <RegistrationForm onRegistration={ this.handleRegistration } />
