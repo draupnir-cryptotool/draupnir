@@ -5,7 +5,8 @@ import SignInform from './components/SignInForm';
 import Header from './components/Header';
 import MainNav from './components/MainNav';
 import * as authAPI from './api/auth';
-
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import LogIn from './components/logIn/LogIn'
 
 class App extends Component {
   state = {
@@ -35,22 +36,24 @@ class App extends Component {
   render() {
     const { token } = this.state
     return (
-      <main>
-      {
-        !!token? (
-          <p>Welcome</p>
-      ) : (
-        <div>
-          
+      <Router>
+        <main>
+        <Route exact path='/login' render={() => (
+          <div>
+          <LogIn/>
           <SignInform onSignIn={ this.handleSignIn } />
-        </div>
-      )
-      }
-        
-        <Header />
-        <MainNav />
-      
-      </main>
+          </div>
+        )}/>
+        <Route path='/home' render={() => (
+          
+          <div>
+            <Header />
+            <MainNav />
+          </div>
+        )
+        } />
+        </main>
+      </Router>
     );
   }
 }
