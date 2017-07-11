@@ -177,11 +177,10 @@ class App extends Component {
     return (
       <Router>
         <main>
-<<<<<<< HEAD
         <Route exact path='/login' render={() => (
           <div>
           <LogIn/>
-          <SignInform onSignIn={ this.handleSignIn } />
+          <LogInform onSignIn={ this.handleSignIn } />
           </div>
         )}/>
         <Route path='/home' render={() => (
@@ -197,7 +196,7 @@ class App extends Component {
                 onBtcUpdate={ this.fetchBitcoinPrice }
                 etherBalance={ ethereumBalance }
                 onEthUpdate={ this.fetchEthereumPrice }
-                bitfinexBtcValue={ currentCurrency === 'usd' ? bitfinexBitcoinPrice.\ : bitfinexBitcoinPrice.audPrice }
+                bitfinexBtcValue={ currentCurrency === 'usd' ? bitfinexBitcoinPrice : bitfinexBitcoinPrice.audPrice }
                 bitfinexEthValue={ currentCurrency === 'usd' ? bitfinexEthPrice.usdPrice : bitfinexEthPrice.audPrice }
                 btceBtcValue={ currentCurrency === 'usd' ? btceBitcoinPrice.usdPrice : btceBitcoinPrice.audPrice }
                 btceEthValue={ currentCurrency === 'usd' ? btceEthPrice.usdPrice : btceEthPrice.audPrice }
@@ -216,22 +215,6 @@ class App extends Component {
           </div>
         )
         } />
-=======
-          <Route exact path='/login' render={() => (
-            <div>
-            <LogIn/>
-            <LogInform onSignIn={ this.handleSignIn } />
-            </div>
-          )
-          }/>
-          <Route path='/home' render={() => (
-            <div>
-              <Header />
-              <MainNav />
-            </div>
-          )
-          } />
->>>>>>> master
         </main>
       </Router>
     );
