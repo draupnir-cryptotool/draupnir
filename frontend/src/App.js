@@ -46,7 +46,7 @@ class App extends Component {
   }
 
   handleUpdateSettings = ({ bitfinexFloat, btceFloat, bitstampFloat }) => {
-    authAPI.signIn({ bitfinexFloat, btceFloat, bitstampFloat })
+    settingsAPI.updateSettings({ bitfinexFloat, btceFloat, bitstampFloat })
     .then(json => {
       this.setState({ setings: json })
     })
@@ -222,6 +222,7 @@ class App extends Component {
             <div>
               <MainNav
                 settings={ settings }
+                onUpdate={ this.handleUpdateSettings }
               />
             </div>
           </div>

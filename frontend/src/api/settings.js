@@ -6,7 +6,7 @@ export function fetchSettings() {
     .then(res => res.data)
 }
 
-export function createMovie({ bitfinexFloat, btceFloat, bitstampFloat }) {
+export function updateSettings({ bitfinexFloat, btceFloat, bitstampFloat }) {
   return axios.patch('/api/settings/59642ab99039a21b6839c24e', {
       bitfinexFloat,
       btceFloat,
