@@ -5,6 +5,7 @@ import SignInform from './components/SignInForm';
 import Header from './components/Header';
 import MainNav from './components/MainNav';
 import * as authAPI from './api/auth';
+import Order from './components/Order';
 
 
 class App extends Component {
@@ -49,6 +50,7 @@ class App extends Component {
         
         <Header />
         <MainNav />
+        <Order />
       
       </main>
     );
