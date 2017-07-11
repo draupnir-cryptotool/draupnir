@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import RegistrationForm from './components/RegistrationForm';
-import SignInform from './components/SignInForm';
+import LogInform from './components/LogInForm';
 import Header from './components/Header';
 import MainNav from './components/MainNav';
 import * as authAPI from './api/auth';
@@ -38,20 +38,20 @@ class App extends Component {
     return (
       <Router>
         <main>
-        <Route exact path='/login' render={() => (
-          <div>
-          <LogIn/>
-          <SignInform onSignIn={ this.handleSignIn } />
-          </div>
-        )}/>
-        <Route path='/home' render={() => (
-          
-          <div>
-            <Header />
-            <MainNav />
-          </div>
-        )
-        } />
+          <Route exact path='/login' render={() => (
+            <div>
+            <LogIn/>
+            <LogInform onSignIn={ this.handleSignIn } />
+            </div>
+          )
+          }/>
+          <Route path='/home' render={() => (
+            <div>
+              <Header />
+              <MainNav />
+            </div>
+          )
+          } />
         </main>
       </Router>
     );
