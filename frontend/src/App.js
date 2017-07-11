@@ -45,6 +45,16 @@ class App extends Component {
     })
   }
 
+  handleUpdateSettings = ({ bitfinexFloat, btceFloat, bitstampFloat }) => {
+    authAPI.signIn({ bitfinexFloat, btceFloat, bitstampFloat })
+    .then(json => {
+      this.setState({ setings: json })
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
+  }
+
   // Get Bitcoin balance from wallet api
   fetchBitcoinPrice = () => {
     // Fetching from axios folder, fetchBitcoinPrice()
@@ -210,7 +220,9 @@ class App extends Component {
             }  
             </div>
             <div>
-              <MainNav />
+              <MainNav
+                settings={ settings }
+              />
             </div>
           </div>
         )
