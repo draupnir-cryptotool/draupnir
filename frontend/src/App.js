@@ -143,7 +143,6 @@ class App extends Component {
         setTimeout(this.fetchBitstampBitcoinPrice, 10000)
       })
   }
-
   // get settings state to update exchange cash balances
   fetchSettings = () => {
     // Fetching from axios folder, fetchSettings()
@@ -182,7 +181,7 @@ class App extends Component {
           </div>
         )}/>
         <Route path='/home' render={() => (
-          
+
           <div>
             <div>
             {
