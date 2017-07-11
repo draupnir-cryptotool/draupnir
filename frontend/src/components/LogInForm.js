@@ -10,7 +10,7 @@ function submitSignIn(event, onSignIn) {
   onSignIn({ email, password, OTP })
 }
 
-export default function SignInForm({
+export default function LogInForm({
   onSignIn
 }) {
   return (
