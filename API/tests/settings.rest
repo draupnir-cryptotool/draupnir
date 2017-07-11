@@ -1,0 +1,20 @@
+
+POST http://localhost:8000/api/settings/new
+Content-Type: application/json
+
+{
+  "bitfinexFloat": 0,
+  "btceFloat": 0,
+  "bitstampFloat": 0
+}
+
+###
+
+PATCH http://localhost:8000/api/settings/59642ab99039a21b6839c24e
+content-type: application/json
+
+{
+    "bitfinexFloat": "20000",
+    "btceFloat": "25000",
+    "bitstampFloat": "22000"
+}
