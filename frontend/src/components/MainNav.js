@@ -18,7 +18,7 @@ class MainNav extends React.Component {
     return (
       <Router>
         <div>
-          <div style={{ marginTop: '6%', height: '4.5em', border: 'solid 1px', padding: '10px'}}>
+          <div style={{ marginTop: '6%', height: '4.5em', border: 'solid 1px', padding: '14px'}}>
             <Link style={style} to={'/home/staging'}> Staging </Link>
             <Link style={style} to={'/home/messages'}> Messages </Link>
             <Link style={style} to={'/home/logs'}> Logs </Link>
@@ -26,7 +26,15 @@ class MainNav extends React.Component {
             <Link style={style} to={'/home/settings'}> Settings </Link>
           </div>
           <Route path='/home/staging' render={ () => (
+            <div>
+              <div style={{ display: 'flex' }}>
+                <li>CLIENT No.</li>
+                <li>NAME</li>
+                <li>DEPOSIT</li>
+                <li>CURRENCY</li>
+              </div>
             <Staging />
+            </div>
           )
           } />
           <Route path='/home/messages' render={() => (
