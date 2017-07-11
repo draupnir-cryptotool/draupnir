@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import RegistrationForm from './components/RegistrationForm';
-import LogInform from './components/LogInForm';
+import LogInform from './components/logIn/LogInForm';
 import Header from './components/Header';
 import MainNav from './components/MainNav';
 import * as authAPI from './api/auth';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import LogIn from './components/logIn/LogIn'
 import * as walletApi from './api/wallet'
 import * as livePriceApi from './api/livePrice'
 import * as settingsAPI from './api/settings'
@@ -179,7 +178,6 @@ class App extends Component {
         <main>
         <Route exact path='/login' render={() => (
           <div>
-          <LogIn/>
           <LogInform onSignIn={ this.handleSignIn } />
           </div>
         )}/>
