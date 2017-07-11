@@ -17,7 +17,7 @@ export default function XchangeBalanceWrapper({
       <div style={{marginLeft: '3rem'}}>
         <p style={{fontSize: '2.5rem'}}>${ settings.bitfinexFloat }</p>
         <p style={{fontSize: '2.5rem'}}>${ settings.btceFloat }</p>
-        <p style={{fontSize: '2.5rem'}}>${ settings.bitfinexFloat }</p>
+        <p style={{fontSize: '2.5rem'}}>${ settings.bitstampFloat }</p>
       </div>
     </div>
   )
