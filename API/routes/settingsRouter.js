@@ -7,7 +7,7 @@ const router = express.Router()
 router.get('/settings', (req, res) => {
   Settings.find()
   .then((settings) => {
-    res.json(settings)
+    res.json(settings[0])
   })
   .catch((err) => {
     if(err) {
