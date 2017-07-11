@@ -4,7 +4,7 @@ import RegistrationForm from './components/RegistrationForm';
 import SignInform from './components/SignInForm';
 import Header from './components/Header';
 import MainNav from './components/MainNav';
-import Order from './components/Order';
+// import Order from './components/Order';
 import * as authAPI from './api/auth';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import LogIn from './components/logIn/LogIn'
@@ -44,13 +44,13 @@ class App extends Component {
           <LogIn/>
           <SignInform onSignIn={ this.handleSignIn } />
           </div>
-        )}/>
+        )
+        }/>
         <Route path='/home' render={() => (
           
           <div>
             <Header />
             <MainNav />
-            <Order />
           </div>
         )
         } />
