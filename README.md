@@ -23,7 +23,7 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 
 ## Order API Breakdown
 ### URL
-`draupnir.com/api/order?buying=btc&tally=usd&amount=20000&btceLimit=5000&bitstampLimit=5000&bitfinexLimit=5000`
+`http://localhost:8000/api/order?buying=btc&tally=usd&amount=20000&btceLimit=5000&bitstampLimit=5000&bitfinexLimit=5000`
 
 ### Queries:
   - **buying**
@@ -54,9 +54,9 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 ### Example API Calls
 **Purchase 5 BTC at best price, with USD$5000 limit on each exchange**
 
-`draupnir.com/api/order?buying=btc&tally=btc&amount=5&btceLimit=5000&bitstampLimit=5000&bitfinexLimit=5000`
+`http://localhost:8000/api/order?buying=btc&tally=btc&amount=5&btceLimit=5000&bitstampLimit=5000&bitfinexLimit=5000`
 
 **Purchase USD$10,000 worth of Ether with USD$0 on BTC-e and USD$20,000 on each of the other exchanges**
 
-`draupnir.com/api/order?buying=eth&tally=usd&amount=10000&btceLimit=0&bitstampLimit=20000&bitfinexLimit=20000`
+`http://localhost:8000/api/order?buying=eth&tally=usd&amount=10000&btceLimit=0&bitstampLimit=20000&bitfinexLimit=20000`
 

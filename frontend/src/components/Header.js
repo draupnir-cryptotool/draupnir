@@ -6,6 +6,7 @@ import * as walletApi from '../api/wallet'
 import * as livePriceApi from '../api/livePrice'
 import * as settingsAPI from '../api/settings'
 import XchangeBalanceWrapper from '../components/HeaderWrapper/XchangeBalanceWrapper/XchangeBalanceWrapper'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 class Header extends React.Component {
   state = {
