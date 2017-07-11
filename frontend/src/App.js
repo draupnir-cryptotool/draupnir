@@ -196,7 +196,7 @@ class App extends Component {
                 onBtcUpdate={ this.fetchBitcoinPrice }
                 etherBalance={ ethereumBalance }
                 onEthUpdate={ this.fetchEthereumPrice }
-                bitfinexBtcValue={ currentCurrency === 'usd' ? bitfinexBitcoinPrice : bitfinexBitcoinPrice.audPrice }
+                bitfinexBtcValue={ currentCurrency === 'usd' ? bitfinexBitcoinPrice.usdPrice : bitfinexBitcoinPrice.audPrice }
                 bitfinexEthValue={ currentCurrency === 'usd' ? bitfinexEthPrice.usdPrice : bitfinexEthPrice.audPrice }
                 btceBtcValue={ currentCurrency === 'usd' ? btceBitcoinPrice.usdPrice : btceBitcoinPrice.audPrice }
                 btceEthValue={ currentCurrency === 'usd' ? btceEthPrice.usdPrice : btceEthPrice.audPrice }
