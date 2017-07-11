@@ -4,6 +4,7 @@ import RegistrationForm from './components/RegistrationForm';
 import LogInform from './components/logIn/LogInForm';
 import Header from './components/Header';
 import MainNav from './components/MainNav';
+import Order from './components/Order';
 import * as authAPI from './api/auth';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import * as walletApi from './api/wallet'
@@ -180,7 +181,8 @@ class App extends Component {
           <div>
           <LogInform onSignIn={ this.handleSignIn } />
           </div>
-        )}/>
+        )
+        }/>
         <Route path='/home' render={() => (
           
           <div>
@@ -210,6 +212,13 @@ class App extends Component {
             <div>
               <MainNav />
             </div>
+          </div>
+        )
+        } />
+        <Route path='/order' render={() => (
+          
+          <div>
+            <Order />
           </div>
         )
         } />
