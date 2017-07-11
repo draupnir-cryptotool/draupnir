@@ -16,6 +16,13 @@ export default function LogInForm({
 }) {
   const wellStyles = {minWidth: 400};
 
+  const dividerStyle = {
+    border: 'solid',
+    height: '30rem',
+    position: 'relative',
+    bottom: '7rem'
+  }
+
   const loginStyle = {
     display: 'flex',
     justifyContent: 'space-around',
@@ -28,6 +35,7 @@ export default function LogInForm({
         <h1>Caleb and Brown</h1>
         <h3>CONSULTANTS</h3>
       </div>
+      <div style={dividerStyle}></div>
       <div style={wellStyles}>
         <form onSubmit={ (event) => submitSignIn(event, onSignIn) }>
           <FormGroup controlId="formBasicText">
