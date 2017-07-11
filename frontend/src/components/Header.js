@@ -4,6 +4,7 @@ import WalletWrapper from './HeaderWrapper/WalletWrapper/WalletWrapper'
 import LivePriceWrapper from '../components/HeaderWrapper/LivePricesWrapper/LivePriceWrapper'
 import * as walletApi from '../api/wallet'
 import * as livePriceApi from '../api/livePrice'
+import * as settingsAPI from '../api/settings'
 import XchangeBalanceWrapper from '../components/HeaderWrapper/XchangeBalanceWrapper/XchangeBalanceWrapper'
 
 class Header extends React.Component {
@@ -17,9 +18,7 @@ class Header extends React.Component {
     btceBitcoinPrice: null,
     btceEthPrice: null,
     bitstampBitcoinPrice: null,
-    bitfinexBalance: 25000,
-    BTCEBalance: 25000,
-    bitstampBalance: 25000
+    settings: null
   }
 
   // Get Bitcoin balance from wallet api
@@ -121,6 +120,18 @@ class Header extends React.Component {
       })
   }
 
+  // get settings state to update exchange cash balances
+  fetchSettings = () => {
+    // Fetching from axios folder, fetchSettings()
+    settingsAPI.fetchSettings()
+      .then(settings => {
+        this.setState({ settings })
+      })
+      .catch(error => {
+        this.setState({ error })
+      })
+  }
+
   onSwitchUSDCurrency = () => {
     this.setState({
       // this.state.items will be changed
@@ -138,8 +149,7 @@ class Header extends React.Component {
 
   render() {
     const { error, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
-            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, bitfinexBalance,
-            BTCEBalance, bitstampBalance
+            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, settings
           } = this.state
 
           const divStyle = {
@@ -154,15 +164,19 @@ class Header extends React.Component {
     return (
       <main>
         <div style={ divStyle }>
-          <div style={wrapperStyle}>
+        { !!error && <p>{ error.message }</p> }
+          <div style={ wrapperStyle }>
+          {
+            !!settings ? (
             <XchangeBalanceWrapper 
-            bitfinexBalance={bitfinexBalance} 
-            BTCEBalance={BTCEBalance} 
-            bitstampBalance={ bitstampBalance }
-            />
+              settings={ settings }
+            /> ) : (
+              <p>loading..</p>
+            )
+          }
           </div>
           <div style={wrapperStyle}>
-            { !!error && <p>{ error.message }</p> }
+            
             {
               !!bitcoinBalance && !!ethereumBalance ?
               (
@@ -209,6 +223,7 @@ class Header extends React.Component {
     this.fetchBtceBitcoinPrice()
     this.fetchBtceEthPrice()
     this.fetchBitstampBitcoinPrice()
+    this.fetchSettings()
   }
 }
 
