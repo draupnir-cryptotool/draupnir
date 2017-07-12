@@ -53,7 +53,6 @@ class App extends Component {
     settingsAPI.updateSettings({ bitfinexFloat, btceFloat, bitstampFloat })
     .then(json => {
       this.setState((prevState) => {
-        console.log(json)
         return {
           masterSettings: json
         }
@@ -250,7 +249,7 @@ class App extends Component {
 
             }
             </div>
-            <ClientModal showModal={showModal}/>
+            <ClientModal showModal={showModal} closeModal={ this.handleCloseModal }/>
           </div>
         )
         } />

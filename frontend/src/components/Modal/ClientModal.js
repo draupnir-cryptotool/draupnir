@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactModal from 'react-modal'
+import { Button } from 'react-bootstrap'
 
 export default function ClientModal({
-  showModal
+  showModal, closeModal
 }) {
   return (
   <div>
@@ -16,6 +17,7 @@ export default function ClientModal({
       }}
     >
     <h1>ITS A MODAL!!</h1>
+    <Button onClick={() => closeModal()} bsStyle="default">Close me</Button>
     </ReactModal>
   </div>
   )}
