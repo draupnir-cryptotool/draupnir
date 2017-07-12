@@ -1,0 +1,53 @@
+- strip-bom@3.0.0 node_modules/eslint/node_modules/strip-bom
+frontend@0.1.0 /Users/chris/Google Drive/Projects/draupnir/frontend
+├─┬ eslint@4.2.0 
+│ ├── ajv@5.2.2 
+│ ├── doctrine@2.0.0 
+│ ├── eslint-scope@3.7.1 
+│ ├── esquery@1.0.0 
+│ ├── file-entry-cache@2.0.0 
+│ ├─┬ inquirer@3.2.0 
+│ │ ├── ansi-escapes@2.0.0 
+│ │ ├─┬ chalk@2.0.1 
+│ │ │ └─┬ supports-color@4.2.0 
+│ │ │   └── has-flag@2.0.0 
+│ │ ├─┬ cli-cursor@2.1.0 
+│ │ │ └─┬ restore-cursor@2.0.0 
+│ │ │   └── onetime@2.0.1 
+│ │ ├── figures@2.0.0 
+│ │ ├── mute-stream@0.0.7 
+│ │ ├── run-async@2.3.0 
+│ │ ├─┬ string-width@2.1.0 
+│ │ │ └── is-fullwidth-code-point@2.0.0 
+│ │ └─┬ strip-ansi@4.0.0 
+│ │   └── ansi-regex@3.0.0 
+│ ├── pluralize@4.0.0 
+│ ├── progress@2.0.0 
+│ └─┬ table@4.0.1 
+│   └── ajv@4.11.8 
+├── eslint-config-standard@10.2.1 
+├─┬ eslint-plugin-import@2.7.0 
+│ ├── contains-path@0.1.0 
+│ ├── eslint-import-resolver-node@0.3.1 
+│ ├── eslint-module-utils@2.1.1 
+│ ├── lodash.cond@4.5.2 
+│ └─┬ read-pkg-up@2.0.0 
+│   ├── find-up@2.1.0 
+│   └─┬ read-pkg@2.0.0 
+│     ├─┬ load-json-file@2.0.0 
+│     │ └── strip-bom@3.0.0 
+│     └── path-type@2.0.0 
+├── eslint-plugin-node@5.1.0 
+├── eslint-plugin-promise@3.5.0 
+├── eslint-plugin-standard@3.0.1 
+└─┬ react-scripts@1.0.10
+  ├─┬ UNMET PEER DEPENDENCY eslint@3.19.0
+  │ ├── doctrine@2.0.0 
+  │ ├─┬ shelljs@0.7.8 
+  │ │ └── rechoir@0.6.2 
+  │ └── strip-bom@3.0.0 
+  └─┬ eslint-plugin-import@2.2.0 
+    ├── doctrine@1.5.0 
+    ├── eslint-import-resolver-node@0.2.3 
+    └── pkg-up@1.0.0 
+
