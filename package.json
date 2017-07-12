@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "react-modal": "^2.2.2",
     "speakeasy": "^2.0.0"
   }
 }
