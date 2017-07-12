@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import RegistrationForm from './components/RegistrationForm';
 import LogInform from './components/logIn/LogInForm';
 import Header from './components/Header';
 import MainNav from './components/MainNav';
@@ -40,6 +39,16 @@ class App extends Component {
     authAPI.signIn({email, password, OTP})
     .then(json => {
       this.setState({ token: json.token })
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
+  }
+
+  handleUpdateSettings = ({ bitfinexFloat, btceFloat, bitstampFloat }) => {
+    settingsAPI.updateSettings({ bitfinexFloat, btceFloat, bitstampFloat })
+    .then(json => {
+      this.setState({ setings: json })
     })
     .catch(error => {
       this.setState({ error })
@@ -144,7 +153,6 @@ class App extends Component {
         setTimeout(this.fetchBitstampBitcoinPrice, 10000)
       })
   }
-
   // get settings state to update exchange cash balances
   fetchSettings = () => {
     // Fetching from axios folder, fetchSettings()
@@ -179,12 +187,14 @@ class App extends Component {
         <main>
         <Route exact path='/login' render={() => (
           <div>
+          { !!error && <p>{ error.message }</p> }
+       
           <LogInform onSignIn={ this.handleSignIn } />
           </div>
         )
         }/>
         <Route path='/home' render={() => (
-          
+
           <div>
             <div>
             {
@@ -210,7 +220,10 @@ class App extends Component {
             }  
             </div>
             <div>
-              <MainNav />
+              <MainNav
+                settings={ settings }
+                onUpdate={ this.handleUpdateSettings }
+              />
             </div>
           </div>
         )

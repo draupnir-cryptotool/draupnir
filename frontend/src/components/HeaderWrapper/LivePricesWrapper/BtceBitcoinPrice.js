@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function BtceBitcoinUsd({
+export default function BtceBitcoinPrice({
   btceBtcValue
 }) {
   return (

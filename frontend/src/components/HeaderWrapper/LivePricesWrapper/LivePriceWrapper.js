@@ -1,11 +1,11 @@
 import React from 'react'
 // import BitfinexWrapper from './BitfinexWrapper'
 import { Table } from 'react-bootstrap'
-import BitfinexBitUsd from './BitfinexBitcoinUsd'
-import BitfinexEthUsd from './BitfinexEthUsd'
-import BtceBitUsd from './BtceBitcoinUsd'
-import BitstampBitUsd from './BitstampBitcoinPrice'
-import BtceEthUsd from './BtceEthUsd'
+import BitfinexBitPrice from './BitfinexBitcoinPrice'
+import BitfinexEthPrice from './BitfinexEthPrice'
+import BtceBitcoinPrice from './BtceBitcoinPrice'
+import BitstampBitcoinPrice from './BitstampBitcoinPrice'
+import BtceEthPrice from './BtceEthPrice'
 import { Button } from 'react-bootstrap'
 import './livePrice.css'
 
@@ -27,14 +27,14 @@ export default function LivePriceWrapper({
         <tbody>
           <tr>
             <td><h4>BTC-E:</h4></td>
-            <td><BitfinexBitUsd bitfinexBtcValue={ parseFloat(bitfinexBtcValue).toFixed(2) }/> </td>
-            <td> <BtceBitUsd btceBtcValue={ parseFloat(btceBtcValue).toFixed(2) }/> </td>
-            <td> <BitstampBitUsd bitstampBtcValue={ parseFloat(bitstampBtcValue).toFixed(2) } /> </td>
+            <td><BitfinexBitPrice bitfinexBtcValue={ parseFloat(bitfinexBtcValue).toFixed(2) }/> </td>
+            <td> <BtceBitcoinPrice btceBtcValue={ parseFloat(btceBtcValue).toFixed(2) }/> </td>
+            <td> <BitstampBitcoinPrice bitstampBtcValue={ parseFloat(bitstampBtcValue).toFixed(2) } /> </td>
           </tr>
           <tr>
             <td><h4>ETH:</h4></td>
-            <td> <BitfinexEthUsd bitfinexEthValue={ parseFloat(bitfinexEthValue).toFixed(2) }/> </td>
-            <td> <BtceEthUsd btceEthValue={ parseFloat(btceEthValue).toFixed(2) }/> </td>
+            <td> <BitfinexEthPrice bitfinexEthValue={ parseFloat(bitfinexEthValue).toFixed(2) }/> </td>
+            <td> <BtceEthPrice btceEthValue={ parseFloat(btceEthValue).toFixed(2) }/> </td>
             <td></td>
           </tr>
         </tbody>

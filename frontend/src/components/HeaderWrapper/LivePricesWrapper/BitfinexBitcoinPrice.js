@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function BitfinexBitcoinUsd({
+export default function BitfinexBitcoinPrice({
   bitfinexBtcValue
 }) {
   return (
