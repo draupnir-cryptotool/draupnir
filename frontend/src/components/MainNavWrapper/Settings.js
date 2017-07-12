@@ -12,15 +12,27 @@ function submitUpdateRequest(event, onUpdate) {
 
 
 export default function Settings({
-  onUpdate
+  onUpdate, settings
 }) {
   return (
     <div>
       <h1>Settings page</h1>
-      <form onUpdate={ (event) => submitUpdateRequest(event, onUpdate) }>
-        <Field label="Bitfinex Balance" name="bitfinexFloat" />
-        <Field label="Btc-E Balance" name="btceFloat" />
-        <Field label="Bitstamp Balance" name="bitstampFloat" />
+      <form onSubmit={ (event) => submitUpdateRequest(event, onUpdate) }>
+        <Field
+          label="Bitfinex Balance"
+          name="bitfinexFloat"
+          defaultValue={ settings.bitfinexFloat }
+        />
+        <Field
+          label="Btc-E Balance"
+          name="btceFloat"
+          defaultValue={ settings.btceFloat }
+        />
+        <Field
+          label="Bitstamp Balance"
+          name="bitstampFloat"
+          defaultValue={ settings.bitstampFloat }
+        />
         <button>Update</button>
       </form>
     </div>
