@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import Staging from '../components/MainNavWrapper/Staging'
+import Staging from '../components/MainNavWrapper/staging/Staging'
 import Messages from '../components/MainNavWrapper/Messages'
 import Logs from '../components/MainNavWrapper/Logs'
 import Graphs from '../components/MainNavWrapper/Graphs'
@@ -18,7 +18,7 @@ export default function MainNav({
   return (
     <Router>
       <div>
-        <div style={{ marginTop: '6%'}}>
+        <div style={{ marginTop: '6%', border: 'solid 1px'}}>
           <Link style={style} to={'/home/staging'}> Staging </Link>
           <Link style={style} to={'/home/messages'}> Messages </Link>
           <Link style={style} to={'/home/logs'}> Logs </Link>
