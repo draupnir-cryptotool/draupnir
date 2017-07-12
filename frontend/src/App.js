@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import * as walletApi from './api/wallet'
 import * as livePriceApi from './api/livePrice'
 import * as settingsAPI from './api/settings'
+import * as clientAPI from './api/client'
 import ClientModal from './components/Modal/ClientModal'
 
 class App extends Component {
@@ -57,6 +58,17 @@ class App extends Component {
           masterSettings: json
         }
       })
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
+  }
+
+  // create a new client
+  handleCreateClient = ({ firstname, lastname, email, phonenumber }) => {
+    clientAPI.createClient({firstname, lastname, email, phonenumber})
+    .then(json => {
+      console.log(json)
     })
     .catch(error => {
       this.setState({ error })
@@ -249,7 +261,7 @@ class App extends Component {
 
             }
             </div>
-            <ClientModal showModal={showModal} closeModal={ this.handleCloseModal }/>
+            <ClientModal showModal={showModal} closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
           </div>
         )
         } />
