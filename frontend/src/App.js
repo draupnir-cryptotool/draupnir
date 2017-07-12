@@ -196,10 +196,7 @@ class App extends Component {
         <Route exact path='/login' render={() => (
           <div>
           { !!error && <p>{ error.message }</p> }
-<<<<<<< HEAD
-=======
       
->>>>>>> master
           <LogInform onSignIn={ this.handleSignIn } />
           </div>
         )
