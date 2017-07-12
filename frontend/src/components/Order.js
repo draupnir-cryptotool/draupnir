@@ -27,10 +27,11 @@ class Order extends React.Component {
     })
 
     // http://localhost:8000/api/order?buying=btc&tally=usd&amount=20000&btceLimit=5000&bitstampLimit=5000&bitfinexLimit=5000
-    let qs = "http://localhost:8000/api/order?buying=btc&tally=usd&amount=" + this.state.amount
+    let qs = "http://localhost:8000/api/order?buying=btc&tally=usd&amount="
+              + this.state.amount
               + "&bitfinexLimit=" + this.state.bitfinexLimit
               + "&bitstampLimit=" + this.state.bitstampLimit
-              + "&btceLimit=" + this.state.btceLimit
+              + "&btceLimit=" + this.state.btceLimit;
     fetch(qs)
       .then((res) => res.json())
       .then((json) => {
