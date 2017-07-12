@@ -22,7 +22,9 @@ class App extends Component {
     btceBitcoinPrice: null,
     btceEthPrice: null,
     bitstampBitcoinPrice: null,
-    settings: null
+    masterSettings: {
+      settings: 0
+    },  
   }
 
   handleRegistration = ({email, firstname, lastname, password}) => {
@@ -48,7 +50,12 @@ class App extends Component {
   handleUpdateSettings = ({ bitfinexFloat, btceFloat, bitstampFloat }) => {
     settingsAPI.updateSettings({ bitfinexFloat, btceFloat, bitstampFloat })
     .then(json => {
-      this.setState({ setings: json })
+      this.setState((prevState) => {
+        console.log(json)
+        return {
+          masterSettings: json
+        }
+      })
     })
     .catch(error => {
       this.setState({ error })
@@ -153,12 +160,13 @@ class App extends Component {
         setTimeout(this.fetchBitstampBitcoinPrice, 10000)
       })
   }
+
   // get settings state to update exchange cash balances
   fetchSettings = () => {
     // Fetching from axios folder, fetchSettings()
     settingsAPI.fetchSettings()
-      .then(settings => {
-        this.setState({ settings })
+      .then(masterSettings => {
+        this.setState({ masterSettings })
       })
       .catch(error => {
         this.setState({ error })
@@ -181,14 +189,14 @@ class App extends Component {
 
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
-            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, settings } = this.state
+            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings } = this.state
     return (
       <Router>
         <main>
         <Route exact path='/login' render={() => (
           <div>
           { !!error && <p>{ error.message }</p> }
-       
+      
           <LogInform onSignIn={ this.handleSignIn } />
           </div>
         )
@@ -199,9 +207,9 @@ class App extends Component {
             <div>
             {
             !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
-            !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!settings ? (
+            !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings ? (
               <Header 
-                settings={ settings }
+                settings={ masterSettings }
                 bitBalance={ bitcoinBalance }
                 onBtcUpdate={ this.fetchBitcoinPrice }
                 etherBalance={ ethereumBalance }
@@ -220,10 +228,16 @@ class App extends Component {
             }  
             </div>
             <div>
+            {
+              !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
               <MainNav
-                settings={ settings }
+                settings={ masterSettings }
                 onUpdate={ this.handleUpdateSettings }
-              />
+              /> ) : (
+                <p>loading..</p>
+              )
+
+            }
             </div>
           </div>
         )
