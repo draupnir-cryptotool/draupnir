@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import * as walletApi from './api/wallet'
 import * as livePriceApi from './api/livePrice'
 import * as settingsAPI from './api/settings'
+import ClientModal from './components/Modal/ClientModal'
 
 class App extends Component {
   state = {
@@ -22,9 +23,10 @@ class App extends Component {
     btceBitcoinPrice: null,
     btceEthPrice: null,
     bitstampBitcoinPrice: null,
+    showModal: false,
     masterSettings: {
       settings: 0
-    },  
+    },
   }
 
   handleRegistration = ({email, firstname, lastname, password}) => {
@@ -186,10 +188,18 @@ class App extends Component {
       currentCurrency: 'aud'
     })
   }
+// controls modal
+  handleOpenClientModal = () => {
+    this.setState({ showModal: true })
+  }
+
+  handleCloseModal = () => {
+    this.setState({ showModal: false })
+  }
 
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
-            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings } = this.state
+            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, showModal } = this.state
     return (
       <Router>
         <main>
@@ -233,12 +243,14 @@ class App extends Component {
               <MainNav
                 settings={ masterSettings }
                 onUpdate={ this.handleUpdateSettings }
+                clientModal={ this.handleOpenClientModal }
               /> ) : (
                 <p>loading..</p>
               )
 
             }
             </div>
+            <ClientModal showModal={showModal}/>
           </div>
         )
         } />

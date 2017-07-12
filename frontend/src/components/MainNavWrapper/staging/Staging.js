@@ -1,11 +1,13 @@
 import React from 'react'
 import './staging.css'
 
-export default function Staging(){
+export default function Staging({
+  clientModal
+}){
   return (
     <div>
       <div className="addBtn">
-        <button>Add</button>
+        <button onClick={() => (clientModal())}>Add</button>
       </div>
       <div style={{display: 'flex', justifyContent: 'center', margin: '6rem 0'}}>
         <li className="stagingTitle">CLIENT No.</li>
