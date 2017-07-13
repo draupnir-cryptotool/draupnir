@@ -21,11 +21,8 @@
     "passport-local-mongoose": "^4.0.0",
     "path": "^0.12.7",
     "qrcode": "^0.8.2",
-<<<<<<< HEAD
     "react-dropzone": "^3.13.3",
-=======
     "shortid": "^2.2.8",
->>>>>>> master
     "speakeasy": "^2.0.0"
   },
   "name": "Draupnir",
