@@ -20,7 +20,7 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 17. lodash(react)
 18. babel-plugin-lodash(react)
 19. babel-preset-env(react)
-20. unidid(react)
+20. uniqid
 
 ## Order API Breakdown
 ### URL
