@@ -6,6 +6,6 @@ settingsSchema = mongoose.Schema({
   bitstampFloat: { type: Number, default: 0 }
 });
 
-Settings = mongoose.model('Settings', settingsSchema);
+const Settings = mongoose.model('Settings', settingsSchema);
 
 module.exports = Settings;

@@ -12,15 +12,18 @@ const liveCoinPricesRouter = require('./routes/liveCoinPricesRouter');
 const order = require('./routes/order.js');
 const authMiddlware = require('./middleware/auth');
 const authRouter = require('./routes/auth');
-const setingsRouter = require('./routes/settingsRouter')
+const settingsRouter = require('./routes/settingsRouter')
 const cors = require('cors');
+const imageRouter = require('./routes/imageRouter')
 
 
 const server = express();
 
 // middleware
 server.use(bodyParser.json())
-server.use(bodyParser.urlencoded({ extended: true })) 
+server.use(bodyParser.urlencoded({ extended: true }))
+// to view our image, use the express inbuilt static upload
+server.use('/api/uploads', express.static('uploads'))
 
 // CORS
 server.use(cors({
@@ -41,7 +44,8 @@ server.use('/api', [
   walletBalanceRouter,
   liveCoinPricesRouter,
   order,
-  setingsRouter
+  settingsRouter,
+  imageRouter
 ])
 
 // Handle errors by returning JSON
