@@ -1,0 +1,11 @@
+.stagingTitle{
+  margin: 0 4em;
+  list-style-type: none;
+  font-size: 1.5em;
+}
+
+.addBtn {
+  position: relative;
+  left: 90%;
+  top: 3rem;
+}

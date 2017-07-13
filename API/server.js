@@ -13,15 +13,18 @@ const order = require('./routes/order');
 const forexRates = require('./routes/forexRates');
 const authMiddlware = require('./middleware/auth');
 const authRouter = require('./routes/auth');
-const setingsRouter = require('./routes/settingsRouter');
+const settingsRouter = require('./routes/settingsRouter')
 const cors = require('cors');
+const imageRouter = require('./routes/imageRouter')
 
 
 const server = express();
 
 // middleware
 server.use(bodyParser.json())
-server.use(bodyParser.urlencoded({ extended: true })) 
+server.use(bodyParser.urlencoded({ extended: true }))
+// to view our image, use the express inbuilt static upload
+server.use('/api/uploads', express.static('uploads'))
 
 // CORS
 server.use(cors({
@@ -43,7 +46,8 @@ server.use('/api', [
   liveCoinPricesRouter,
   order,
   forexRates,
-  setingsRouter
+  settingsRouter,
+  imageRouter
 ])
 
 // Handle errors by returning JSON
@@ -51,10 +55,10 @@ server.use((error, req, res, next) => {
   const status = error.status || 500
   res.status(status).json({
     error: { message: error.message }
-  })
-})
+  });
+});
 
 
 server.listen(8000, () => {
-  console.log('Server listening on port 8000')
-})
+  console.log('Server listening on port 8000');
+});
