@@ -1,4 +1,5 @@
 require('dotenv').config();
+const ausPrices = require('./routes/ausPrices');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -13,29 +14,29 @@ const order = require('./routes/order');
 const forexRates = require('./routes/forexRates');
 const authMiddlware = require('./middleware/auth');
 const authRouter = require('./routes/auth');
-const settingsRouter = require('./routes/settingsRouter')
+const settingsRouter = require('./routes/settingsRouter');
 const cors = require('cors');
-const imageRouter = require('./routes/imageRouter')
+const imageRouter = require('./routes/imageRouter');
 
 
 const server = express();
 
 // middleware
-server.use(bodyParser.json())
-server.use(bodyParser.urlencoded({ extended: true }))
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({extended: true}));
 // to view our image, use the express inbuilt static upload
-server.use('/api/uploads', express.static('uploads'))
+server.use('/api/uploads', express.static('uploads'));
 
 // CORS
 server.use(cors({
-  origin: process.env.CORS_ORIGINS
-}))
+  origin: process.env.CORS_ORIGINS,
+}));
 
 // Connect passport to express
-server.use(authMiddlware.initialize)
+server.use(authMiddlware.initialize);
 
 // routes
-server.use(authRouter)
+server.use(authRouter);
 server.use('/api', [
   usersRouter,
   clientRouter,
@@ -47,14 +48,15 @@ server.use('/api', [
   order,
   forexRates,
   settingsRouter,
-  imageRouter
-])
+  imageRouter,
+  ausPrices,
+]);
 
 // Handle errors by returning JSON
 server.use((error, req, res, next) => {
-  const status = error.status || 500
+  const status = error.status || 500;
   res.status(status).json({
-    error: { message: error.message }
+    error: {message: error.message},
   });
 });
 

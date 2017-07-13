@@ -26,6 +26,7 @@ class App extends Component {
     btceEthPrice: null,
     bitstampBitcoinPrice: null,
     showModal: false,
+    clients: null,
     masterSettings: {
       settings: 0
     },
@@ -68,11 +69,23 @@ class App extends Component {
   // create a new client
   handleCreateClient = ({ firstname, lastname, email, phonenumber }) => {
     clientAPI.createClient({firstname, lastname, email, phonenumber})
-    .then(json => {
-      console.log(json)
+    .then(newClient => {
+      this.setState((prevState) => {
+        return {
+          clients: prevState.clients.concat(newClient)
+        }
+      })
     })
     .catch(error => {
       this.setState({ error })
+    })
+  }
+
+  // get all clients
+  fetchAllClients = () => {
+    clientAPI.allClients()
+    .then(clients => {
+      this.setState({ clients })
     })
   }
 
@@ -211,7 +224,7 @@ class App extends Component {
 
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
-            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, showModal } = this.state
+            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, showModal, clients } = this.state
     return (
       <Router>
         <main>
@@ -256,6 +269,7 @@ class App extends Component {
                 settings={ masterSettings }
                 onUpdate={ this.handleUpdateSettings }
                 clientModal={ this.handleOpenClientModal }
+                clients={ clients }
               /> ) : (
                 <p>loading..</p>
               )
@@ -294,6 +308,7 @@ class App extends Component {
     this.fetchBtceEthPrice()
     this.fetchBitstampBitcoinPrice()
     this.fetchSettings()
+    this.fetchAllClients()
   }
 }
 

@@ -1,20 +1,22 @@
 import React from 'react'
 import './staging.css'
+import ClientBar from './ClientBar'
 
 export default function Staging({
-  clientModal
+  clientModal, clients
 }){
   return (
-    <div>
+    <div style={{ boxSizing: 'border-box', padding: "3em" }}>
       <div className="addBtn">
         <button onClick={() => (clientModal())}>Add</button>
       </div>
-      <div style={{display: 'flex', justifyContent: 'center', margin: '6rem 0'}}>
-        <li className="stagingTitle">CLIENT No.</li>
-        <li className="stagingTitle">NAME</li>
-        <li className="stagingTitle">DEPOSIT</li>
-        <li className="stagingTitle">CURRENCY</li>
+      <div id="clientBarTitle" style={{display: 'flex', justifyContent: 'center'}}>
+        <div><p>CLIENT No.</p></div>
+        <div><p>NAME</p></div>
+        <div><p>DEPOSIT</p></div>
+        <div><p>CURRENCY</p></div>
       </div>
+      <ClientBar clients={ clients }/>
     </div>
   )
 }
