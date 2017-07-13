@@ -9,7 +9,8 @@ const messageRouter = require('./routes/messageRouter');
 const GraphRouter = require('./routes/graphRouter');
 const walletBalanceRouter = require('./routes/walletBalanceRouter');
 const liveCoinPricesRouter = require('./routes/liveCoinPricesRouter');
-const order = require('./routes/order.js');
+const order = require('./routes/order');
+const forexRates = require('./routes/forexRates');
 const authMiddlware = require('./middleware/auth');
 const authRouter = require('./routes/auth');
 const settingsRouter = require('./routes/settingsRouter')
@@ -44,6 +45,7 @@ server.use('/api', [
   walletBalanceRouter,
   liveCoinPricesRouter,
   order,
+  forexRates,
   settingsRouter,
   imageRouter
 ])
@@ -53,10 +55,10 @@ server.use((error, req, res, next) => {
   const status = error.status || 500
   res.status(status).json({
     error: { message: error.message }
-  })
-})
+  });
+});
 
 
 server.listen(8000, () => {
-  console.log('Server listening on port 8000')
-})
+  console.log('Server listening on port 8000');
+});
