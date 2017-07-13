@@ -13,3 +13,4 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 10. lodash(react)
 11. babel-plugin-lodash(react)
 12. babel-preset-env(react)
+13. uniqid(react)
