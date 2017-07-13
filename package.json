@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "eslint-plugin-react": "^7.1.0",
     "speakeasy": "^2.0.0"
   }
 }
