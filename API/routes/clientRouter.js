@@ -4,7 +4,7 @@ const authMiddleWare = require('../middleware/auth')
 const router = express.Router()
 
 
-router.get('/clients', authMiddleWare.authenticateJWT, (req,res) => {
+router.get('/clients', (req,res) => {
   Client.find()
   .then((clients) => {
       res.json(clients)
@@ -15,7 +15,7 @@ router.get('/clients', authMiddleWare.authenticateJWT, (req,res) => {
 })
 
 // Get a particular client
-router.get('/client/:id', authMiddleWare.authenticateJWT,  (req, res) => {
+router.get('/client/:id',  (req, res) => {
   client = Client.findById(req.params.id)
   .then((clientFound) => {
     res.json(clientFound)
@@ -27,7 +27,9 @@ router.get('/client/:id', authMiddleWare.authenticateJWT,  (req, res) => {
 
 // Create new client
 router.post('/client/new', (req, res) => {
-  const newclient = req.body
+  const newclient = req.body // Copy properties from request body object
+  // Generate and set clientID
+
   Client.create(newclient)
   .then((client) => {
     res.json(client)
