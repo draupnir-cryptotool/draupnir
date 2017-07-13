@@ -12,7 +12,7 @@ const _ = require('lodash');
 router.get('/order', function(req, res, next) {
   // Grab everything in the query string
   qs = req.query;
-  // Create a fetch promise for each API call. These will all be called by a 
+  // Create a fetch promise for each API call. These will all be called by a
   // Promise.all later
   const fetchBitfinex = fetch(`https://api.bitfinex.com/v1/book/${qs.buying}usd/?limit_bids=0`)
     // The APIs return JSON, so we parse it into a JavaScript object
@@ -80,24 +80,12 @@ router.get('/order', function(req, res, next) {
   // Wait for all the API calls to return before we play with the data
   Promise.all([fetchBTCe, fetchBitfinex, fetchBitstamp])
     .then((orderBooks) => {
-      // Promise.all gives us an array of the returned values, so we flatten 
+      // Promise.all gives us an array of the returned values, so we flatten
       // them into a single array
       fullOrderBook = _.flattenDeep(orderBooks);
-      // We now have a single array of objects, so we sort them by their price 
+      // We now have a single array of objects, so we sort them by their price
       // property
       fullOrderBook = _.sortBy(fullOrderBook, ['price']);
-      // This is where will will put all the orders we want to buy, up to the
-      // amount requested
-      fulfilledOrderBook = [];
-
-      // This object is where we will keep a tally of all the money spent over
-      // each exchange, so we can check limits.
-      let tally = {
-        total: 0,
-        btce: 0,
-        bitstamp: 0,
-        bitfinex: 0,
-      };
 
       // Pull the individual exchange limits out of the query string so that its
       // easier to check them below.
@@ -107,98 +95,150 @@ router.get('/order', function(req, res, next) {
         bitfinex: qs.bitfinexLimit,
       };
 
+      // This is where will will put all the orders we want to buy, up to the
+      // amount requested
+      let orderData = {
+        totalUsdSpent: 0,
+        totalAudSpent: 0,
+        totalCoinBought: 0,
+        exchanges: {
+          bitfinex: {
+            usdSpent: 0,
+            audSpent: 0,
+            coinBought: 0,
+          },
+          bitstamp: {
+            usdSpent: 0,
+            audSpent: 0,
+            coinBought: 0,
+          },
+          btce: {
+            usdSpent: 0,
+            audSpent: 0,
+            coinBought: 0,
+          },
+        },
+        orders: [],
+      };
+
+      // This is where we will keep a tally of all the money spent over
+      // each exchange, so we can check limits.
+      let tally = 0;
+
       // Iterate through the complete order book. 'for...of' lets us 'break' out
       // of the loop, 'forEach' wouldn't
       for (let order of fullOrderBook) {
-        // Work out how much is left to order in total and also from this
-        // particular exchange
-        let totalRemaining = qs.amount - tally.total;
-        let exchangeRemaining = limits[order.exchange] - tally[order.exchange];
-
         // If we have hit our requested order amount, or gone over slightly, we
         // can stop looking at orders
-        if (tally.total >= qs.amount) {
+        if (tally >= qs.amount) {
           break;
         }
 
-        // Check if the exchange this order is from is over its limit and jump 
+        // Work out how much is left to order in total and also from this
+        // particular exchange
+        let totalRemaining = qs.amount - tally;
+        let exchangeRemaining = limits[order.exchange] - orderData.exchanges[order.exchange].usdSpent;
+
+        // Check if the exchange this order is from is over its limit and jump
         // to the next order if it is.
         if (exchangeRemaining <= 0) {
           continue;
         }
 
-        // Check if the limit remaining on the exchange is equal or larger than
-        // the total order amount remaining. Otherwise, the maximum we can take
-        // from this order will be the exchange limit amount remaining.
-        // BUG: If this order is being counted in coins, not fiat,
-        // totalRemaining will likely be a very low number, so this statement
-        // will never be true. We need to keep a separate tally of totalUSD and
-        // totalCoin or something.
-        if (exchangeRemaining < totalRemaining) {
-          totalRemaining = exchangeRemaining;
-        }
-
-        // Order is more than what we need to fulfil requested amount, we only
-        // need part of it
-        if (order.orderTotal > totalRemaining) {
-          let partialOrder = order;
-          // We are tallying the order in fiat
-          if (qs.tally === 'usd') {
+        // Tallying by USD, not coins
+        if (qs.tally == 'usd') {
+          // Check if the limit remaining on the exchange is equal or larger than
+          // the total order amount remaining. Otherwise, the maximum we can take
+          // from this order will be the exchange limit amount remaining.
+          if (exchangeRemaining < totalRemaining) {
+            totalRemaining = exchangeRemaining;
+          }
+          // Order is more than what we need to fulfil requested amount, we only
+          // need part of it
+          if (order.orderTotal > totalRemaining) {
+            let partialOrder = order;
             partialOrder.amount = totalRemaining / partialOrder.price;
             // Set the total price of the order based on adjusted amount
             partialOrder.orderTotal = partialOrder.price * partialOrder.amount;
-            tally.total += order.orderTotal;
-          // We are tallying the order in crypto
-          } else if (qs.tally === 'btc' || qs.tally === 'eth') {
-            partialOrder.amount = qs.amount - tally.total;
-            partialOrder.orderTotal = partialOrder.price * partialOrder.amount;
-            tally.total += partialOrder.amount;
+            tally += partialOrder.orderTotal;
+
+            // Update exchange limit remaining. This is always tallied in usd.
+            orderData.exchanges[order.exchange].usdSpent += partialOrder.orderTotal;
+            orderData.exchanges[order.exchange].coinBought += partialOrder.amount;
+            orderData.totalUsdSpent += partialOrder.orderTotal;
+            orderData.totalCoinBought += partialOrder.amount;
+
+            orderData.orders.push(partialOrder);
+
+          // If the order in the book is less than the requested amount, grab
+          // the whole order and move onto the next one
           } else {
-              // THROW ERROR
+            // Check if the order amount is measured in fiat or crypto and tally
+            // accordingly
+            tally += order.orderTotal;
+
+            // Update exchange limit remaining. This is always tallied in usd.
+            orderData.exchanges[order.exchange].usdSpent += order.orderTotal;
+            orderData.exchanges[order.exchange].coinBought += order.amount;
+            orderData.totalUsdSpent += order.orderTotal;
+            orderData.totalCoinBought += order.amount;
+
+            orderData.orders.push(order);
           }
 
-          // Update exchange limit remaining. This is always tallied in usd.
-          tally[order.exchange] += partialOrder.orderTotal;
-
-          fulfilledOrderBook.push(partialOrder);
-
-        // If the order in the book is less than the requested amount, grab
-        // the whole order and move onto the next one
+        // Not tallying by USD, so must be tallying by coins
         } else {
-          // Check if the order amount is measured in fiat or crypto and tally
-          // accordingly
-          if (qs.tally === 'usd') {
-            tally.total += order.orderTotal;
-          } else if (qs.tally === 'btc' || qs.tally === 'eth') {
-              tally.total += order.amount;
-          } else {
-              ''; // THROW ERROR
+          // The amount we can buy from this order is potentially limited by the
+          // float remaining on the exchange. Using Math.min() we can find the
+          // smallest number out of this order's total value and the exchange's
+          // remaining float
+          let maxAvailiable = Math.min(exchangeRemaining, order.orderTotal);
+
+          // We have a certain amount of coins we are looking for. We need to
+          // know how much that would cost if we bought them all from this
+          // order. This will let us work out if we can afford to buy them from
+          // this order on this exchange.
+          let remainingValue = totalRemaining * order.price;
+
+          if (remainingValue > maxAvailiable) {
+            // Take partial amount
+            let partialOrder = order;
+            partialOrder.amount = remainingValue / partialOrder.price;
+            partialOrder.orderTotal = partialOrder.price * partialOrder.amount;
+            tally += partialOrder.amount;
+
+            orderData.exchanges[order.exchange].usdSpent += partialOrder.orderTotal;
+            orderData.exchanges[order.exchange].coinBought += partialOrder.amount;
+            orderData.totalUsdSpent += partialOrder.orderTotal;
+            orderData.totalCoinBought += partialOrder.amount;
+
+            orderData.orders.push(partialOrder);
+          } else if (remainingValue <= maxAvailiable) {
+            // take whole maxAvailiable from this oder
+            tally += order.amount;
+
+            orderData.exchanges[order.exchange].usdSpent += order.orderTotal;
+            orderData.exchanges[order.exchange].coinBought += order.amount;
+            orderData.totalUsdSpent += order.orderTotal;
+            orderData.totalCoinBought += order.amount;
+
+            orderData.orders.push(order);
           }
-
-          // Update exchange limit remaining. This is always tallied in usd.
-          tally[order.exchange] += order.orderTotal;
-
-          fulfilledOrderBook.push(order);
+          console.log(tally);
         }
-      };
-
-      // Tally the total order amount for each exchange
-      reducedOrders = fulfilledOrderBook.reduce((exchangeTotal, order) => {
-        exchangeTotal[order.exchange] = exchangeTotal[order.exchange] ?
-          exchangeTotal[order.exchange] + order.orderTotal :
-          order.orderTotal;
-        return exchangeTotal;
-      }, {});
-
-      // Tally the total amount of crypto that will be purchased
-      reducedOrders.currencyTotal = fulfilledOrderBook.reduce(
-        (currencyTotal, order) => {
-          return currencyTotal + order.amount;
-        }, 0);
-
-      // res.send(fulfilledOrderBook);
-      res.send(reducedOrders);
-  });
+      }
+      fetch('http://localhost:8000/api/forexrates')
+        .then((res) => res.json())
+        .then((rates) => {
+          orderData.totalAudSpent = orderData.totalUsdSpent * rates.usdToAud;
+          Object.keys(orderData.exchanges).forEach((exchange) => {
+            orderData.exchanges[exchange].audSpent = orderData.exchanges[exchange].usdSpent * rates.usdToAud;
+          });
+          res.send(orderData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
 });
-
 module.exports = router;

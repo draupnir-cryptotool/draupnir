@@ -21,6 +21,7 @@
     "passport-local-mongoose": "^4.0.0",
     "path": "^0.12.7",
     "qrcode": "^0.8.2",
+    "shortid": "^2.2.8",
     "speakeasy": "^2.0.0"
   },
   "name": "Draupnir",
@@ -31,8 +32,13 @@
   "author": "Chris, Vigi, Jaime",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^4.1.1",
-    "eslint-config-google": "^0.8.0",
+    "eslint": "^4.2.0",
+    "eslint-config-google": "^0.9.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "nodemon": "^1.11.0"
   },
   "scripts": {
