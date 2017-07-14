@@ -10,8 +10,8 @@ var upload = multer({
   storage: imager({
     dirname: 'uploads',
     bucket: 'draupnir-cfa2',
-    accessKeyId: 'AKIAJPUBPVUWBRO2SZIQ',
-    secretAccessKey: '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',
+    accessKeyId: process.env.S3_KEY,
+    secretAccessKey: process.env.S3_SECRET,
     region: 'ap-southeast-2',
     gm: {                                 // [Optional]: define graphicsmagick options
       width: 200,                         // doc: http://aheckmann.github.io/gm/docs.html#resize

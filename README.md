@@ -21,6 +21,8 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 18. babel-plugin-lodash(react)
 19. babel-preset-env(react)
 20. shortid
+21. react-motion
+22. react-collapse
 
 ## Order API Breakdown
 ### URL
