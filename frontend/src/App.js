@@ -29,6 +29,7 @@ class App extends Component {
     masterSettings: {
       settings: 0
     },
+    expandedClientID: null
   }
 
   handleRegistration = ({email, firstname, lastname, password}) => {
@@ -221,9 +222,17 @@ class App extends Component {
     this.setState({ showModal: false })
   }
 
+  onSwitchClientBar = (clientID) => {
+    this.setState((prevState) => ({
+      expandedClientID:
+        (prevState.expandedClientID === clientID) ? null : clientID
+    }))
+  }
+
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
-            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, showModal, clients } = this.state
+            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
+            showModal, clients, expandedClientID } = this.state
     return (
       <Router>
         <main>
@@ -269,6 +278,8 @@ class App extends Component {
                 onUpdate={ this.handleUpdateSettings }
                 clientModal={ this.handleOpenClientModal }
                 clients={ clients }
+                expandedClientID={ expandedClientID }
+                onClientBarExpand={ this.onSwitchClientBar}
               /> ) : (
                 <p>loading..</p>
               )
@@ -280,7 +291,7 @@ class App extends Component {
         )
         } />
         <Route path='/order' render={() => (
-          
+
           <div>
             <Order />
           </div>
