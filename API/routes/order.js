@@ -12,9 +12,20 @@ const _ = require('lodash');
 router.get('/order', function(req, res, next) {
   // Grab everything in the query string
   qs = req.query;
+
+  // Set the coin rounding precision. 8 for BTC, 18 for ETH.
+  const PRECIS = qs.buying === 'btc' ? 8 : 18;
+
+  // Set the window we want to land in around the asked amount. O.1% for BTC,
+  // 1% for ETH
+  const WINDOW = qs.tally === 'usd' ? 0.01 : 0.001;
+
   // Create a fetch promise for each API call. These will all be called by a
   // Promise.all later
   const fetchBitfinex = fetch(`https://api.bitfinex.com/v1/book/${qs.buying}usd/?limit_bids=0`)
+    .catch((err) => {
+      console.log('Fetching from Bitfinex failed with: ' + err);
+    })
     // The APIs return JSON, so we parse it into a JavaScript object
     .then((res) => res.json())
     // When the parsed JSON is ready we can muck around with it
@@ -39,6 +50,9 @@ router.get('/order', function(req, res, next) {
     });
 
   const fetchBitstamp = fetch('https://www.bitstamp.net/api/order_book/')
+    .catch((err) => {
+      console.log('Fetching from Bitstamp failed with: ' + err);
+    })
     .then((res) => res.json())
     .then((json) => {
       orderBook = json.asks;
@@ -65,6 +79,9 @@ router.get('/order', function(req, res, next) {
 
   const fetchBTCe = fetch(`https://btc-e.com/api/3/depth/${qs.buying}_usd/\
                            ?limit=5000`)
+    .catch((err) => {
+      console.log('Fetching from BTC-e failed with: ' + err);
+    })
     .then((res) => res.json())
     .then((json) => {
       orderBook = json[`${qs.buying}_usd`].asks;
@@ -86,6 +103,9 @@ router.get('/order', function(req, res, next) {
 
   // Wait for all the API calls to return before we play with the data
   Promise.all([fetchBTCe, fetchBitfinex, fetchBitstamp])
+    .catch((err) => {
+      console.log('Promise.all failed with: ' + err);
+    })
     .then((orderBooks) => {
       // Promise.all gives us an array of the returned values, so we flatten
       // them into a single array
@@ -137,11 +157,11 @@ router.get('/order', function(req, res, next) {
       for (let order of fullOrderBook) {
         // Check if we are with 0.1% of the asked amount. If we are, we can stop
         // looking
-        if (tally >= qs.amount - qs.amount * 0.1 && tally <= qs.amount + qs.amount * 0.1) {
+        if (tally >= qs.amount - qs.amount * WINDOW && tally <= qs.amount + qs.amount * WINDOW) {
           break;
         }
 
-        thisExchange = orderData.exchanges[order.exchange];
+        let thisExchange = orderData.exchanges[order.exchange];
 
         // Work out how much is left to order in total and also from this
         // particular exchange
@@ -168,7 +188,7 @@ router.get('/order', function(req, res, next) {
           if (order.orderTotal > totalRemaining) {
             let partialOrder = order;
             partialOrder.amount = totalRemaining / partialOrder.price;
-            partialOrder.amount = parseFloat(partialOrder.amount.toFixed(8));
+            partialOrder.amount = parseFloat(partialOrder.amount.toFixed(PRECIS));
             // Set the total price of the order based on adjusted amount
             partialOrder.orderTotal = partialOrder.price * partialOrder.amount;
             partialOrder.orderTotal = parseFloat(partialOrder.orderTotal.toFixed(2));
@@ -178,7 +198,8 @@ router.get('/order', function(req, res, next) {
             thisExchange.usdSpent += partialOrder.orderTotal;
             thisExchange.coinBought += partialOrder.amount;
             orderData.totalUsdSpent += partialOrder.orderTotal;
-            orderData.totalCoinBought += partialOrder.amount;
+            let roundedAmount = parseFloat(partialOrder.amount.toFixed(PRECIS));
+            orderData.totalCoinBought += roundedAmount;
 
             orderData.orders.push(partialOrder);
 
@@ -216,7 +237,7 @@ router.get('/order', function(req, res, next) {
             // Take partial amount
             let partialOrder = order;
             partialOrder.amount = remainingValue / partialOrder.price;
-            partialOrder.amount = parseFloat(partialOrder.amount.toFixed(18));
+            partialOrder.amount = parseFloat(partialOrder.amount.toFixed(PRECIS));
             partialOrder.orderTotal = partialOrder.price * partialOrder.amount;
             partialOrder.orderTotal = parseFloat(partialOrder.orderTotal.toFixed(2));
             tally += partialOrder.amount;
@@ -241,19 +262,20 @@ router.get('/order', function(req, res, next) {
         }
       }
       fetch('http://localhost:8000/api/forexrates')
+        .catch((err) => {
+          console.log('Fetching the forex rates failed with: ' + err);
+        })
         .then((res) => res.json())
         .then((rates) => {
           let totalConversion = orderData.totalUsdSpent * rates.usdToAud;
           orderData.totalAudSpent = parseFloat(totalConversion.toFixed(2));
+          orderData.totalCoinBought = parseFloat(orderData.totalCoinBought.toFixed(PRECIS));
           Object.keys(orderData.exchanges).forEach((exchange) => {
             thisExchange = orderData.exchanges[exchange];
             let conversion = thisExchange.usdSpent * rates.usdToAud;
             thisExchange.audSpent = parseFloat(conversion.toFixed(2));
           });
           res.send(orderData);
-        })
-        .catch((err) => {
-          console.log(err);
         });
     });
 });
