@@ -29,7 +29,9 @@ router.get('/order', function(req, res, next) {
         massagedOrder.exchange = 'bitfinex';
         massagedOrder.price = parseFloat(order.price);
         massagedOrder.amount = parseFloat(order.amount);
-        massagedOrder.orderTotal = massagedOrder.price * massagedOrder.amount;
+        rawTotal = massagedOrder.price * massagedOrder.amount;
+        // Round fiat to two decimals
+        massagedOrder.orderTotal = parseFloat(rawTotal.toFixed(2));
 
         massagedOrderBook.push(massagedOrder);
       });
@@ -47,7 +49,9 @@ router.get('/order', function(req, res, next) {
         massagedOrder.exchange = 'bitstamp';
         massagedOrder.price = parseFloat(order[0]);
         massagedOrder.amount = parseFloat(order[1]);
-        massagedOrder.orderTotal = massagedOrder.price * massagedOrder.amount;
+        rawTotal = massagedOrder.price * massagedOrder.amount;
+        // Round fiat to two decimals
+        massagedOrder.orderTotal = parseFloat(rawTotal.toFixed(2));
 
         massagedOrderBook.push(massagedOrder);
       });
@@ -59,7 +63,8 @@ router.get('/order', function(req, res, next) {
       return massagedOrderBook;
     });
 
-  const fetchBTCe = fetch(`https://btc-e.com/api/3/depth/${qs.buying}_usd/?limit=5000`)
+  const fetchBTCe = fetch(`https://btc-e.com/api/3/depth/${qs.buying}_usd/\
+                           ?limit=5000`)
     .then((res) => res.json())
     .then((json) => {
       orderBook = json[`${qs.buying}_usd`].asks;
@@ -70,7 +75,9 @@ router.get('/order', function(req, res, next) {
         massagedOrder.exchange = 'btce';
         massagedOrder.price = order[0];
         massagedOrder.amount = order[1];
-        massagedOrder.orderTotal = massagedOrder.price * massagedOrder.amount;
+        rawTotal = massagedOrder.price * massagedOrder.amount;
+        // Round fiat to two decimals
+        massagedOrder.orderTotal = parseFloat(rawTotal.toFixed(2));
 
         massagedOrderBook.push(massagedOrder);
       });
@@ -128,16 +135,18 @@ router.get('/order', function(req, res, next) {
       // Iterate through the complete order book. 'for...of' lets us 'break' out
       // of the loop, 'forEach' wouldn't
       for (let order of fullOrderBook) {
-        // If we have hit our requested order amount, or gone over slightly, we
-        // can stop looking at orders
-        if (tally >= qs.amount) {
+        // Check if we are with 0.1% of the asked amount. If we are, we can stop
+        // looking
+        if (tally >= qs.amount - qs.amount * 0.1 && tally <= qs.amount + qs.amount * 0.1) {
           break;
         }
+
+        thisExchange = orderData.exchanges[order.exchange];
 
         // Work out how much is left to order in total and also from this
         // particular exchange
         let totalRemaining = qs.amount - tally;
-        let exchangeRemaining = limits[order.exchange] - orderData.exchanges[order.exchange].usdSpent;
+        let exchangeRemaining = limits[order.exchange] - thisExchange.usdSpent;
 
         // Check if the exchange this order is from is over its limit and jump
         // to the next order if it is.
@@ -147,9 +156,10 @@ router.get('/order', function(req, res, next) {
 
         // Tallying by USD, not coins
         if (qs.tally == 'usd') {
-          // Check if the limit remaining on the exchange is equal or larger than
-          // the total order amount remaining. Otherwise, the maximum we can take
-          // from this order will be the exchange limit amount remaining.
+          // Check if the limit remaining on the exchange is equal or larger 
+          // than the total order amount remaining. Otherwise, the maximum we 
+          // can take from this order will be the exchange limit amount 
+          // remaining.
           if (exchangeRemaining < totalRemaining) {
             totalRemaining = exchangeRemaining;
           }
@@ -158,13 +168,15 @@ router.get('/order', function(req, res, next) {
           if (order.orderTotal > totalRemaining) {
             let partialOrder = order;
             partialOrder.amount = totalRemaining / partialOrder.price;
+            partialOrder.amount = parseFloat(partialOrder.amount.toFixed(8));
             // Set the total price of the order based on adjusted amount
             partialOrder.orderTotal = partialOrder.price * partialOrder.amount;
+            partialOrder.orderTotal = parseFloat(partialOrder.orderTotal.toFixed(2));
             tally += partialOrder.orderTotal;
 
             // Update exchange limit remaining. This is always tallied in usd.
-            orderData.exchanges[order.exchange].usdSpent += partialOrder.orderTotal;
-            orderData.exchanges[order.exchange].coinBought += partialOrder.amount;
+            thisExchange.usdSpent += partialOrder.orderTotal;
+            thisExchange.coinBought += partialOrder.amount;
             orderData.totalUsdSpent += partialOrder.orderTotal;
             orderData.totalCoinBought += partialOrder.amount;
 
@@ -178,8 +190,8 @@ router.get('/order', function(req, res, next) {
             tally += order.orderTotal;
 
             // Update exchange limit remaining. This is always tallied in usd.
-            orderData.exchanges[order.exchange].usdSpent += order.orderTotal;
-            orderData.exchanges[order.exchange].coinBought += order.amount;
+            thisExchange.usdSpent += order.orderTotal;
+            thisExchange.coinBought += order.amount;
             orderData.totalUsdSpent += order.orderTotal;
             orderData.totalCoinBought += order.amount;
 
@@ -204,11 +216,13 @@ router.get('/order', function(req, res, next) {
             // Take partial amount
             let partialOrder = order;
             partialOrder.amount = remainingValue / partialOrder.price;
+            partialOrder.amount = parseFloat(partialOrder.amount.toFixed(18));
             partialOrder.orderTotal = partialOrder.price * partialOrder.amount;
+            partialOrder.orderTotal = parseFloat(partialOrder.orderTotal.toFixed(2));
             tally += partialOrder.amount;
 
-            orderData.exchanges[order.exchange].usdSpent += partialOrder.orderTotal;
-            orderData.exchanges[order.exchange].coinBought += partialOrder.amount;
+            thisExchange.usdSpent += partialOrder.orderTotal;
+            thisExchange.coinBought += partialOrder.amount;
             orderData.totalUsdSpent += partialOrder.orderTotal;
             orderData.totalCoinBought += partialOrder.amount;
 
@@ -217,22 +231,24 @@ router.get('/order', function(req, res, next) {
             // take whole maxAvailiable from this oder
             tally += order.amount;
 
-            orderData.exchanges[order.exchange].usdSpent += order.orderTotal;
-            orderData.exchanges[order.exchange].coinBought += order.amount;
+            thisExchange.usdSpent += order.orderTotal;
+            thisExchange.coinBought += order.amount;
             orderData.totalUsdSpent += order.orderTotal;
             orderData.totalCoinBought += order.amount;
 
             orderData.orders.push(order);
           }
-          console.log(tally);
         }
       }
       fetch('http://localhost:8000/api/forexrates')
         .then((res) => res.json())
         .then((rates) => {
-          orderData.totalAudSpent = orderData.totalUsdSpent * rates.usdToAud;
+          let totalConversion = orderData.totalUsdSpent * rates.usdToAud;
+          orderData.totalAudSpent = parseFloat(totalConversion.toFixed(2));
           Object.keys(orderData.exchanges).forEach((exchange) => {
-            orderData.exchanges[exchange].audSpent = orderData.exchanges[exchange].usdSpent * rates.usdToAud;
+            thisExchange = orderData.exchanges[exchange];
+            let conversion = thisExchange.usdSpent * rates.usdToAud;
+            thisExchange.audSpent = parseFloat(conversion.toFixed(2));
           });
           res.send(orderData);
         })
