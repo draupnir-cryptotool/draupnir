@@ -27,6 +27,7 @@ class App extends Component {
     bitstampBitcoinPrice: null,
     showModal: false,
     clients: null,
+    clientPage: null,
     masterSettings: {
       settings: 0
     },
@@ -223,6 +224,7 @@ class App extends Component {
     this.setState({ showModal: false })
   }
 
+  // Expands client bar
   onSwitchClientBar = (clientID) => {
     this.setState((prevState) => ({
       expandedClientID:
@@ -230,10 +232,14 @@ class App extends Component {
     }))
   }
 
+  onClientPageRoute = (route) => {
+    this.setState({ clientPage: route })
+  }
+
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
-            showModal, clients, expandedClientID } = this.state
+            showModal, clients, expandedClientID, clientPage } = this.state
     return (
       <Router>
         <main>
@@ -281,6 +287,8 @@ class App extends Component {
                 clients={ clients }
                 expandedClientID={ expandedClientID }
                 onClientBarExpand={ this.onSwitchClientBar}
+                clientPage={ clientPage }
+                changeRoute={ this.onClientPageRoute }
               /> ) : (
                 <p>loading..</p>
               )
