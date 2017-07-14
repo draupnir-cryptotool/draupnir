@@ -3,7 +3,7 @@ import './staging.css'
 import ClientBar from './ClientBar'
 
 export default function Staging({
-  clientModal, clients
+  clientModal, clients, expandedClientID, onClientBarExpand
 }){
   return (
     <div style={{ boxSizing: 'border-box', padding: "3em" }}>
@@ -16,7 +16,21 @@ export default function Staging({
         <div><p>DEPOSIT</p></div>
         <div><p>CURRENCY</p></div>
       </div>
-      <ClientBar clients={ clients }/>
+      {
+        !!clients ? clients.map((client) => (
+          <ClientBar 
+            key={ client._id } 
+            id={ client._id } 
+            uniqId={ client.uniqId } 
+            firstname={ client.firstname } 
+            lastname={ client.lastname }
+            expanded={ expandedClientID === client._id }
+            onExpand={ () => onClientBarExpand(client._id) }
+          />
+        ))
+        :
+        ""
+      }
     </div>
   )
 }
