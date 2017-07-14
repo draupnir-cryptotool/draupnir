@@ -13,7 +13,7 @@ const style = {
   }
 
 export default function MainNav({
-  settings, onUpdate, clientModal, clients
+  settings, onUpdate, clientModal, clients, expandedClientID, onClientBarExpand
 }) {
   return (
     <Router>
@@ -26,7 +26,12 @@ export default function MainNav({
           <Link style={style} to={'/home/settings'}> Settings </Link>
         </div>
         <Route path='/home/staging' render={ () => (
-          <Staging clientModal={ clientModal } clients={ clients } />
+          <Staging 
+            clientModal={ clientModal } 
+            clients={ clients }
+            expandedClientID={ expandedClientID }
+            onClientBarExpand={ onClientBarExpand } 
+            />
         )
         } />
         <Route path='/home/messages' render={() => (

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('./init')
 
 orderSchema = mongoose.Schema({
   amount: String,
