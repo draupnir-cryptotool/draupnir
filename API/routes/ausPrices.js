@@ -51,7 +51,6 @@ router.get('/ausPrices', function(req, res, next) {
       .then((res) => res.json())
       .then((json) => {
         ausPrices.ETH.irBestETH = json.CurrentLowestOfferPrice;
-        console.log(ausPrices);
         return;
       }))
     .catch((err) => console.log(err));
