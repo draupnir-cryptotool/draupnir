@@ -6,7 +6,7 @@ import ClientExpand from './clientExpand'
 
 export default function ClientBar({
   client, uniqId, firstname, lastname,
-  expanded = false, onExpand
+  expanded = false, onExpand, clientPage, changeRoute
 }) {
   return(
     <div>
@@ -19,7 +19,11 @@ export default function ClientBar({
               <div><p>BTC-E</p></div>
             </div>
           </div>
-          <ClientExpand expanded={ expanded }/>
+          <ClientExpand 
+            expanded={ expanded } 
+            clientPage={ clientPage }
+            changeRoute={ changeRoute}
+          />
         </div>
     </div>
   )

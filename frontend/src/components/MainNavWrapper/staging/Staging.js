@@ -3,7 +3,7 @@ import './staging.css'
 import ClientBar from './ClientBar'
 
 export default function Staging({
-  clientModal, clients, expandedClientID, onClientBarExpand
+  clientModal, clients, expandedClientID, onClientBarExpand, clientPage, changeRoute
 }){
   return (
     <div style={{ boxSizing: 'border-box', padding: "3em" }}>
@@ -26,6 +26,8 @@ export default function Staging({
             lastname={ client.lastname }
             expanded={ expandedClientID === client._id }
             onExpand={ () => onClientBarExpand(client._id) }
+            clientPage={ clientPage }
+            changeRoute={ changeRoute }
           />
         ))
         :
