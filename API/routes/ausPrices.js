@@ -31,7 +31,7 @@ router.get('/ausPrices', function(req, res, next) {
   const irFetch = fetch('https://api.independentreserve.com/Public/GetMarketSummary?primaryCurrencyCode=xbt&secondaryCurrencyCode=aud')
     .then((res) => res.json())
     .then((json) => {
-      ausPrices.irBestSell = json.CurrentLowestOfferPrice;
+      // ausPrices.irBestSell = json.CurrentLowestOfferPrice;
       return;
     })
     .catch((err) => console.log(err));
@@ -44,10 +44,20 @@ router.get('/ausPrices', function(req, res, next) {
 
   Promise.all(exchangeAPIs)
     .then((values) => {
-      average = Object.values(ausPrices).reduce((total, current) => {
+      priceSum = Object.values(ausPrices).reduce((total, current) => {
         return total + current;
       });
-      ausPrices.average = (average / 3).toFixed(2);
+      // This will show us how many exchanges return a non-zero price. This
+      // lets us disable exchanges that we don't want to include in the average
+      // calculation by simply commenting out their code that writes their value
+      // to the ausPrices object.
+      let priceValues = Object.values(ausPrices);
+      let nonZeroExchanges = priceValues.reduce((nonZeroCount, price) => {
+        price > 0 ? nonZeroCount += 1 : 0;
+        return nonZeroCount;
+      }, 0);
+
+      ausPrices.average = (priceSum / nonZeroExchanges).toFixed(2);
       res.send(ausPrices);
     })
     .catch((err) => console.log(err.message));
