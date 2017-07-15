@@ -11,6 +11,7 @@ import * as walletApi from './api/wallet'
 import * as livePriceApi from './api/livePrice'
 import * as settingsAPI from './api/settings'
 import * as clientAPI from './api/client'
+import * as orderAPI from './api/order'
 import ClientModal from './components/Modal/ClientModal'
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
     showModal: false,
     clients: null,
     clientPage: null,
+    orders: null,
     masterSettings: {
       settings: 0
     },
@@ -88,6 +90,14 @@ class App extends Component {
     clientAPI.allClients()
     .then(clients => {
       this.setState({ clients })
+    })
+  }
+
+  // get all orders
+  fetchAllOrders = () => {
+    orderAPI.allOrders()
+    .then(orders => {
+      this.setState({ orders })
     })
   }
 
@@ -239,7 +249,7 @@ class App extends Component {
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
-            showModal, clients, expandedClientID, clientPage } = this.state
+            showModal, clients, expandedClientID, clientPage, orders } = this.state
     return (
       <Router>
         <main>
@@ -289,6 +299,7 @@ class App extends Component {
                 onClientBarExpand={ this.onSwitchClientBar}
                 clientPage={ clientPage }
                 changeRoute={ this.onClientPageRoute }
+                orders={ orders }
               /> ) : (
                 <p>loading..</p>
               )
@@ -328,6 +339,7 @@ class App extends Component {
     this.fetchBitstampBitcoinPrice()
     this.fetchSettings()
     this.fetchAllClients()
+    this.fetchAllOrders()
   }
 }
 

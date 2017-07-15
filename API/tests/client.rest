@@ -1,5 +1,5 @@
 
-GET http://localhost:8000/api/client/596060fc9797ed2d0c4a0071
+GET http://localhost:8000/api/client/59698017712d55056b3d5910
 
 ###
 
@@ -7,15 +7,10 @@ POST http://localhost:8000/api/client/new
 content-type: application/json
 
 {
-    "firstname": "Jaime",
-    "lastname": "Terreu",
+    "firstname": "Adrian",
+    "lastname": "Hobbs",
     "phonenumber": "0416034878",
-    "email": "jaime@something.com",
-    "status": {
-      "phonecall": false,
-      "email": false,
-      "depositCleared": false
-    }
+    "email": "jaime@something.com"
 }
 
 ###
@@ -37,7 +32,7 @@ content-type: application/json
 
 ###
 
-DELETE http://localhost:3000/client/595cfa6cef8d4c07e900a483
+DELETE http://localhost:8000/api/client/59698017712d55056b3d5910
 
 ###
 

@@ -1,17 +1,13 @@
-GET http://localhost:8000/orders 
+GET http://localhost:8000/api/orders 
 
 ###
-POST http://localhost:8000/order/new
+POST http://localhost:8000/api/order/new
 content-type: application/json
 
 {
     "amount": "20000",
-    "clientId": "595c9074c72526142f3e46e5",
-    "currency": "0416034878",
-    "processed": {
-      "successful": false,
-      "adminId": "595c7a1baa92d60d88650773"
-    }
+    "clientId": "59698017712d55056b3d5910",
+    "currency": "BTC-E"
 }
 
 ###
