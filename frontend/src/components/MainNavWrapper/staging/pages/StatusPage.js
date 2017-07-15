@@ -17,13 +17,13 @@ export default function StatusPage({
         status.quoteAccepted ?
         <h3>Quote Accepted: <span>YES</span> </h3>
         :
-        <h3>Quote Accepted <span>NO</span></h3>
+        <h3>Quote Accepted: <span>NO</span></h3>
       }
       {
         status.idVerified ?
-        <h3>Id Verified <span>YES</span></h3>
+        <h3>Id Verified: <span>YES</span></h3>
         :
-        <h3>Id Verified <span>NO</span></h3>
+        <h3>Id Verified: <span>NO</span></h3>
       }
       {
         status.depositCleared ?
