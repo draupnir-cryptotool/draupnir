@@ -4,7 +4,7 @@ import Staging from '../components/MainNavWrapper/staging/Staging'
 import Messages from '../components/MainNavWrapper/Messages'
 import Logs from '../components/MainNavWrapper/Logs'
 import Graphs from '../components/MainNavWrapper/Graphs'
-import Settings from '../components/MainNavWrapper/Settings'
+import Settings from '../components/MainNavWrapper/settings/Settings'
 import './component.css'
 
 const style = {
