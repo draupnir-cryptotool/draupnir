@@ -20,9 +20,22 @@
     phone: number,
     email: string,
     status: {
-      phonecall: Boolean,
-      email: Boolean,
-      depositCleared: Boolean
+      quoteSent: {
+        type: Boolean,
+        default: false
+        },
+       quoteAccepted: {
+        type: Boolean,
+        default: false
+       },
+       depositCleared: {
+        type: Boolean,
+        default: false
+       },
+       idVerified: {
+        type: Boolean,
+        default: false
+       }
     }
 }
 ```
