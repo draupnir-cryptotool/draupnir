@@ -1,8 +1,14 @@
 import React from 'react'
 import { Collapse } from 'react-collapse'
+import StatusPage from './pages/StatusPage'
+import InfoPage from './pages/InfoPage'
+import LogsPage from './pages/LogsPage'
+import NotesPage from './pages/NotesPage'
+import OrderPage from './pages/OrderPage'
+import QuotePage from './pages/OrderPage'
 
 export default function ClientExpand({
-  expanded, clientPage, changeRoute
+  expanded, clientPage, changeRoute, orders, clientId, status
 }) {
   return (
       <div>
@@ -18,7 +24,7 @@ export default function ClientExpand({
           </nav>
           {
             clientPage === 'status' ?
-            <h1>status</h1>
+            <StatusPage status={ status }/>
             :
             clientPage === 'info' ?
             <h1>info</h1>
