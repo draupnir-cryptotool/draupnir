@@ -26,6 +26,7 @@ export default function ClientBar({
             uniqId={ uniqId }
             clientId={ id }
             status={ status }
+            client={ client }
           />
         </div>
     </div>

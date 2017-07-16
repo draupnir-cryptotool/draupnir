@@ -34,6 +34,7 @@ export default function Staging({
             clientPage={ clientPage }
             changeRoute={ changeRoute }
             orders={ orders }
+            client={ client }
           />
         ))
         :
