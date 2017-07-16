@@ -225,7 +225,7 @@ class App extends Component {
       currentCurrency: 'aud'
     })
   }
-// controls modal
+// controls new client modal
   handleOpenClientModal = () => {
     this.setState({ showModal: true })
   }
