@@ -15,8 +15,8 @@ class ClientModal extends React.Component {
   const firstname = ReactDOM.findDOMNode(this.refs.firstname).value
   const lastname = ReactDOM.findDOMNode(this.refs.lastname).value
   const email = ReactDOM.findDOMNode(this.refs.email).value
-  const phonenumber = ReactDOM.findDOMNode(this.refs.phonenumber).value
-  createClient({ firstname, lastname, email, phonenumber })
+  const phone = ReactDOM.findDOMNode(this.refs.phone).value
+  createClient({ firstname, lastname, email, phone })
 }
   render() {
   return (
@@ -65,7 +65,7 @@ class ClientModal extends React.Component {
           Phone
         </Col>
         <Col sm={10}>
-          <FormControl type="number" placeholder="phonenumber" ref="phonenumber"/>
+          <FormControl type="text" placeholder="phonenumber" ref="phone"/>
         </Col>
       </FormGroup>
       

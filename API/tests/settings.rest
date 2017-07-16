@@ -16,5 +16,15 @@ content-type: application/json
 {
     "bitfinexFloat": "20000",
     "btceFloat": "25000",
-    "bitstampFloat": "22000"
+    "bitstampFloat": "22000",
+    "ethWalletAddress": "0x7e14C106cc04e19734F882793b82c751C21f4495",
+    "btceWalletAddress": "12boeZKpPs6zcAN9w1bzgyRfa7iQ5Uw471"
 }
+
+###
+
+GET http://localhost:8000/api/ethereumBalance
+
+###
+
+GET http://localhost:8000/api/bitcoinBalance

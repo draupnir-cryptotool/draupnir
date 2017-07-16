@@ -85,8 +85,8 @@ class App extends Component {
   }
 
   // create a new client
-  handleCreateClient = ({ firstname, lastname, email, phonenumber }) => {
-    clientAPI.createClient({firstname, lastname, email, phonenumber})
+  handleCreateClient = ({ firstname, lastname, email, phone }) => {
+    clientAPI.createClient({firstname, lastname, email, phone})
     .then(newClient => {
       this.setState((prevState) => {
         return {

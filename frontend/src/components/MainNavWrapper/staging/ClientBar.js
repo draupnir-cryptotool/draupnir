@@ -29,6 +29,7 @@ export default function ClientBar({
             settings={ settings }
             onRequest={ onRequest }
             tempOrder={ tempOrder }
+            client={ client }
           />
         </div>
     </div>

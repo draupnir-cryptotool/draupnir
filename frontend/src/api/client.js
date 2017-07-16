@@ -7,12 +7,12 @@ export function allClients() {
 }
 
 // new client
-export function createClient({ firstname, lastname, email, phonenumber }) {
+export function createClient({ firstname, lastname, email, phone }) {
   return axios.post('/api/client/new', {
     firstname,
     lastname,
     email,
-    phonenumber
+    phone
   })
   .then(res => res.data)
 }
