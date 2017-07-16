@@ -5,7 +5,7 @@ import InfoPage from './pages/InfoPage'
 import LogsPage from './pages/LogsPage'
 import NotesPage from './pages/NotesPage'
 import OrderPage from './pages/OrderPage'
-import QuotePage from './pages/OrderPage'
+import QuotePage from './pages/QuotePage'
 
 export default function ClientExpand({
   expanded, clientPage, changeRoute, orders, clientId, status
