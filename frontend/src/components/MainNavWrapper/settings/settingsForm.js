@@ -15,7 +15,6 @@ class SettingsForm extends React.Component {
   onUpdate({ bitfinexFloat, btceFloat, bitstampFloat, ethWalletAddress, btceWalletAddress })
 }
 
-
   render() {
     const dollarSymbolStyle = {
     position: 'relative',
