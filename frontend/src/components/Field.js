@@ -4,12 +4,13 @@ export default function Field({
   label,
   name,
   type,
-  defaultValue
+  defaultValue,
+  placeholder
 }) {
   return(
     <label>
       { label + ' ' }
-      <input type={ type } name={ name } defaultValue={ defaultValue }/>
+      <input type={ type } name={ name } defaultValue={ defaultValue } placeholder={ placeholder } />
     </label>
   )
 }
