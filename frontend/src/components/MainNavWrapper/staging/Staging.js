@@ -38,6 +38,10 @@ export default function Staging({
             onRequest={ onRequest }
             tempOrder={ tempOrder }
             client={ client }
+            settings={ settings }
+            onRequest={ onRequest }
+            tempOrder={ tempOrder }
+            client={ client }
           />
         ))
         :
