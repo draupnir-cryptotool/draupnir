@@ -16,7 +16,7 @@ const style = {
 export default function MainNav({
   settings, onUpdate, clientModal, clients, 
   expandedClientID, onClientBarExpand, clientPage, 
-  changeRoute, orders
+  changeRoute, orders, onRequest, tempOrder
 }) {
   return (
     <Router>
@@ -37,7 +37,11 @@ export default function MainNav({
             clientPage={ clientPage }
             changeRoute={ changeRoute }
             orders={ orders }
-            />
+            onUpdate={ onUpdate }
+            settings={ settings }
+            onRequest={ onRequest }
+            tempOrder={ tempOrder }
+          />
         )
         } />
         <Route path='/home/messages' render={() => (
