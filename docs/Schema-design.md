@@ -94,3 +94,18 @@
   btceWalletAddress: String
 }
 ```
+### Image
+```
+{
+  s3URL: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  originalname: {
+    type: String,
+    required: true
+  },
+  clientId: String,
+  idType: String
+}
