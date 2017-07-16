@@ -5,7 +5,6 @@ import Dropzone from 'react-dropzone'
 
 function submitImage(image, onDisplay) {
     let file = image[0]
-    console.log(file);
     onDisplay({ file })
   }
 

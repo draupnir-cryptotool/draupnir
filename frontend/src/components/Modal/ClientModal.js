@@ -23,7 +23,7 @@ class ClientModal extends React.Component {
   <div>
     <ReactModal
       isOpen={this.props.showModal}
-      contentLabel="Minimal Modal Example"
+      contentLabel="Minimal Modal Example" 
       style={{overlay: {
         width: '50%',
         height: '45%',

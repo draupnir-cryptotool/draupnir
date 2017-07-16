@@ -22,8 +22,8 @@ class SettingsForm extends React.Component {
     }
   return (
     <div>
-      <div style={{display: 'flex', justifyContent: 'space-around'}}>
-        <div>
+      <div style={{display: 'flex'}}>
+        <div style={{ marginRight: '3em' }}>
           <h1 style={{ marginLeft: '6%' }}>Floats</h1>
           <Form horizontal>
             <FormGroup controlId="formHorizontalName">
@@ -76,8 +76,9 @@ class SettingsForm extends React.Component {
       </div>
       <Button 
         className={ "updateBtn" } 
+        bsSize="large"
         bsStyle="primary" type="submit" 
-        onClick={(event) => this.submitUpdateRequest(event, this.props.onUpdate)}>Update</Button>
+        onClick={(event) => this.submitUpdateRequest(event, this.props.onUpdate)}>Update Settings</Button>
     </div>
   )
   }
