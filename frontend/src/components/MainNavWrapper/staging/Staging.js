@@ -34,13 +34,14 @@ export default function Staging({
             clientPage={ clientPage }
             changeRoute={ changeRoute }
             orders={ orders }
-<<<<<<< orders
             settings={ settings }
             onRequest={ onRequest }
             tempOrder={ tempOrder }
-=======
             client={ client }
->>>>>>> master
+            settings={ settings }
+            onRequest={ onRequest }
+            tempOrder={ tempOrder }
+            client={ client }
           />
         ))
         :
