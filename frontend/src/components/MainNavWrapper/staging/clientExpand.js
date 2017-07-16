@@ -8,7 +8,7 @@ import OrderPage from './pages/OrderPage'
 import QuotePage from './pages/QuotePage'
 
 export default function ClientExpand({
-  expanded, clientPage, changeRoute, orders, clientId, status
+  expanded, clientPage, changeRoute, orders, clientId, status, onUpdate, settings
 }) {
   return (
       <div>
@@ -36,7 +36,10 @@ export default function ClientExpand({
             <h1>logs</h1>
             :
             clientPage === 'order' ?
-            <h1>order</h1>
+            <OrderPage
+              settings={ settings }
+              onUpdate={ onUpdate }
+            />
             :
             clientPage === 'quotes' ?
             <h1>quotes</h1>

@@ -36,7 +36,9 @@ export default function MainNav({
             onClientBarExpand={ onClientBarExpand } 
             clientPage={ clientPage }
             changeRoute={ changeRoute }
-            orders={ orders }
+            orders={ orders }on
+            onUpdate={ onUpdate }
+            settings={ settings }
             />
         )
         } />
