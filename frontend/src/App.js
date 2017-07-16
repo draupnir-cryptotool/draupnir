@@ -34,7 +34,20 @@ class App extends Component {
       settings: 0
     },
     expandedClientID: null
+
   }
+
+  // Fetching best order rates from exchanges
+  handleQueryOrder =({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) => {
+    orderAPI.queryOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
+    .then(json => {
+      this.setState({ orders: json })
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
+  }
+
 
   handleRegistration = ({email, firstname, lastname, password}) => {
     authAPI.register({email, firstname, lastname, password})
@@ -93,13 +106,13 @@ class App extends Component {
     })
   }
 
-  // get all orders
-  fetchAllOrders = () => {
-    orderAPI.allOrders()
-    .then(orders => {
-      this.setState({ orders })
-    })
-  }
+  // // get all orders
+  // fetchAllOrders = () => {
+  //   orderAPI.allOrders()
+  //   .then(orders => {
+  //     this.setState({ orders })
+  //   })
+  // }
 
   // Get Bitcoin balance from wallet api
   fetchBitcoinPrice = () => {
@@ -292,6 +305,7 @@ class App extends Component {
               !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
               <MainNav
                 settings={ masterSettings }
+                onRequest={ this.handleQueryOrder }
                 onUpdate={ this.handleUpdateSettings }
                 clientModal={ this.handleOpenClientModal }
                 clients={ clients }
@@ -339,7 +353,7 @@ class App extends Component {
     this.fetchBitstampBitcoinPrice()
     this.fetchSettings()
     this.fetchAllClients()
-    this.fetchAllOrders()
+    // this.fetchAllOrders()
   }
 }
 

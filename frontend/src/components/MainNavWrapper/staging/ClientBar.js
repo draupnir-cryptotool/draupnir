@@ -5,7 +5,7 @@ import ClientExpand from './clientExpand'
 export default function ClientBar({
   client, uniqId, firstname, lastname,
   expanded = false, onExpand, clientPage, changeRoute,
-  orders, id, status, onUpdate, settings
+  orders, id, status, settings, onRequest
 }) {
   return(
     <div>
@@ -26,8 +26,8 @@ export default function ClientBar({
             uniqId={ uniqId }
             clientId={ id }
             status={ status }
-            onUpdate={ onUpdate }
             settings={ settings }
+            onRequest={ onRequest }
           />
         </div>
     </div>
