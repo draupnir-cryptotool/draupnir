@@ -3,14 +3,12 @@ const fetch = require('node-fetch')
 const Settings = require('../models/Settings')
 const router = express.Router()
 
-// make bitcoin wallet address private
+// Wallet address coming from DB
 const bitcoin = process.env.BITCOIN_ADDRESS
-
 function extractBitcoinData(json) {
   const balance = json[bitcoin].final_balance
   return { final_balance: balance }
 }
-
 router.get('/bitcoinBalance', (req, res) => {
   Settings.findById({_id: "59642ab99039a21b6839c24e" })
   .then((settings) => {
@@ -28,7 +26,7 @@ router.get('/bitcoinBalance', (req, res) => {
     })
 })
 
-// make ether wallet address private
+// wallet address coming from DB
 router.get('/ethereumBalance', (req, res) => {
   Settings.findById({_id: "59642ab99039a21b6839c24e"})
   .then((settings) => { 
