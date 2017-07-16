@@ -8,6 +8,7 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 5. node-fetch
 6. eslint
 7. lodash
+<<<<<<< HEAD
 8. cors
 9. dotenv
 10. jsonwebtoken
