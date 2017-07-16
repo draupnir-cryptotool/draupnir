@@ -8,7 +8,8 @@ import OrderPage from './pages/OrderPage'
 import QuotePage from './pages/QuotePage'
 
 export default function ClientExpand({
-  expanded, clientPage, changeRoute, orders, clientId, status, settings, onRequest
+  expanded, clientPage, changeRoute, orders, clientId, status, settings, onRequest,
+  tempOrder
 }) {
   return (
       <div>
@@ -40,6 +41,7 @@ export default function ClientExpand({
               settings={ settings }
               onRequest={ onRequest }
               orders={ orders }
+              tempOrder={ tempOrder }
             />
             :
             clientPage === 'quotes' ?

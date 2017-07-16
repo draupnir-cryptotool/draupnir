@@ -33,7 +33,8 @@ class App extends Component {
     masterSettings: {
       settings: 0
     },
-    expandedClientID: null
+    expandedClientID: null,
+    tempOrder: null
 
   }
 
@@ -41,7 +42,7 @@ class App extends Component {
   handleQueryOrder =({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) => {
     orderAPI.queryOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
     .then(json => {
-      this.setState({ orders: json })
+      this.setState({ tempOrder: json })
     })
     .catch(error => {
       this.setState({ error })
@@ -106,13 +107,13 @@ class App extends Component {
     })
   }
 
-  // // get all orders
-  // fetchAllOrders = () => {
-  //   orderAPI.allOrders()
-  //   .then(orders => {
-  //     this.setState({ orders })
-  //   })
-  // }
+  // get all orders
+  fetchAllOrders = () => {
+    orderAPI.allOrders()
+    .then(orders => {
+      this.setState({ orders })
+    })
+  }
 
   // Get Bitcoin balance from wallet api
   fetchBitcoinPrice = () => {
@@ -262,7 +263,7 @@ class App extends Component {
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
-            showModal, clients, expandedClientID, clientPage, orders } = this.state
+            showModal, clients, expandedClientID, clientPage, orders, tempOrder } = this.state
     return (
       <Router>
         <main>
@@ -314,6 +315,7 @@ class App extends Component {
                 clientPage={ clientPage }
                 changeRoute={ this.onClientPageRoute }
                 orders={ orders }
+                tempOrder= { tempOrder}
               /> ) : (
                 <p>loading..</p>
               )
@@ -353,7 +355,7 @@ class App extends Component {
     this.fetchBitstampBitcoinPrice()
     this.fetchSettings()
     this.fetchAllClients()
-    // this.fetchAllOrders()
+    this.fetchAllOrders()
   }
 }
 

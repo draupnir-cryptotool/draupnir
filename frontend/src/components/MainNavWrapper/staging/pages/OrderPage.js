@@ -12,22 +12,10 @@ function submitOrder(event, onRequest) {
   const btceLimit = form.elements['btceFloat'].value
   const bitstampLimit = form.elements['bitstampFloat'].value
   onRequest({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
-  {console.log(buying)}
-    {console.log('---------')}
-    {console.log(tally)}
-    {console.log('---------')}
-    {console.log(amount)}
-    {console.log('---------')}
-    {console.log(bitfinexLimit)}
-    {console.log('---------')}
-    {console.log(btceLimit)}
-    {console.log('---------')}
-    {console.log(bitstampLimit)}
-    {console.log('---------')}
 }
 
 export default function OrderPage({ 
-  settings, orders, onRequest
+  settings, orders, onRequest, tempOrder
 }) {
   return (
     <div>
@@ -73,43 +61,43 @@ export default function OrderPage({
         <h3>Best Order</h3>
 
         {
-        !_.isEmpty(orders) ? ( 
+        !_.isEmpty(tempOrder) ? ( 
         <ul>
           <li>
             <p>Bitfinex: $
-              {orders.exchanges.bitfinex.usdSpent}
+              {tempOrder.exchanges.bitfinex.usdSpent}
       
               {'  '}
               coins: 
-              {orders.exchanges.bitfinex.coinBought}
+              {tempOrder.exchanges.bitfinex.coinBought}
 
             </p>
           </li>
           <li>
             <p>Bitstamp: $
-              {orders.exchanges.bitstamp.usdSpent}
+              {tempOrder.exchanges.bitstamp.usdSpent}
 
               {'  '}
               coins: 
-              {orders.exchanges.bitstamp.coinBought}
+              {tempOrder.exchanges.bitstamp.coinBought}
             </p>
           </li>
           <li>
             <p>BTC-e: $ 
-              {orders.exchanges.btce.usdSpent}
+              {tempOrder.exchanges.btce.usdSpent}
 
               {'  '}
               coins: 
-              {orders.exchanges.btce.coinBought}
+              {tempOrder.exchanges.btce.coinBought}
             </p>
           </li>
           <li>
             <p>Total Gained:&nbsp;   
-              { orders.totalUsdSpent }
+              { tempOrder.totalUsdSpent }
 
               {'  '}
               coins: 
-              { orders.totalCoinBought }
+              { tempOrder.totalCoinBought }
             </p>
           </li>
         </ul>
