@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from 'react-bootstrap'
 
 export default function InfoPage({
-  client
+  client, showModal, closeModal
 }){
   return (
     <div style={{ display: 'flex' }}>
@@ -14,7 +14,7 @@ export default function InfoPage({
       </div>
       <div>
         <h1>ID</h1>
-        <Button bsStyle={'primary'}>Add</Button>
+        <Button type="submit" bsStyle={'primary'} onClick={ () => showModal() }>Add</Button>
       </div>
     </div>
   )

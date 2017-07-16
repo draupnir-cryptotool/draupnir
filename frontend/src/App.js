@@ -13,6 +13,7 @@ import * as settingsAPI from './api/settings'
 import * as clientAPI from './api/client'
 import * as orderAPI from './api/order'
 import ClientModal from './components/Modal/ClientModal'
+import ClientImageModal from './components/Modal/ClientImageModal'
 
 class App extends Component {
   state = {
@@ -27,6 +28,7 @@ class App extends Component {
     btceEthPrice: null,
     bitstampBitcoinPrice: null,
     showModal: false,
+    showClientImageModal: false,
     clients: null,
     clientPage: null,
     orders: null,
@@ -248,6 +250,14 @@ class App extends Component {
     this.setState({ showModal: false })
   }
 
+  handleOpenClientImageModal = () => {
+    this.setState({ showClientImageModal: true })
+  }
+  
+  handleCloseClientImageModal = () => {
+    this.setState({showClientImageModal: false})
+  }
+
   // Expands client bar
   onSwitchClientBar = (clientID) => {
     this.setState((prevState) => ({
@@ -263,7 +273,7 @@ class App extends Component {
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
-            showModal, clients, expandedClientID, clientPage, orders, tempOrder } = this.state
+            showModal, clients, expandedClientID, clientPage, orders, tempOrder, showClientImageModal } = this.state
     return (
       <Router>
         <main>
@@ -316,14 +326,18 @@ class App extends Component {
                 changeRoute={ this.onClientPageRoute }
                 orders={ orders }
                 tempOrder= { tempOrder}
+                showModal={ this.handleOpenClientImageModal } 
+                closeModal={ this.handleCloseClientImageModal}
               /> ) : (
                 <p>loading..</p>
               )
 
             }
             </div>
-            <ClientModal showModal={showModal} closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
-          </div>
+            <ClientModal showModal={ showModal } closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
+            <ClientImageModal 
+              showClientImageModal={ showClientImageModal } />
+            </div>
         )
         } />
         <Route path='/order' render={() => (

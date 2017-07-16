@@ -16,7 +16,8 @@ const style = {
 export default function MainNav({
   settings, onUpdate, clientModal, clients, 
   expandedClientID, onClientBarExpand, clientPage, 
-  changeRoute, orders, onRequest, tempOrder
+  changeRoute, orders, onRequest, tempOrder, showModal,
+  closeModal
 }) {
   return (
     <Router>
@@ -41,6 +42,8 @@ export default function MainNav({
             settings={ settings }
             onRequest={ onRequest }
             tempOrder={ tempOrder }
+            showModal={ showModal }
+            closeModal={ closeModal }
           />
         )
         } />

@@ -6,7 +6,8 @@ import ClientBar from './ClientBar'
 export default function Staging({
   clientModal, clients, expandedClientID, 
   onClientBarExpand, clientPage, changeRoute,
-  orders, settings, onRequest, tempOrder
+  orders, settings, onRequest, tempOrder, showModal,
+  closeModal
 }){
 
   return (
@@ -42,6 +43,8 @@ export default function Staging({
             onRequest={ onRequest }
             tempOrder={ tempOrder }
             client={ client }
+            showModal={ showModal }
+            closeModal={ closeModal }
           />
         ))
         :

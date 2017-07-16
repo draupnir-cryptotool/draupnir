@@ -10,7 +10,7 @@ import QuotePage from './pages/QuotePage'
 export default function ClientExpand({
 
   expanded, clientPage, changeRoute, orders, clientId, status, settings, onRequest,
-  client, tempOrder
+  client, tempOrder, showModal, closeModal
 
 }) {
   return (
@@ -30,7 +30,10 @@ export default function ClientExpand({
             <StatusPage status={ status }/>
             :
             clientPage === 'info' ?
-            <InfoPage client={ client } />
+            <InfoPage 
+            client={ client }
+            showModal={ showModal }
+            closeModal={ closeModal } />
             :
             clientPage === 'notes' ?
             <h1>notes</h1>
