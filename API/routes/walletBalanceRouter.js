@@ -1,6 +1,6 @@
 const express = require('express')
 const fetch = require('node-fetch')
-
+const Settings = require('../models/Settings')
 const router = express.Router()
 
 // make bitcoin wallet address private
@@ -12,7 +12,10 @@ function extractBitcoinData(json) {
 }
 
 router.get('/bitcoinBalance', (req, res) => {
-  fetch(`https://blockchain.info/balance?active=${bitcoin}`)
+  Settings.findById({_id: "59642ab99039a21b6839c24e" })
+  .then((settings) => {
+    return fetch(`https://blockchain.info/balance?active=${bitcoin}`)
+  })
     .then((apiRes) => apiRes.json())
     .then((json) => {
       // massage incoming json data to pure name value pairs
@@ -26,10 +29,11 @@ router.get('/bitcoinBalance', (req, res) => {
 })
 
 // make ether wallet address private
-const ether = process.env.ETHER_ADDRESS
-
 router.get('/ethereumBalance', (req, res) => {
-  fetch(`https://etherchain.org/api/account/${ether}`)
+  Settings.findById({_id: "59642ab99039a21b6839c24e"})
+  .then((settings) => { 
+    return fetch(`https://etherchain.org/api/account/${settings.ethWalletAddress}`)
+  })
     .then((apiRes) => apiRes.json())
     .then((json) => {
       // massage incoming json data to pure name value pairs
