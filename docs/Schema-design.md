@@ -78,8 +78,19 @@
 ### Settings
 ```
 {
-  bitfinexFloat: { type: Number, default: 0 },
-  btceFloat: { type: Number, default: 0 },
-  bitstampFloat: { type: Number, default: 0 }
+  bitfinexFloat: { 
+    type: Number, 
+    default: 0 
+  },
+  btceFloat: { 
+    type: Number, 
+    default: 0 
+  },
+  bitstampFloat: { 
+    type: Number, 
+    default: 0 
+  },
+  ethWalletAddress: String,
+  btceWalletAddress: String
 }
 ```
