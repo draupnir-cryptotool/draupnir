@@ -33,7 +33,7 @@ class App extends Component {
     clients: null,
     clientPage: null,
     orders: null,
-    image: null,
+    images: null,
     masterSettings: {
       settings: 0
     },
@@ -42,11 +42,16 @@ class App extends Component {
 
   }
   // upload image form
-    handleUploadPhoto = ({ file, idType }) => {
-      imageAPI.createImage({ file, idType })
+    handleUploadPhoto = ({ file, idType, clientId }) => {
+      imageAPI.createImage({ file, idType, clientId })
       .then(image => {
-        this.setState({ image: image })
+        console.log(image)
+        this.setState((prevState) => {
+          return {
+            images: prevState.images.concat(image)
+          }
         })
+      })
       .catch(error => {
         this.setState({ error })
       })
@@ -110,6 +115,14 @@ class App extends Component {
     })
     .catch(error => {
       this.setState({ error })
+    })
+  }
+// FETCH SECTION---------------------------------------------------------
+// get all image data
+  fetchImagesData = () => {
+    imageAPI.allImageData()
+    .then((allImages) => {
+      this.setState({images: allImages})
     })
   }
 
@@ -286,7 +299,7 @@ class App extends Component {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
             showModal, clients, expandedClientID, clientPage, orders, tempOrder, 
-            showClientImageModal, image } = this.state
+            showClientImageModal, images } = this.state
     return (
       <Router>
         <main>
@@ -344,7 +357,7 @@ class App extends Component {
                 showClientImageModal={ showClientImageModal }
                 closeImageModal={ this.handleCloseClientImageModal }
                 uploadPhoto={ this.handleUploadPhoto }
-                image={ image } />
+                images={ images } />
                 ) : (
                 <p>loading..</p>
               )
@@ -385,6 +398,7 @@ class App extends Component {
     this.fetchSettings()
     this.fetchAllClients()
     this.fetchAllOrders()
+    this.fetchImagesData()
   }
 }
 
