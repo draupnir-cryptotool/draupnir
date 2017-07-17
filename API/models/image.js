@@ -10,7 +10,9 @@ var imageSchema = mongoose.Schema({
   originalname: {
     type: String,
     required: true
-  }
+  },
+  clientId: String,
+  idType: String
 });
 var Image = mongoose.model('Image',imageSchema);
 

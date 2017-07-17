@@ -3,43 +3,23 @@ import ImageDisplay from './ImageDisplay'
 import Photo from './Photo'
 import * as imageAPI from '../api/image'
 
-class Image extends Component {
-  state = { image: null }
-
-  handleUploadPhoto = ({ file }) => {
-      imageAPI.createImage({ file })
-      .then(image => {
-        this.setState({ image: image })
-        })
-      .catch(error => {
-        this.setState({ error })
-      })
-    }
-
-  render() {
-    const { image } = this.state
+export default function Image({
+  uploadPhoto, image
+}) {
     return (
       <div>
-      
-          <ImageDisplay onDisplay = { this.handleUploadPhoto } />
-          {
-            !! image ? (
-              <Photo url={ image.s3URL } />
-            ) :
-            (
-              <p>Loading..</p>
-            )
-          }
-      
+        <ImageDisplay uploadPhoto = { uploadPhoto } />
+        {
+          !! image ? (
+            <Photo url={ image.s3URL } />
+          ) :
+          (
+            <p>Loading..</p>
+          )
+        }  
       </div>
     )
   }
-
-}
-
-
-
-export default Image
 
 // <Dropzone onDrop={ this.onDrop }>
 //           <p>Try dropping some files here, or click to select files to upload.</p>
