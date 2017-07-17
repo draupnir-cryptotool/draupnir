@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactModal from 'react-modal'
-import ImageDisplay from '../ImageDisplay'
+
 import Image from '../Image'
-import { Button, FormGroup, ControlLabel, FormControl, Form, Col } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import './modalStyles.css'
 
 class ClientImageModal extends React.Component {
@@ -20,17 +20,20 @@ class ClientImageModal extends React.Component {
           },
           }}
         >
-          <div style={{ marginLeft: '26.5%' }}>
-            <Image uploadPhoto={ this.props.uploadPhoto } />
+        <h2>Client ID</h2>
+          <div style={{ margin: '10% 0 0 10%' }}>
+            <Image 
+              uploadPhoto={ this.props.uploadPhoto }
+              clientId={this.props.clientId}
+            />
           </div>
         <div>
-          <Button type="button" bsStyle="default" onClick={() => this.props.closeModal()}> Cancel</Button>
+          <Button type="button" bsStyle="default" onClick={() => this.props.closeImageModal()}> Cancel</Button>
         </div>
         </ReactModal>
       </div>
     )
   }
 }
-
 
 export default ClientImageModal

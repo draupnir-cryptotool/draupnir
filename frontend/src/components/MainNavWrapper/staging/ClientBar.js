@@ -6,7 +6,8 @@ export default function ClientBar({
   client, uniqId, firstname, lastname,
   expanded = false, onExpand, clientPage, changeRoute,
   orders, id, status, settings, onRequest, tempOrder,
-  showModal, closeModal
+  showModal, closeModal, showClientImageModal, closeImageModal,
+  uploadPhoto, image
 }) {
   return(
     <div>
@@ -33,6 +34,10 @@ export default function ClientBar({
             client={ client }
             showModal={ showModal }
             closeModal={ closeModal }
+            showClientImageModal={showClientImageModal}
+            closeImageModal={closeImageModal}
+            uploadPhoto={uploadPhoto}
+            image={image}
           />
         </div>
     </div>

@@ -10,7 +10,8 @@ import QuotePage from './pages/QuotePage'
 export default function ClientExpand({
 
   expanded, clientPage, changeRoute, orders, clientId, status, settings, onRequest,
-  client, tempOrder, showModal, closeModal
+  client, tempOrder, showModal, closeModal, showClientImageModal, closeImageModal,
+  uploadPhoto, image
 
 }) {
   return (
@@ -33,7 +34,11 @@ export default function ClientExpand({
             <InfoPage 
             client={ client }
             showModal={ showModal }
-            closeModal={ closeModal } />
+            closeModal={ closeModal }
+            showClientImageModal={showClientImageModal}
+            closeImageModal={closeImageModal}
+            uploadPhoto={uploadPhoto}
+            image={image} />
             :
             clientPage === 'notes' ?
             <h1>notes</h1>

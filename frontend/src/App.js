@@ -341,18 +341,17 @@ class App extends Component {
                 tempOrder= { tempOrder}
                 showModal={ this.handleOpenClientImageModal } 
                 closeModal={ this.handleCloseClientImageModal}
-              /> ) : (
+                showClientImageModal={ showClientImageModal }
+                closeImageModal={ this.handleCloseClientImageModal }
+                uploadPhoto={ this.handleUploadPhoto }
+                image={ image } />
+                ) : (
                 <p>loading..</p>
               )
 
             }
             </div>
             <ClientModal showModal={ showModal } closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
-            <ClientImageModal 
-              showClientImageModal={ showClientImageModal }
-              closeModal={ this.handleCloseClientImageModal }
-              uploadPhoto={ this.handleUploadPhoto }
-              image={ image } />
             </div>
         )
         } />
