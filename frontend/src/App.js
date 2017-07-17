@@ -12,6 +12,7 @@ import * as livePriceApi from './api/livePrice'
 import * as settingsAPI from './api/settings'
 import * as clientAPI from './api/client'
 import * as orderAPI from './api/order'
+import * as imageAPI from './api/image'
 import ClientModal from './components/Modal/ClientModal'
 import ClientImageModal from './components/Modal/ClientImageModal'
 
@@ -32,6 +33,7 @@ class App extends Component {
     clients: null,
     clientPage: null,
     orders: null,
+    image: null,
     masterSettings: {
       settings: 0
     },
@@ -39,6 +41,16 @@ class App extends Component {
     tempOrder: null
 
   }
+  // upload image form
+    handleUploadPhoto = ({ file, idType }) => {
+      imageAPI.createImage({ file, idType })
+      .then(image => {
+        this.setState({ image: image })
+        })
+      .catch(error => {
+        this.setState({ error })
+      })
+    }
 
   // Fetching best order rates from exchanges
   handleQueryOrder =({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) => {
@@ -273,7 +285,8 @@ class App extends Component {
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
-            showModal, clients, expandedClientID, clientPage, orders, tempOrder, showClientImageModal } = this.state
+            showModal, clients, expandedClientID, clientPage, orders, tempOrder, 
+            showClientImageModal, image } = this.state
     return (
       <Router>
         <main>
@@ -336,7 +349,10 @@ class App extends Component {
             </div>
             <ClientModal showModal={ showModal } closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
             <ClientImageModal 
-              showClientImageModal={ showClientImageModal } />
+              showClientImageModal={ showClientImageModal }
+              closeModal={ this.handleCloseClientImageModal }
+              uploadPhoto={ this.handleUploadPhoto }
+              image={ image } />
             </div>
         )
         } />
