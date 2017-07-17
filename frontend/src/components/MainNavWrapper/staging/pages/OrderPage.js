@@ -40,31 +40,37 @@ class OrderPage extends React.Component{
                 </Col>
               </FormGroup>
 
-              <FormControl
-                style={{width: "36%"}}
-                componentClass="select"
-                placeholder="select"
-                ref="currency"
-              >
+              <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                Coin
+                  Coin
                 </Col>
-                  <option value="btc">Bitcoin</option>
-                  <option value="eth">Ethereum</option>
-              </FormControl>
+                <Col sm={5}>
+                  <FormControl
+                    componentClass="select"
+                    placeholder="select"
+                    ref="currency"
+                  >
+                    <option value="btc">Bitcoin</option>
+                    <option value="eth">Ethereum</option>
+                  </FormControl>
+                </Col>
+              </FormGroup>
 
-              <FormControl
-                style={{width: "36%"}}
-                componentClass="select"
-                placeholder="select"
-                ref="tally"
-              >
+              <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                Coin
+                  Coin
                 </Col>
-                  <option value="usd">USD</option>
-                  <option value="aud">AUD</option>
-              </FormControl>
+                <Col sm={5}>
+                  <FormControl
+                    componentClass="select"
+                    placeholder="select"
+                    ref="tally"
+                  >
+                    <option value="usd">USD</option>
+                    <option value="aud">AUD</option>
+                  </FormControl>
+                </Col>
+              </FormGroup>
 
               <FormControl type="hidden" ref="bitfinexFloat" defaultValue={ `${this.props.settings.bitfinexFloat}` }/>
 
