@@ -4,6 +4,7 @@ import LogInform from './components/logIn/LogInForm';
 import Header from './components/Header';
 import MainNav from './components/MainNav';
 import Order from './components/Order';
+import PdfForm from './components/pdfForm';
 import Image from './components/Image';
 import * as authAPI from './api/auth';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
@@ -295,6 +296,13 @@ class App extends Component {
 
           <div>
             <Order />
+          </div>
+        )
+      } />
+        <Route path='/pdfform' render={() => (
+
+          <div>
+            <PdfForm />
           </div>
         )
       } />

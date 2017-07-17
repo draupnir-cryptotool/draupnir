@@ -11,6 +11,7 @@ const GraphRouter = require('./routes/graphRouter');
 const walletBalanceRouter = require('./routes/walletBalanceRouter');
 const liveCoinPricesRouter = require('./routes/liveCoinPricesRouter');
 const order = require('./routes/order');
+const pdfQuote = require('./routes/pdfQuote');
 const forexRates = require('./routes/forexRates');
 const authMiddlware = require('./middleware/auth');
 const authRouter = require('./routes/auth');
@@ -50,6 +51,7 @@ server.use('/api', [
   settingsRouter,
   imageRouter,
   ausPrices,
+  pdfQuote,
 ]);
 
 // Handle errors by returning JSON
