@@ -2,9 +2,14 @@ import React from 'react'
 import './staging.css'
 import ClientBar from './ClientBar'
 
+
 export default function Staging({
-  clientModal, clients, expandedClientID, onClientBarExpand
+  clientModal, clients, expandedClientID, 
+  onClientBarExpand, clientPage, changeRoute,
+  orders, settings, onRequest, tempOrder, showModal,
+  closeModal
 }){
+
   return (
     <div style={{ boxSizing: 'border-box', padding: "3em" }}>
       <div className="addBtn">
@@ -24,8 +29,22 @@ export default function Staging({
             uniqId={ client.uniqId } 
             firstname={ client.firstname } 
             lastname={ client.lastname }
+            status={ client.status }
             expanded={ expandedClientID === client._id }
             onExpand={ () => onClientBarExpand(client._id) }
+            clientPage={ clientPage }
+            changeRoute={ changeRoute }
+            orders={ orders }
+            settings={ settings }
+            onRequest={ onRequest }
+            tempOrder={ tempOrder }
+            client={ client }
+            settings={ settings }
+            onRequest={ onRequest }
+            tempOrder={ tempOrder }
+            client={ client }
+            showModal={ showModal }
+            closeModal={ closeModal }
           />
         ))
         :

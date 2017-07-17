@@ -2,11 +2,11 @@ import React from 'react'
 import './staging.css'
 import ClientExpand from './clientExpand'
 
-
-
 export default function ClientBar({
   client, uniqId, firstname, lastname,
-  expanded = false, onExpand
+  expanded = false, onExpand, clientPage, changeRoute,
+  orders, id, status, settings, onRequest, tempOrder,
+  showModal, closeModal
 }) {
   return(
     <div>
@@ -19,7 +19,21 @@ export default function ClientBar({
               <div><p>BTC-E</p></div>
             </div>
           </div>
-          <ClientExpand expanded={ expanded }/>
+          <ClientExpand 
+            expanded={ expanded } 
+            clientPage={ clientPage }
+            changeRoute={ changeRoute}
+            orders={orders}
+            uniqId={ uniqId }
+            clientId={ id }
+            status={ status }
+            settings={ settings }
+            onRequest={ onRequest }
+            tempOrder={ tempOrder }
+            client={ client }
+            showModal={ showModal }
+            closeModal={ closeModal }
+          />
         </div>
     </div>
   )

@@ -12,7 +12,9 @@ import * as walletApi from './api/wallet'
 import * as livePriceApi from './api/livePrice'
 import * as settingsAPI from './api/settings'
 import * as clientAPI from './api/client'
+import * as orderAPI from './api/order'
 import ClientModal from './components/Modal/ClientModal'
+import ClientImageModal from './components/Modal/ClientImageModal'
 
 class App extends Component {
   state = {
@@ -27,12 +29,29 @@ class App extends Component {
     btceEthPrice: null,
     bitstampBitcoinPrice: null,
     showModal: false,
+    showClientImageModal: false,
     clients: null,
+    clientPage: null,
+    orders: null,
     masterSettings: {
       settings: 0
     },
-    expandedClientID: null
+    expandedClientID: null,
+    tempOrder: null
+
   }
+
+  // Fetching best order rates from exchanges
+  handleQueryOrder =({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) => {
+    orderAPI.queryOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
+    .then(json => {
+      this.setState({ tempOrder: json })
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
+  }
+
 
   handleRegistration = ({email, firstname, lastname, password}) => {
     authAPI.register({email, firstname, lastname, password})
@@ -69,8 +88,8 @@ class App extends Component {
   }
 
   // create a new client
-  handleCreateClient = ({ firstname, lastname, email, phonenumber }) => {
-    clientAPI.createClient({firstname, lastname, email, phonenumber})
+  handleCreateClient = ({ firstname, lastname, email, phone }) => {
+    clientAPI.createClient({firstname, lastname, email, phone})
     .then(newClient => {
       this.setState((prevState) => {
         return {
@@ -88,6 +107,14 @@ class App extends Component {
     clientAPI.allClients()
     .then(clients => {
       this.setState({ clients })
+    })
+  }
+
+  // get all orders
+  fetchAllOrders = () => {
+    orderAPI.allOrders()
+    .then(orders => {
+      this.setState({ orders })
     })
   }
 
@@ -215,7 +242,7 @@ class App extends Component {
       currentCurrency: 'aud'
     })
   }
-// controls modal
+// controls new client modal
   handleOpenClientModal = () => {
     this.setState({ showModal: true })
   }
@@ -224,6 +251,15 @@ class App extends Component {
     this.setState({ showModal: false })
   }
 
+  handleOpenClientImageModal = () => {
+    this.setState({ showClientImageModal: true })
+  }
+  
+  handleCloseClientImageModal = () => {
+    this.setState({showClientImageModal: false})
+  }
+
+  // Expands client bar
   onSwitchClientBar = (clientID) => {
     this.setState((prevState) => ({
       expandedClientID:
@@ -231,10 +267,14 @@ class App extends Component {
     }))
   }
 
+  onClientPageRoute = (route) => {
+    this.setState({ clientPage: route })
+  }
+
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
-            showModal, clients, expandedClientID } = this.state
+            showModal, clients, expandedClientID, clientPage, orders, tempOrder, showClientImageModal } = this.state
     return (
       <Router>
         <main>
@@ -277,19 +317,28 @@ class App extends Component {
               !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
               <MainNav
                 settings={ masterSettings }
+                onRequest={ this.handleQueryOrder }
                 onUpdate={ this.handleUpdateSettings }
                 clientModal={ this.handleOpenClientModal }
                 clients={ clients }
                 expandedClientID={ expandedClientID }
                 onClientBarExpand={ this.onSwitchClientBar}
+                clientPage={ clientPage }
+                changeRoute={ this.onClientPageRoute }
+                orders={ orders }
+                tempOrder= { tempOrder}
+                showModal={ this.handleOpenClientImageModal } 
+                closeModal={ this.handleCloseClientImageModal}
               /> ) : (
                 <p>loading..</p>
               )
 
             }
             </div>
-            <ClientModal showModal={showModal} closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
-          </div>
+            <ClientModal showModal={ showModal } closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
+            <ClientImageModal 
+              showClientImageModal={ showClientImageModal } />
+            </div>
         )
         } />
         <Route path='/order' render={() => (
@@ -328,6 +377,7 @@ class App extends Component {
     this.fetchBitstampBitcoinPrice()
     this.fetchSettings()
     this.fetchAllClients()
+    this.fetchAllOrders()
   }
 }
 

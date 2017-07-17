@@ -20,9 +20,22 @@
     phone: number,
     email: string,
     status: {
-      phonecall: Boolean,
-      email: Boolean,
-      depositCleared: Boolean
+      quoteSent: {
+        type: Boolean,
+        default: false
+        },
+       quoteAccepted: {
+        type: Boolean,
+        default: false
+       },
+       depositCleared: {
+        type: Boolean,
+        default: false
+       },
+       idVerified: {
+        type: Boolean,
+        default: false
+       }
     }
 }
 ```
@@ -65,8 +78,34 @@
 ### Settings
 ```
 {
-  bitfinexFloat: { type: Number, default: 0 },
-  btceFloat: { type: Number, default: 0 },
-  bitstampFloat: { type: Number, default: 0 }
+  bitfinexFloat: { 
+    type: Number, 
+    default: 0 
+  },
+  btceFloat: { 
+    type: Number, 
+    default: 0 
+  },
+  bitstampFloat: { 
+    type: Number, 
+    default: 0 
+  },
+  ethWalletAddress: String,
+  btceWalletAddress: String
 }
 ```
+### Image
+```
+{
+  s3URL: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  originalname: {
+    type: String,
+    required: true
+  },
+  clientId: String,
+  idType: String
+}

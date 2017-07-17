@@ -1,13 +1,22 @@
 const mongoose = require('./init')
 
 orderSchema = mongoose.Schema({
-  amount: String,
+  amount: {
+    type: String,
+    default: '0'
+  },
   clientId: String,
   adminId: String,
-  currency: String,
+  currency: {
+    type: String,
+    default: 'NONE SET'
+  },
   processed: {
-    successful: Boolean,
-    adminId: String,
+    successful: {
+      type: Boolean,
+      default: false
+    },
+  adminId: String,
   }
 });
 

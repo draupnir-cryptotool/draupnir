@@ -4,7 +4,8 @@ import Staging from '../components/MainNavWrapper/staging/Staging'
 import Messages from '../components/MainNavWrapper/Messages'
 import Logs from '../components/MainNavWrapper/Logs'
 import Graphs from '../components/MainNavWrapper/Graphs'
-import Settings from '../components/MainNavWrapper/Settings'
+import Settings from '../components/MainNavWrapper/settings/Settings'
+import './component.css'
 
 const style = {
     margin: '3.5%',
@@ -13,17 +14,20 @@ const style = {
   }
 
 export default function MainNav({
-  settings, onUpdate, clientModal, clients, expandedClientID, onClientBarExpand
+  settings, onUpdate, clientModal, clients, 
+  expandedClientID, onClientBarExpand, clientPage, 
+  changeRoute, orders, onRequest, tempOrder, showModal,
+  closeModal
 }) {
   return (
     <Router>
       <div>
         <div style={{ marginTop: '6%', border: 'solid 1px' }}>
-          <Link style={style} to={'/home/staging'}> Staging </Link>
-          <Link style={style} to={'/home/messages'}> Messages </Link>
-          <Link style={style} to={'/home/logs'}> Logs </Link>
-          <Link style={style} to={'/home/graphs'}> Graphs </Link>
-          <Link style={style} to={'/home/settings'}> Settings </Link>
+          <Link to={'/home/staging'}> Staging </Link>
+          <Link to={'/home/messages'}> Messages </Link>
+          <Link to={'/home/logs'}> Logs </Link>
+          <Link to={'/home/graphs'}> Graphs </Link>
+          <Link to={'/home/settings'}> Settings </Link>
         </div>
         <Route path='/home/staging' render={ () => (
           <Staging 
@@ -31,7 +35,16 @@ export default function MainNav({
             clients={ clients }
             expandedClientID={ expandedClientID }
             onClientBarExpand={ onClientBarExpand } 
-            />
+            clientPage={ clientPage }
+            changeRoute={ changeRoute }
+            orders={ orders }
+            onUpdate={ onUpdate }
+            settings={ settings }
+            onRequest={ onRequest }
+            tempOrder={ tempOrder }
+            showModal={ showModal }
+            closeModal={ closeModal }
+          />
         )
         } />
         <Route path='/home/messages' render={() => (
