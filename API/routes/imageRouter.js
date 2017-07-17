@@ -53,6 +53,7 @@ router.post('/images', upload.single('image'), function(req, res, next) {
   imagepath['s3URL'] = location;
   imagepath['originalname'] = imageName;
   imagepath['idType'] = body.idType
+  imagepath['clientId'] = body.clientId
   //imagepath contains two objects, path and the imageName
   //passing two objects in the addImage method.. which is defined above..
   Image.create(imagepath)
