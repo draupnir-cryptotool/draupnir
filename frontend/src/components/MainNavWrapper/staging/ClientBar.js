@@ -1,14 +1,21 @@
 import React from 'react'
 import './staging.css'
 import ClientExpand from './clientExpand'
+import _ from 'lodash'
 
 export default function ClientBar({
   client, uniqId, firstname, lastname,
   expanded = false, onExpand, clientPage, changeRoute,
   orders, id, status, settings, onRequest, tempOrder,
   showModal, closeModal, showClientImageModal, closeImageModal,
-  uploadPhoto, image
+  uploadPhoto, images
 }) {
+  const imageDataFind = ((images, id) => {
+    return _.find(images, {clientId: id})
+  })
+
+  const imageData = imageDataFind(images, id)
+  console.log(imageData)
   return(
     <div>
         <div>
@@ -37,7 +44,7 @@ export default function ClientBar({
             showClientImageModal={showClientImageModal}
             closeImageModal={closeImageModal}
             uploadPhoto={uploadPhoto}
-            image={image}
+            imageData={ imageData }
           />
         </div>
     </div>

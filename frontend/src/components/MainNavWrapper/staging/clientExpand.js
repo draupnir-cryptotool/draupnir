@@ -1,5 +1,5 @@
 import React from 'react'
-import { Collapse } from 'react-collapse'
+import { UnmountClosed as Collapse } from 'react-collapse'
 import StatusPage from './pages/StatusPage'
 import InfoPage from './pages/InfoPage'
 import LogsPage from './pages/LogsPage'
@@ -11,7 +11,7 @@ export default function ClientExpand({
 
   expanded, clientPage, changeRoute, orders, clientId, status, settings, onRequest,
   client, tempOrder, showModal, closeModal, showClientImageModal, closeImageModal,
-  uploadPhoto, image
+  uploadPhoto, imageData
 
 }) {
   return (
@@ -38,7 +38,7 @@ export default function ClientExpand({
             showClientImageModal={showClientImageModal}
             closeImageModal={closeImageModal}
             uploadPhoto={uploadPhoto}
-            image={image} />
+            imageData ={ !!imageData ? imageData : "" } />
             :
             clientPage === 'notes' ?
             <h1>notes</h1>

@@ -1,10 +1,11 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
 import ClientImageModal from '../../../Modal/ClientImageModal'
+import _ from 'lodash'
 
 export default function InfoPage({
   client, showModal, closeModal, showClientImageModal, closeImageModal,
-  uploadPhoto, image
+  uploadPhoto, imageData
 }){
   return (
     <div style={{ display: 'flex' }}>
@@ -18,10 +19,10 @@ export default function InfoPage({
         showClientImageModal={ showClientImageModal }
         closeImageModal={ closeImageModal }
         uploadPhoto={ uploadPhoto }
-        image={ image }
         clientId={client._id} />
       <div>
-        <h1>ID</h1>
+        <h1>ID</h1> 
+        <h3>{imageData.idType}</h3>
         <Button type="submit" bsStyle={'primary'} onClick={ () => showModal() }>Add</Button>
       </div>
     </div>
