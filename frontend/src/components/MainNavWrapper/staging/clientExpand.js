@@ -16,7 +16,7 @@ export default function ClientExpand({
 }) {
   return (
       <div>
-        <Collapse isOpened={ expanded } fixedHeight={300}>
+        <Collapse isOpened={ expanded } fixedHeight={350}>
         <div>
           <nav>
             <a onClick={() => changeRoute('status')}>STATUS</a>

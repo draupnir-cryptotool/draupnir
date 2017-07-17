@@ -74,11 +74,9 @@ class OrderPage extends React.Component{
     </div>
     )
   }
-  
-
-
 }
 
+export default OrderPage
 // function submitOrder(event, onRequest) {
 //   event.preventDefault()
 //   const form = event.target
