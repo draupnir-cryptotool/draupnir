@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Button, FormGroup, ControlLabel, FormControl, Form, Col,
-        } from 'react-bootstrap'
+          Table      } from 'react-bootstrap'
 import _ from 'lodash'
 
 class OrderPage extends React.Component{
@@ -28,7 +28,7 @@ class OrderPage extends React.Component{
       <div style={{display: 'flex'}}>
         <div style={{display: 'flex', flexDirection: 'row', width: '50%'}}>
           <div style={{ marginRight: '3em' }}>
-            <h1 style={{ marginLeft: '6%' }}>Floats</h1>
+            <h1 style={{ textAlign: 'center' }}>FLOATS</h1>
             <Form horizontal>
 
               <FormGroup controlId="formHorizontalName">
@@ -67,7 +67,6 @@ class OrderPage extends React.Component{
                     ref="tally"
                   >
                     <option value="usd">USD</option>
-                    <option value="aud">AUD</option>
                   </FormControl>
                 </Col>
               </FormGroup>
@@ -92,41 +91,49 @@ class OrderPage extends React.Component{
         </div>
 
         <div style={{flexDirection: 'row', width: '50%'}}>
-          <h1 style={{  }}>Best Order</h1>
-          {
-          !_.isEmpty(this.props.tempOrder) ? ( 
-            <div>
-              <p>Bitfinex: $
-                {this.props.tempOrder.exchanges.bitfinex.usdSpent}
-        
-                {'  '}
-                coins: 
-                {this.props.tempOrder.exchanges.bitfinex.coinBought}
-              </p>
-              <p>Bitstamp: $
-                {this.props.tempOrder.exchanges.bitstamp.usdSpent}
-
-                {'  '}
-                coins: 
-                {this.props.tempOrder.exchanges.bitstamp.coinBought}
-              </p>
-              <p>BTC-e: $ 
-                {this.props.tempOrder.exchanges.btce.usdSpent}
-
-                {'  '}
-                coins: 
-                {this.props.tempOrder.exchanges.btce.coinBought}
-              </p>
-              <p>Total Gained:&nbsp;   
-                { this.props.tempOrder.totalUsdSpent }
-
-                {'  '}
-                coins: 
-                { this.props.tempOrder.totalCoinBought }
-              </p>
-            </div>
-            ) : ''
-          }
+        { !_.isEmpty(this.props.tempOrder) ? (
+          <div>
+            <h1 style={{ textAlign: 'center' }}>ORDER</h1>
+            <Table responsive>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Volume</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><h4>BITFINEX</h4></td>
+                  <td>{ parseFloat(this.props.tempOrder.exchanges.bitfinex.coinBought).toFixed(2) }</td>
+                  <td>{ parseFloat(this.props.tempOrder.exchanges.bitfinex.usdSpent).toFixed(2) }</td>
+                </tr>
+                <tr>
+                  <td><h4>BTC-E</h4></td>
+                  <td>{ parseFloat(this.props.tempOrder.exchanges.btce.coinBought).toFixed(2) }</td>
+                  <td>{ parseFloat(this.props.tempOrder.exchanges.btce.usdSpent).toFixed(2) }</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><h4>BITSTAMP</h4></td>
+                  <td>{ parseFloat(this.props.tempOrder.exchanges.bitstamp.coinBought).toFixed(2) }</td>
+                  <td>{ parseFloat(this.props.tempOrder.exchanges.bitstamp.usdSpent).toFixed(2) }</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><h4><strong>TOTAL</strong></h4></td>
+                  <td><strong>
+                    { parseFloat(this.props.tempOrder.totalCoinBought).toFixed(2) }
+                  </strong></td>
+                  <td><strong>
+                    { parseFloat(this.props.tempOrder.totalUsdSpent).toFixed(2) }
+                  </strong></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </Table>
+          </div> ) : ( ' ' )
+        }
         </div>
       </div>
     )
@@ -134,13 +141,3 @@ class OrderPage extends React.Component{
 }
 
 export default OrderPage
-
-
-  //  <FormGroup controlId="formHorizontalName">
-  //               <Col componentClass={ ControlLabel } sm={5}>
-  //               Buying
-  //               </Col>
-  //               <Col sm={5}>
-  //                 <FormControl type="text" ref="currency"/>
-  //               </Col>
-  //             </FormGroup>
