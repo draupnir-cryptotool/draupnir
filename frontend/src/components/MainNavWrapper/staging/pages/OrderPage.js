@@ -1,20 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Button, FormGroup, ControlLabel, FormControl, Form, Col } from 'react-bootstrap'
+import { Button, FormGroup, ControlLabel, FormControl, Form, Col,
+        } from 'react-bootstrap'
 import _ from 'lodash'
 
 class OrderPage extends React.Component{
 
   submitOrder = (event, onRequest) => {
     event.preventDefault()
+    const amount = ReactDOM.findDOMNode(this.refs.deposit).value
     const buying = ReactDOM.findDOMNode(this.refs.currency).value
     const tally = ReactDOM.findDOMNode(this.refs.tally).value
-    const amount = ReactDOM.findDOMNode(this.refs.deposit).value
     const bitfinexLimit = ReactDOM.findDOMNode(this.refs.bitfinexFloat).value
     const btceLimit = ReactDOM.findDOMNode(this.refs.btceFloat).value
     const bitstampLimit = ReactDOM.findDOMNode(this.refs.bitstampFloat).value
     onRequest({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
   }
+
+
 
   render() {
     const dollarSymbolStyle = {
@@ -23,7 +26,7 @@ class OrderPage extends React.Component{
     }
     return (
       <div style={{display: 'flex'}}>
-        <div style={{display: 'flex', flexDirection: 'row'}}>
+        <div style={{display: 'flex', flexDirection: 'row', width: '50%'}}>
           <div style={{ marginRight: '3em' }}>
             <h1 style={{ marginLeft: '6%' }}>Floats</h1>
             <Form horizontal>
@@ -37,23 +40,31 @@ class OrderPage extends React.Component{
                 </Col>
               </FormGroup>
 
-              <FormGroup controlId="formHorizontalName">
+              <FormControl
+                style={{width: "36%"}}
+                componentClass="select"
+                placeholder="select"
+                ref="currency"
+              >
                 <Col componentClass={ ControlLabel } sm={5}>
-                Buying
+                Coin
                 </Col>
-                <Col sm={5}>
-                  <FormControl type="text" ref="currency"/>
-                </Col>
-              </FormGroup>
+                  <option value="btc">Bitcoin</option>
+                  <option value="eth">Ethereum</option>
+              </FormControl>
 
-              <FormGroup controlId="formHorizontalName">
+              <FormControl
+                style={{width: "36%"}}
+                componentClass="select"
+                placeholder="select"
+                ref="tally"
+              >
                 <Col componentClass={ ControlLabel } sm={5}>
-                Currency
+                Coin
                 </Col>
-                <Col sm={5}>
-                  <FormControl type="text" ref="tally"/>
-                </Col>
-              </FormGroup>
+                  <option value="usd">USD</option>
+                  <option value="aud">AUD</option>
+              </FormControl>
 
               <FormControl type="hidden" ref="bitfinexFloat" defaultValue={ `${this.props.settings.bitfinexFloat}` }/>
 
@@ -74,49 +85,40 @@ class OrderPage extends React.Component{
           </div>
         </div>
 
-        <div style={{flexDirection: 'row'}}>
-          <h3>Best Order</h3>
+        <div style={{flexDirection: 'row', width: '50%'}}>
+          <h1 style={{  }}>Best Order</h1>
           {
           !_.isEmpty(this.props.tempOrder) ? ( 
-          <ul>
-            <li>
+            <div>
               <p>Bitfinex: $
                 {this.props.tempOrder.exchanges.bitfinex.usdSpent}
         
                 {'  '}
                 coins: 
                 {this.props.tempOrder.exchanges.bitfinex.coinBought}
-
               </p>
-              </li>
-              <li>
-                <p>Bitstamp: $
-                  {this.props.tempOrder.exchanges.bitstamp.usdSpent}
+              <p>Bitstamp: $
+                {this.props.tempOrder.exchanges.bitstamp.usdSpent}
 
-                  {'  '}
-                  coins: 
-                  {this.props.tempOrder.exchanges.bitstamp.coinBought}
-                </p>
-              </li>
-              <li>
-                <p>BTC-e: $ 
-                  {this.props.tempOrder.exchanges.btce.usdSpent}
+                {'  '}
+                coins: 
+                {this.props.tempOrder.exchanges.bitstamp.coinBought}
+              </p>
+              <p>BTC-e: $ 
+                {this.props.tempOrder.exchanges.btce.usdSpent}
 
-                  {'  '}
-                  coins: 
-                  {this.props.tempOrder.exchanges.btce.coinBought}
-                </p>
-              </li>
-              <li>
-                <p>Total Gained:&nbsp;   
-                  { this.props.tempOrder.totalUsdSpent }
+                {'  '}
+                coins: 
+                {this.props.tempOrder.exchanges.btce.coinBought}
+              </p>
+              <p>Total Gained:&nbsp;   
+                { this.props.tempOrder.totalUsdSpent }
 
-                  {'  '}
-                  coins: 
-                  { this.props.tempOrder.totalCoinBought }
-                </p>
-              </li>
-            </ul>
+                {'  '}
+                coins: 
+                { this.props.tempOrder.totalCoinBought }
+              </p>
+            </div>
             ) : ''
           }
         </div>
@@ -126,110 +128,13 @@ class OrderPage extends React.Component{
 }
 
 export default OrderPage
-// function submitOrder(event, onRequest) {
-//   event.preventDefault()
-//   const form = event.target
-//   const buying = form.elements['currency'].value
-//   const tally = form.elements['tally'].value
-//   const amount = parseInt(form.elements['deposit'].value)
-//   const bitfinexLimit = form.elements['bitfinexFloat'].value
-//   const btceLimit = form.elements['btceFloat'].value
-//   const bitstampLimit = form.elements['bitstampFloat'].value
-//   onRequest({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
-// }
 
-// export default function OrderPage({ 
-//   settings, orders, onRequest, tempOrder
-// }) {
-//   return (
-//     <div>
-    
-//       <div>
-//         <form onSubmit={ (event) => submitOrder(event, onRequest) }>
-//           <Field
-//             label="Deposit"
-//             name="deposit"
-//             type="text"
-//           />
-//           <Field
-//             label="Currency"
-//             name="currency"
-//             type="text"
-//           />
-//           <Field
-//             label="Tally"
-//             name="tally"
-//             type="text"
-//           />    
-//           <Field
-//             label=""
-//             name="bitfinexFloat"
-//             type="hidden"
-//             defaultValue={ settings.bitfinexFloat }
-//           />
-//           <Field
-//             label=""
-//             name="btceFloat"
-//             type="hidden"
-//             defaultValue={ settings.btceFloat }
-//           />
-//           <Field
-//             label=""
-//             name="bitstampFloat"
-//             type="hidden"
-//             defaultValue={ settings.bitstampFloat }
-//           />
-//           <button>Submit</button>
-//         </form>
 
-//         <h3>Best Order</h3>
-
-//         {
-//         !_.isEmpty(tempOrder) ? ( 
-//         <ul>
-//           <li>
-//             <p>Bitfinex: $
-//               {tempOrder.exchanges.bitfinex.usdSpent}
-      
-//               {'  '}
-//               coins: 
-//               {tempOrder.exchanges.bitfinex.coinBought}
-
-//             </p>
-//           </li>
-//           <li>
-//             <p>Bitstamp: $
-//               {tempOrder.exchanges.bitstamp.usdSpent}
-
-//               {'  '}
-//               coins: 
-//               {tempOrder.exchanges.bitstamp.coinBought}
-//             </p>
-//           </li>
-//           <li>
-//             <p>BTC-e: $ 
-//               {tempOrder.exchanges.btce.usdSpent}
-
-//               {'  '}
-//               coins: 
-//               {tempOrder.exchanges.btce.coinBought}
-//             </p>
-//           </li>
-//           <li>
-//             <p>Total Gained:&nbsp;   
-//               { tempOrder.totalUsdSpent }
-
-//               {'  '}
-//               coins: 
-//               { tempOrder.totalCoinBought }
-//             </p>
-//           </li>
-//         </ul>
-//         ) : (
-//           <p>loading..</p>
-//         )
-//         }
-//       </div>
-//     </div>
-//   )
-// }
+  //  <FormGroup controlId="formHorizontalName">
+  //               <Col componentClass={ ControlLabel } sm={5}>
+  //               Buying
+  //               </Col>
+  //               <Col sm={5}>
+  //                 <FormControl type="text" ref="currency"/>
+  //               </Col>
+  //             </FormGroup>
