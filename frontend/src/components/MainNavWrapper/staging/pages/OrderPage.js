@@ -22,102 +22,105 @@ class OrderPage extends React.Component{
     left: '26%'
     }
     return (
-      <div>
       <div style={{display: 'flex'}}>
-        <div style={{ marginRight: '3em' }}>
-          <h1 style={{ marginLeft: '6%' }}>Floats</h1>
-          <Form horizontal>
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+          <div style={{ marginRight: '3em' }}>
+            <h1 style={{ marginLeft: '6%' }}>Floats</h1>
+            <Form horizontal>
 
-            <FormGroup controlId="formHorizontalName">
-              <Col componentClass={ ControlLabel } sm={5}>
-              Deposit<span style={ dollarSymbolStyle }>$</span>
-              </Col>
-              <Col sm={5}>
-                <FormControl type="text" ref="deposit"/>
-              </Col>
-            </FormGroup>
+              <FormGroup controlId="formHorizontalName">
+                <Col componentClass={ ControlLabel } sm={5}>
+                Deposit<span style={ dollarSymbolStyle }>$</span>
+                </Col>
+                <Col sm={5}>
+                  <FormControl type="text" ref="deposit"/>
+                </Col>
+              </FormGroup>
 
-            <FormGroup controlId="formHorizontalName">
-              <Col componentClass={ ControlLabel } sm={5}>
-              Buying
-              </Col>
-              <Col sm={5}>
-                <FormControl type="text" ref="currency"/>
-              </Col>
-            </FormGroup>
+              <FormGroup controlId="formHorizontalName">
+                <Col componentClass={ ControlLabel } sm={5}>
+                Buying
+                </Col>
+                <Col sm={5}>
+                  <FormControl type="text" ref="currency"/>
+                </Col>
+              </FormGroup>
 
-            <FormGroup controlId="formHorizontalName">
-              <Col componentClass={ ControlLabel } sm={5}>
-              Currency
-              </Col>
-              <Col sm={5}>
-                <FormControl type="text" ref="tally"/>
-              </Col>
-            </FormGroup>
+              <FormGroup controlId="formHorizontalName">
+                <Col componentClass={ ControlLabel } sm={5}>
+                Currency
+                </Col>
+                <Col sm={5}>
+                  <FormControl type="text" ref="tally"/>
+                </Col>
+              </FormGroup>
 
-            <FormControl type="hidden" ref="bitfinexFloat" defaultValue={ `${this.props.settings.bitfinexFloat}` }/>
+              <FormControl type="hidden" ref="bitfinexFloat" defaultValue={ `${this.props.settings.bitfinexFloat}` }/>
 
-            <FormControl type="hidden" ref="btceFloat" defaultValue={ 
-            `${this.props.settings.btceFloat}` }/>
+              <FormControl type="hidden" ref="btceFloat" defaultValue={ 
+              `${this.props.settings.btceFloat}` }/>
 
-            <FormControl type="hidden" ref="bitstampFloat" defaultValue={ 
-            `${this.props.settings.bitstampFloat}` }/>
+              <FormControl type="hidden" ref="bitstampFloat" defaultValue={ 
+              `${this.props.settings.bitstampFloat}` }/>
 
-          </Form>
+            </Form>
+            <Button 
+              className={ "updateBtn" } 
+              bsSize="large"
+              bsStyle="primary" type="submit" 
+              onClick={(event) => this.submitOrder(event, this.props.onRequest)}>
+              Query Order
+            </Button>
+          </div>
+        </div>
+
+        <div style={{flexDirection: 'row'}}>
+          <h3>Best Order</h3>
+          {
+          !_.isEmpty(this.props.tempOrder) ? ( 
+          <ul>
+            <li>
+              <p>Bitfinex: $
+                {this.props.tempOrder.exchanges.bitfinex.usdSpent}
+        
+                {'  '}
+                coins: 
+                {this.props.tempOrder.exchanges.bitfinex.coinBought}
+
+              </p>
+              </li>
+              <li>
+                <p>Bitstamp: $
+                  {this.props.tempOrder.exchanges.bitstamp.usdSpent}
+
+                  {'  '}
+                  coins: 
+                  {this.props.tempOrder.exchanges.bitstamp.coinBought}
+                </p>
+              </li>
+              <li>
+                <p>BTC-e: $ 
+                  {this.props.tempOrder.exchanges.btce.usdSpent}
+
+                  {'  '}
+                  coins: 
+                  {this.props.tempOrder.exchanges.btce.coinBought}
+                </p>
+              </li>
+              <li>
+                <p>Total Gained:&nbsp;   
+                  { this.props.tempOrder.totalUsdSpent }
+
+                  {'  '}
+                  coins: 
+                  { this.props.tempOrder.totalCoinBought }
+                </p>
+              </li>
+            </ul>
+            ) : ''
+          }
         </div>
       </div>
-      <Button 
-        className={ "updateBtn" } 
-        bsSize="large"
-        bsStyle="primary" type="submit" 
-        onClick={(event) => this.submitOrder(event, this.props.onRequest)}>Query Order</Button>
-      <h3>Best Order</h3>
-        {
-        !_.isEmpty(this.props.tempOrder) ? ( 
-        <ul>
-          <li>
-            <p>Bitfinex: $
-              {this.props.tempOrder.exchanges.bitfinex.usdSpent}
-      
-              {'  '}
-              coins: 
-              {this.props.tempOrder.exchanges.bitfinex.coinBought}
-
-            </p>
-          </li>
-          <li>
-            <p>Bitstamp: $
-              {this.props.tempOrder.exchanges.bitstamp.usdSpent}
-
-              {'  '}
-              coins: 
-              {this.props.tempOrder.exchanges.bitstamp.coinBought}
-            </p>
-          </li>
-          <li>
-            <p>BTC-e: $ 
-              {this.props.tempOrder.exchanges.btce.usdSpent}
-
-              {'  '}
-              coins: 
-              {this.props.tempOrder.exchanges.btce.coinBought}
-            </p>
-          </li>
-          <li>
-            <p>Total Gained:&nbsp;   
-              { this.props.tempOrder.totalUsdSpent }
-
-              {'  '}
-              coins: 
-              { this.props.tempOrder.totalCoinBought }
-            </p>
-          </li>
-        </ul>
-        ) : (
-          <p>loading..</p>
-        )
-        }
-    </div>
     )
   }
 }
