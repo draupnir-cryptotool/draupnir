@@ -58,7 +58,7 @@ class OrderPage extends React.Component{
 
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                  Coin
+                  Currency
                 </Col>
                 <Col sm={5}>
                   <FormControl
