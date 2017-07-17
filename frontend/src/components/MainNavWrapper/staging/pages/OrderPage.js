@@ -7,9 +7,9 @@ class OrderPage extends React.Component{
 
   submitOrder = (event, onRequest) => {
     event.preventDefault()
-    const buying = ReactDOM.findDOMNode(this.refs.buying).value
+    const buying = ReactDOM.findDOMNode(this.refs.currency).value
     const tally = ReactDOM.findDOMNode(this.refs.tally).value
-    const amount = ReactDOM.findDOMNode(this.refs.amount).value
+    const amount = ReactDOM.findDOMNode(this.refs.deposit).value
     const bitfinexLimit = ReactDOM.findDOMNode(this.refs.bitfinexFloat).value
     const btceLimit = ReactDOM.findDOMNode(this.refs.btceFloat).value
     const bitstampLimit = ReactDOM.findDOMNode(this.refs.bitstampFloat).value
@@ -71,6 +71,52 @@ class OrderPage extends React.Component{
         bsSize="large"
         bsStyle="primary" type="submit" 
         onClick={(event) => this.submitOrder(event, this.props.onRequest)}>Query Order</Button>
+      <h3>Best Order</h3>
+        {
+        !_.isEmpty(this.props.tempOrder) ? ( 
+        <ul>
+          <li>
+            <p>Bitfinex: $
+              {this.props.tempOrder.exchanges.bitfinex.usdSpent}
+      
+              {'  '}
+              coins: 
+              {this.props.tempOrder.exchanges.bitfinex.coinBought}
+
+            </p>
+          </li>
+          <li>
+            <p>Bitstamp: $
+              {this.props.tempOrder.exchanges.bitstamp.usdSpent}
+
+              {'  '}
+              coins: 
+              {this.props.tempOrder.exchanges.bitstamp.coinBought}
+            </p>
+          </li>
+          <li>
+            <p>BTC-e: $ 
+              {this.props.tempOrder.exchanges.btce.usdSpent}
+
+              {'  '}
+              coins: 
+              {this.props.tempOrder.exchanges.btce.coinBought}
+            </p>
+          </li>
+          <li>
+            <p>Total Gained:&nbsp;   
+              { this.props.tempOrder.totalUsdSpent }
+
+              {'  '}
+              coins: 
+              { this.props.tempOrder.totalCoinBought }
+            </p>
+          </li>
+        </ul>
+        ) : (
+          <p>loading..</p>
+        )
+        }
     </div>
     )
   }
