@@ -17,7 +17,8 @@ export default function MainNav({
   settings, onUpdate, clientModal, clients, 
   expandedClientID, onClientBarExpand, clientPage, 
   changeRoute, orders, onRequest, tempOrder, showModal,
-  closeModal
+  closeModal, showClientImageModal, closeImageModal, uploadPhoto,
+  image
 }) {
   return (
     <Router>
@@ -44,6 +45,10 @@ export default function MainNav({
             tempOrder={ tempOrder }
             showModal={ showModal }
             closeModal={ closeModal }
+            showClientImageModal={showClientImageModal}
+            closeImageModal={closeImageModal}
+            uploadPhoto={uploadPhoto}
+            image={image}
           />
         )
         } />

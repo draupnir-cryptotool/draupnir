@@ -6,7 +6,7 @@ import { Button, FormGroup, ControlLabel, FormControl, Form, Col } from 'react-b
 
 
 
- class ImageDisplay extends React.Component  {
+class ImageDisplay extends React.Component  {
 
   submitImage = (image, uploadPhoto) => {
   const idType = ReactDOM.findDOMNode(this.refs.idType).value
@@ -27,9 +27,11 @@ import { Button, FormGroup, ControlLabel, FormControl, Form, Col } from 'react-b
             </Col>
           </FormGroup>
         </Form>
-        <Dropzone onDrop={ (event) => this.submitImage(event, this.props.uploadPhoto) }>
-        <p>Try dropping some files here, or click to select files to upload.</p>
-        </Dropzone>
+        <div style={{ marginLeft: "26.5%" }}>
+          <Dropzone onDrop={ (event) => this.submitImage(event, this.props.uploadPhoto) }>
+          <p>Try dropping some files here, or click to select files to upload.</p>
+          </Dropzone>
+        </div>
       </div>
     )
   }
