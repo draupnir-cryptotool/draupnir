@@ -45,7 +45,7 @@ class OrderPage extends React.Component{
 
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                Deposit<span style={ dollarSymbolStyle }>$</span>
+                Buying
                 </Col>
                 <Col sm={5}>
                   <FormControl type="text" ref="deposit"/>
@@ -70,7 +70,7 @@ class OrderPage extends React.Component{
 
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                  Currency
+                  Tally
                 </Col>
                 <Col sm={5}>
                   <FormControl
@@ -79,6 +79,7 @@ class OrderPage extends React.Component{
                     ref="tally"
                   >
                     <option value="usd">USD</option>
+                    <option value="btc">BTC</option>
                   </FormControl>
                 </Col>
               </FormGroup>
