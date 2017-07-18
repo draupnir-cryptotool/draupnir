@@ -10,7 +10,7 @@ import QuotePage from './pages/QuotePage'
 export default function ClientExpand({
 
   expanded, clientPage, changeRoute, orders, clientId, status, settings, onRequest,
-  client, tempOrder, showModal, closeModal
+  client, tempOrder, showModal, closeModal, ausPrices, handlePdfQuote
 
 }) {
   return (
@@ -50,7 +50,10 @@ export default function ClientExpand({
             />
             :
             clientPage === 'quotes' ?
-            <h1>quotes</h1>
+            <QuotePage 
+              ausPrice={ ausPrices.BTC.acxBestBTC }
+              handlePdfQuote={ handlePdfQuote }
+            />
             :
             ""
           }

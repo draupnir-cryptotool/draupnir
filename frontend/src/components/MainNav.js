@@ -17,7 +17,7 @@ export default function MainNav({
   settings, onUpdate, clientModal, clients, 
   expandedClientID, onClientBarExpand, clientPage, 
   changeRoute, orders, onRequest, tempOrder, showModal,
-  closeModal
+  closeModal, ausPrices, handlePdfQuote
 }) {
   return (
     <Router>
@@ -44,6 +44,8 @@ export default function MainNav({
             tempOrder={ tempOrder }
             showModal={ showModal }
             closeModal={ closeModal }
+            ausPrices={ ausPrices }
+            handlePdfQuote={ handlePdfQuote }
           />
         )
         } />

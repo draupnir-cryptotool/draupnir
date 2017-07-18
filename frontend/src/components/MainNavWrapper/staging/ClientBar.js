@@ -6,7 +6,7 @@ export default function ClientBar({
   client, uniqId, firstname, lastname,
   expanded = false, onExpand, clientPage, changeRoute,
   orders, id, status, settings, onRequest, tempOrder,
-  showModal, closeModal
+  showModal, closeModal, ausPrices, handlePdfQuote
 }) {
   return(
     <div>
@@ -33,6 +33,8 @@ export default function ClientBar({
             client={ client }
             showModal={ showModal }
             closeModal={ closeModal }
+            ausPrices={ ausPrices }
+            handlePdfQuote={ handlePdfQuote }
           />
         </div>
     </div>

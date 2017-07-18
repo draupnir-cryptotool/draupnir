@@ -7,7 +7,7 @@ export default function Staging({
   clientModal, clients, expandedClientID, 
   onClientBarExpand, clientPage, changeRoute,
   orders, settings, onRequest, tempOrder, showModal,
-  closeModal
+  closeModal, ausPrices, handlePdfQuote
 }){
 
   return (
@@ -45,6 +45,8 @@ export default function Staging({
             client={ client }
             showModal={ showModal }
             closeModal={ closeModal }
+            ausPrices={ ausPrices }
+            handlePdfQuote={ handlePdfQuote }
           />
         ))
         :

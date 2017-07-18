@@ -13,6 +13,8 @@ import * as livePriceApi from './api/livePrice'
 import * as settingsAPI from './api/settings'
 import * as clientAPI from './api/client'
 import * as orderAPI from './api/order'
+import * as ausPricesAPI from './api/ausPrices'
+import * as pdfQuoteAPI from './api/pdfQuote'
 import ClientModal from './components/Modal/ClientModal'
 import ClientImageModal from './components/Modal/ClientImageModal'
 
@@ -21,6 +23,7 @@ class App extends Component {
     token: null,
     error: null,
     currentCurrency: 'usd',
+    ausPrices: null,
     bitcoinBalance: null,
     ethereumBalance: null,
     bitfinexBitcoinPrice: null,
@@ -51,7 +54,6 @@ class App extends Component {
       this.setState({ error })
     })
   }
-
 
   handleRegistration = ({email, firstname, lastname, password}) => {
     authAPI.register({email, firstname, lastname, password})
@@ -87,6 +89,10 @@ class App extends Component {
     })
   }
 
+  handlePdfQuote = ({ exchange1 }) => {
+    pdfQuoteAPI.generatePdf({ exchange1 })
+  }
+
   // create a new client
   handleCreateClient = ({ firstname, lastname, email, phone }) => {
     clientAPI.createClient({firstname, lastname, email, phone})
@@ -108,6 +114,13 @@ class App extends Component {
     .then(clients => {
       this.setState({ clients })
     })
+  }
+
+  fetchAusPrices = () => {
+    ausPricesAPI.ausPrices()
+      .then(prices => {
+        this.setState({ ausPrices: prices })
+      })
   }
 
   // get all orders
@@ -274,7 +287,7 @@ class App extends Component {
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
-            showModal, clients, expandedClientID, clientPage, orders, tempOrder, showClientImageModal } = this.state
+            showModal, clients, expandedClientID, clientPage, orders, tempOrder, showClientImageModal, ausPrices } = this.state
     return (
       <Router>
         <main>
@@ -291,7 +304,7 @@ class App extends Component {
           <div>
             <div>
             {
-            !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
+            !!ausPrices && !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
             !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings ? (
               <Header 
                 settings={ masterSettings }
@@ -314,7 +327,7 @@ class App extends Component {
             </div>
             <div>
             {
-              !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
+              !!ausPrices && !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
               <MainNav
                 settings={ masterSettings }
                 onRequest={ this.handleQueryOrder }
@@ -329,6 +342,8 @@ class App extends Component {
                 tempOrder= { tempOrder}
                 showModal={ this.handleOpenClientImageModal } 
                 closeModal={ this.handleCloseClientImageModal}
+                ausPrices={ ausPrices }
+                handlePdfQuote={ this.handlePdfQuote }
               /> ) : (
                 <p>loading..</p>
               )
@@ -378,6 +393,7 @@ class App extends Component {
     this.fetchSettings()
     this.fetchAllClients()
     this.fetchAllOrders()
+    this.fetchAusPrices()
   }
 }
 
