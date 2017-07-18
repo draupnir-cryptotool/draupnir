@@ -5,14 +5,16 @@ import Header from './components/Header';
 import MainNav from './components/MainNav';
 import Order from './components/Order';
 import Image from './components/Image';
-import * as authAPI from './api/auth';
+import Mail from './components/Mail';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import * as authAPI from './api/auth';
 import * as walletApi from './api/wallet'
 import * as livePriceApi from './api/livePrice'
 import * as settingsAPI from './api/settings'
 import * as clientAPI from './api/client'
 import * as orderAPI from './api/order'
 import * as imageAPI from './api/image'
+import * as mailAPI from './api/mail'
 import ClientModal from './components/Modal/ClientModal'
 import ClientImageModal from './components/Modal/ClientImageModal'
 
@@ -38,13 +40,18 @@ class App extends Component {
       settings: 0
     },
     expandedClientID: null,
-
   }
+
+
+  // Sending Email via Mailgun
+  handleSendMail = ({ subject, text }) => {
+    mailAPI.sendMail({ subject, text })
+  }
+
   // upload image form
     handleUploadPhoto = ({ file, idType, clientId }) => {
       imageAPI.createImage({ file, idType, clientId })
       .then(image => {
-        console.log(image)
         this.setState((prevState) => {
           return {
             images: prevState.images.concat(image)
@@ -360,13 +367,20 @@ class App extends Component {
             <Order />
           </div>
         )
-      } />
-      <Route path='/image' render={() => (
-          
-          <div>
-            <Image />
-          </div>
-        )
+        } />
+        <Route path='/image' render={() => (
+            
+            <div>
+              <Image />
+            </div>
+          )
+        } />
+        <Route path='/mail' render={() => (
+            
+            <div>
+              <Mail onSend={ this.handleSendMail }/>
+            </div>
+          )
         } />
         </main>
       </Router>
