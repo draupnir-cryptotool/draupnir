@@ -6,7 +6,7 @@ import _ from 'lodash'
 export default function ClientBar({
   client, uniqId, firstname, lastname,
   expanded = false, onExpand, clientPage, changeRoute,
-  orders, id, status, settings, onRequest, tempOrder,
+  orders, id, status, settings,
   showModal, closeModal, showClientImageModal, closeImageModal,
   uploadPhoto, images
 }) {
@@ -36,8 +36,6 @@ export default function ClientBar({
             clientId={ id }
             status={ status }
             settings={ settings }
-            onRequest={ onRequest }
-            tempOrder={ tempOrder }
             client={ client }
             showModal={ showModal }
             closeModal={ closeModal }
