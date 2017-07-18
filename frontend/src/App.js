@@ -38,7 +38,6 @@ class App extends Component {
       settings: 0
     },
     expandedClientID: null,
-    tempOrder: null
 
   }
   // upload image form
@@ -56,17 +55,6 @@ class App extends Component {
         this.setState({ error })
       })
     }
-
-  // Fetching best order rates from exchanges
-  handleQueryOrder =({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) => {
-    orderAPI.queryOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
-    .then(json => {
-      this.setState({ tempOrder: json })
-    })
-    .catch(error => {
-      this.setState({ error })
-    })
-  }
 
 
   handleRegistration = ({email, firstname, lastname, password}) => {
@@ -298,8 +286,8 @@ class App extends Component {
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
-            showModal, clients, expandedClientID, clientPage, orders, tempOrder, 
-            showClientImageModal, images } = this.state
+            showModal, clients, expandedClientID, clientPage, orders, showClientImageModal, images } 
+            = this.state
     return (
       <Router>
         <main>
@@ -342,7 +330,6 @@ class App extends Component {
               !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
               <MainNav
                 settings={ masterSettings }
-                onRequest={ this.handleQueryOrder }
                 onUpdate={ this.handleUpdateSettings }
                 clientModal={ this.handleOpenClientModal }
                 clients={ clients }
@@ -351,7 +338,6 @@ class App extends Component {
                 clientPage={ clientPage }
                 changeRoute={ this.onClientPageRoute }
                 orders={ orders }
-                tempOrder= { tempOrder}
                 showModal={ this.handleOpenClientImageModal } 
                 closeModal={ this.handleCloseClientImageModal}
                 showClientImageModal={ showClientImageModal }
