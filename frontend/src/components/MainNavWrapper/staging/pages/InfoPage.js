@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, OverlayTrigger, Popover } from 'react-bootstrap'
 import ClientImageModal from '../../../Modal/ClientImageModal'
 import _ from 'lodash'
 
@@ -7,6 +7,18 @@ export default function InfoPage({
   client, showModal, closeModal, showClientImageModal, closeImageModal,
   uploadPhoto, imageData
 }){
+  const viewImageStyle = {
+    fontSize: '.7em',
+    position: 'relative',
+    left: '15%'
+  }
+
+  const imageOverlay = (
+    <Popover id="popover-positioned-top" title="Popover top">
+      <img src={imageData.s3URL} alt="picture"/>
+    </Popover>
+  )
+
   return (
     <div style={{ display: 'flex' }}>
       <div style={{  marginRight: '20%' }}>
@@ -22,7 +34,17 @@ export default function InfoPage({
         clientId={client._id} />
       <div>
         <h1>ID</h1> 
-        <h3>{imageData.idType}</h3>
+        <h3>{imageData.idType} 
+        <span style={ viewImageStyle }><OverlayTrigger trigger="click" placement="top" overlay={imageOverlay}>
+          { !!imageData ?
+          <Button>View</Button>
+          :
+          ""
+          }
+        </OverlayTrigger>
+        </span>
+        </h3>
+
         <Button type="submit" bsStyle={'primary'} onClick={ () => showModal() }>Add</Button>
       </div>
     </div>
