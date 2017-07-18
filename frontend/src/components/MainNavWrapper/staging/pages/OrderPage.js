@@ -3,10 +3,23 @@ import ReactDOM from 'react-dom'
 import { Button, FormGroup, ControlLabel, FormControl, Form, Col,
           Table      } from 'react-bootstrap'
 import _ from 'lodash'
+import * as orderAPI from '../../../../api/order'
 
 class OrderPage extends React.Component{
+  state = { tempOrder: null }
 
-  submitOrder = (event, onRequest) => {
+  // Fetching best order rates from exchanges
+  handleQueryOrder =({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) => {
+    orderAPI.queryOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
+    .then(json => {
+      this.setState({ tempOrder: json })
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
+  }
+
+  submitOrder = (event, handleQueryOrder) => {
     event.preventDefault()
     const amount = ReactDOM.findDOMNode(this.refs.deposit).value
     const buying = ReactDOM.findDOMNode(this.refs.currency).value
@@ -14,12 +27,11 @@ class OrderPage extends React.Component{
     const bitfinexLimit = ReactDOM.findDOMNode(this.refs.bitfinexFloat).value
     const btceLimit = ReactDOM.findDOMNode(this.refs.btceFloat).value
     const bitstampLimit = ReactDOM.findDOMNode(this.refs.bitstampFloat).value
-    onRequest({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
+    handleQueryOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
   }
 
-
-
   render() {
+    const { tempOrder } = this.state
     const dollarSymbolStyle = {
     position: 'relative',
     left: '26%'
@@ -33,7 +45,7 @@ class OrderPage extends React.Component{
 
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                Deposit<span style={ dollarSymbolStyle }>$</span>
+                Buying
                 </Col>
                 <Col sm={5}>
                   <FormControl type="text" ref="deposit"/>
@@ -58,7 +70,7 @@ class OrderPage extends React.Component{
 
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                  Currency
+                  Tally
                 </Col>
                 <Col sm={5}>
                   <FormControl
@@ -67,6 +79,7 @@ class OrderPage extends React.Component{
                     ref="tally"
                   >
                     <option value="usd">USD</option>
+                    <option value="btc">BTC</option>
                   </FormControl>
                 </Col>
               </FormGroup>
@@ -84,14 +97,14 @@ class OrderPage extends React.Component{
               className={ "updateBtn" } 
               bsSize="large"
               bsStyle="primary" type="submit" 
-              onClick={(event) => this.submitOrder(event, this.props.onRequest)}>
+              onClick={(event) => this.submitOrder(event, this.handleQueryOrder)}>
               Query Order
             </Button>
           </div>
         </div>
 
         <div style={{flexDirection: 'row', width: '50%'}}>
-        { !_.isEmpty(this.props.tempOrder) ? (
+        { !_.isEmpty(this.state.tempOrder) ? (
           <div>
             <h1 style={{ textAlign: 'center' }}>ORDER</h1>
             <Table responsive>
@@ -105,28 +118,28 @@ class OrderPage extends React.Component{
               <tbody>
                 <tr>
                   <td><h4>BITFINEX</h4></td>
-                  <td>{ parseFloat(this.props.tempOrder.exchanges.bitfinex.coinBought).toFixed(2) }</td>
-                  <td>{ parseFloat(this.props.tempOrder.exchanges.bitfinex.usdSpent).toFixed(2) }</td>
+                  <td>{ parseFloat(this.state.tempOrder.exchanges.bitfinex.coinBought).toFixed(2) }</td>
+                  <td>{ parseFloat(this.state.tempOrder.exchanges.bitfinex.usdSpent).toFixed(2) }</td>
                 </tr>
                 <tr>
                   <td><h4>BTC-E</h4></td>
-                  <td>{ parseFloat(this.props.tempOrder.exchanges.btce.coinBought).toFixed(2) }</td>
-                  <td>{ parseFloat(this.props.tempOrder.exchanges.btce.usdSpent).toFixed(2) }</td>
+                  <td>{ parseFloat(this.state.tempOrder.exchanges.btce.coinBought).toFixed(2) }</td>
+                  <td>{ parseFloat(this.state.tempOrder.exchanges.btce.usdSpent).toFixed(2) }</td>
                   <td></td>
                 </tr>
                 <tr>
                   <td><h4>BITSTAMP</h4></td>
-                  <td>{ parseFloat(this.props.tempOrder.exchanges.bitstamp.coinBought).toFixed(2) }</td>
-                  <td>{ parseFloat(this.props.tempOrder.exchanges.bitstamp.usdSpent).toFixed(2) }</td>
+                  <td>{ parseFloat(this.state.tempOrder.exchanges.bitstamp.coinBought).toFixed(2) }</td>
+                  <td>{ parseFloat(this.state.tempOrder.exchanges.bitstamp.usdSpent).toFixed(2) }</td>
                   <td></td>
                 </tr>
                 <tr>
                   <td><h4><strong>TOTAL</strong></h4></td>
                   <td><strong>
-                    { parseFloat(this.props.tempOrder.totalCoinBought).toFixed(2) }
+                    { parseFloat(this.state.tempOrder.totalCoinBought).toFixed(2) }
                   </strong></td>
                   <td><strong>
-                    { parseFloat(this.props.tempOrder.totalUsdSpent).toFixed(2) }
+                    { parseFloat(this.state.tempOrder.totalUsdSpent).toFixed(2) }
                   </strong></td>
                   <td></td>
                 </tr>

@@ -9,8 +9,8 @@ import QuotePage from './pages/QuotePage'
 
 export default function ClientExpand({
 
-  expanded, clientPage, changeRoute, orders, clientId, status, settings, onRequest,
-  client, tempOrder, showModal, closeModal, showClientImageModal, closeImageModal,
+  expanded, clientPage, changeRoute, orders, clientId, status, settings,
+  client, showModal, closeModal, showClientImageModal, closeImageModal,
   uploadPhoto, imageData
 
 }) {
@@ -49,9 +49,7 @@ export default function ClientExpand({
             clientPage === 'order' ?
             <OrderPage
               settings={ settings }
-              onRequest={ onRequest }
               orders={ orders }
-              tempOrder={ tempOrder }
             />
             :
             clientPage === 'quotes' ?
