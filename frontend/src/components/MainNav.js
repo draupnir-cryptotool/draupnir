@@ -14,10 +14,25 @@ const style = {
   }
 
 export default function MainNav({
-  settings, onUpdate, clientModal, clients, 
-  expandedClientID, onClientBarExpand, clientPage, 
-  changeRoute, orders, onRequest, tempOrder, showModal,
-  closeModal, ausPrices, handlePdfQuote
+  ausPrices,
+  changeRoute,
+  clientModal,
+  clientPage,
+  clients,
+  closeImageModal,
+  closeModal,
+  expandedClientID,
+  handlePdfQuote
+  images
+  onClientBarExpand,
+  onRequest,
+  onUpdate,
+  orders,
+  settings,
+  showClientImageModal,
+  showModal,
+  tempOrder,
+  uploadPhoto,
 }) {
   return (
     <Router>
@@ -31,21 +46,23 @@ export default function MainNav({
         </div>
         <Route path='/home/staging' render={ () => (
           <Staging 
-            clientModal={ clientModal } 
-            clients={ clients }
-            expandedClientID={ expandedClientID }
-            onClientBarExpand={ onClientBarExpand } 
-            clientPage={ clientPage }
-            changeRoute={ changeRoute }
-            orders={ orders }
-            onUpdate={ onUpdate }
-            settings={ settings }
-            onRequest={ onRequest }
-            tempOrder={ tempOrder }
-            showModal={ showModal }
-            closeModal={ closeModal }
             ausPrices={ ausPrices }
+            changeRoute={ changeRoute }
+            clientModal={ clientModal } 
+            clientPage={ clientPage }
+            clients={ clients }
+            closeImageModal={closeImageModal}
+            closeModal={ closeModal }
+            expandedClientID={ expandedClientID }
             handlePdfQuote={ handlePdfQuote }
+            images={images}
+            onClientBarExpand={ onClientBarExpand } 
+            onUpdate={ onUpdate }
+            orders={ orders }
+            settings={ settings }
+            showClientImageModal={showClientImageModal}
+            showModal={ showModal }
+            uploadPhoto={uploadPhoto}
           />
         )
         } />

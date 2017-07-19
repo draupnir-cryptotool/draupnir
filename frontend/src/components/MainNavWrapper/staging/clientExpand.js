@@ -1,5 +1,5 @@
 import React from 'react'
-import { Collapse } from 'react-collapse'
+import { UnmountClosed as Collapse } from 'react-collapse'
 import StatusPage from './pages/StatusPage'
 import InfoPage from './pages/InfoPage'
 import LogsPage from './pages/LogsPage'
@@ -8,17 +8,31 @@ import OrderPage from './pages/OrderPage'
 import QuotePage from './pages/QuotePage'
 
 export default function ClientExpand({
-
-  expanded, clientPage, changeRoute, orders, clientId, status, settings, onRequest,
-  client, tempOrder, showModal, closeModal, ausPrices, handlePdfQuote
-
+  ausPrices,
+  changeRoute,
+  client,
+  clientId,
+  clientPage,
+  closeImageModal,
+  closeModal,
+  expanded,
+  handlePdfQuote
+  imageData
+  onRequest,
+  orders,
+  settings,
+  showClientImageModal,
+  showModal,
+  status,
+  tempOrder,
+  uploadPhoto,
 }) {
   return (
       <div>
-        <Collapse isOpened={ expanded } fixedHeight={300}>
+        <Collapse isOpened={ expanded } fixedHeight={350}>
         <div>
           <nav>
-            <a onClick={() => changeRoute('status')}>STATUS</a>
+            <a onClick={ () => changeRoute('status')}>STATUS</a>
             <a onClick={ () => changeRoute('info') }>INFO</a>
             <a onClick={ () => changeRoute('notes') }>NOTES</a>
             <a onClick={ () => changeRoute('logs') }>LOGS</a>
@@ -33,7 +47,11 @@ export default function ClientExpand({
             <InfoPage 
             client={ client }
             showModal={ showModal }
-            closeModal={ closeModal } />
+            closeModal={ closeModal }
+            showClientImageModal={showClientImageModal}
+            closeImageModal={closeImageModal}
+            uploadPhoto={uploadPhoto}
+            imageData ={ !!imageData ? imageData : "" } />
             :
             clientPage === 'notes' ?
             <h1>notes</h1>
@@ -44,9 +62,7 @@ export default function ClientExpand({
             clientPage === 'order' ?
             <OrderPage
               settings={ settings }
-              onRequest={ onRequest }
               orders={ orders }
-              tempOrder={ tempOrder }
             />
             :
             clientPage === 'quotes' ?

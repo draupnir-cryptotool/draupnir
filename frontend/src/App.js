@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
 import './App.css';
-import LogInform from './components/logIn/LogInForm';
+import * as ausPricesAPI from './api/ausPrices'
+import * as authAPI from './api/auth';
+import * as clientAPI from './api/client'
+import * as imageAPI from './api/image'
+import * as livePriceApi from './api/livePrice'
+import * as mailAPI from './api/mail'
+import * as orderAPI from './api/order'
+import * as pdfQuoteAPI from './api/pdfQuote'
+import * as settingsAPI from './api/settings'
+import * as walletApi from './api/wallet'
+import ClientImageModal from './components/Modal/ClientImageModal'
+import ClientModal from './components/Modal/ClientModal'
 import Header from './components/Header';
+import Image from './components/Image';
+import LogInform from './components/logIn/LogInForm';
+import Mail from './components/Mail';
 import MainNav from './components/MainNav';
 import Order from './components/Order';
 import PdfForm from './components/pdfForm';
-import Image from './components/Image';
-import * as authAPI from './api/auth';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import * as walletApi from './api/wallet'
-import * as livePriceApi from './api/livePrice'
-import * as settingsAPI from './api/settings'
-import * as clientAPI from './api/client'
-import * as orderAPI from './api/order'
-import * as ausPricesAPI from './api/ausPrices'
-import * as pdfQuoteAPI from './api/pdfQuote'
-import ClientModal from './components/Modal/ClientModal'
-import ClientImageModal from './components/Modal/ClientImageModal'
 
 class App extends Component {
   state = {
@@ -36,24 +39,34 @@ class App extends Component {
     clients: null,
     clientPage: null,
     orders: null,
+    images: null,
     masterSettings: {
       settings: 0
     },
     expandedClientID: null,
-    tempOrder: null
-
   }
 
-  // Fetching best order rates from exchanges
-  handleQueryOrder =({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) => {
-    orderAPI.queryOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
-    .then(json => {
-      this.setState({ tempOrder: json })
-    })
-    .catch(error => {
-      this.setState({ error })
-    })
+
+  // Sending Email via Mailgun
+  handleSendMail = ({ subject, text }) => {
+    mailAPI.sendMail({ subject, text })
   }
+
+  // upload image form
+    handleUploadPhoto = ({ file, idType, clientId }) => {
+      imageAPI.createImage({ file, idType, clientId })
+      .then(image => {
+        this.setState((prevState) => {
+          return {
+            images: prevState.images.concat(image)
+          }
+        })
+      })
+      .catch(error => {
+        this.setState({ error })
+      })
+    }
+
 
   handleRegistration = ({email, firstname, lastname, password}) => {
     authAPI.register({email, firstname, lastname, password})
@@ -105,6 +118,14 @@ class App extends Component {
     })
     .catch(error => {
       this.setState({ error })
+    })
+  }
+// FETCH SECTION---------------------------------------------------------
+// get all image data
+  fetchImagesData = () => {
+    imageAPI.allImageData()
+    .then((allImages) => {
+      this.setState({images: allImages})
     })
   }
 
@@ -285,9 +306,28 @@ class App extends Component {
   }
 
   render() {
-    const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
-            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
-            showModal, clients, expandedClientID, clientPage, orders, tempOrder, showClientImageModal, ausPrices } = this.state
+    const { 
+      ausPrices,
+      bitcoinBalance,
+      bitfinexBitcoinPrice,
+      bitfinexEthPrice,
+      bitstampBitcoinPrice,
+      btceBitcoinPrice,
+      btceEthPrice,
+      clientPage,
+      clients,
+      currentCurrency,
+      error,
+      ethereumBalance,
+      expandedClientID,
+      images, 
+      masterSettings,
+      orders,
+      showClientImageModal,
+      showModal,
+      tempOrder,
+      token,
+   } = this.state
     return (
       <Router>
         <main>
@@ -330,7 +370,6 @@ class App extends Component {
               !!ausPrices && !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
               <MainNav
                 settings={ masterSettings }
-                onRequest={ this.handleQueryOrder }
                 onUpdate={ this.handleUpdateSettings }
                 clientModal={ this.handleOpenClientModal }
                 clients={ clients }
@@ -339,20 +378,25 @@ class App extends Component {
                 clientPage={ clientPage }
                 changeRoute={ this.onClientPageRoute }
                 orders={ orders }
-                tempOrder= { tempOrder}
                 showModal={ this.handleOpenClientImageModal } 
                 closeModal={ this.handleCloseClientImageModal}
+<<<<<<< HEAD
                 ausPrices={ ausPrices }
                 handlePdfQuote={ this.handlePdfQuote }
               /> ) : (
+=======
+                showClientImageModal={ showClientImageModal }
+                closeImageModal={ this.handleCloseClientImageModal }
+                uploadPhoto={ this.handleUploadPhoto }
+                images={ images } />
+                ) : (
+>>>>>>> master
                 <p>loading..</p>
               )
 
             }
             </div>
             <ClientModal showModal={ showModal } closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
-            <ClientImageModal 
-              showClientImageModal={ showClientImageModal } />
             </div>
         )
         } />
@@ -362,6 +406,7 @@ class App extends Component {
             <Order />
           </div>
         )
+<<<<<<< HEAD
       } />
         <Route path='/pdfform' render={() => (
 
@@ -376,6 +421,22 @@ class App extends Component {
             <Image />
           </div>
         )
+=======
+        } />
+        <Route path='/image' render={() => (
+            
+            <div>
+              <Image />
+            </div>
+          )
+        } />
+        <Route path='/mail' render={() => (
+            
+            <div>
+              <Mail onSend={ this.handleSendMail }/>
+            </div>
+          )
+>>>>>>> master
         } />
         </main>
       </Router>
@@ -393,7 +454,11 @@ class App extends Component {
     this.fetchSettings()
     this.fetchAllClients()
     this.fetchAllOrders()
+<<<<<<< HEAD
     this.fetchAusPrices()
+=======
+    this.fetchImagesData()
+>>>>>>> master
   }
 }
 

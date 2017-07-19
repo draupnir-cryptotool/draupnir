@@ -6,14 +6,14 @@ import "./settings.css"
 class SettingsForm extends React.Component {
 
   submitUpdateRequest = (event, onUpdate) => {
-  event.preventDefault()
-  const bitfinexFloat = ReactDOM.findDOMNode(this.refs.bitfinexFloat).value
-  const btceFloat = ReactDOM.findDOMNode(this.refs.btceFloat).value
-  const bitstampFloat = ReactDOM.findDOMNode(this.refs.bitstampFloat).value
-  const ethWalletAddress = ReactDOM.findDOMNode(this.refs.ethWalletAddress).value
-  const btceWalletAddress = ReactDOM.findDOMNode(this.refs.btceWalletAddress).value
-  onUpdate({ bitfinexFloat, btceFloat, bitstampFloat, ethWalletAddress, btceWalletAddress })
-}
+    event.preventDefault()
+    const bitfinexFloat = ReactDOM.findDOMNode(this.refs.bitfinexFloat).value
+    const btceFloat = ReactDOM.findDOMNode(this.refs.btceFloat).value
+    const bitstampFloat = ReactDOM.findDOMNode(this.refs.bitstampFloat).value
+    const ethWalletAddress = ReactDOM.findDOMNode(this.refs.ethWalletAddress).value
+    const btceWalletAddress = ReactDOM.findDOMNode(this.refs.btceWalletAddress).value
+    onUpdate({ bitfinexFloat, btceFloat, bitstampFloat, ethWalletAddress, btceWalletAddress })
+  }
 
   render() {
     const dollarSymbolStyle = {

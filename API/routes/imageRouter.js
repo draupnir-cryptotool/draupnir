@@ -43,14 +43,17 @@ let storage = multer.diskStorage({
 // });
 
 router.post('/images', upload.single('image'), function(req, res, next) {
+  console.log(req.file)
   // res.send(req.file);
-  const location = req.file.location;
   const imageName = req.file.originalname;
-  
+  const location = req.file.location;
+  const body = req.body
+  console.log(body)
   let imagepath = {};
   imagepath['s3URL'] = location;
   imagepath['originalname'] = imageName;
-  
+  imagepath['idType'] = body.idType
+  imagepath['clientId'] = body.clientId
   //imagepath contains two objects, path and the imageName
   //passing two objects in the addImage method.. which is defined above..
   Image.create(imagepath)

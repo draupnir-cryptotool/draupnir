@@ -18,6 +18,7 @@ const authRouter = require('./routes/auth');
 const settingsRouter = require('./routes/settingsRouter');
 const cors = require('cors');
 const imageRouter = require('./routes/imageRouter');
+const mailRouter = require('./routes/mailRouter')
 
 
 const server = express();
@@ -39,19 +40,20 @@ server.use(authMiddlware.initialize);
 // routes
 server.use(authRouter);
 server.use('/api', [
-  usersRouter,
-  clientRouter,
-  orderRouter,
-  messageRouter,
   GraphRouter,
-  walletBalanceRouter,
-  liveCoinPricesRouter,
-  order,
-  forexRates,
-  settingsRouter,
-  imageRouter,
   ausPrices,
+  clientRouter,
+  forexRates,
+  imageRouter,
+  liveCoinPricesRouter,
+  mailRouter,
+  messageRouter,
+  order,
+  orderRouter,
   pdfQuote,
+  settingsRouter,
+  usersRouter,
+  walletBalanceRouter,
 ]);
 
 // Handle errors by returning JSON

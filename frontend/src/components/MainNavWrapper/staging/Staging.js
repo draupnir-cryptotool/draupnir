@@ -4,10 +4,24 @@ import ClientBar from './ClientBar'
 
 
 export default function Staging({
-  clientModal, clients, expandedClientID, 
-  onClientBarExpand, clientPage, changeRoute,
-  orders, settings, onRequest, tempOrder, showModal,
-  closeModal, ausPrices, handlePdfQuote
+  ausPrices,
+  changeRoute,
+  clientModal,
+  clientPage,
+  clients,
+  closeImageModal, 
+  closeModal,
+  expandedClientID, 
+  handlePdfQuote
+  images
+  onClientBarExpand,
+  onRequest,
+  orders,
+  settings,
+  showClientImageModal,
+  showModal,
+  tempOrder,
+  uploadPhoto,
 }){
 
   return (
@@ -24,29 +38,27 @@ export default function Staging({
       {
         !!clients ? clients.map((client) => (
           <ClientBar 
-            key={ client._id } 
-            id={ client._id } 
-            uniqId={ client.uniqId } 
-            firstname={ client.firstname } 
-            lastname={ client.lastname }
-            status={ client.status }
-            expanded={ expandedClientID === client._id }
-            onExpand={ () => onClientBarExpand(client._id) }
-            clientPage={ clientPage }
+            ausPrices={ ausPrices }
             changeRoute={ changeRoute }
+            client={ client }
+            clientPage={ clientPage }
+            closeImageModal={closeImageModal}
+            closeModal={ closeModal }
+            expanded={ expandedClientID === client._id }
+            firstname={ client.firstname } 
+            handlePdfQuote={ handlePdfQuote }
+            id={ client._id } 
+            images={images}
+            key={ client._id } 
+            lastname={ client.lastname }
+            onExpand={ () => onClientBarExpand(client._id) }
             orders={ orders }
             settings={ settings }
-            onRequest={ onRequest }
-            tempOrder={ tempOrder }
-            client={ client }
-            settings={ settings }
-            onRequest={ onRequest }
-            tempOrder={ tempOrder }
-            client={ client }
+            showClientImageModal={showClientImageModal}
             showModal={ showModal }
-            closeModal={ closeModal }
-            ausPrices={ ausPrices }
-            handlePdfQuote={ handlePdfQuote }
+            status={ client.status }
+            uniqId={ client.uniqId } 
+            uploadPhoto={uploadPhoto}
           />
         ))
         :

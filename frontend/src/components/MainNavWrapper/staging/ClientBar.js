@@ -1,13 +1,38 @@
 import React from 'react'
 import './staging.css'
 import ClientExpand from './clientExpand'
+import _ from 'lodash'
 
 export default function ClientBar({
-  client, uniqId, firstname, lastname,
-  expanded = false, onExpand, clientPage, changeRoute,
-  orders, id, status, settings, onRequest, tempOrder,
-  showModal, closeModal, ausPrices, handlePdfQuote
+  ausPrices,
+  changeRoute,
+  client,
+  clientPage,
+  closeImageModal,
+  closeModal,
+  expanded = false,
+  firstname,
+  handlePdfQuote
+  id,
+  images
+  lastname,
+  onExpand,
+  onRequest,
+  orders,
+  settings,
+  showClientImageModal,
+  showModal,
+  status,
+  tempOrder,
+  uniqId,
+  uploadPhoto,
 }) {
+  const imageDataFind = ((images, id) => {
+    return _.find(images, {clientId: id})
+  })
+
+  const imageData = imageDataFind(images, id)
+  console.log(imageData)
   return(
     <div>
         <div>
@@ -20,21 +45,23 @@ export default function ClientBar({
             </div>
           </div>
           <ClientExpand 
-            expanded={ expanded } 
-            clientPage={ clientPage }
-            changeRoute={ changeRoute}
-            orders={orders}
-            uniqId={ uniqId }
-            clientId={ id }
-            status={ status }
-            settings={ settings }
-            onRequest={ onRequest }
-            tempOrder={ tempOrder }
-            client={ client }
-            showModal={ showModal }
-            closeModal={ closeModal }
             ausPrices={ ausPrices }
+            changeRoute={ changeRoute}
+            client={ client }
+            clientId={ id }
+            clientPage={ clientPage }
+            closeImageModal={closeImageModal}
+            closeModal={ closeModal }
+            expanded={ expanded } 
             handlePdfQuote={ handlePdfQuote }
+            imageData={ imageData }
+            orders={orders}
+            settings={ settings }
+            showClientImageModal={showClientImageModal}
+            showModal={ showModal }
+            status={ status }
+            uniqId={ uniqId }
+            uploadPhoto={uploadPhoto}
           />
         </div>
     </div>
