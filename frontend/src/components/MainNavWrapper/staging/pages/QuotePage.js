@@ -9,30 +9,29 @@ import {
   FormGroup,
   Table,
 } from 'react-bootstrap'
-import _ from 'lodash'
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 class QuotePage extends React.Component{
   state = {
-    client: 'Testy McTestface',
+    client: this.props.client.firstname + ' ' + this.props.client.lastname,
     quoteId: 123,
     orderAmount: 10000,
     currency: 'Bitcoin',
     exchange1: {
-      name: 'ACX',
-      bestPrice: 2500,
+      name: '',
+      bestPrice: 0,
     },
     exchange2: {
-      name: 'BTC Markets',
-      bestPrice: 2600,
+      name: '',
+      bestPrice: 0,
     },
     average: 0,
-    spotPrice: 2520,
+    spotPrice: 0,
     commission: 4,
-    totalPerCoin: 2700,
-    totalCoins: 4.2,
+    totalPerCoin: 0,
+    totalCoins: 0,
   };
 
   setPrices = () => {
@@ -95,7 +94,6 @@ class QuotePage extends React.Component{
       ],
     };
 
-
     // Encode the pdf in base64 and send it to the mail API
     const pdfDocGenerator = pdfMake.createPdf(docDefinition);
     pdfDocGenerator.getBase64((data) => {
@@ -116,11 +114,25 @@ class QuotePage extends React.Component{
     this.makePdf(emailProps);
   }
 
+  handleChange = (e) => {
+    this.setState({
+      spotPrice: e.target.value,
+      totalPerCoin: parseFloat(this.state.spotPrice) + (this.state.spotPrice * (this.state.commission / 100)),
+    });
+    
+    console.log(this.state);
+    console.log(e);
+  }
+
+  // handleChange = (event) => {
+  //   console.log(this.state);
+  //   console.log(event.target);
+  //   let change = {};
+  //   change[event.target.ref] = event.target.value;
+  //   this.setState(change);
+  // }
+
   render() {
-    const dollarSymbolStyle = {
-    position: 'relative',
-    left: '26%'
-    }
     return (
       <div style={{display: 'flex'}}>
         <div style={{display: 'flex', flexDirection: 'row', width: '50%'}}>
@@ -183,15 +195,6 @@ class QuotePage extends React.Component{
 
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                  Client: 
-                </Col>
-                <Col componentClass={ ControlLabel } sm={5}>
-                  {this.state.client}
-                </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formHorizontalName">
-                <Col componentClass={ ControlLabel } sm={5}>
                   Commission %
                 </Col>
                 <Col sm={5}>
@@ -204,7 +207,13 @@ class QuotePage extends React.Component{
                   Spot Price
                 </Col>
                 <Col sm={5}>
-                  <FormControl type="text" ref="spotPrice" defaultValue={ `${this.state.average}` }/>
+                  <FormControl
+                    type="text"
+                    ref="spotPrice"
+                    value={this.state.spotPrice.value}
+                    placeholder="Enter text"
+                    onChange={this.handleChange}
+                  />
                 </Col>
               </FormGroup>
 
@@ -216,7 +225,7 @@ class QuotePage extends React.Component{
                   <FormControl 
                     type="text" 
                     ref="totalPerCoin" 
-                    defaultValue={ `${this.state.spotPrice + (this.state.spotPrice * (this.state.commission / 100))}` }/>
+                    value={ `${this.state.totalPerCoin}` }/>
                 </Col>
               </FormGroup>
 
@@ -228,7 +237,7 @@ class QuotePage extends React.Component{
                   <FormControl 
                     type="text" 
                     ref="totalCoins" 
-                    defaultValue={ `${this.state.orderAmount / this.state.totalPerCoin}` }/>
+                    value={ `${this.state.orderAmount / this.state.totalPerCoin}` }/>
                 </Col>
               </FormGroup>
             </Form>
