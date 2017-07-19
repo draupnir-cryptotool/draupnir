@@ -8,15 +8,32 @@ import OrderPage from './pages/OrderPage'
 import QuotePage from './pages/QuotePage'
 
 export default function ClientExpand({
-
-  expanded, clientPage, changeRoute, orders, clientId, status, settings,
-  client, showModal, closeModal, showClientImageModal, closeImageModal,
-  uploadPhoto, imageData, tempOrder, onOrder, onOrderId, orderUserId
-
+  ausPrices,
+  changeRoute,
+  client,
+  clientId,
+  clientPage,
+  closeImageModal,
+  closeModal,
+  expanded,
+  handlePdfQuote,
+  imageData,
+  onOrder,
+  onOrderId,
+  onRequest,
+  onSend,
+  orderUserId,
+  orders,
+  settings,
+  showClientImageModal,
+  showModal,
+  status,
+  tempOrder,
+  uploadPhoto,
 }) {
   return (
       <div>
-        <Collapse isOpened={ expanded } fixedHeight={350}>
+        <Collapse isOpened={ expanded } fixedHeight={1000}>
         <div>
           <nav>
             <a onClick={ () => changeRoute('status')}>STATUS</a>
@@ -58,7 +75,12 @@ export default function ClientExpand({
             />
             :
             clientPage === 'quotes' ?
-            <h1>quotes</h1>
+            <QuotePage 
+              ausPrices={ ausPrices }
+              handlePdfQuote={ handlePdfQuote }
+              onSend={ onSend }
+              orders={ orders }
+            />
             :
             ""
           }

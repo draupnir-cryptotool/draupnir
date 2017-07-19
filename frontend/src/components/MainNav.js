@@ -15,11 +15,29 @@ const style = {
   }
 
 export default function MainNav({
-  settings, onUpdate, clientModal, clients, 
-  expandedClientID, onClientBarExpand, clientPage, 
-  changeRoute, orders, showModal, tempOrder, onOrder,
-  closeModal, showClientImageModal, closeImageModal, uploadPhoto,
-  images, onOrderId, orderUserId
+  ausPrices,
+  changeRoute,
+  clientModal,
+  clientPage,
+  clients,
+  closeImageModal,
+  closeModal,
+  expandedClientID,
+  handlePdfQuote,
+  images,
+  onClientBarExpand,
+  onOrder,
+  onOrderId,
+  onRequest,
+  onSend,
+  onUpdate,
+  orderUserId,
+  orders,
+  settings,
+  showClientImageModal,
+  showModal,
+  tempOrder,
+  uploadPhoto,
 }) {
   return (
     <Router>
@@ -35,25 +53,28 @@ export default function MainNav({
         </div>
         <Route path='/home/staging' render={ () => (
           <Staging 
-            clientModal={ clientModal } 
-            clients={ clients }
-            expandedClientID={ expandedClientID }
-            onClientBarExpand={ onClientBarExpand } 
-            clientPage={ clientPage }
+            ausPrices={ ausPrices }
             changeRoute={ changeRoute }
-            orders={ orders }
-            onUpdate={ onUpdate }
-            settings={ settings }
-            showModal={ showModal }
-            closeModal={ closeModal }
-            showClientImageModal={showClientImageModal}
+            clientModal={ clientModal } 
+            clientPage={ clientPage }
+            clients={ clients }
             closeImageModal={closeImageModal}
-            uploadPhoto={uploadPhoto}
+            closeModal={ closeModal }
+            expandedClientID={ expandedClientID }
+            handlePdfQuote={ handlePdfQuote }
             images={images}
-            tempOrder={ tempOrder }
+            onClientBarExpand={ onClientBarExpand } 
             onOrder={ onOrder }
             onOrderId={ onOrderId }
+            onSend={ onSend }
+            onUpdate={ onUpdate }
             orderUserId={ orderUserId }
+            orders={ orders }
+            settings={ settings }
+            showClientImageModal={showClientImageModal}
+            showModal={ showModal }
+            tempOrder={ tempOrder }
+            uploadPhoto={uploadPhoto}
           />
         )
         } />

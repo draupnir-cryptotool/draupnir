@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
 import './App.css';
-import LogInform from './components/logIn/LogInForm';
+import * as ausPricesAPI from './api/ausPrices'
+import * as authAPI from './api/auth';
+import * as clientAPI from './api/client'
+import * as imageAPI from './api/image'
+import * as livePriceApi from './api/livePrice'
+import * as mailAPI from './api/mail'
+import * as orderAPI from './api/order'
+import * as pdfQuoteAPI from './api/pdfQuote'
+import * as settingsAPI from './api/settings'
+import * as walletApi from './api/wallet'
+import ClientImageModal from './components/Modal/ClientImageModal'
+import ClientModal from './components/Modal/ClientModal'
 import Header from './components/Header';
+import Image from './components/Image';
+import LogInform from './components/logIn/LogInForm';
+import Mail from './components/Mail';
 import MainNav from './components/MainNav';
 import Order from './components/Order';
-import Image from './components/Image';
-import Mail from './components/Mail';
+import PdfForm from './components/pdfForm';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import * as authAPI from './api/auth';
-import * as walletApi from './api/wallet'
-import * as livePriceApi from './api/livePrice'
-import * as settingsAPI from './api/settings'
-import * as clientAPI from './api/client'
-import * as orderAPI from './api/order'
-import * as imageAPI from './api/image'
-import * as mailAPI from './api/mail'
-import ClientModal from './components/Modal/ClientModal'
-import ClientImageModal from './components/Modal/ClientImageModal'
 
 class App extends Component {
   state = {
     token: null,
     error: null,
     currentCurrency: 'usd',
+    ausPrices: null,
     bitcoinBalance: null,
     ethereumBalance: null,
     bitfinexBitcoinPrice: null,
@@ -57,8 +61,8 @@ class App extends Component {
   }
 
   // Sending Email via Mailgun
-  handleSendMail = ({ subject, text }) => {
-    mailAPI.sendMail({ subject, text })
+  handleSendMail = (emailProps) => {
+    mailAPI.sendMail(emailProps)
   }
 
   // upload image form
@@ -124,6 +128,10 @@ handleUpdateStatus = ({ clientId, statusType }) => {
     })
   }
 
+  handlePdfQuote = ({ exchange1 }) => {
+    pdfQuoteAPI.generatePdf({ exchange1 })
+  }
+
   // create a new client
   handleCreateClient = ({ firstname, lastname, email, phone }) => {
     clientAPI.createClient({firstname, lastname, email, phone})
@@ -153,6 +161,13 @@ handleUpdateStatus = ({ clientId, statusType }) => {
     .then(clients => {
       this.setState({ clients })
     })
+  }
+
+  fetchAusPrices = () => {
+    ausPricesAPI.ausPrices()
+      .then(prices => {
+        this.setState({ ausPrices: prices })
+      })
   }
 
   // get all orders
@@ -322,11 +337,29 @@ handleUpdateStatus = ({ clientId, statusType }) => {
   }
 
   render() {
-    const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
-            bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
-            showModal, clients, expandedClientID, clientPage, orders, showClientImageModal, images,
-            tempOrder, orderUserId } 
-            = this.state
+    const { 
+      ausPrices,
+      bitcoinBalance,
+      bitfinexBitcoinPrice,
+      bitfinexEthPrice,
+      bitstampBitcoinPrice,
+      btceBitcoinPrice,
+      btceEthPrice,
+      clientPage,
+      clients,
+      currentCurrency,
+      error,
+      ethereumBalance,
+      expandedClientID,
+      images,
+      masterSettings,
+      orderUserId,
+      orders,
+      showClientImageModal,
+      showModal,
+      tempOrder,
+      token,
+     } = this.state
     return (
       <Router>
         <main>
@@ -343,7 +376,7 @@ handleUpdateStatus = ({ clientId, statusType }) => {
           <div>
             <div>
             {
-            !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
+            !!ausPrices && !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
             !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings ? (
               <Header 
                 settings={ masterSettings }
@@ -366,27 +399,30 @@ handleUpdateStatus = ({ clientId, statusType }) => {
             </div>
             <div>
             {
-              !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
+              !!ausPrices && !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
               <MainNav
-                settings={ masterSettings }
-                onUpdate={ this.handleUpdateSettings }
-                clientModal={ this.handleOpenClientModal }
-                clients={ clients }
-                expandedClientID={ expandedClientID }
-                onClientBarExpand={ this.onSwitchClientBar}
-                clientPage={ clientPage }
+                ausPrices={ ausPrices }
                 changeRoute={ this.onClientPageRoute }
-                orders={ orders }
-                showModal={ this.handleOpenClientImageModal } 
-                closeModal={ this.handleCloseClientImageModal}
-                showClientImageModal={ showClientImageModal }
+                clientModal={ this.handleOpenClientModal }
+                clientPage={ clientPage }
+                clients={ clients }
                 closeImageModal={ this.handleCloseClientImageModal }
-                uploadPhoto={ this.handleUploadPhoto }
+                closeModal={ this.handleCloseClientImageModal}
+                expandedClientID={ expandedClientID }
+                handlePdfQuote={ this.handlePdfQuote }
                 images={ images }
-                tempOrder={ tempOrder }
+                onClientBarExpand={ this.onSwitchClientBar}
                 onOrder={ this.handleQueryOrder }
                 onOrderId={ this.handleSetOrderId }
+                onSend={ this.handleSendMail }
+                onUpdate={ this.handleUpdateSettings }
                 orderUserId={ orderUserId }
+                orders={ orders }
+                settings={ masterSettings }
+                showClientImageModal={ showClientImageModal }
+                showModal={ this.handleOpenClientImageModal } 
+                tempOrder={ tempOrder }
+                uploadPhoto={ this.handleUploadPhoto }
                 />
                 ) : (
                 <p>loading..</p>
@@ -404,7 +440,7 @@ handleUpdateStatus = ({ clientId, statusType }) => {
             <Order />
           </div>
         )
-        } />
+      } />
         <Route path='/image' render={() => (
             
             <div>
@@ -425,17 +461,18 @@ handleUpdateStatus = ({ clientId, statusType }) => {
   }
 
   componentDidMount() {
-    this.fetchBitcoinPrice()
-    this.fetchEthereumPrice()
-    this.fetchBitfinexBitcoinPrice()
-    this.fetchBitfinexEthPrice()
-    this.fetchBtceBitcoinPrice()
-    this.fetchBtceEthPrice()
-    this.fetchBitstampBitcoinPrice()
-    this.fetchSettings()
     this.fetchAllClients()
     this.fetchAllOrders()
+    this.fetchAusPrices()
+    this.fetchBitcoinPrice()
+    this.fetchBitfinexBitcoinPrice()
+    this.fetchBitfinexEthPrice()
+    this.fetchBitstampBitcoinPrice()
+    this.fetchBtceBitcoinPrice()
+    this.fetchBtceEthPrice()
+    this.fetchEthereumPrice()
     this.fetchImagesData()
+    this.fetchSettings()
   }
 }
 

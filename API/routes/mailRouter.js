@@ -1,22 +1,27 @@
-const express = require('express')
+const express = require('express');
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/mail', (req,res) => {
-  var api_key = process.env.MAILGUN_API
-  var domain = 'sandboxf47c6cc2f65a472b97244e383b08d3b8.mailgun.org';
-  var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
-  
-  var data = {
+router.post('/mail', (req, res) => {
+  const apiKey = process.env.MAILGUN_API;
+  const domain = 'sandboxf47c6cc2f65a472b97244e383b08d3b8.mailgun.org';
+  const mailgun = require('mailgun-js')({apiKey: apiKey, domain: domain});
+
+  // Turns the base64 encoded pdf into a mailgun attachment
+  let buf = new Buffer(req.body.file, 'base64');
+  let mailgunAttach = new mailgun.Attachment({data: buf, filename: 'C&BQuote.pdf'});
+
+  let data = {
     from: 'Excited User <postmaster@sandboxf47c6cc2f65a472b97244e383b08d3b8.mailgun.org>',
-    to: 'viginatarajan@gmail.com',
+    to: 'chrisxrobertson@gmail.com',
     subject: req.body.subject,
-    text: req.body.text
+    text: req.body.text,
+    attachment: mailgunAttach,
   };
-  mailgun.messages().send(data, function (error, body) {
-    console.log(body);
+  mailgun.messages().send(data, function(error, body) {
+    // console.log(body);
   });
-})
+});
 
-module.exports = router
+module.exports = router;
 

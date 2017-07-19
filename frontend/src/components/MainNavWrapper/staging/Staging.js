@@ -4,11 +4,28 @@ import ClientBar from './ClientBar'
 
 
 export default function Staging({
-  clientModal, clients, expandedClientID, 
-  onClientBarExpand, clientPage, changeRoute,
-  orders, settings, showModal, tempOrder, onOrder,
-  closeModal, showClientImageModal, closeImageModal, 
-  uploadPhoto, images, onOrderId, orderUserId
+  ausPrices,
+  changeRoute,
+  clientModal,
+  clientPage,
+  clients,
+  closeImageModal, 
+  closeModal,
+  expandedClientID,
+  handlePdfQuote,
+  images,
+  onClientBarExpand,
+  onOrder,
+  onOrderId,
+  onRequest,
+  onSend,
+  orderUserId,
+  orders,
+  settings,
+  showClientImageModal,
+  showModal,
+  tempOrder,
+  uploadPhoto,
 }){
 
   return (
@@ -25,31 +42,32 @@ export default function Staging({
       {
         !!clients ? clients.map((client) => (
           <ClientBar 
-            key={ client._id } 
-            id={ client._id } 
-            uniqId={ client.uniqId } 
-            firstname={ client.firstname } 
-            lastname={ client.lastname }
-            status={ client.status }
-            expanded={ expandedClientID === client._id }
-            onExpand={ () => onClientBarExpand(client._id) }
-            clientPage={ clientPage }
+            ausPrices={ ausPrices }
             changeRoute={ changeRoute }
-            orders={ orders }
-            settings={ settings }
             client={ client }
-            settings={ settings }
-            client={ client }
-            showModal={ showModal }
-            closeModal={ closeModal }
-            showClientImageModal={showClientImageModal}
+            clientPage={ clientPage }
             closeImageModal={closeImageModal}
-            uploadPhoto={uploadPhoto}
+            closeModal={ closeModal }
+            expanded={ expandedClientID === client._id }
+            firstname={ client.firstname } 
+            handlePdfQuote={ handlePdfQuote }
+            id={ client._id } 
             images={images}
-            tempOrder={ tempOrder }
+            key={ client._id } 
+            lastname={ client.lastname }
+            onExpand={ () => onClientBarExpand(client._id) }
             onOrder={ onOrder }
             onOrderId={ onOrderId }
+            onSend={ onSend }
             orderUserId={ orderUserId }
+            orders={ orders }
+            settings={ settings }
+            showClientImageModal={showClientImageModal}
+            showModal={ showModal }
+            status={ client.status }
+            tempOrder={ tempOrder }
+            uniqId={ client.uniqId } 
+            uploadPhoto={uploadPhoto}
           />
         ))
         :

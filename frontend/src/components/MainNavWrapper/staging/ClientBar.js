@@ -4,11 +4,32 @@ import ClientExpand from './clientExpand'
 import _ from 'lodash'
 
 export default function ClientBar({
-  client, uniqId, firstname, lastname,
-  expanded = false, onExpand, clientPage, changeRoute,
-  orders, id, status, settings, tempOrder, onOrder,
-  showModal, closeModal, showClientImageModal, closeImageModal,
-  uploadPhoto, images, onOrderId, orderUserId
+  ausPrices,
+  changeRoute,
+  client,
+  clientPage,
+  closeImageModal,
+  closeModal,
+  expanded = false,
+  firstname,
+  handlePdfQuote,
+  id,
+  images,
+  lastname,
+  onExpand,
+  onOrder,
+  onOrderId,
+  onRequest,
+  onSend,
+  orderUserId,
+  orders,
+  settings,
+  showClientImageModal,
+  showModal,
+  status,
+  tempOrder,
+  uniqId,
+  uploadPhoto,
 }) {
   const imageDataFind = ((images, id) => {
     return _.find(images, {clientId: id})
@@ -27,25 +48,28 @@ export default function ClientBar({
             </div>
           </div>
           <ClientExpand 
-            expanded={ expanded } 
-            clientPage={ clientPage }
+            ausPrices={ ausPrices }
             changeRoute={ changeRoute}
-            orders={orders}
-            uniqId={ uniqId }
-            clientId={ id }
-            status={ status }
-            settings={ settings }
             client={ client }
-            showModal={ showModal }
-            closeModal={ closeModal }
-            showClientImageModal={showClientImageModal}
+            clientId={ id }
+            clientPage={ clientPage }
             closeImageModal={closeImageModal}
-            uploadPhoto={uploadPhoto}
+            closeModal={ closeModal }
+            expanded={ expanded } 
+            handlePdfQuote={ handlePdfQuote }
             imageData={ imageData }
-            tempOrder={ tempOrder }
             onOrder={ onOrder }
             onOrderId={ onOrderId }
+            onSend={ onSend }
             orderUserId={ orderUserId }
+            orders={orders}
+            settings={ settings }
+            showClientImageModal={showClientImageModal}
+            showModal={ showModal }
+            status={ status }
+            tempOrder={ tempOrder }
+            uniqId={ uniqId }
+            uploadPhoto={uploadPhoto}
           />
         </div>
     </div>
