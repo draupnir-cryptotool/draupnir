@@ -17,9 +17,9 @@ const style = {
 export default function MainNav({
   settings, onUpdate, clientModal, clients, 
   expandedClientID, onClientBarExpand, clientPage, 
-  changeRoute, orders, showModal,
+  changeRoute, orders, showModal, tempOrder, onOrder,
   closeModal, showClientImageModal, closeImageModal, uploadPhoto,
-  images
+  images, onOrderId, orderUserId
 }) {
   return (
     <Router>
@@ -50,6 +50,10 @@ export default function MainNav({
             closeImageModal={closeImageModal}
             uploadPhoto={uploadPhoto}
             images={images}
+            tempOrder={ tempOrder }
+            onOrder={ onOrder }
+            onOrderId={ onOrderId }
+            orderUserId={ orderUserId }
           />
         )
         } />

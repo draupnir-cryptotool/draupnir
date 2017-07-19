@@ -6,16 +6,15 @@ import _ from 'lodash'
 export default function ClientBar({
   client, uniqId, firstname, lastname,
   expanded = false, onExpand, clientPage, changeRoute,
-  orders, id, status, settings,
+  orders, id, status, settings, tempOrder, onOrder,
   showModal, closeModal, showClientImageModal, closeImageModal,
-  uploadPhoto, images
+  uploadPhoto, images, onOrderId, orderUserId
 }) {
   const imageDataFind = ((images, id) => {
     return _.find(images, {clientId: id})
   })
 
   const imageData = imageDataFind(images, id)
-  console.log(imageData)
   return(
     <div>
         <div>
@@ -43,6 +42,10 @@ export default function ClientBar({
             closeImageModal={closeImageModal}
             uploadPhoto={uploadPhoto}
             imageData={ imageData }
+            tempOrder={ tempOrder }
+            onOrder={ onOrder }
+            onOrderId={ onOrderId }
+            orderUserId={ orderUserId }
           />
         </div>
     </div>

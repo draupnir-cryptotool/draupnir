@@ -40,8 +40,21 @@ class App extends Component {
       settings: 0
     },
     expandedClientID: null,
+    tempOrder: null,
+    orderUserId: null
+
   }
 
+  // Fetching best order rates from exchanges
+  handleQueryOrder = ({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) => {
+    orderAPI.queryOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
+    .then(json => {
+      this.setState({ tempOrder: json })
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
+  }
 
   // Sending Email via Mailgun
   handleSendMail = ({ subject, text }) => {
@@ -261,6 +274,11 @@ handleUpdateStatus = ({ clientId, statusType }) => {
       })
   }
 
+  handleSetOrderId = ({reqId}) => {
+    this.setState({ orderUserId: reqId })
+  }
+
+
   onSwitchUSDCurrency = () => {
     this.setState({
       // this.state.items will be changed
@@ -306,7 +324,8 @@ handleUpdateStatus = ({ clientId, statusType }) => {
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
-            showModal, clients, expandedClientID, clientPage, orders, showClientImageModal, images } 
+            showModal, clients, expandedClientID, clientPage, orders, showClientImageModal, images,
+            tempOrder, orderUserId } 
             = this.state
     return (
       <Router>
@@ -363,7 +382,12 @@ handleUpdateStatus = ({ clientId, statusType }) => {
                 showClientImageModal={ showClientImageModal }
                 closeImageModal={ this.handleCloseClientImageModal }
                 uploadPhoto={ this.handleUploadPhoto }
-                images={ images } />
+                images={ images }
+                tempOrder={ tempOrder }
+                onOrder={ this.handleQueryOrder }
+                onOrderId={ this.handleSetOrderId }
+                orderUserId={ orderUserId }
+                />
                 ) : (
                 <p>loading..</p>
               )
