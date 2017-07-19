@@ -1,0 +1,22 @@
+.mainNav {
+  background-color: #0D6AA8;
+  margin-top: 6%;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 5rem;
+  border-radius: 5px;
+}
+
+.mainNavLink {
+  margin-top: .4%;
+}
+
+.mainNavLink a {
+  color: #969696;
+  text-decoration: none;
+}
+
+.mainNavLink a:hover {
+  text-decoration: none;
+}

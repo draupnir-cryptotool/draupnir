@@ -6,12 +6,14 @@ import XchangeBalanceWrapper from '../components/HeaderWrapper/XchangeBalanceWra
 
 const divStyle = {
   display: 'flex',
-  justifyContent: 'space-around'
+  justifyContent: 'space-around',
+  marginTop: "3%"
 }
 
 const wrapperStyle = {
-  border: 'solid 1px',
-  padding: '30px'
+  padding: '30px',
+  backgroundColor: '#3b3b3b',
+  borderRadius: '5px'
 }
 
 

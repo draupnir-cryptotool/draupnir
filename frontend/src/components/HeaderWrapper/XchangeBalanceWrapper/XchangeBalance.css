@@ -1,4 +1,5 @@
-.xchangeWrapper {
-  display: flex;
-  margin-top: 17%;
+
+.xchangeWrapper p {
+  font-size: 2.5rem;
+  color: white;
 }
