@@ -12,6 +12,7 @@ class ImageDisplay extends React.Component  {
   console.log(clientId)
     let file = image[0]
     uploadPhoto({ file, idType, clientId })
+    
   }
 
   render() {

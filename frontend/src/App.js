@@ -62,6 +62,19 @@ class App extends Component {
         this.setState({ error })
       })
     }
+// HANDLER SECTION -------------------------------------------------------------------------
+handleUpdateStatus = ({ clientId, statusType }) => {
+  clientAPI.updateVerified({ clientId, statusType })
+  .then((updatedClient) => {
+    this.setState(({ clients }) => {
+      return {
+        clients: clients.map(client => (
+          (client._id === updatedClient._id) ? updatedClient : client
+        ))
+      }
+    })
+  })
+}
 
 
   handleRegistration = ({email, firstname, lastname, password}) => {
@@ -112,7 +125,7 @@ class App extends Component {
       this.setState({ error })
     })
   }
-// FETCH SECTION---------------------------------------------------------
+// FETCH SECTION ---------------------------------------------------------
 // get all image data
   fetchImagesData = () => {
     imageAPI.allImageData()
