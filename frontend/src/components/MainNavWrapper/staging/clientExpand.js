@@ -80,6 +80,7 @@ export default function ClientExpand({
               handlePdfQuote={ handlePdfQuote }
               onSend={ onSend }
               client={ client }
+              orderUserId={ orderUserId }
             />
             :
             ""
