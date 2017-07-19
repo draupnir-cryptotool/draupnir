@@ -12,8 +12,8 @@ export default function Staging({
   closeImageModal, 
   closeModal,
   expandedClientID, 
-  handlePdfQuote
-  images
+  handlePdfQuote,
+  images,
   onClientBarExpand,
   onRequest,
   orders,

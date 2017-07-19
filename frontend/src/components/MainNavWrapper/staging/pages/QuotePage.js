@@ -12,7 +12,6 @@ function generateQuotePdf(event, handlePdfQuote) {
 export default function OrderPage({ 
   ausPrice, handlePdfQuote, exchange1
 }) {
-  if 
   return (
       <div>
         <h3></h3>

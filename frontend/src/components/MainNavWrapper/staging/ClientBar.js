@@ -12,9 +12,9 @@ export default function ClientBar({
   closeModal,
   expanded = false,
   firstname,
-  handlePdfQuote
+  handlePdfQuote,
   id,
-  images
+  images,
   lastname,
   onExpand,
   onRequest,

@@ -16,8 +16,8 @@ export default function ClientExpand({
   closeImageModal,
   closeModal,
   expanded,
-  handlePdfQuote
-  imageData
+  handlePdfQuote,
+  imageData,
   onRequest,
   orders,
   settings,

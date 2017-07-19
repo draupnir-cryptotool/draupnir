@@ -22,8 +22,8 @@ export default function MainNav({
   closeImageModal,
   closeModal,
   expandedClientID,
-  handlePdfQuote
-  images
+  handlePdfQuote,
+  images,
   onClientBarExpand,
   onRequest,
   onUpdate,

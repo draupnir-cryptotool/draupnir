@@ -369,28 +369,25 @@ class App extends Component {
             {
               !!ausPrices && !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
               <MainNav
-                settings={ masterSettings }
-                onUpdate={ this.handleUpdateSettings }
-                clientModal={ this.handleOpenClientModal }
-                clients={ clients }
-                expandedClientID={ expandedClientID }
-                onClientBarExpand={ this.onSwitchClientBar}
-                clientPage={ clientPage }
-                changeRoute={ this.onClientPageRoute }
-                orders={ orders }
-                showModal={ this.handleOpenClientImageModal } 
-                closeModal={ this.handleCloseClientImageModal}
-<<<<<<< HEAD
                 ausPrices={ ausPrices }
-                handlePdfQuote={ this.handlePdfQuote }
-              /> ) : (
-=======
-                showClientImageModal={ showClientImageModal }
+                changeRoute={ this.onClientPageRoute }
+                clientModal={ this.handleOpenClientModal }
+                clientPage={ clientPage }
+                clients={ clients }
                 closeImageModal={ this.handleCloseClientImageModal }
+                closeModal={ this.handleCloseClientImageModal}
+                expandedClientID={ expandedClientID }
+                handlePdfQuote={ this.handlePdfQuote }
+                images={ images } 
+                onClientBarExpand={ this.onSwitchClientBar}
+                onUpdate={ this.handleUpdateSettings }
+                orders={ orders }
+                settings={ masterSettings }
+                showClientImageModal={ showClientImageModal }
+                showModal={ this.handleOpenClientImageModal } 
                 uploadPhoto={ this.handleUploadPhoto }
-                images={ images } />
+                />
                 ) : (
->>>>>>> master
                 <p>loading..</p>
               )
 
@@ -406,23 +403,7 @@ class App extends Component {
             <Order />
           </div>
         )
-<<<<<<< HEAD
       } />
-        <Route path='/pdfform' render={() => (
-
-          <div>
-            <PdfForm />
-          </div>
-        )
-      } />
-      <Route path='/image' render={() => (
-          
-          <div>
-            <Image />
-          </div>
-        )
-=======
-        } />
         <Route path='/image' render={() => (
             
             <div>
@@ -436,7 +417,6 @@ class App extends Component {
               <Mail onSend={ this.handleSendMail }/>
             </div>
           )
->>>>>>> master
         } />
         </main>
       </Router>
@@ -444,21 +424,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchBitcoinPrice()
-    this.fetchEthereumPrice()
-    this.fetchBitfinexBitcoinPrice()
-    this.fetchBitfinexEthPrice()
-    this.fetchBtceBitcoinPrice()
-    this.fetchBtceEthPrice()
-    this.fetchBitstampBitcoinPrice()
-    this.fetchSettings()
     this.fetchAllClients()
     this.fetchAllOrders()
-<<<<<<< HEAD
     this.fetchAusPrices()
-=======
+    this.fetchBitcoinPrice()
+    this.fetchBitfinexBitcoinPrice()
+    this.fetchBitfinexEthPrice()
+    this.fetchBitstampBitcoinPrice()
+    this.fetchBtceBitcoinPrice()
+    this.fetchBtceEthPrice()
+    this.fetchEthereumPrice()
     this.fetchImagesData()
->>>>>>> master
+    this.fetchSettings()
   }
 }
 
