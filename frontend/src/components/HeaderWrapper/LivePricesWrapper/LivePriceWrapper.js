@@ -15,9 +15,9 @@ export default function LivePriceWrapper({
 }) {
   return (
     <div>
-      <Table responsive>
+      <table>
         <thead>
-          <tr>
+          <tr className="livePriceHeader">
             <th></th>
             <th>Bitfinex</th>
             <th>BTC-E</th>
@@ -25,21 +25,21 @@ export default function LivePriceWrapper({
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr className="livePricesRow">
             <td><h4>BTC-E:</h4></td>
             <td><BitfinexBitPrice bitfinexBtcValue={ parseFloat(bitfinexBtcValue).toFixed(2) }/> </td>
             <td> <BtceBitcoinPrice btceBtcValue={ parseFloat(btceBtcValue).toFixed(2) }/> </td>
             <td> <BitstampBitcoinPrice bitstampBtcValue={ parseFloat(bitstampBtcValue).toFixed(2) } /> </td>
           </tr>
-          <tr>
+          <tr className="livePricesRow">
             <td><h4>ETH:</h4></td>
             <td> <BitfinexEthPrice bitfinexEthValue={ parseFloat(bitfinexEthValue).toFixed(2) }/> </td>
             <td> <BtceEthPrice btceEthValue={ parseFloat(btceEthValue).toFixed(2) }/> </td>
             <td></td>
           </tr>
         </tbody>
-      </Table>
-      <div style={{ textAlign: 'center' }}>
+      </table>
+      <div style={{ textAlign: 'center', marginTop: "15%" }}>
         <Button  className='currencySwitch' bsStyle='default' bsSize='lg' onClick={onCurrencyChangeUsd}>USD</Button>
         <Button  className='currencySwitch' bsStyle='default' bsSize='lg' onClick={onCurrencyChangeAud}>AUD</Button>
       </div>

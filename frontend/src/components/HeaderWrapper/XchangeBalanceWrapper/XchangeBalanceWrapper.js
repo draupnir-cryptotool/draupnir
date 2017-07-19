@@ -1,5 +1,6 @@
 import React from 'react'
 import './XchangeBalance.css'
+import styles from "./font.css"
 
 export default function XchangeBalanceWrapper({
   settings
@@ -8,16 +9,16 @@ export default function XchangeBalanceWrapper({
     display: 'flex',
   }
   return (
-    <div className='xchangeWrapper'>
-      <div>
-        <p style={{fontSize: '2.5rem'}}>Bitfinex: </p>
-        <p style={{fontSize: '2.5rem'}}>BTC-E:</p>
-        <p style={{fontSize: '2.5rem'}}>Bitstamp:</p>
+    <div style={{display: "flex", marginTop: "11%"}}>
+      <div className="xchangeWrapper">
+        <p>Bitfinex: </p>
+        <p>BTC-E:</p>
+        <p>Bitstamp:</p>
       </div>
-      <div style={{marginLeft: '3rem'}}>
-        <p style={{fontSize: '2.5rem'}}>${ settings.bitfinexFloat }</p>
-        <p style={{fontSize: '2.5rem'}}>${ settings.btceFloat }</p>
-        <p style={{fontSize: '2.5rem'}}>${ settings.bitstampFloat }</p>
+      <div className="xchangeWrapper" style={{marginLeft: '3rem'}}>
+        <p>${ settings.bitfinexFloat }</p>
+        <p>${ settings.btceFloat }</p>
+        <p>${ settings.bitstampFloat }</p>
       </div>
     </div>
   )

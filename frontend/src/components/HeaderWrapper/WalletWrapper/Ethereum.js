@@ -5,12 +5,13 @@ export default function Ethereum({
 }) {
   const ethBalanceStyle = {
     fontSize: '3.5rem',
-    marginBottom: '0px'
+    marginBottom: '0px',
+    color: "#3E47FF"
   }
   return (
     <div className='ethBalance'>
       <p style={ethBalanceStyle}>ETH - </p>
-      <span style={{fontSize: '2.5rem', verticalAlign: 'middle'}}>{ etherBalance.balance }</span>
+      <span style={{fontSize: '2.5rem', verticalAlign: 'middle', color: "white"}}>{ etherBalance.balance }</span>
     </div>
   )
 }
