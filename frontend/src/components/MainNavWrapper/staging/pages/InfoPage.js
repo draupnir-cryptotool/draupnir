@@ -14,8 +14,10 @@ export default function InfoPage({
   }
 
   const imageOverlay = (
-    <Popover id="popover-positioned-top" title="Popover top">
-      <img src={imageData.s3URL} alt="picture"/>
+    <Popover id="popover-positioned-top" title="Client ID">
+      <div>
+        <img width={ 200 } height={ 200 } src={imageData.s3URL} alt="id"/>
+      </div>
     </Popover>
   )
 

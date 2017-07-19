@@ -70,6 +70,10 @@ router.patch('/client/:id', (req, res) => {
   const status = req.body[keyName]
   Client.updateStatus(id, keyName, status)
     .then(client => res.json(client))
+    .catch((err) => {
+      res.json({err: err})
+    })
 })
+
 
 module.exports = router
