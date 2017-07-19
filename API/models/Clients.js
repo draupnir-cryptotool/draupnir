@@ -30,6 +30,18 @@ const clientSchema = mongoose.Schema({
   },
 });
 
+
+// reusable for x3 properties
+clientSchema.statics.updateStatus = function(id, keyName, status) {
+  const options = {new: true}
+  const key = 'status.' + [keyName]
+  console.log(id, keyName, status, key)
+  
+  return this.model('Client')
+    .findOneAndUpdate(id, {$set: {[key]: status}}, options )
+    .then(client => (client)) //returns promise with client
+}
+
 const Client = mongoose.model('Client', clientSchema);
 
 module.exports = Client;

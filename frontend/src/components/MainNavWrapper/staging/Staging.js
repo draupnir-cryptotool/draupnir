@@ -11,12 +11,15 @@ export default function Staging({
   clients,
   closeImageModal, 
   closeModal,
-  expandedClientID, 
+  expandedClientID,
   handlePdfQuote,
   images,
   onClientBarExpand,
-  onSend,
+  onOrder,
+  onOrderId,
   onRequest,
+  onSend,
+  orderUserId,
   orders,
   settings,
   showClientImageModal,
@@ -53,12 +56,16 @@ export default function Staging({
             key={ client._id } 
             lastname={ client.lastname }
             onExpand={ () => onClientBarExpand(client._id) }
+            onOrder={ onOrder }
+            onOrderId={ onOrderId }
             onSend={ onSend }
+            orderUserId={ orderUserId }
             orders={ orders }
             settings={ settings }
             showClientImageModal={showClientImageModal}
             showModal={ showModal }
             status={ client.status }
+            tempOrder={ tempOrder }
             uniqId={ client.uniqId } 
             uploadPhoto={uploadPhoto}
           />

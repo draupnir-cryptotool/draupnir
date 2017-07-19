@@ -17,8 +17,11 @@ export default function ClientBar({
   images,
   lastname,
   onExpand,
+  onOrder,
+  onOrderId,
   onRequest,
   onSend,
+  orderUserId,
   orders,
   settings,
   showClientImageModal,
@@ -55,12 +58,16 @@ export default function ClientBar({
             expanded={ expanded } 
             handlePdfQuote={ handlePdfQuote }
             imageData={ imageData }
-            orders={orders}
+            onOrder={ onOrder }
+            onOrderId={ onOrderId }
             onSend={ onSend }
+            orderUserId={ orderUserId }
+            orders={orders}
             settings={ settings }
             showClientImageModal={showClientImageModal}
             showModal={ showModal }
             status={ status }
+            tempOrder={ tempOrder }
             uniqId={ uniqId }
             uploadPhoto={uploadPhoto}
           />

@@ -18,8 +18,11 @@ export default function ClientExpand({
   expanded,
   handlePdfQuote,
   imageData,
+  onOrder,
+  onOrderId,
   onRequest,
   onSend,
+  orderUserId,
   orders,
   settings,
   showClientImageModal,
@@ -64,6 +67,11 @@ export default function ClientExpand({
             <OrderPage
               settings={ settings }
               orders={ orders }
+              tempOrder={ tempOrder }
+              onOrder={ onOrder }
+              client={ client }
+              onOrderId={ onOrderId }
+              orderUserId={ orderUserId }
             />
             :
             clientPage === 'quotes' ?

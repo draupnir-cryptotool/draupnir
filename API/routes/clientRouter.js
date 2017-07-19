@@ -63,4 +63,17 @@ router.delete('/client/:id', (req, res) => {
   })
 })
 
+// update status
+router.patch('/client/:id', (req, res) => {
+  const keyName = Object.keys(req.body)[0]; //get the keyName
+  const id = req.params.id
+  const status = req.body[keyName]
+  Client.updateStatus(id, keyName, status)
+    .then(client => res.json(client))
+    .catch((err) => {
+      res.json({err: err})
+    })
+})
+
+
 module.exports = router

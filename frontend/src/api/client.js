@@ -16,3 +16,17 @@ export function createClient({ firstname, lastname, email, phone }) {
   })
   .then(res => res.data)
 }
+
+const statusTypeToField = {
+  id: 'idVerified',
+  quoteSent: 'quoteSentVerified',
+  quoteAccepted: 'quoteAcceptedVerified',
+  depositCleared: 'depositClearedVerified'
+}
+
+export function updateVerified({ clientId, statusType }) {
+  const fieldName = statusTypeToField[statusType]
+  return axios.patch(`/api/client/${clientId}`,  {
+    [fieldName]: true
+  })
+}

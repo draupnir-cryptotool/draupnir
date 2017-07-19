@@ -44,8 +44,21 @@ class App extends Component {
       settings: 0
     },
     expandedClientID: null,
+    tempOrder: null,
+    orderUserId: null
+
   }
 
+  // Fetching best order rates from exchanges
+  handleQueryOrder = ({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) => {
+    orderAPI.queryOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
+    .then(json => {
+      this.setState({ tempOrder: json })
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
+  }
 
   // Sending Email via Mailgun
   handleSendMail = (emailProps) => {
@@ -66,6 +79,19 @@ class App extends Component {
         this.setState({ error })
       })
     }
+// HANDLER SECTION -------------------------------------------------------------------------
+handleUpdateStatus = ({ clientId, statusType }) => {
+  clientAPI.updateVerified({ clientId, statusType })
+  .then((updatedClient) => {
+    this.setState(({ clients }) => {
+      return {
+        clients: clients.map(client => (
+          (client._id === updatedClient._id) ? updatedClient : client
+        ))
+      }
+    })
+  })
+}
 
 
   handleRegistration = ({email, firstname, lastname, password}) => {
@@ -120,7 +146,7 @@ class App extends Component {
       this.setState({ error })
     })
   }
-// FETCH SECTION---------------------------------------------------------
+// FETCH SECTION ---------------------------------------------------------
 // get all image data
   fetchImagesData = () => {
     imageAPI.allImageData()
@@ -263,6 +289,11 @@ class App extends Component {
       })
   }
 
+  handleSetOrderId = ({reqId}) => {
+    this.setState({ orderUserId: reqId })
+  }
+
+
   onSwitchUSDCurrency = () => {
     this.setState({
       // this.state.items will be changed
@@ -320,14 +351,15 @@ class App extends Component {
       error,
       ethereumBalance,
       expandedClientID,
-      images, 
+      images,
       masterSettings,
+      orderUserId,
       orders,
       showClientImageModal,
       showModal,
       tempOrder,
       token,
-   } = this.state
+     } = this.state
     return (
       <Router>
         <main>
@@ -378,14 +410,18 @@ class App extends Component {
                 closeModal={ this.handleCloseClientImageModal}
                 expandedClientID={ expandedClientID }
                 handlePdfQuote={ this.handlePdfQuote }
-                images={ images } 
+                images={ images }
                 onClientBarExpand={ this.onSwitchClientBar}
+                onOrder={ this.handleQueryOrder }
+                onOrderId={ this.handleSetOrderId }
                 onSend={ this.handleSendMail }
                 onUpdate={ this.handleUpdateSettings }
+                orderUserId={ orderUserId }
                 orders={ orders }
                 settings={ masterSettings }
                 showClientImageModal={ showClientImageModal }
                 showModal={ this.handleOpenClientImageModal } 
+                tempOrder={ tempOrder }
                 uploadPhoto={ this.handleUploadPhoto }
                 />
                 ) : (
