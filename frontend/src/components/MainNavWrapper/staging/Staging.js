@@ -8,7 +8,7 @@ export default function Staging({
   onClientBarExpand, clientPage, changeRoute,
   orders, settings, showModal, tempOrder, onOrder,
   closeModal, showClientImageModal, closeImageModal, 
-  uploadPhoto, images
+  uploadPhoto, images, onOrderId, orderUserId
 }){
 
   return (
@@ -48,6 +48,8 @@ export default function Staging({
             images={images}
             tempOrder={ tempOrder }
             onOrder={ onOrder }
+            onOrderId={ onOrderId }
+            orderUserId={ orderUserId }
           />
         ))
         :

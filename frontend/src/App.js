@@ -40,11 +40,13 @@ class App extends Component {
       settings: 0
     },
     expandedClientID: null,
-    tempOrder: null
+    tempOrder: null,
+    orderUserId: null
+
   }
 
   // Fetching best order rates from exchanges
-  handleQueryOrder =({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) => {
+  handleQueryOrder = ({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) => {
     orderAPI.queryOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
     .then(json => {
       this.setState({ tempOrder: json })
@@ -259,6 +261,11 @@ class App extends Component {
       })
   }
 
+  handleSetOrderId = ({reqId}) => {
+    this.setState({ orderUserId: reqId })
+  }
+
+
   onSwitchUSDCurrency = () => {
     this.setState({
       // this.state.items will be changed
@@ -305,7 +312,7 @@ class App extends Component {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
             showModal, clients, expandedClientID, clientPage, orders, showClientImageModal, images,
-            tempOrder } 
+            tempOrder, orderUserId } 
             = this.state
     return (
       <Router>
@@ -365,6 +372,8 @@ class App extends Component {
                 images={ images }
                 tempOrder={ tempOrder }
                 onOrder={ this.handleQueryOrder }
+                onOrderId={ this.handleSetOrderId }
+                orderUserId={ orderUserId }
                 />
                 ) : (
                 <p>loading..</p>

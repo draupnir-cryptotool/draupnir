@@ -8,14 +8,13 @@ export default function ClientBar({
   expanded = false, onExpand, clientPage, changeRoute,
   orders, id, status, settings, tempOrder, onOrder,
   showModal, closeModal, showClientImageModal, closeImageModal,
-  uploadPhoto, images
+  uploadPhoto, images, onOrderId, orderUserId
 }) {
   const imageDataFind = ((images, id) => {
     return _.find(images, {clientId: id})
   })
 
   const imageData = imageDataFind(images, id)
-  console.log(imageData)
   return(
     <div>
         <div>
@@ -45,6 +44,8 @@ export default function ClientBar({
             imageData={ imageData }
             tempOrder={ tempOrder }
             onOrder={ onOrder }
+            onOrderId={ onOrderId }
+            orderUserId={ orderUserId }
           />
         </div>
     </div>

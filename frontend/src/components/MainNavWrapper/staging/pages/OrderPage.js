@@ -7,7 +7,7 @@ import * as orderAPI from '../../../../api/order'
 
 class OrderPage extends React.Component{
 
-  submitOrder = (event, onOrder) => {
+  submitOrder = (event, onOrder, onOrderId) => {
     event.preventDefault()
     const amount = ReactDOM.findDOMNode(this.refs.deposit).value
     const buying = ReactDOM.findDOMNode(this.refs.currency).value
@@ -16,6 +16,8 @@ class OrderPage extends React.Component{
     const btceLimit = ReactDOM.findDOMNode(this.refs.btceFloat).value
     const bitstampLimit = ReactDOM.findDOMNode(this.refs.bitstampFloat).value
     onOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
+    const reqId = this.props.client._id
+    onOrderId({ reqId })
   }
 
   render() {
@@ -85,14 +87,14 @@ class OrderPage extends React.Component{
               className={ "updateBtn" } 
               bsSize="large"
               bsStyle="primary" type="submit" 
-              onClick={(event) => this.submitOrder(event, this.props.onOrder)}>
+              onClick={(event) => this.submitOrder(event, this.props.onOrder, this.props.onOrderId)}>
               Query Order
             </Button>
           </div>
         </div>
 
         <div style={{flexDirection: 'row', width: '50%'}}>
-        { !_.isEmpty(this.props.tempOrder) ? (
+        { !_.isEmpty(this.props.tempOrder) && this.props.client._id === this.props.orderUserId ? (
           <div>
             <h1 style={{ textAlign: 'center' }}>ORDER</h1>
             <Table responsive>
