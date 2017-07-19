@@ -1,13 +1,13 @@
-import axios from './init'
+import api from './init'
 
 export function allOrders() {
-  return axios.get('/api/orders')
+  return api.get('/api/orders')
   .then(res => res.data )
 }
 
 
 export function queryOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) {
-  return axios.get('/api/order', {
+  return api.get('/api/order', {
     params: {
     buying: buying,
     tally: tally,

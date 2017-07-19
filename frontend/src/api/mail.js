@@ -1,8 +1,7 @@
-import axios from './init'
-
+import api from './init'
 
 export function sendMail({ subject, text }) {
-  return axios.post('/api/mail', {
+  return api.post('/api/mail', {
       subject,
       text
   })

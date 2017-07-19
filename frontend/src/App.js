@@ -7,6 +7,7 @@ import Order from './components/Order';
 import Image from './components/Image';
 import Mail from './components/Mail';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import * as authAPI from './api/auth';
 import * as walletApi from './api/wallet'
 import * as livePriceApi from './api/livePrice'
@@ -15,6 +16,7 @@ import * as clientAPI from './api/client'
 import * as orderAPI from './api/order'
 import * as imageAPI from './api/image'
 import * as mailAPI from './api/mail'
+import { setAPIToken } from './api/init'
 import ClientModal from './components/Modal/ClientModal'
 import ClientImageModal from './components/Modal/ClientImageModal'
 
@@ -63,11 +65,17 @@ class App extends Component {
       })
     }
 
+  setToken = (token) => {
+    setAPIToken(token)
+    this.setState({
+      token: token
+    })
+  }
 
   handleRegistration = ({email, firstname, lastname, password}) => {
     authAPI.register({email, firstname, lastname, password})
     .then(json => {
-      this.setState({ token: json.token })
+      this.setToken(json.token)
     })
     .catch(error => {
       this.setState({ error })
@@ -77,7 +85,7 @@ class App extends Component {
   handleSignIn = ({email, password, OTP}) => {
     authAPI.signIn({email, password, OTP})
     .then(json => {
-      this.setState({ token: json.token })
+      this.setToken(json.token)
     })
     .catch(error => {
       this.setState({ error })
@@ -306,61 +314,65 @@ class App extends Component {
           </div>
         )
         }/>
-        <Route path='/home' render={() => (
+        {
+          !!token ? (
+          <Redirect to='/home' render={() => (
 
-          <div>
             <div>
-            {
-            !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
-            !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings ? (
-              <Header 
-                settings={ masterSettings }
-                bitBalance={ bitcoinBalance }
-                onBtcUpdate={ this.fetchBitcoinPrice }
-                etherBalance={ ethereumBalance }
-                onEthUpdate={ this.fetchEthereumPrice }
-                bitfinexBtcValue={ currentCurrency === 'usd' ? bitfinexBitcoinPrice.usdPrice : bitfinexBitcoinPrice.audPrice }
-                bitfinexEthValue={ currentCurrency === 'usd' ? bitfinexEthPrice.usdPrice : bitfinexEthPrice.audPrice }
-                btceBtcValue={ currentCurrency === 'usd' ? btceBitcoinPrice.usdPrice : btceBitcoinPrice.audPrice }
-                btceEthValue={ currentCurrency === 'usd' ? btceEthPrice.usdPrice : btceEthPrice.audPrice }
-                bitstampBtcValue={ currentCurrency === 'usd' ? bitstampBitcoinPrice.usdPrice : bitstampBitcoinPrice.audPrice }
-                onCurrencyChangeUsd={ this.onSwitchUSDCurrency }
-                onCurrencyChangeAud={ this.onSwitchAUDCurrency }
-              /> 
-            ) : (
-              <p>loading..</p>
-            )
-            }  
-            </div>
-            <div>
-            {
-              !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
-              <MainNav
-                settings={ masterSettings }
-                onUpdate={ this.handleUpdateSettings }
-                clientModal={ this.handleOpenClientModal }
-                clients={ clients }
-                expandedClientID={ expandedClientID }
-                onClientBarExpand={ this.onSwitchClientBar}
-                clientPage={ clientPage }
-                changeRoute={ this.onClientPageRoute }
-                orders={ orders }
-                showModal={ this.handleOpenClientImageModal } 
-                closeModal={ this.handleCloseClientImageModal}
-                showClientImageModal={ showClientImageModal }
-                closeImageModal={ this.handleCloseClientImageModal }
-                uploadPhoto={ this.handleUploadPhoto }
-                images={ images } />
-                ) : (
+              <div>
+              {
+              !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
+              !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings ? (
+                <Header 
+                  settings={ masterSettings }
+                  bitBalance={ bitcoinBalance }
+                  onBtcUpdate={ this.fetchBitcoinPrice }
+                  etherBalance={ ethereumBalance }
+                  onEthUpdate={ this.fetchEthereumPrice }
+                  bitfinexBtcValue={ currentCurrency === 'usd' ? bitfinexBitcoinPrice.usdPrice : bitfinexBitcoinPrice.audPrice }
+                  bitfinexEthValue={ currentCurrency === 'usd' ? bitfinexEthPrice.usdPrice : bitfinexEthPrice.audPrice }
+                  btceBtcValue={ currentCurrency === 'usd' ? btceBitcoinPrice.usdPrice : btceBitcoinPrice.audPrice }
+                  btceEthValue={ currentCurrency === 'usd' ? btceEthPrice.usdPrice : btceEthPrice.audPrice }
+                  bitstampBtcValue={ currentCurrency === 'usd' ? bitstampBitcoinPrice.usdPrice : bitstampBitcoinPrice.audPrice }
+                  onCurrencyChangeUsd={ this.onSwitchUSDCurrency }
+                  onCurrencyChangeAud={ this.onSwitchAUDCurrency }
+                /> 
+              ) : (
                 <p>loading..</p>
               )
+              }  
+              </div>
+              <div>
+              {
+                !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
+                <MainNav
+                  settings={ masterSettings }
+                  onUpdate={ this.handleUpdateSettings }
+                  clientModal={ this.handleOpenClientModal }
+                  clients={ clients }
+                  expandedClientID={ expandedClientID }
+                  onClientBarExpand={ this.onSwitchClientBar}
+                  clientPage={ clientPage }
+                  changeRoute={ this.onClientPageRoute }
+                  orders={ orders }
+                  showModal={ this.handleOpenClientImageModal } 
+                  closeModal={ this.handleCloseClientImageModal}
+                  showClientImageModal={ showClientImageModal }
+                  closeImageModal={ this.handleCloseClientImageModal }
+                  uploadPhoto={ this.handleUploadPhoto }
+                  images={ images } />
+                  ) : (
+                  <p>loading..</p>
+                )
 
-            }
-            </div>
-            <ClientModal showModal={ showModal } closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
-            </div>
-        )
-        } />
+              }
+              </div>
+              <ClientModal showModal={ showModal } closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
+              </div>
+            )
+          } />
+          ) : ( '')
+        } 
         <Route path='/order' render={() => (
 
           <div>

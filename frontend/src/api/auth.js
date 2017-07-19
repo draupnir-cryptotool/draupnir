@@ -1,7 +1,7 @@
-import axios from './init'
+import api from './init'
 
 export function signIn({ email, password, OTP }) {
-  return axios.post('/signin', {
+  return api.post('/signin', {
       email,
       password,
       OTP
@@ -10,7 +10,7 @@ export function signIn({ email, password, OTP }) {
 }
 
 export function register({ email, firstname, lastname, password }) {
-  return axios.post('/register', {
+  return api.post('/register', {
       email,
       firstname,
       lastname,
