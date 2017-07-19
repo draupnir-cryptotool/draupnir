@@ -11,19 +11,27 @@ export default function WalletWrapper({
   return (
     <div style={{display: 'flex', marginRight: '3rem'}}>
       <div>
-          <BitcoinBalance
+        <div style={{display: "flex", justifyContent: "space-between"}}>
+          <div>
+            <BitcoinBalance
             bitBalance={ bitBalance }
             />
-
-        <EthereumBalance
-          etherBalance={ etherBalance }
-        /> 
-      </div>
-      <div style={{display: 'grid'}}>
-        <Button className='refreshBtn' onClick={ onBtcUpdate }>Refresh</Button>
-        <Button className='refreshBtn' onClick={ onEthUpdate }>Refresh</Button>
+          </div>
+          <div>
+            <Button className='refreshBtn' onClick={ onBtcUpdate }>Refresh</Button>
+          </div>
+        </div>
+        <div style={{display: "flex"}}>
+          <div>
+            <EthereumBalance
+              etherBalance={ etherBalance }
+            /> 
+          </div>
+          <div>
+            <Button className='refreshBtn' onClick={ onEthUpdate }>Refresh</Button>
+          </div>
+        </div>
       </div>
     </div>
-
   )
 }

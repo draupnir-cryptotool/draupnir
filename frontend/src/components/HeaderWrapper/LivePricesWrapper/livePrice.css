@@ -4,3 +4,15 @@
   bottom: 20px;
   height: 40px;
 }
+
+.livePriceHeader th {
+  color: #3E47FF;
+}
+
+.livePricesRow {
+  color: white;
+}
+
+.table {
+  border: none;
+}
