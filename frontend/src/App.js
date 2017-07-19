@@ -40,8 +40,19 @@ class App extends Component {
       settings: 0
     },
     expandedClientID: null,
+    tempOrder: null
   }
 
+  // Fetching best order rates from exchanges
+  handleQueryOrder =({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) => {
+    orderAPI.queryOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
+    .then(json => {
+      this.setState({ tempOrder: json })
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
+  }
 
   // Sending Email via Mailgun
   handleSendMail = ({ subject, text }) => {
@@ -293,7 +304,8 @@ class App extends Component {
   render() {
     const { error, token, currentCurrency, bitcoinBalance, ethereumBalance, bitfinexBitcoinPrice,
             bitfinexEthPrice, btceBitcoinPrice, btceEthPrice, bitstampBitcoinPrice, masterSettings, 
-            showModal, clients, expandedClientID, clientPage, orders, showClientImageModal, images } 
+            showModal, clients, expandedClientID, clientPage, orders, showClientImageModal, images,
+            tempOrder } 
             = this.state
     return (
       <Router>
@@ -350,7 +362,10 @@ class App extends Component {
                 showClientImageModal={ showClientImageModal }
                 closeImageModal={ this.handleCloseClientImageModal }
                 uploadPhoto={ this.handleUploadPhoto }
-                images={ images } />
+                images={ images }
+                tempOrder={ tempOrder }
+                onOrder={ this.handleQueryOrder }
+                />
                 ) : (
                 <p>loading..</p>
               )

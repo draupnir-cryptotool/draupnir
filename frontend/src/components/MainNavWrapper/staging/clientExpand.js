@@ -11,7 +11,7 @@ export default function ClientExpand({
 
   expanded, clientPage, changeRoute, orders, clientId, status, settings,
   client, showModal, closeModal, showClientImageModal, closeImageModal,
-  uploadPhoto, imageData
+  uploadPhoto, imageData, tempOrder, onOrder
 
 }) {
   return (
@@ -50,6 +50,8 @@ export default function ClientExpand({
             <OrderPage
               settings={ settings }
               orders={ orders }
+              tempOrder={ tempOrder }
+              onOrder={ onOrder }
             />
             :
             clientPage === 'quotes' ?
