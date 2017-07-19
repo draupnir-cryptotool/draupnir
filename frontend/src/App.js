@@ -306,72 +306,79 @@ class App extends Component {
     return (
       <Router>
         <main>
-        <Route exact path='/login' render={() => (
+        <Route path='/signin' render={() => (
           <div>
-          { !!error && <p>{ error.message }</p> }
-      
-          <LogInform onSignIn={ this.handleSignIn } />
+            { !!error && <p>{ error.message }</p> }
+
+            {
+              !!token ? (
+                <Redirect to='/home' />
+              ) : (
+                <LogInform onSignIn={ this.handleSignIn } />
+              )
+            }
           </div>
         )
         }/>
         {
-          !!token ? (
-          <Redirect to='/home' render={() => (
-
-            <div>
+          <Route exact to='/home' render={() => (
+            !!token ? (
               <div>
-              {
-              !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
-              !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings ? (
-                <Header 
-                  settings={ masterSettings }
-                  bitBalance={ bitcoinBalance }
-                  onBtcUpdate={ this.fetchBitcoinPrice }
-                  etherBalance={ ethereumBalance }
-                  onEthUpdate={ this.fetchEthereumPrice }
-                  bitfinexBtcValue={ currentCurrency === 'usd' ? bitfinexBitcoinPrice.usdPrice : bitfinexBitcoinPrice.audPrice }
-                  bitfinexEthValue={ currentCurrency === 'usd' ? bitfinexEthPrice.usdPrice : bitfinexEthPrice.audPrice }
-                  btceBtcValue={ currentCurrency === 'usd' ? btceBitcoinPrice.usdPrice : btceBitcoinPrice.audPrice }
-                  btceEthValue={ currentCurrency === 'usd' ? btceEthPrice.usdPrice : btceEthPrice.audPrice }
-                  bitstampBtcValue={ currentCurrency === 'usd' ? bitstampBitcoinPrice.usdPrice : bitstampBitcoinPrice.audPrice }
-                  onCurrencyChangeUsd={ this.onSwitchUSDCurrency }
-                  onCurrencyChangeAud={ this.onSwitchAUDCurrency }
-                /> 
-              ) : (
-                <p>loading..</p>
-              )
-              }  
-              </div>
-              <div>
-              {
-                !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
-                <MainNav
-                  settings={ masterSettings }
-                  onUpdate={ this.handleUpdateSettings }
-                  clientModal={ this.handleOpenClientModal }
-                  clients={ clients }
-                  expandedClientID={ expandedClientID }
-                  onClientBarExpand={ this.onSwitchClientBar}
-                  clientPage={ clientPage }
-                  changeRoute={ this.onClientPageRoute }
-                  orders={ orders }
-                  showModal={ this.handleOpenClientImageModal } 
-                  closeModal={ this.handleCloseClientImageModal}
-                  showClientImageModal={ showClientImageModal }
-                  closeImageModal={ this.handleCloseClientImageModal }
-                  uploadPhoto={ this.handleUploadPhoto }
-                  images={ images } />
-                  ) : (
+                <div>
+                {
+                !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
+                !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings ? (
+                  <Header 
+                    settings={ masterSettings }
+                    bitBalance={ bitcoinBalance }
+                    onBtcUpdate={ this.fetchBitcoinPrice }
+                    etherBalance={ ethereumBalance }
+                    onEthUpdate={ this.fetchEthereumPrice }
+                    bitfinexBtcValue={ currentCurrency === 'usd' ? bitfinexBitcoinPrice.usdPrice : bitfinexBitcoinPrice.audPrice }
+                    bitfinexEthValue={ currentCurrency === 'usd' ? bitfinexEthPrice.usdPrice : bitfinexEthPrice.audPrice }
+                    btceBtcValue={ currentCurrency === 'usd' ? btceBitcoinPrice.usdPrice : btceBitcoinPrice.audPrice }
+                    btceEthValue={ currentCurrency === 'usd' ? btceEthPrice.usdPrice : btceEthPrice.audPrice }
+                    bitstampBtcValue={ currentCurrency === 'usd' ? bitstampBitcoinPrice.usdPrice : bitstampBitcoinPrice.audPrice }
+                    onCurrencyChangeUsd={ this.onSwitchUSDCurrency }
+                    onCurrencyChangeAud={ this.onSwitchAUDCurrency }
+                  /> 
+                ) : (
                   <p>loading..</p>
                 )
+                }  
+                </div>
+                <div>
+                {
+                  !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
+                  <MainNav
+                    settings={ masterSettings }
+                    onUpdate={ this.handleUpdateSettings }
+                    clientModal={ this.handleOpenClientModal }
+                    clients={ clients }
+                    expandedClientID={ expandedClientID }
+                    onClientBarExpand={ this.onSwitchClientBar}
+                    clientPage={ clientPage }
+                    changeRoute={ this.onClientPageRoute }
+                    orders={ orders }
+                    showModal={ this.handleOpenClientImageModal } 
+                    closeModal={ this.handleCloseClientImageModal}
+                    showClientImageModal={ showClientImageModal }
+                    closeImageModal={ this.handleCloseClientImageModal }
+                    uploadPhoto={ this.handleUploadPhoto }
+                    images={ images } />
+                    ) : (
+                    <p>loading..</p>
+                  )
 
-              }
-              </div>
-              <ClientModal showModal={ showModal } closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
-              </div>
+                }
+                </div>
+                <ClientModal showModal={ showModal } closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
+                </div>
+              ) : (
+                <Redirect to='/signin' />
+              )
             )
           } />
-          ) : ( '')
         } 
         <Route path='/order' render={() => (
 
@@ -399,20 +406,25 @@ class App extends Component {
     );
   }
 
-  componentDidMount() {
-    this.fetchBitcoinPrice()
-    this.fetchEthereumPrice()
-    this.fetchBitfinexBitcoinPrice()
-    this.fetchBitfinexEthPrice()
-    this.fetchBtceBitcoinPrice()
-    this.fetchBtceEthPrice()
-    this.fetchBitstampBitcoinPrice()
-    this.fetchSettings()
-    this.fetchAllClients()
-    this.fetchAllOrders()
-    this.fetchImagesData()
+  componentDidUpdate(prevProps, prevState) {
+    const { token } = this.state
+    const justSignedIn = !!token && (prevState.token != token)
+
+    if (justSignedIn) {
+      this.fetchBitcoinPrice()
+      this.fetchEthereumPrice()
+      this.fetchBitfinexBitcoinPrice()
+      this.fetchBitfinexEthPrice()
+      this.fetchBtceBitcoinPrice()
+      this.fetchBtceEthPrice()
+      this.fetchBitstampBitcoinPrice()
+      this.fetchSettings()
+      this.fetchAllClients()
+      this.fetchAllOrders()
+      this.fetchImagesData()
+    }
   }
 }
 
 export default App;
-// <RegistrationForm onRegistration={ this.handleRegistration } />
+
