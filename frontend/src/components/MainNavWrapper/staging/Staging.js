@@ -15,6 +15,7 @@ export default function Staging({
   handlePdfQuote,
   images,
   onClientBarExpand,
+  onSend,
   onRequest,
   orders,
   settings,
@@ -52,6 +53,7 @@ export default function Staging({
             key={ client._id } 
             lastname={ client.lastname }
             onExpand={ () => onClientBarExpand(client._id) }
+            onSend={ onSend }
             orders={ orders }
             settings={ settings }
             showClientImageModal={showClientImageModal}

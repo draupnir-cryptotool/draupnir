@@ -26,6 +26,7 @@ export default function MainNav({
   images,
   onClientBarExpand,
   onRequest,
+  onSend,
   onUpdate,
   orders,
   settings,
@@ -57,6 +58,7 @@ export default function MainNav({
             handlePdfQuote={ handlePdfQuote }
             images={images}
             onClientBarExpand={ onClientBarExpand } 
+            onSend={ onSend }
             onUpdate={ onUpdate }
             orders={ orders }
             settings={ settings }

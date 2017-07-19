@@ -19,6 +19,7 @@ export default function ClientExpand({
   handlePdfQuote,
   imageData,
   onRequest,
+  onSend,
   orders,
   settings,
   showClientImageModal,
@@ -29,7 +30,7 @@ export default function ClientExpand({
 }) {
   return (
       <div>
-        <Collapse isOpened={ expanded } fixedHeight={350}>
+        <Collapse isOpened={ expanded } fixedHeight={1000}>
         <div>
           <nav>
             <a onClick={ () => changeRoute('status')}>STATUS</a>
@@ -67,8 +68,10 @@ export default function ClientExpand({
             :
             clientPage === 'quotes' ?
             <QuotePage 
-              ausPrice={ ausPrices.BTC.acxBestBTC }
+              ausPrices={ ausPrices }
               handlePdfQuote={ handlePdfQuote }
+              onSend={ onSend }
+              orders={ orders }
             />
             :
             ""

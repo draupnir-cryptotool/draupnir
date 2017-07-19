@@ -48,8 +48,8 @@ class App extends Component {
 
 
   // Sending Email via Mailgun
-  handleSendMail = ({ subject, text }) => {
-    mailAPI.sendMail({ subject, text })
+  handleSendMail = (emailProps) => {
+    mailAPI.sendMail(emailProps)
   }
 
   // upload image form
@@ -380,6 +380,7 @@ class App extends Component {
                 handlePdfQuote={ this.handlePdfQuote }
                 images={ images } 
                 onClientBarExpand={ this.onSwitchClientBar}
+                onSend={ this.handleSendMail }
                 onUpdate={ this.handleUpdateSettings }
                 orders={ orders }
                 settings={ masterSettings }

@@ -18,6 +18,7 @@ export default function ClientBar({
   lastname,
   onExpand,
   onRequest,
+  onSend,
   orders,
   settings,
   showClientImageModal,
@@ -32,7 +33,6 @@ export default function ClientBar({
   })
 
   const imageData = imageDataFind(images, id)
-  console.log(imageData)
   return(
     <div>
         <div>
@@ -56,6 +56,7 @@ export default function ClientBar({
             handlePdfQuote={ handlePdfQuote }
             imageData={ imageData }
             orders={orders}
+            onSend={ onSend }
             settings={ settings }
             showClientImageModal={showClientImageModal}
             showModal={ showModal }
