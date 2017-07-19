@@ -16,7 +16,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 class QuotePage extends React.Component{
   state = {
-    client: 'Testy McTestface',
+    client: this.props.client.firstname + ' ' + this.props.client.lastname,
     quoteId: 123,
     orderAmount: 10000,
     currency: 'Bitcoin',
@@ -117,10 +117,7 @@ class QuotePage extends React.Component{
   }
 
   render() {
-    const dollarSymbolStyle = {
-    position: 'relative',
-    left: '26%'
-    }
+    console.log(this.props.client);
     return (
       <div style={{display: 'flex'}}>
         <div style={{display: 'flex', flexDirection: 'row', width: '50%'}}>
@@ -178,15 +175,6 @@ class QuotePage extends React.Component{
                 </Col>
                 <Col componentClass={ ControlLabel } sm={5}>
                   {this.state.average}
-                </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formHorizontalName">
-                <Col componentClass={ ControlLabel } sm={5}>
-                  Client: 
-                </Col>
-                <Col componentClass={ ControlLabel } sm={5}>
-                  {this.state.client}
                 </Col>
               </FormGroup>
 
