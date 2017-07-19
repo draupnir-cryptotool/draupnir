@@ -379,28 +379,7 @@ class App extends Component {
               )
             )
           } />
-        } 
-        <Route path='/order' render={() => (
-
-          <div>
-            <Order />
-          </div>
-        )
-        } />
-        <Route path='/image' render={() => (
-            
-            <div>
-              <Image />
-            </div>
-          )
-        } />
-        <Route path='/mail' render={() => (
-            
-            <div>
-              <Mail onSend={ this.handleSendMail }/>
-            </div>
-          )
-        } />
+        }
         </main>
       </Router>
     );
