@@ -28,36 +28,31 @@ router.get('/ausPrices', function(req, res, next) {
     })
     .catch((err) => console.log(err));
 
-  const btcmFetch = fetch('https://api.btcmarkets.net/market/BTC/AUD/tick')
+  const btcmFetchBTC = fetch('https://api.btcmarkets.net/market/BTC/AUD/tick')
     .then((res) => res.json())
     .then((json) => {
       ausPrices.BTC.btcmBestBTC = json.bestAsk;
-    })
-    .then(fetch('https://api.btcmarkets.net/market/ETH/AUD/tick')
-      .then((res) => res.json())
-      .then((json) => {
-        ausPrices.ETH.btcmBestETH = json.bestAsk;
-        return;
-      }))
-    .catch((err) => console.log(err));
+      return;
+    });
 
-  const irFetch = fetch('https://api.independentreserve.com/Public/GetMarketSummary?primaryCurrencyCode=xbt&secondaryCurrencyCode=aud')
+  const btcmFetchETH = (fetch('https://api.btcmarkets.net/market/ETH/AUD/tick')
     .then((res) => res.json())
     .then((json) => {
-      // ausPrices.BTC.irBestBTC = json.CurrentLowestOfferPrice;
+      ausPrices.ETH.btcmBestETH = json.bestAsk;
       return;
-    })
-    .then(fetch('https://api.independentreserve.com/Public/GetMarketSummary?primaryCurrencyCode=eth&secondaryCurrencyCode=aud')
-      .then((res) => res.json())
-      .then((json) => {
-        ausPrices.ETH.irBestETH = json.CurrentLowestOfferPrice;
-        return;
-      }))
-    .catch((err) => console.log(err));
+    }));
+
+  const irFetch = fetch('https://api.independentreserve.com/Public/GetMarketSummary?primaryCurrencyCode=eth&secondaryCurrencyCode=aud')
+    .then((res) => res.json())
+    .then((json) => {
+      ausPrices.ETH.irBestETH = json.CurrentLowestOfferPrice;
+      return;
+    });
 
   exchangeAPIs = [
     acxFetch,
-    btcmFetch,
+    btcmFetchBTC,
+    btcmFetchETH,
     irFetch,
   ];
 
