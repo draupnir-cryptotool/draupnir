@@ -1,6 +1,6 @@
 const express = require('express')
+const fetch = require('node-fetch')
 const Settings = require('../models/Settings')
-
 const router = express.Router()
 
 // get all data
@@ -39,6 +39,41 @@ router.patch('/settings/:id', (req, res) => {
   .catch((err) => {
     res.json({ err: err })
   })
+})
+
+router.get('/bitcoinBalance', (req, res) => {
+  Settings.findById({_id: "59703a98ae87e52a7dfe210a" })
+  .then((settings) => {
+    return fetch(`https://blockchain.info/balance?active=${settings.btceWalletAddress}`)
+    .then((apiRes) => apiRes.json())
+    .then((json) => {
+      // massage incoming json data to pure name value pairs
+      const balance = json[settings.btceWalletAddress].final_balance
+      const num = balance / Math.pow(10,8)
+      res.json({ btceWalletBalance: num })
+    })
+  })
+    .catch((error) => {
+      res.json({ error:error })
+    })
+})
+
+// wallet address coming from DB
+router.get('/ethereumBalance', (req, res) => {
+  Settings.findById({_id: "59703a98ae87e52a7dfe210a"})
+  .then((settings) => { 
+    return fetch(`https://etherchain.org/api/account/${settings.ethWalletAddress}`)
+  })
+    .then((apiRes) => apiRes.json())
+    .then((json) => {
+      // massage incoming json data to pure name value pairs
+      const balance = json.data[0].balance
+      const num = balance / Math.pow(10,18)
+      res.json( { ethWalletBalance: num } )
+    })
+    .catch((error) => {
+      res.json({ error:error })
+    })
 })
 
 module.exports = router;
