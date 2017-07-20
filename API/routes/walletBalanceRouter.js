@@ -10,7 +10,7 @@ function extractBitcoinData(json) {
   return { final_balance: balance }
 }
 router.get('/bitcoinBalance', (req, res) => {
-  Settings.findById({_id: "59642ab99039a21b6839c24e" })
+  Settings.findById({_id: "59703a98ae87e52a7dfe210a" })
   .then((settings) => {
     return fetch(`https://blockchain.info/balance?active=${bitcoin}`)
   })
@@ -28,7 +28,7 @@ router.get('/bitcoinBalance', (req, res) => {
 
 // wallet address coming from DB
 router.get('/ethereumBalance', (req, res) => {
-  Settings.findById({_id: "59642ab99039a21b6839c24e"})
+  Settings.findById({_id: "59703a98ae87e52a7dfe210a"})
   .then((settings) => { 
     return fetch(`https://etherchain.org/api/account/${settings.ethWalletAddress}`)
   })
