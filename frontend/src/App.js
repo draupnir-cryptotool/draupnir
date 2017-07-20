@@ -40,9 +40,7 @@ class App extends Component {
     clientPage: null,
     orders: null,
     images: null,
-    masterSettings: {
-      settings: 0
-    },
+    masterSettings: null,
     expandedClientID: null,
     tempOrder: null,
     orderUserId: null
@@ -359,7 +357,7 @@ handleUpdateStatus = ({ clientId, statusType }) => {
       showModal,
       tempOrder,
       token,
-     } = this.state
+    } = this.state
     return (
       <Router>
         <main>
@@ -399,7 +397,7 @@ handleUpdateStatus = ({ clientId, statusType }) => {
             </div>
             <div>
             {
-              !!ausPrices && !!masterSettings.bitfinexFloat && !!masterSettings.btceFloat && !!masterSettings.bitstampFloat ? (
+              !!ausPrices && !!masterSettings ? (
               <MainNav
                 ausPrices={ ausPrices }
                 changeRoute={ this.onClientPageRoute }
