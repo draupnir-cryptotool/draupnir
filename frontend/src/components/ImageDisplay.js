@@ -9,10 +9,10 @@ class ImageDisplay extends React.Component  {
   submitImage = (image, uploadPhoto) => {
   const idType = ReactDOM.findDOMNode(this.refs[this.props.clientId]).value
   const clientId = this.props.clientId
-  console.log(clientId)
     let file = image[0]
+    console.log(image)
+
     uploadPhoto({ file, idType, clientId })
-    
   }
 
   render() {
