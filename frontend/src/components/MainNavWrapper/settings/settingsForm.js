@@ -51,6 +51,12 @@ class SettingsForm extends React.Component {
               </Col>
             </FormGroup>
           </Form>
+          <Button 
+            className={ "updateBtn" } 
+            bsSize="large"
+            bsStyle="primary" type="submit" 
+            onClick={(event) => this.submitUpdateRequest(event, this.props.onUpdate)}>Update Floats
+          </Button>
         </div>
         <div>
           <h1>Crypto Wallet</h1>
@@ -72,13 +78,14 @@ class SettingsForm extends React.Component {
               </Col>
             </FormGroup>
           </Form>
+          <Button 
+          className={ "updateBtn" } 
+          bsSize="large"
+          bsStyle="primary" type="submit" 
+          onClick={(event) => this.submitUpdateRequest(event, this.props.onEthUpdate, this.props.onBtcUpdate)}>Update Wallet Address
+        </Button>
         </div>
       </div>
-      <Button 
-        className={ "updateBtn" } 
-        bsSize="large"
-        bsStyle="primary" type="submit" 
-        onClick={(event) => this.submitUpdateRequest(event, this.props.onUpdate)}>Update Settings</Button>
     </div>
   )
   }

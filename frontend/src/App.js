@@ -76,6 +76,7 @@ class App extends Component {
         this.setState({ error })
       })
     }
+
 // HANDLER SECTION -------------------------------------------------------------------------
   handleUpdateStatus = ({ clientId, statusType }) => {
     clientAPI.updateVerified({ clientId, statusType })
@@ -142,6 +143,7 @@ class App extends Component {
       this.setState({ error })
     })
   }
+
 // FETCH SECTION ---------------------------------------------------------
 // get all image data
   fetchImagesData = () => {
@@ -419,7 +421,9 @@ class App extends Component {
                 showModal={ this.handleOpenClientImageModal } 
                 tempOrder={ tempOrder }
                 uploadPhoto={ this.handleUploadPhoto }
-                />
+                oneBtcUpdate={ this.fetchBitcoinPrice }
+                onEthUpdate={ this.fetchEthereumPrice }
+              />
                 ) : (
                 <p>loading..</p>
               )
