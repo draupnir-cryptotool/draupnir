@@ -4,7 +4,7 @@ import SettingsForm from './settingsForm'
 
 
 export default function Settings({
-  onUpdate, settings, oneBtcUpdate, onEthUpdate
+  onUpdate, settings, onBtcUpdate, onEthUpdate
 
 }) {
 
@@ -13,7 +13,7 @@ export default function Settings({
       <SettingsForm
         onUpdate={ onUpdate }
         settings={ settings }
-        oneBtcUpdate={ oneBtcUpdate }
+        onBtcUpdate={ onBtcUpdate }
         onEthUpdate={ onEthUpdate }
       />
     </div>
