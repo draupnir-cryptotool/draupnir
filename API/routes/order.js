@@ -196,7 +196,9 @@ router.get('/order', function(req, res, next) {
 
             // Update exchange limit remaining. This is always tallied in usd.
             thisExchange.usdSpent += partialOrder.orderTotal;
+            thisExchange.usdSpent = parseFloat(thisExchange.usdSpent.toFixed(2));
             thisExchange.coinBought += partialOrder.amount;
+            thisExchange.coinBought = parseFloat(thisExchange.coinBought.toFixed(PRECIS));
             orderData.totalUsdSpent += partialOrder.orderTotal;
             let roundedAmount = parseFloat(partialOrder.amount.toFixed(PRECIS));
             orderData.totalCoinBought += roundedAmount;
@@ -212,7 +214,9 @@ router.get('/order', function(req, res, next) {
 
             // Update exchange limit remaining. This is always tallied in usd.
             thisExchange.usdSpent += order.orderTotal;
+            thisExchange.usdSpent = parseFloat(thisExchange.usdSpent.toFixed(2));
             thisExchange.coinBought += order.amount;
+            thisExchange.coinBought = parseFloat(thisExchange.coinBought.toFixed(PRECIS));
             orderData.totalUsdSpent += order.orderTotal;
             orderData.totalCoinBought += order.amount;
 
@@ -243,7 +247,9 @@ router.get('/order', function(req, res, next) {
             tally += partialOrder.amount;
 
             thisExchange.usdSpent += partialOrder.orderTotal;
+            thisExchange.usdSpent = parseFloat(thisExchange.usdSpent.toFixed(2));
             thisExchange.coinBought += partialOrder.amount;
+            thisExchange.coinBought = parseFloat(thisExchange.coinBought.toFixed(PRECIS));
             orderData.totalUsdSpent += partialOrder.orderTotal;
             orderData.totalCoinBought += partialOrder.amount;
 
@@ -253,7 +259,9 @@ router.get('/order', function(req, res, next) {
             tally += order.amount;
 
             thisExchange.usdSpent += order.orderTotal;
+            thisExchange.usdSpent = parseFloat(thisExchange.usdSpent.toFixed(2));
             thisExchange.coinBought += order.amount;
+            thisExchange.coinBought = parseFloat(thisExchange.coinBought.toFixed(PRECIS));
             orderData.totalUsdSpent += order.orderTotal;
             orderData.totalCoinBought += order.amount;
 
@@ -267,6 +275,7 @@ router.get('/order', function(req, res, next) {
         })
         .then((res) => res.json())
         .then((rates) => {
+          orderData.totalUsdSpent = parseFloat(orderData.totalUsdSpent.toFixed(2));
           let totalConversion = orderData.totalUsdSpent * rates.usdToAud;
           orderData.totalAudSpent = parseFloat(totalConversion.toFixed(2));
           orderData.totalCoinBought = parseFloat(orderData.totalCoinBought.toFixed(PRECIS));

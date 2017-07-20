@@ -18,7 +18,7 @@ class QuotePage extends React.Component{
     client: this.props.client.firstname + ' ' + this.props.client.lastname,
     quoteId: 123,
     orderAmount: 10000,
-    currency: 'Bitcoin',
+    currency: 'Ethereum',
     exchange1: {
       name: '',
       bestPrice: 0,
@@ -35,31 +35,31 @@ class QuotePage extends React.Component{
   };
 
   setPrices = () => {
+    let exchange1, exchange2;
     if (this.state.currency === 'Bitcoin') {
-      this.setState({
-        exchange1: {
+        exchange1 = {
           name: 'ACX',
           bestPrice: this.props.ausPrices.BTC.acxBestBTC,
-        },
-        exchange2: {
+        };
+        exchange2 = {
           name: 'BTC Markets',
           bestPrice: this.props.ausPrices.BTC.btcmBestBTC,
-        }
-      })
+        };
     } else if (this.state.currency === 'Ethereum') {
-      this.setState({
-        exchange1: {
+        exchange1 = {
           name: 'BTC Markets',
           bestPrice: this.props.ausPrices.ETH.btcmBestETH,
-        },
-        exchange2: {
+        };
+        exchange2 = {
           name: 'Independent Reserve',
-          bestPrice: this.props.ausPrices.ETH.btcmBestETH,
-        }
-      })
+          bestPrice: this.props.ausPrices.ETH.irBestETH,
+        };
     }
+    let average = ((exchange1.bestPrice + exchange2.bestPrice) / 2).toFixed(2);
     this.setState({
-      average: (this.state.exchange1.bestPrice + this.state.exchange2.bestPrice) / 2,
+      exchange1: exchange1,
+      exchange2: exchange2,
+      average: average,
     });
   }
 
@@ -115,24 +115,29 @@ class QuotePage extends React.Component{
   }
 
   handleChange = (e) => {
-    this.setState({
-      spotPrice: e.target.value,
-      totalPerCoin: parseFloat(this.state.spotPrice) + (this.state.spotPrice * (this.state.commission / 100)),
-    });
+    const spotPrice = parseFloat(e.target.value);
+    const totalPerCoin = spotPrice + (spotPrice * (this.state.commission / 100));
     
-    console.log(this.state);
-    console.log(e);
+    this.setState({
+      spotPrice: spotPrice,
+      totalPerCoin: totalPerCoin,
+    })
   }
 
-  // handleChange = (event) => {
-  //   console.log(this.state);
-  //   console.log(event.target);
-  //   let change = {};
-  //   change[event.target.ref] = event.target.value;
-  //   this.setState(change);
-  // }
-
   render() {
+    const {
+      average,
+      client,
+      commission,
+      currency,
+      exchange1,
+      exchange2,
+      orderAmount,
+      quoteId,
+      spotPrice,
+      totalCoins,
+      totalPerCoin,
+    } = this.state;
     return (
       <div style={{display: 'flex'}}>
         <div style={{display: 'flex', flexDirection: 'row', width: '50%'}}>
@@ -144,7 +149,7 @@ class QuotePage extends React.Component{
                   Client: 
                 </Col>
                 <Col componentClass={ ControlLabel } sm={5}>
-                  {this.state.client}
+                  {client}
                 </Col>
               </FormGroup>
               
@@ -153,7 +158,7 @@ class QuotePage extends React.Component{
                   Currency: 
                 </Col>
                 <Col componentClass={ ControlLabel } sm={5}>
-                  {this.state.currency}
+                  {currency}
                 </Col>
               </FormGroup>
 
@@ -162,25 +167,25 @@ class QuotePage extends React.Component{
                   Order Amount: 
                 </Col>
                 <Col componentClass={ ControlLabel } sm={5}>
-                  {this.state.orderAmount}
+                  {orderAmount}
                 </Col>
               </FormGroup>
 
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                  {this.state.exchange1.name} Best Price: 
+                  {exchange1.name} Best Price: 
                 </Col>
                 <Col componentClass={ ControlLabel } sm={5}>
-                  {this.state.exchange1.bestPrice}
+                  {exchange1.bestPrice}
                 </Col>
               </FormGroup>
 
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                  {this.state.exchange2.name} Best Price: 
+                  {exchange2.name} Best Price: 
                 </Col>
                 <Col componentClass={ ControlLabel } sm={5}>
-                  {this.state.exchange2.bestPrice}
+                  {exchange2.bestPrice}
                 </Col>
               </FormGroup>
 
@@ -189,7 +194,7 @@ class QuotePage extends React.Component{
                   Average Australian Price: 
                 </Col>
                 <Col componentClass={ ControlLabel } sm={5}>
-                  {this.state.average}
+                  {average}
                 </Col>
               </FormGroup>
 
@@ -198,7 +203,7 @@ class QuotePage extends React.Component{
                   Commission %
                 </Col>
                 <Col sm={5}>
-                  <FormControl type="text" ref="commission" defaultValue={ `${this.state.commission}` }/>
+                  <FormControl type="text" ref="commission" defaultValue={ commission }/>
                 </Col>
               </FormGroup>
 
@@ -210,9 +215,9 @@ class QuotePage extends React.Component{
                   <FormControl
                     type="text"
                     ref="spotPrice"
-                    value={this.state.spotPrice.value}
-                    placeholder="Enter text"
-                    onChange={this.handleChange}
+                    value={ spotPrice }
+                    placeholder="Spot Price"
+                    onChange={ this.handleChange }
                   />
                 </Col>
               </FormGroup>
@@ -225,7 +230,7 @@ class QuotePage extends React.Component{
                   <FormControl 
                     type="text" 
                     ref="totalPerCoin" 
-                    value={ `${this.state.totalPerCoin}` }/>
+                    value={ totalPerCoin }/>
                 </Col>
               </FormGroup>
 
@@ -237,7 +242,7 @@ class QuotePage extends React.Component{
                   <FormControl 
                     type="text" 
                     ref="totalCoins" 
-                    value={ `${this.state.orderAmount / this.state.totalPerCoin}` }/>
+                    value={ (orderAmount / totalPerCoin).toFixed(8) }/>
                 </Col>
               </FormGroup>
             </Form>
@@ -269,6 +274,10 @@ class QuotePage extends React.Component{
       </div>
     )
   }
-}
+
+  componentDidMount() {
+    this.setPrices();
+  };
+};
 
 export default QuotePage
