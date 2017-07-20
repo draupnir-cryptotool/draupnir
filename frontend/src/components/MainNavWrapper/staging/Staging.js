@@ -1,6 +1,7 @@
 import React from 'react'
 import './staging.css'
 import ClientBar from './ClientBar'
+import FaPlus from 'react-icons/lib/fa/plus-square'
 
 
 export default function Staging({
@@ -31,7 +32,7 @@ export default function Staging({
   return (
     <div style={{ boxSizing: 'border-box', padding: "3em" }}>
       <div className="addBtn">
-        <button onClick={() => (clientModal())}>Add</button>
+        <span onClick={() => (clientModal())}><FaPlus size={30}/></span>
       </div>
       <div id="clientBarTitle" style={{display: 'flex', justifyContent: 'center'}}>
         <div><p>CLIENT No.</p></div>
