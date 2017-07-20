@@ -131,8 +131,8 @@ class App extends Component {
     settingsAPI.updateSettings({ btceWalletAddress })
     .then(json => {
       settingsAPI.fetchBitcoinPrice()
-      .then(fetchBitcoinPrice => {
-        this.setState({ fetchBitcoinPrice })
+      .then(bitcoinBalance => {
+        this.setState({ bitcoinBalance })
       })
     })
     .catch(error => {

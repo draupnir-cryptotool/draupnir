@@ -69,6 +69,12 @@ class SettingsForm extends React.Component {
                 <FormControl type="text" ref="btceWalletAddress" defaultValue={ `${this.props.settings.btceWalletAddress}` }/>
               </Col>
             </FormGroup>
+            <Button 
+              className={ "updateBtn" } 
+              bsSize="large"
+              bsStyle="primary" type="submit" 
+              onClick={(event) => this.submitUpdateRequest(event, this.props.onBtcUpdate)}>Update Bitcoin Wallet Address
+            </Button>
             <FormGroup controlId="formHorizontalName">
               <Col componentClass={ ControlLabel } sm={4}>
               ETH
@@ -79,11 +85,11 @@ class SettingsForm extends React.Component {
             </FormGroup>
           </Form>
           <Button 
-          className={ "updateBtn" } 
-          bsSize="large"
-          bsStyle="primary" type="submit" 
-          onClick={(event) => this.submitUpdateRequest(event, this.props.onEthUpdate, this.props.onBtcUpdate)}>Update Wallet Address
-        </Button>
+            className={ "updateBtn" } 
+            bsSize="large"
+            bsStyle="primary" type="submit" 
+            onClick={(event) => this.submitUpdateRequest(event, this.props.onEthUpdate)}>Update Ether Wallet Address
+          </Button>
         </div>
       </div>
     </div>
