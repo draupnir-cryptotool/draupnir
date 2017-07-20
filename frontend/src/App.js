@@ -111,6 +111,7 @@ class App extends Component {
     })
   }
 
+  // Update float balances from three exhcanges
   handleUpdateSettings = ({ bitfinexFloat, btceFloat, bitstampFloat }) => {
     settingsAPI.updateSettings({ bitfinexFloat, btceFloat, bitstampFloat })
     .then(json => {
@@ -125,12 +126,13 @@ class App extends Component {
     })
   }
 
+  // Update btc wallet address and render new balance
   updateBitcoinWalletAddress = ({ btceWalletAddress }) => {
     settingsAPI.updateSettings({ btceWalletAddress })
     .then(json => {
       settingsAPI.fetchBitcoinPrice()
-      .then(fetchBitcoinPrice => {
-        this.setState({ fetchBitcoinPrice })
+      .then(bitcoinBalance => {
+        this.setState({ bitcoinBalance })
       })
     })
     .catch(error => {
@@ -138,6 +140,7 @@ class App extends Component {
     })
   }
 
+  // update eth wallet addres and render new balance 
   updateEthereumWalletAddress = ({ ethWalletAddress }) => {
     settingsAPI.updateSettings({ ethWalletAddress })
     .then(json => {

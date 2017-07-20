@@ -13,8 +13,6 @@ class SettingsForm extends React.Component {
     const ethWalletAddress = ReactDOM.findDOMNode(this.refs.ethWalletAddress).value
     const btceWalletAddress = ReactDOM.findDOMNode(this.refs.btceWalletAddress).value
     onUpdate({ bitfinexFloat, btceFloat, bitstampFloat, ethWalletAddress, btceWalletAddress })
-    // onEthUpdate({ ethWalletAddress })
-    // onBtcUpdate({ onBtcUpdate })
   }
 
   render() {
@@ -71,6 +69,12 @@ class SettingsForm extends React.Component {
                 <FormControl type="text" ref="btceWalletAddress" defaultValue={ `${this.props.settings.btceWalletAddress}` }/>
               </Col>
             </FormGroup>
+            <Button 
+              className={ "updateBtn" } 
+              bsSize="large"
+              bsStyle="primary" type="submit" 
+              onClick={(event) => this.submitUpdateRequest(event, this.props.onBtcUpdate)}>Update Bitcoin Wallet Address
+            </Button>
             <FormGroup controlId="formHorizontalName">
               <Col componentClass={ ControlLabel } sm={4}>
               ETH
@@ -81,11 +85,11 @@ class SettingsForm extends React.Component {
             </FormGroup>
           </Form>
           <Button 
-          className={ "updateBtn" } 
-          bsSize="large"
-          bsStyle="primary" type="submit" 
-          onClick={(event) => this.submitUpdateRequest(event, this.props.onEthUpdate, this.props.onBtcUpdate)}>Update Wallet Address
-        </Button>
+            className={ "updateBtn" } 
+            bsSize="large"
+            bsStyle="primary" type="submit" 
+            onClick={(event) => this.submitUpdateRequest(event, this.props.onEthUpdate)}>Update Ether Wallet Address
+          </Button>
         </div>
       </div>
     </div>
@@ -96,4 +100,3 @@ class SettingsForm extends React.Component {
 export default SettingsForm
 
 
-// 0x7e14C106cc04e19734F882793b82c751C21f4495
