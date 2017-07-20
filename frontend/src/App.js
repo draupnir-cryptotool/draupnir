@@ -125,6 +125,32 @@ class App extends Component {
     })
   }
 
+  updateBitcoinWalletAddress = ({ btceWalletAddress }) => {
+    settingsAPI.updateSettings({ btceWalletAddress })
+    .then(json => {
+      settingsAPI.fetchBitcoinPrice()
+      .then(fetchBitcoinPrice => {
+        this.setState({ fetchBitcoinPrice })
+      })
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
+  }
+
+  updateEthereumWalletAddress = ({ ethWalletAddress }) => {
+    settingsAPI.updateSettings({ ethWalletAddress })
+    .then(json => {
+      settingsAPI.fetchEthereumPrice()
+      .then(ethereumBalance => {
+        this.setState({ ethereumBalance })
+      })
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
+  }
+
   handlePdfQuote = ({ exchange1 }) => {
     pdfQuoteAPI.generatePdf({ exchange1 })
   }
@@ -196,6 +222,18 @@ class App extends Component {
     settingsAPI.fetchEthereumPrice()
       .then(ethereumBalance => {
         this.setState({ ethereumBalance })
+      })
+      .catch(error => {
+        this.setState({ error })
+      })
+  }
+
+  // get settings state to update exchange cash balances
+  fetchSettings = () => {
+    // Fetching from axios folder, fetchSettings()
+    settingsAPI.fetchSettings()
+      .then(masterSettings => {
+        this.setState({ masterSettings })
       })
       .catch(error => {
         this.setState({ error })
@@ -274,18 +312,6 @@ class App extends Component {
       .catch(error => {
         this.setState({ error })
         setTimeout(this.fetchBitstampBitcoinPrice, 10000)
-      })
-  }
-
-  // get settings state to update exchange cash balances
-  fetchSettings = () => {
-    // Fetching from axios folder, fetchSettings()
-    settingsAPI.fetchSettings()
-      .then(masterSettings => {
-        this.setState({ masterSettings })
-      })
-      .catch(error => {
-        this.setState({ error })
       })
   }
 
@@ -423,8 +449,8 @@ class App extends Component {
                 showModal={ this.handleOpenClientImageModal } 
                 tempOrder={ tempOrder }
                 uploadPhoto={ this.handleUploadPhoto }
-                oneBtcUpdate={ this.fetchBitcoinPrice }
-                onEthUpdate={ this.fetchEthereumPrice }
+                onBtcUpdate={ this.updateBitcoinWalletAddress }
+                onEthUpdate={ this.updateEthereumWalletAddress }
               />
                 ) : (
                 <p>loading..</p>

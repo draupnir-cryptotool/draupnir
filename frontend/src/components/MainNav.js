@@ -38,7 +38,7 @@ export default function MainNav({
   showModal,
   tempOrder,
   uploadPhoto,
-  oneBtcUpdate,
+  onBtcUpdate,
   onEthUpdate
 }) {
   return (
@@ -96,7 +96,7 @@ export default function MainNav({
           <Settings
             settings={ settings }
             onUpdate={ onUpdate }
-            oneBtcUpdate={ oneBtcUpdate }
+            onBtcUpdate={ onBtcUpdate }
             onEthUpdate={ onEthUpdate }
           />
         )

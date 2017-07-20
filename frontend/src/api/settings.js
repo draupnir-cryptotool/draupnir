@@ -6,12 +6,14 @@ export function fetchSettings() {
     .then(res => res.data)
 }
 
-export function updateSettings({ bitfinexFloat, btceFloat, bitstampFloat }) {
+export function updateSettings({ bitfinexFloat, btceFloat, bitstampFloat, btceWalletAddress, ethWalletAddress }) {
   // TODO: send id to env variable
   return axios.patch('/api/settings/59703a98ae87e52a7dfe210a', {
       bitfinexFloat,
       btceFloat,
-      bitstampFloat
+      bitstampFloat,
+      btceWalletAddress,
+      ethWalletAddress
   })
   .then(res => res.data)
 }

@@ -5,7 +5,7 @@ import "./settings.css"
 
 class SettingsForm extends React.Component {
 
-  submitUpdateRequest = (event, onUpdate) => {
+  submitUpdateRequest = (event, onUpdate, onEthUpdate, onBtcUpdate) => {
     event.preventDefault()
     const bitfinexFloat = ReactDOM.findDOMNode(this.refs.bitfinexFloat).value || 0
     const btceFloat = ReactDOM.findDOMNode(this.refs.btceFloat).value || 0
@@ -13,6 +13,8 @@ class SettingsForm extends React.Component {
     const ethWalletAddress = ReactDOM.findDOMNode(this.refs.ethWalletAddress).value
     const btceWalletAddress = ReactDOM.findDOMNode(this.refs.btceWalletAddress).value
     onUpdate({ bitfinexFloat, btceFloat, bitstampFloat, ethWalletAddress, btceWalletAddress })
+    // onEthUpdate({ ethWalletAddress })
+    // onBtcUpdate({ onBtcUpdate })
   }
 
   render() {
@@ -63,18 +65,18 @@ class SettingsForm extends React.Component {
           <Form horizontal>
             <FormGroup controlId="formHorizontalName">
               <Col componentClass={ ControlLabel } sm={4}>
-              ETH
+              BTC
               </Col>
               <Col sm={8}>
-                <FormControl type="text" ref="ethWalletAddress" defaultValue={ `${this.props.settings.ethWalletAddress}` }/>
+                <FormControl type="text" ref="btceWalletAddress" defaultValue={ `${this.props.settings.btceWalletAddress}` }/>
               </Col>
             </FormGroup>
             <FormGroup controlId="formHorizontalName">
               <Col componentClass={ ControlLabel } sm={4}>
-              BTC-E
+              ETH
               </Col>
               <Col sm={8}>
-                <FormControl type="text" ref="btceWalletAddress" defaultValue={ `${this.props.settings.btceWalletAddress}` }/>
+                <FormControl type="text" ref="ethWalletAddress" defaultValue={ `${this.props.settings.ethWalletAddress}` }/>
               </Col>
             </FormGroup>
           </Form>
@@ -92,3 +94,6 @@ class SettingsForm extends React.Component {
 }
 
 export default SettingsForm
+
+
+// 0x7e14C106cc04e19734F882793b82c751C21f4495
