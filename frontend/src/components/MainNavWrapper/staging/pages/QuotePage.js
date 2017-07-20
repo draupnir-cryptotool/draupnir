@@ -18,7 +18,7 @@ class QuotePage extends React.Component{
     client: this.props.client.firstname + ' ' + this.props.client.lastname,
     quoteId: 123,
     orderAmount: 10000,
-    currency: 'Bitcoin',
+    currency: 'Ethereum',
     exchange1: {
       name: '',
       bestPrice: 0,
@@ -52,7 +52,7 @@ class QuotePage extends React.Component{
         };
         exchange2 = {
           name: 'Independent Reserve',
-          bestPrice: this.props.ausPrices.ETH.btcmBestETH,
+          bestPrice: this.props.ausPrices.ETH.irBestETH,
         };
     }
     let average = ((exchange1.bestPrice + exchange2.bestPrice) / 2).toFixed(2);
@@ -215,9 +215,8 @@ class QuotePage extends React.Component{
                   <FormControl
                     type="text"
                     ref="spotPrice"
-                    defaultValue={ average }
                     value={ spotPrice }
-                    placeholder="Enter text"
+                    placeholder="Spot Price"
                     onChange={ this.handleChange }
                   />
                 </Col>
