@@ -7,9 +7,9 @@ class SettingsForm extends React.Component {
 
   submitUpdateRequest = (event, onUpdate) => {
     event.preventDefault()
-    const bitfinexFloat = ReactDOM.findDOMNode(this.refs.bitfinexFloat).value
-    const btceFloat = ReactDOM.findDOMNode(this.refs.btceFloat).value
-    const bitstampFloat = ReactDOM.findDOMNode(this.refs.bitstampFloat).value
+    const bitfinexFloat = ReactDOM.findDOMNode(this.refs.bitfinexFloat).value || 0
+    const btceFloat = ReactDOM.findDOMNode(this.refs.btceFloat).value || 0
+    const bitstampFloat = ReactDOM.findDOMNode(this.refs.bitstampFloat).value || 0
     const ethWalletAddress = ReactDOM.findDOMNode(this.refs.ethWalletAddress).value
     const btceWalletAddress = ReactDOM.findDOMNode(this.refs.btceWalletAddress).value
     onUpdate({ bitfinexFloat, btceFloat, bitstampFloat, ethWalletAddress, btceWalletAddress })
