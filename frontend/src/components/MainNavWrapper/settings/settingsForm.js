@@ -13,8 +13,6 @@ class SettingsForm extends React.Component {
     const ethWalletAddress = ReactDOM.findDOMNode(this.refs.ethWalletAddress).value
     const btceWalletAddress = ReactDOM.findDOMNode(this.refs.btceWalletAddress).value
     onUpdate({ bitfinexFloat, btceFloat, bitstampFloat, ethWalletAddress, btceWalletAddress })
-    // onEthUpdate({ ethWalletAddress })
-    // onBtcUpdate({ onBtcUpdate })
   }
 
   render() {
@@ -96,4 +94,3 @@ class SettingsForm extends React.Component {
 export default SettingsForm
 
 
-// 0x7e14C106cc04e19734F882793b82c751C21f4495
