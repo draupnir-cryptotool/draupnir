@@ -79,7 +79,8 @@ export default function ClientExpand({
               ausPrices={ ausPrices }
               handlePdfQuote={ handlePdfQuote }
               onSend={ onSend }
-              orders={ orders }
+              client={ client }
+              orderUserId={ orderUserId }
             />
             :
             ""

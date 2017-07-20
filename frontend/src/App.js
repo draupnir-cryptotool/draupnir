@@ -165,6 +165,8 @@ class App extends Component {
     ausPricesAPI.ausPrices()
       .then(prices => {
         this.setState({ ausPrices: prices })
+        // fetch data from api every 10 seconds
+        setTimeout(this.fetchAusPrices, 10000)
       })
   }
 
