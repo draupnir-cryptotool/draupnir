@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Ethereum({
+export default function EthereumWalletBalance({
   etherBalance
 }) {
   const ethBalanceStyle = {
@@ -11,7 +11,7 @@ export default function Ethereum({
   return (
     <div className='ethBalance'>
       <p style={ethBalanceStyle}>ETH - </p>
-      <span style={{fontSize: '2.5rem', verticalAlign: 'middle', color: "white"}}>{ etherBalance.balance }</span>
+      <span style={{fontSize: '2.5rem', verticalAlign: 'middle', color: "white"}}>{ etherBalance.ethWalletBalance }</span>
     </div>
   )
 }

@@ -9,7 +9,6 @@ import * as mailAPI from './api/mail'
 import * as orderAPI from './api/order'
 import * as pdfQuoteAPI from './api/pdfQuote'
 import * as settingsAPI from './api/settings'
-import * as walletApi from './api/wallet'
 import ClientImageModal from './components/Modal/ClientImageModal'
 import ClientModal from './components/Modal/ClientModal'
 import Header from './components/Header';
@@ -78,19 +77,18 @@ class App extends Component {
       })
     }
 // HANDLER SECTION -------------------------------------------------------------------------
-handleUpdateStatus = ({ clientId, statusType }) => {
-  clientAPI.updateVerified({ clientId, statusType })
-  .then((updatedClient) => {
-    this.setState(({ clients }) => {
-      return {
-        clients: clients.map(client => (
-          (client._id === updatedClient._id) ? updatedClient : client
-        ))
-      }
+  handleUpdateStatus = ({ clientId, statusType }) => {
+    clientAPI.updateVerified({ clientId, statusType })
+    .then((updatedClient) => {
+      this.setState(({ clients }) => {
+        return {
+          clients: clients.map(client => (
+            (client._id === updatedClient._id) ? updatedClient : client
+          ))
+        }
+      })
     })
-  })
-}
-
+  }
 
   handleRegistration = ({email, firstname, lastname, password}) => {
     authAPI.register({email, firstname, lastname, password})
@@ -179,7 +177,7 @@ handleUpdateStatus = ({ clientId, statusType }) => {
   // Get Bitcoin balance from wallet api
   fetchBitcoinPrice = () => {
     // Fetching from axios folder, fetchBitcoinPrice()
-    walletApi.fetchBitcoinPrice()
+    settingsAPI.fetchBitcoinPrice()
       .then(bitcoinBalance => {
         this.setState({ bitcoinBalance })
       })
@@ -191,7 +189,7 @@ handleUpdateStatus = ({ clientId, statusType }) => {
   // Get Ethereum balance from wallet api
   fetchEthereumPrice = () => {
     // Fetching from axios folder, fetchBitcoinPrice()
-    walletApi.fetchEthereumPrice()
+    settingsAPI.fetchEthereumPrice()
       .then(ethereumBalance => {
         this.setState({ ethereumBalance })
       })
