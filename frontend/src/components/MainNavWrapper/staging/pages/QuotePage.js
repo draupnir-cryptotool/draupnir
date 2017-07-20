@@ -59,7 +59,7 @@ class QuotePage extends React.Component{
       })
     }
     this.setState({
-      average: (this.state.exchange1.bestPrice + this.state.exchange2.bestPrice) / 2,
+      average: ((this.state.exchange1.bestPrice + this.state.exchange2.bestPrice) / 2).toFixed(2),
     });
   }
 
@@ -237,7 +237,7 @@ class QuotePage extends React.Component{
                   <FormControl 
                     type="text" 
                     ref="totalCoins" 
-                    value={ `${this.state.orderAmount / this.state.totalPerCoin}` }/>
+                    value={ `${(this.state.orderAmount / this.state.totalPerCoin).toFixed(8)}` }/>
                 </Col>
               </FormGroup>
             </Form>
