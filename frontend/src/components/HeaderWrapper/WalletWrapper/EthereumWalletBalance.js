@@ -9,7 +9,7 @@ export default function EthereumWalletBalance({
     color: "#3E47FF"
   }
   return (
-    <div className='ethBalance'>
+    <div>
       <p style={ethBalanceStyle}>ETH - </p>
       <span style={{fontSize: '2.5rem', verticalAlign: 'middle', color: "white"}}>{ etherBalance.ethWalletBalance }</span>
     </div>
