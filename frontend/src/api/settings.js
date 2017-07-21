@@ -6,12 +6,26 @@ export function fetchSettings() {
     .then(res => res.data)
 }
 
-export function updateSettings({ bitfinexFloat, btceFloat, bitstampFloat }) {
+export function updateSettings({ bitfinexFloat, btceFloat, bitstampFloat, btceWalletAddress, ethWalletAddress }) {
   // TODO: send id to env variable
-  return axios.patch('/api/settings/59642ab99039a21b6839c24e', {
+  return axios.patch('/api/settings/59703a98ae87e52a7dfe210a', {
       bitfinexFloat,
       btceFloat,
-      bitstampFloat
+      bitstampFloat,
+      btceWalletAddress,
+      ethWalletAddress
   })
   .then(res => res.data)
+}
+
+export function fetchBitcoinPrice() {
+  return axios.get('/api/bitcoinbalance')
+  // bring in json data
+    .then(res => res.data)
+}
+
+export function fetchEthereumPrice() {
+  return axios.get('/api/ethereumbalance')
+  // bring in json data
+    .then(res => res.data)
 }

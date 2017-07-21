@@ -1,7 +1,6 @@
 import React from 'react'
 import './staging.css'
 import ClientExpand from './clientExpand'
-import _ from 'lodash'
 
 export default function ClientBar({
   ausPrices,
@@ -32,7 +31,8 @@ export default function ClientBar({
   uploadPhoto,
 }) {
   const imageDataFind = ((images, id) => {
-    return _.find(images, {clientId: id})
+    return images.filter((clientImages) => clientImages.clientId === id
+    )
   })
 
   const imageData = imageDataFind(images, id)
