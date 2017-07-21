@@ -37,9 +37,9 @@ export default function ClientBar({
 
   const imageData = imageDataFind(images, id)
   return(
-    <div>
+    <div className="clientBar" style={{ backgroundColor: "#3B3B3B", color: "#969696" }}>
         <div>
-          <div onClick={ onExpand } style={{ border: "solid 1px", marginTop: "2em" }}>
+          <div onClick={ onExpand } style={{ border: "solid 1px", margin: "2em" }}>
             <div id="clientBarTitle">
               <div><p>{ uniqId }</p></div>
               <div><p>{ firstname + " " + lastname }</p></div>
