@@ -157,7 +157,8 @@ router.get('/order', function(req, res, next) {
       for (let order of fullOrderBook) {
         // Check if we are with 0.1% of the asked amount. If we are, we can stop
         // looking
-        if (tally >= qs.amount - qs.amount * WINDOW && tally <= qs.amount + qs.amount * WINDOW) {
+        // if (tally >= (qs.amount - (qs.amount * WINDOW)) && tally <= (qs.amount + (qs.amount * WINDOW))) {
+        if (tally >= qs.amount) {
           break;
         }
 
@@ -229,18 +230,17 @@ router.get('/order', function(req, res, next) {
           // float remaining on the exchange. Using Math.min() we can find the
           // smallest number out of this order's total value and the exchange's
           // remaining float
-          let maxAvailiable = Math.min(exchangeRemaining, order.orderTotal);
-
           // We have a certain amount of coins we are looking for. We need to
           // know how much that would cost if we bought them all from this
           // order. This will let us work out if we can afford to buy them from
           // this order on this exchange.
           let remainingValue = totalRemaining * order.price;
+          let maxAvailiable = Math.min(exchangeRemaining, order.orderTotal, remainingValue);
 
-          if (remainingValue > maxAvailiable) {
+          if (maxAvailiable < order.orderTotal) {
             // Take partial amount
             let partialOrder = order;
-            partialOrder.amount = remainingValue / partialOrder.price;
+            partialOrder.amount = maxAvailiable / partialOrder.price;
             partialOrder.amount = parseFloat(partialOrder.amount.toFixed(PRECIS));
             partialOrder.orderTotal = partialOrder.price * partialOrder.amount;
             partialOrder.orderTotal = parseFloat(partialOrder.orderTotal.toFixed(2));
@@ -254,7 +254,7 @@ router.get('/order', function(req, res, next) {
             orderData.totalCoinBought += partialOrder.amount;
 
             orderData.orders.push(partialOrder);
-          } else if (remainingValue <= maxAvailiable) {
+          } else {
             // take whole maxAvailiable from this oder
             tally += order.amount;
 
