@@ -1,9 +1,12 @@
-.currencySwitch {
+/* .currencySwitch {
   position: relative;
   text-align: center;
   bottom: 20px;
   height: 40px;
-}
+  box-sizing: border-box;
+  padding: 10px;
+  margin-right: 10px;
+} */
 
 .livePriceHeader th {
   color: #3E47FF;
