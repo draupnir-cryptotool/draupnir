@@ -5,11 +5,11 @@ import "./settings.css"
 
 class SettingsForm extends React.Component {
 
-  submitUpdateRequest = (event, onUpdate) => {
+  submitUpdateRequest = (event, onUpdate, onEthUpdate, onBtcUpdate) => {
     event.preventDefault()
-    const bitfinexFloat = ReactDOM.findDOMNode(this.refs.bitfinexFloat).value
-    const btceFloat = ReactDOM.findDOMNode(this.refs.btceFloat).value
-    const bitstampFloat = ReactDOM.findDOMNode(this.refs.bitstampFloat).value
+    const bitfinexFloat = ReactDOM.findDOMNode(this.refs.bitfinexFloat).value || 0
+    const btceFloat = ReactDOM.findDOMNode(this.refs.btceFloat).value || 0
+    const bitstampFloat = ReactDOM.findDOMNode(this.refs.bitstampFloat).value || 0
     const ethWalletAddress = ReactDOM.findDOMNode(this.refs.ethWalletAddress).value
     const btceWalletAddress = ReactDOM.findDOMNode(this.refs.btceWalletAddress).value
     onUpdate({ bitfinexFloat, btceFloat, bitstampFloat, ethWalletAddress, btceWalletAddress })
@@ -51,10 +51,30 @@ class SettingsForm extends React.Component {
               </Col>
             </FormGroup>
           </Form>
+          <Button 
+            className={ "updateBtn" } 
+            bsSize="large"
+            bsStyle="primary" type="submit" 
+            onClick={(event) => this.submitUpdateRequest(event, this.props.onUpdate)}>Update Floats
+          </Button>
         </div>
         <div>
           <h1>Crypto Wallet</h1>
           <Form horizontal>
+            <FormGroup controlId="formHorizontalName">
+              <Col componentClass={ ControlLabel } sm={4}>
+              BTC
+              </Col>
+              <Col sm={8}>
+                <FormControl type="text" ref="btceWalletAddress" defaultValue={ `${this.props.settings.btceWalletAddress}` }/>
+              </Col>
+            </FormGroup>
+            <Button 
+              className={ "updateBtn" } 
+              bsSize="large"
+              bsStyle="primary" type="submit" 
+              onClick={(event) => this.submitUpdateRequest(event, this.props.onBtcUpdate)}>Update Bitcoin Wallet Address
+            </Button>
             <FormGroup controlId="formHorizontalName">
               <Col componentClass={ ControlLabel } sm={4}>
               ETH
@@ -63,25 +83,20 @@ class SettingsForm extends React.Component {
                 <FormControl type="text" ref="ethWalletAddress" defaultValue={ `${this.props.settings.ethWalletAddress}` }/>
               </Col>
             </FormGroup>
-            <FormGroup controlId="formHorizontalName">
-              <Col componentClass={ ControlLabel } sm={4}>
-              BTC-E
-              </Col>
-              <Col sm={8}>
-                <FormControl type="text" ref="btceWalletAddress" defaultValue={ `${this.props.settings.btceWalletAddress}` }/>
-              </Col>
-            </FormGroup>
           </Form>
+          <Button 
+            className={ "updateBtn" } 
+            bsSize="large"
+            bsStyle="primary" type="submit" 
+            onClick={(event) => this.submitUpdateRequest(event, this.props.onEthUpdate)}>Update Ether Wallet Address
+          </Button>
         </div>
       </div>
-      <Button 
-        className={ "updateBtn" } 
-        bsSize="large"
-        bsStyle="primary" type="submit" 
-        onClick={(event) => this.submitUpdateRequest(event, this.props.onUpdate)}>Update Settings</Button>
     </div>
   )
   }
 }
 
 export default SettingsForm
+
+

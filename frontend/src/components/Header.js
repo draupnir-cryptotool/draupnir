@@ -3,7 +3,6 @@ import WalletWrapper from './HeaderWrapper/WalletWrapper/WalletWrapper'
 import LivePriceWrapper from '../components/HeaderWrapper/LivePricesWrapper/LivePriceWrapper'
 import XchangeBalanceWrapper from '../components/HeaderWrapper/XchangeBalanceWrapper/XchangeBalanceWrapper'
 
-
 const divStyle = {
   display: 'flex',
   justifyContent: 'space-around',
@@ -13,9 +12,9 @@ const divStyle = {
 const wrapperStyle = {
   padding: '30px',
   backgroundColor: '#3b3b3b',
-  borderRadius: '5px'
+  borderRadius: '5px',
+  width: '25%'
 }
-
 
 export default function Header ({
   settings, bitBalance, onBtcUpdate, etherBalance, onEthUpdate,

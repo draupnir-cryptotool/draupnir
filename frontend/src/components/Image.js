@@ -22,7 +22,6 @@ export default function Image({
       </div>
     )
   }
-
 // <Dropzone onDrop={ this.onDrop }>
 //           <p>Try dropping some files here, or click to select files to upload.</p>
 //         </Dropzone>

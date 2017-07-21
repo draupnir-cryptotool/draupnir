@@ -1,3 +1,10 @@
 .submitBtn {
   height: 3.9rem;
+  background-color: #EF940D;
+  border: 0px;
+}
+
+.formInput {
+  margin-bottom: 3%;
+  height: 3.9rem;
 }

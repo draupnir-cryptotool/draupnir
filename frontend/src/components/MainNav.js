@@ -38,6 +38,8 @@ export default function MainNav({
   showModal,
   tempOrder,
   uploadPhoto,
+  onBtcUpdate,
+  onEthUpdate
 }) {
   return (
     <Router>
@@ -94,6 +96,8 @@ export default function MainNav({
           <Settings
             settings={ settings }
             onUpdate={ onUpdate }
+            onBtcUpdate={ onBtcUpdate }
+            onEthUpdate={ onEthUpdate }
           />
         )
         } />

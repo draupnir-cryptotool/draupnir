@@ -8,7 +8,6 @@ const clientRouter = require('./routes/clientRouter');
 const orderRouter = require('./routes/orderRouter');
 const messageRouter = require('./routes/messageRouter');
 const GraphRouter = require('./routes/graphRouter');
-const walletBalanceRouter = require('./routes/walletBalanceRouter');
 const liveCoinPricesRouter = require('./routes/liveCoinPricesRouter');
 const order = require('./routes/order');
 const pdfQuote = require('./routes/pdfQuote');
@@ -53,7 +52,6 @@ server.use('/api', [
   pdfQuote,
   settingsRouter,
   usersRouter,
-  walletBalanceRouter,
 ]);
 
 // Handle errors by returning JSON

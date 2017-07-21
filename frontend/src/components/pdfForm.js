@@ -11,7 +11,7 @@ export default function PdfForm({
         <input type='text' name='filename' placeholder='File name' />
         <label>Text</label>
         <input type='textarea' name='content' placeholder='Write some text...' />
-        <input type='submit' value='Create PDF' />
+        <input type='submit' defaultValue='Create PDF' />
       </form>
     </div>
   )

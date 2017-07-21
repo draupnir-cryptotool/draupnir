@@ -13,10 +13,10 @@ export default function InfoPage({
     left: '15%'
   }
 
-  const imageOverlay = (
+  const imageOverlay = (image) => (
     <Popover id="popover-positioned-top" title="Client ID">
       <div>
-        <img width={ 200 } height={ 200 } src={imageData.s3URL} alt="id"/>
+        <img width={ 200 } height={ 200 } src={image.s3URL} alt="id"/>
       </div>
     </Popover>
   )
@@ -34,21 +34,22 @@ export default function InfoPage({
         closeImageModal={ closeImageModal }
         uploadPhoto={ uploadPhoto }
         clientId={client._id} />
-      <div>
-        <h1>ID</h1> 
-        <h3>{imageData.idType} 
-        <span style={ viewImageStyle }><OverlayTrigger trigger="click" placement="top" overlay={imageOverlay}>
-          { !!imageData ?
+        <div>
+        <h1>ID</h1>
+          {
+          imageData.map((image) => (
+          <div key={image._id}>
+          <h3>{image.idType} 
+          <span style={ viewImageStyle }><OverlayTrigger trigger="click" placement="top" overlay={imageOverlay(image)}>
           <Button>View</Button>
-          :
-          ""
+          </OverlayTrigger>
+          </span>
+          </h3>
+          </div>
+            ))
           }
-        </OverlayTrigger>
-        </span>
-        </h3>
-
-        <Button type="submit" bsStyle={'primary'} onClick={ () => showModal() }>Add</Button>
       </div>
+        <Button type="submit" bsStyle={'primary'} onClick={ () => showModal() }>Add</Button>
     </div>
   )
 }
