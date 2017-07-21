@@ -115,13 +115,30 @@ class QuotePage extends React.Component{
   }
 
   handleChange = (e) => {
-    const spotPrice = parseFloat(e.target.value);
-    const totalPerCoin = spotPrice + (spotPrice * (this.state.commission / 100));
+    const spotPrice = ReactDOM.findDOMNode(this.refs.spotPrice).value;
+    const commission = ReactDOM.findDOMNode(this.refs.commission).value;
+    const orderAmount = ReactDOM.findDOMNode(this.refs.orderAmount).value;
+    // spotPrice = parseFloat(e.target.value);
     
     this.setState({
-      spotPrice: spotPrice,
-      totalPerCoin: totalPerCoin,
-    })
+      spotPrice,
+      commission,
+      orderAmount,
+    }, () => this.updateTotal()
+    );
+  }
+
+  updateTotal = () => {
+    const spotPrice = parseFloat(this.state.spotPrice);
+    const commission = parseFloat(this.state.commission);
+    const orderAmount = parseFloat(this.state.orderAmount);
+    const totalPerCoin = spotPrice + (spotPrice * (commission / 100));
+    const totalCoins = (orderAmount / totalPerCoin).toFixed(8) 
+
+    this.setState({
+      totalPerCoin,
+      totalCoins,
+    });
   }
 
   render() {
@@ -138,6 +155,9 @@ class QuotePage extends React.Component{
       totalCoins,
       totalPerCoin,
     } = this.state;
+
+ 
+
     return (
       <div style={{display: 'flex'}}>
         <div style={{display: 'flex', flexDirection: 'row', width: '50%'}}>
@@ -167,7 +187,12 @@ class QuotePage extends React.Component{
                   Order Amount: 
                 </Col>
                 <Col componentClass={ ControlLabel } sm={5}>
-                  {orderAmount}
+                  <FormControl
+                    type="text" 
+                    ref="orderAmount"
+                    value={ orderAmount }
+                    onChange={ this.handleChange }
+                  />
                 </Col>
               </FormGroup>
 
@@ -203,7 +228,12 @@ class QuotePage extends React.Component{
                   Commission %
                 </Col>
                 <Col sm={5}>
-                  <FormControl type="text" ref="commission" defaultValue={ commission }/>
+                  <FormControl
+                    type="text" 
+                    ref="commission"
+                    value={ commission }
+                    onChange={ this.handleChange }
+                  />
                 </Col>
               </FormGroup>
 
@@ -242,7 +272,7 @@ class QuotePage extends React.Component{
                   <FormControl 
                     type="text" 
                     ref="totalCoins" 
-                    value={ (orderAmount / totalPerCoin).toFixed(8) }/>
+                    value={ totalCoins }/>
                 </Col>
               </FormGroup>
             </Form>
@@ -274,6 +304,10 @@ class QuotePage extends React.Component{
       </div>
     )
   }
+
+  // componentDidUpdate() {
+  //   this.updateTotal();
+  // }
 
   componentDidMount() {
     this.setPrices();
