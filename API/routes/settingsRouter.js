@@ -41,6 +41,8 @@ router.patch('/settings/:id', (req, res) => {
   })
 })
 
+// wallet address coming from DB
+// calculate our btc wallet balance
 router.get('/bitcoinBalance', (req, res) => {
   Settings.findById({_id: "59703a98ae87e52a7dfe210a" })
   .then((settings) => {
@@ -59,6 +61,7 @@ router.get('/bitcoinBalance', (req, res) => {
 })
 
 // wallet address coming from DB
+// calculate our eth wallet balance
 router.get('/ethereumBalance', (req, res) => {
   Settings.findById({_id: "59703a98ae87e52a7dfe210a"})
   .then((settings) => { 
