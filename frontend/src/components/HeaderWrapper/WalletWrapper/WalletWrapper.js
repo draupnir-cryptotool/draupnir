@@ -1,7 +1,6 @@
 import React from 'react'
 import BitcoinWalletBalance from './BitcoinWalletBalance'
 import EthereumWalletBalance from './EthereumWalletBalance'
-import { Button } from 'react-bootstrap'
 import './wallet.css'
 
 export default function WalletWrapper({
@@ -12,23 +11,18 @@ export default function WalletWrapper({
     <div style={{display: 'flex', marginRight: '3rem'}}>
       <div>
         <div style={{display: "flex", justifyContent: "space-between"}}>
-          <div>
+          <div style={{marginBottom: '3px'}}>
             <BitcoinWalletBalance
             bitBalance={ bitBalance }
             />
           </div>
-          <div>
-            <Button className='refreshBtn' onClick={ onBtcUpdate }>Refresh</Button>
-          </div>
         </div>
+        <div className="divider"></div>
         <div style={{display: "flex"}}>
           <div>
             <EthereumWalletBalance
               etherBalance={ etherBalance }
             /> 
-          </div>
-          <div>
-            <Button className='refreshBtn' onClick={ onEthUpdate }>Refresh</Button>
           </div>
         </div>
       </div>
