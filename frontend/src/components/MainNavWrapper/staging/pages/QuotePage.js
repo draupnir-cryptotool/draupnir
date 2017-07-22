@@ -18,7 +18,7 @@ class QuotePage extends React.Component{
     client: this.props.client.firstname + ' ' + this.props.client.lastname,
     quoteId: 123,
     orderAmount: 5000,
-    currency: 'Bitcoin',
+    currency: '',
     exchange1: {
       name: '',
       bestPrice: 0,
@@ -36,7 +36,10 @@ class QuotePage extends React.Component{
 
   setPrices = () => {
     let exchange1, exchange2;
-    if (this.state.currency === 'Bitcoin') {
+    const currency = ReactDOM.findDOMNode(this.refs.currency).value;
+    console.log(currency);
+
+    if (currency === 'Bitcoin') {
         exchange1 = {
           name: 'ACX',
           bestPrice: this.props.ausPrices.BTC.acxBestBTC,
@@ -45,7 +48,7 @@ class QuotePage extends React.Component{
           name: 'BTC Markets',
           bestPrice: this.props.ausPrices.BTC.btcmBestBTC,
         };
-    } else if (this.state.currency === 'Ethereum') {
+    } else if (currency === 'Ethereum') {
         exchange1 = {
           name: 'BTC Markets',
           bestPrice: this.props.ausPrices.ETH.btcmBestETH,
@@ -57,9 +60,10 @@ class QuotePage extends React.Component{
     }
     let average = ((exchange1.bestPrice + exchange2.bestPrice) / 2).toFixed(2);
     this.setState({
-      exchange1: exchange1,
-      exchange2: exchange2,
-      average: average,
+      currency,
+      exchange1,
+      exchange2,
+      average,
     });
   }
 
@@ -185,10 +189,18 @@ class QuotePage extends React.Component{
               
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                  Currency: 
+                  Coin: 
                 </Col>
-                <Col componentClass={ ControlLabel } sm={5}>
-                  {currency}
+                <Col sm={5}>
+                  <FormControl
+                    componentClass="select"
+                    placeholder="select"
+                    ref="currency"
+                    onChange={ this.setPrices }
+                  >
+                    <option value="Bitcoin">Bitcoin</option>
+                    <option value="Ethereum">Ethereum</option>
+                  </FormControl>
                 </Col>
               </FormGroup>
 
