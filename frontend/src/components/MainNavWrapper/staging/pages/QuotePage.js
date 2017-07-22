@@ -118,12 +118,18 @@ class QuotePage extends React.Component{
     const spotPrice = ReactDOM.findDOMNode(this.refs.spotPrice).value;
     const commission = ReactDOM.findDOMNode(this.refs.commission).value;
     const orderAmount = ReactDOM.findDOMNode(this.refs.orderAmount).value;
+    const exchange1Value = ReactDOM.findDOMNode(this.refs.exchange1BestPrice).value;
+    const exchange2Value = ReactDOM.findDOMNode(this.refs.exchange2BestPrice).value;
+    const exchange1 = {bestPrice: exchange1Value};
+    const exchange2 = {bestPrice: exchange2Value};
     // spotPrice = parseFloat(e.target.value);
     
     this.setState({
       spotPrice,
       commission,
       orderAmount,
+      exchange1,
+      exchange2,
     }, () => this.updateTotal()
     );
   }
@@ -131,11 +137,15 @@ class QuotePage extends React.Component{
   updateTotal = () => {
     const spotPrice = parseFloat(this.state.spotPrice);
     const commission = parseFloat(this.state.commission);
+    const exchange1BestPrice = parseFloat(this.state.exchange1.bestPrice);
+    const exchange2BestPrice = parseFloat(this.state.exchange2.bestPrice);
     const orderAmount = parseFloat(this.state.orderAmount);
+    const average = (exchange1BestPrice + exchange2BestPrice) / 2;
     const totalPerCoin = spotPrice + (spotPrice * (commission / 100));
     const totalCoins = (orderAmount / totalPerCoin).toFixed(8) 
 
     this.setState({
+      average,
       totalPerCoin,
       totalCoins,
     });
@@ -198,19 +208,29 @@ class QuotePage extends React.Component{
 
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                  {exchange1.name} Best Price: 
+                  Fair Price 1:
                 </Col>
                 <Col componentClass={ ControlLabel } sm={5}>
-                  {exchange1.bestPrice}
+                  <FormControl
+                    type="text" 
+                    ref="exchange1BestPrice"
+                    value={ exchange1.bestPrice }
+                    onChange={ this.handleChange }
+                  />
                 </Col>
               </FormGroup>
 
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                  {exchange2.name} Best Price: 
+                  Fair Price 2:
                 </Col>
                 <Col componentClass={ ControlLabel } sm={5}>
-                  {exchange2.bestPrice}
+                  <FormControl
+                    type="text" 
+                    ref="exchange2BestPrice"
+                    value={ exchange2.bestPrice }
+                    onChange={ this.handleChange }
+                  />
                 </Col>
               </FormGroup>
 
