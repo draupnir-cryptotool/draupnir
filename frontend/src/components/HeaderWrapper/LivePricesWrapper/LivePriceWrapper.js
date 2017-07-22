@@ -32,8 +32,8 @@ export default function LivePriceWrapper({
         
       </div>
       <div style={{textAlign: 'center'}}>
-        <Button  className='currencySwitch' bsStyle='default' bsSize='lg' onClick={onCurrencyChangeUsd}>USD</Button>
-        <Button  className='currencySwitch' bsStyle='default' bsSize='lg' onClick={onCurrencyChangeAud}>AUD</Button>
+        <Button  className='currencySwitch' bsStyle='default' bsSize='small' onClick={onCurrencyChangeUsd}>USD</Button>
+        <Button  className='currencySwitch' bsStyle='default' bsSize='small' onClick={onCurrencyChangeAud}>AUD</Button>
       </div>
     </div>
   )
