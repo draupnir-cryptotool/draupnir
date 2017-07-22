@@ -30,7 +30,9 @@ export default function ClientExpand({
   status,
   tempOrder,
   uploadPhoto,
-}) {
+})
+
+{
   return (
       <div>
         <Collapse isOpened={ expanded } fixedHeight={1000}>
