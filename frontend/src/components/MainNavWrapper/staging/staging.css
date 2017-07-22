@@ -7,6 +7,7 @@
 .addBtn {
   position: relative;
   left: 90%;
+  color: white;
 }
 
 li {
@@ -21,9 +22,23 @@ li {
   display: -webkit-flex; /* Safari */
   display: flex;
   border: 0px;
-  justify-content: center;
+  justify-content: center;  
   margin-left: 15%;
-  margin-top: 2em;
+  margin-top: 1em;
+}
+
+@font-face {
+  font-family: 'Roboto', sans-serif;
+  src: url('https://fonts.googleapis.com/css?family=Roboto')
+}
+
+.clientBar {
+  font-family: 'Roboto', sans-serif;
+}
+
+.clientTitle {
+  font-family: 'Roboto', sans-serif;
+  color: #969696;
 }
 
 #clientBarTitle div:nth-of-type(1) {width: 300px;}

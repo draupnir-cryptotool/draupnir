@@ -17,7 +17,7 @@ export default function LogInForm({
   const wellStyles = {minWidth: 400};
 
   const dividerStyle = {
-    border: 'solid',
+    border: 'solid 1px',
     height: '30rem',
     position: 'relative',
     bottom: '7rem',
