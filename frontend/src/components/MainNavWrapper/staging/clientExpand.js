@@ -31,14 +31,13 @@ export default function ClientExpand({
   status,
   tempOrder,
   uploadPhoto,
-<<<<<<< HEAD
-})
-
-{
-=======
 }) {
-  const navStyle={ color: "#000000", textDecoration: "none", fontSize: "20px" }
->>>>>>> master
+  const navStyle= { 
+    color: "#000000", 
+    textDecoration: "none", 
+    fontSize: "20px" 
+  }
+
   return (
       <div>
         <Collapse isOpened={ expanded } fixedHeight={1000} style={{width: "90%", backgroundColor: "#3B3B3B", margin: "0 auto"}}>

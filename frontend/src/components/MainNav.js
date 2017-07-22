@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, NavLink as Link } from 'react-router-dom'
 import Staging from '../components/MainNavWrapper/staging/Staging'
-import Messages from '../components/MainNavWrapper/Messages'
+import Messages from '../components/MainNavWrapper/messages/MessagesWrapper'
 import Logs from '../components/MainNavWrapper/Logs'
 import Graphs from '../components/MainNavWrapper/Graphs'
 import Settings from '../components/MainNavWrapper/settings/Settings'
@@ -39,8 +39,14 @@ export default function MainNav({
   tempOrder,
   uploadPhoto,
   onBtcUpdate,
-  onEthUpdate
+  onEthUpdate,
+  adminMessages
 }) {
+  const pageBodyStyle = {
+    position: 'relative',
+    width: '80%',
+    margin: '0 auto'
+  }
   return (
     <Router>
       <div>
@@ -81,7 +87,9 @@ export default function MainNav({
         )
         } />
         <Route path='/home/messages' render={() => (
-          <Messages />
+          <div style={ pageBodyStyle }>
+            <Messages adminMessages={ adminMessages } />
+          </div>
         )
         } />
         <Route path='/home/logs' render={() => (
@@ -93,12 +101,14 @@ export default function MainNav({
         )
         } />
         <Route path='/home/settings' render={() => (
+          <div style={pageBodyStyle}>
           <Settings
             settings={ settings }
             onUpdate={ onUpdate }
             onBtcUpdate={ onBtcUpdate }
             onEthUpdate={ onEthUpdate }
           />
+          </div>
         )
         } />
       </div>

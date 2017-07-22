@@ -9,6 +9,7 @@ import * as mailAPI from './api/mail'
 import * as orderAPI from './api/order'
 import * as pdfQuoteAPI from './api/pdfQuote'
 import * as settingsAPI from './api/settings'
+import * as messageAPI from './api/message'
 import ClientImageModal from './components/Modal/ClientImageModal'
 import ClientModal from './components/Modal/ClientModal'
 import Header from './components/Header';
@@ -42,8 +43,8 @@ class App extends Component {
     masterSettings: null,
     expandedClientID: null,
     tempOrder: null,
-    orderUserId: null
-
+    orderUserId: null,
+    adminMessages: null,
   }
 
   // Fetching best order rates from exchanges
@@ -174,6 +175,14 @@ class App extends Component {
   }
 
 // FETCH SECTION ---------------------------------------------------------
+// get all messages
+fetchAllAdminMessages = () => {
+  messageAPI.allAdminMessages()
+  .then((adminMessages) => {
+  this.setState({ adminMessages: adminMessages })
+})
+}
+
 // get all image data
   fetchImagesData = () => {
     imageAPI.allImageData()
@@ -388,6 +397,7 @@ class App extends Component {
       showModal,
       tempOrder,
       token,
+      adminMessages,
     } = this.state
     return (
       <Router>
@@ -454,6 +464,7 @@ class App extends Component {
                 uploadPhoto={ this.handleUploadPhoto }
                 onBtcUpdate={ this.updateBitcoinWalletAddress }
                 onEthUpdate={ this.updateEthereumWalletAddress }
+                adminMessages={ adminMessages }
               />
                 ) : (
                 <p>loading..</p>
@@ -504,6 +515,7 @@ class App extends Component {
     this.fetchEthereumPrice()
     this.fetchImagesData()
     this.fetchSettings()
+    this.fetchAllAdminMessages()
   }
 }
 
