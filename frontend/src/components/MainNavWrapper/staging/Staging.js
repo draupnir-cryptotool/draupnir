@@ -34,7 +34,7 @@ export default function Staging({
       <div className="addBtn">
         <span style={{color: 'white'}} onClick={() => (clientModal())}><FaPlus size={35}/></span>
       </div>
-      <div id="clientBarTitle" style={{display: 'flex', justifyContent: 'center'}}>
+      <div id="clientBarTitle" className="clientTitle" style={{display: 'flex', justifyContent: 'center'}}>
         <div><p>CLIENT No.</p></div>
         <div><p>NAME</p></div>
         <div><p>DEPOSIT</p></div>
