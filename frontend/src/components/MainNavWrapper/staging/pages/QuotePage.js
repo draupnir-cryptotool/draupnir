@@ -37,7 +37,6 @@ class QuotePage extends React.Component{
   setPrices = () => {
     let exchange1, exchange2;
     const currency = ReactDOM.findDOMNode(this.refs.currency).value;
-    console.log(currency);
 
     if (currency === 'Bitcoin') {
         exchange1 = {
