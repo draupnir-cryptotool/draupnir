@@ -32,7 +32,7 @@ export default function Staging({
   return (
     <div style={{ boxSizing: 'border-box', padding: "3em" }}>
       <div className="addBtn">
-        <span onClick={() => (clientModal())}><FaPlus size={35}/></span>
+        <span style={{color: 'white'}} onClick={() => (clientModal())}><FaPlus size={35}/></span>
       </div>
       <div id="clientBarTitle" style={{display: 'flex', justifyContent: 'center'}}>
         <div><p>CLIENT No.</p></div>
