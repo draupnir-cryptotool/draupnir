@@ -18,7 +18,7 @@ class QuotePage extends React.Component{
     client: this.props.client.firstname + ' ' + this.props.client.lastname,
     quoteId: 123,
     orderAmount: 5000,
-    currency: '',
+    currency: 'Bitcoin',
     exchange1: {
       name: '',
       bestPrice: 0,
@@ -36,10 +36,7 @@ class QuotePage extends React.Component{
 
   setPrices = () => {
     let exchange1, exchange2;
-    const currency = ReactDOM.findDOMNode(this.refs.currency).value;
-    console.log(currency);
-
-    if (currency === 'Bitcoin') {
+    if (this.state.currency === 'Bitcoin') {
         exchange1 = {
           name: 'ACX',
           bestPrice: this.props.ausPrices.BTC.acxBestBTC,
@@ -48,7 +45,7 @@ class QuotePage extends React.Component{
           name: 'BTC Markets',
           bestPrice: this.props.ausPrices.BTC.btcmBestBTC,
         };
-    } else if (currency === 'Ethereum') {
+    } else if (this.state.currency === 'Ethereum') {
         exchange1 = {
           name: 'BTC Markets',
           bestPrice: this.props.ausPrices.ETH.btcmBestETH,
@@ -60,10 +57,9 @@ class QuotePage extends React.Component{
     }
     let average = ((exchange1.bestPrice + exchange2.bestPrice) / 2).toFixed(2);
     this.setState({
-      currency,
-      exchange1,
-      exchange2,
-      average,
+      exchange1: exchange1,
+      exchange2: exchange2,
+      average: average,
     });
   }
 
@@ -119,40 +115,13 @@ class QuotePage extends React.Component{
   }
 
   handleChange = (e) => {
-    const spotPrice = ReactDOM.findDOMNode(this.refs.spotPrice).value;
-    const commission = ReactDOM.findDOMNode(this.refs.commission).value;
-    const orderAmount = ReactDOM.findDOMNode(this.refs.orderAmount).value;
-    const exchange1Value = ReactDOM.findDOMNode(this.refs.exchange1BestPrice).value;
-    const exchange2Value = ReactDOM.findDOMNode(this.refs.exchange2BestPrice).value;
-    const exchange1 = {bestPrice: exchange1Value};
-    const exchange2 = {bestPrice: exchange2Value};
-    // spotPrice = parseFloat(e.target.value);
+    const spotPrice = parseFloat(e.target.value);
+    const totalPerCoin = spotPrice + (spotPrice * (this.state.commission / 100));
     
     this.setState({
-      spotPrice,
-      commission,
-      orderAmount,
-      exchange1,
-      exchange2,
-    }, () => this.updateTotal()
-    );
-  }
-
-  updateTotal = () => {
-    const spotPrice = parseFloat(this.state.spotPrice);
-    const commission = parseFloat(this.state.commission);
-    const exchange1BestPrice = parseFloat(this.state.exchange1.bestPrice);
-    const exchange2BestPrice = parseFloat(this.state.exchange2.bestPrice);
-    const orderAmount = parseFloat(this.state.orderAmount);
-    const average = (exchange1BestPrice + exchange2BestPrice) / 2;
-    const totalPerCoin = spotPrice + (spotPrice * (commission / 100));
-    const totalCoins = (orderAmount / totalPerCoin).toFixed(8) 
-
-    this.setState({
-      average,
-      totalPerCoin,
-      totalCoins,
-    });
+      spotPrice: spotPrice,
+      totalPerCoin: totalPerCoin,
+    })
   }
 
   render() {
@@ -169,9 +138,6 @@ class QuotePage extends React.Component{
       totalCoins,
       totalPerCoin,
     } = this.state;
-
- 
-
     return (
       <div style={{display: 'flex'}}>
         <div style={{display: 'flex', flexDirection: 'row', width: '50%'}}>
@@ -189,18 +155,10 @@ class QuotePage extends React.Component{
               
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                  Coin: 
+                  Currency: 
                 </Col>
-                <Col sm={5}>
-                  <FormControl
-                    componentClass="select"
-                    placeholder="select"
-                    ref="currency"
-                    onChange={ this.setPrices }
-                  >
-                    <option value="Bitcoin">Bitcoin</option>
-                    <option value="Ethereum">Ethereum</option>
-                  </FormControl>
+                <Col componentClass={ ControlLabel } sm={5}>
+                  {currency}
                 </Col>
               </FormGroup>
 
@@ -209,40 +167,25 @@ class QuotePage extends React.Component{
                   Order Amount: 
                 </Col>
                 <Col componentClass={ ControlLabel } sm={5}>
-                  <FormControl
-                    type="text" 
-                    ref="orderAmount"
-                    value={ orderAmount }
-                    onChange={ this.handleChange }
-                  />
+                  {orderAmount}
                 </Col>
               </FormGroup>
 
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                  Fair Price 1:
+                  {exchange1.name} Best Price: 
                 </Col>
                 <Col componentClass={ ControlLabel } sm={5}>
-                  <FormControl
-                    type="text" 
-                    ref="exchange1BestPrice"
-                    value={ exchange1.bestPrice }
-                    onChange={ this.handleChange }
-                  />
+                  {exchange1.bestPrice}
                 </Col>
               </FormGroup>
 
               <FormGroup controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
-                  Fair Price 2:
+                  {exchange2.name} Best Price: 
                 </Col>
                 <Col componentClass={ ControlLabel } sm={5}>
-                  <FormControl
-                    type="text" 
-                    ref="exchange2BestPrice"
-                    value={ exchange2.bestPrice }
-                    onChange={ this.handleChange }
-                  />
+                  {exchange2.bestPrice}
                 </Col>
               </FormGroup>
 
@@ -260,12 +203,7 @@ class QuotePage extends React.Component{
                   Commission %
                 </Col>
                 <Col sm={5}>
-                  <FormControl
-                    type="text" 
-                    ref="commission"
-                    value={ commission }
-                    onChange={ this.handleChange }
-                  />
+                  <FormControl type="text" ref="commission" defaultValue={ commission }/>
                 </Col>
               </FormGroup>
 
@@ -304,7 +242,7 @@ class QuotePage extends React.Component{
                   <FormControl 
                     type="text" 
                     ref="totalCoins" 
-                    value={ totalCoins }/>
+                    value={ (orderAmount / totalPerCoin).toFixed(8) }/>
                 </Col>
               </FormGroup>
             </Form>
@@ -336,10 +274,6 @@ class QuotePage extends React.Component{
       </div>
     )
   }
-
-  // componentDidUpdate() {
-  //   this.updateTotal();
-  // }
 
   componentDidMount() {
     this.setPrices();
