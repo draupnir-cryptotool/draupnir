@@ -25,16 +25,16 @@ export default function InfoPage({
   )
 
   return (
-    <div style={{ display: 'flex' }}>
-      <div style={{  marginRight: '20%' }}>
+    <div className="infoPage" style={{ display: 'flex' }}>
+      <div style={{ marginRight: '20%', marginLeft: "4%"}}>
         <h1 style={{color: 'white'}}>Contact</h1>
         <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gridGap: '5px', }}>
-            <h3 style={{textAlign: 'right', color: 'white'}}>Name:</h3> 
-            <h3 style={{gridColumn: '1/1', gridRow: '2', textAlign: 'right', color: 'white'}}>Number:</h3> 
-            <h3 style={{gridColumn: '1/1', gridRow: '3', textAlign: 'right', color: 'white'}}>Email:</h3> 
-            <p style={{marginTop: 'auto', marginLeft: '12%', fontSize: '1.2em'}}>{client.firstname + " " + client.lastname}</p>
-            <p style={{marginTop: 'auto', marginLeft: '12%', fontSize: '1.2em'}}>{client.phone}</p>
-            <p style={{marginTop: 'auto', marginLeft: '12%', fontSize: '1.2em'}}>{client.email}</p>
+            <h3 style={{textAlign: 'left', color: 'white'}}>Name</h3> 
+            <h3 style={{gridColumn: '1/1', gridRow: '2', textAlign: 'left', color: 'white'}}>Number</h3> 
+            <h3 style={{gridColumn: '1/1', gridRow: '3', textAlign: 'left', color: 'white'}}>Email</h3> 
+            <p className="infoPageP" style={{marginTop: 'auto', marginLeft: '12%', fontSize: '1.2em'}}>{client.firstname + " " + client.lastname}</p>
+            <p className="infoPageP" style={{marginTop: 'auto', marginLeft: '12%', fontSize: '1.2em'}}>{client.phone}</p>
+            <p className="infoPageP" style={{marginTop: 'auto', marginLeft: '12%', fontSize: '1.2em'}}>{client.email}</p>
         </div>
       </div>
       <ClientImageModal
@@ -46,7 +46,7 @@ export default function InfoPage({
           <h1 style={{color: 'white'}}>ID</h1>
           {
           imageData.map((image) => (
-          <div key={image._id} style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gridGap: '5px'}}>
+          <div key={image._id} style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gridGap: '5px', color: "#CB2424"}}>
             <h3 style={{color: 'white'}}>{image.idType}</h3>
             <span className="imgIcon" style={ viewImageStyle }><OverlayTrigger trigger="click" placement="top" overlay={imageOverlay(image)}>
             <FaFileImg size={30}/>
@@ -55,7 +55,7 @@ export default function InfoPage({
           </div>
             ))
           }
-        <Button type="submit" bsStyle={'primary'} onClick={ () => showModal() }>Add</Button>
+        <Button style={{marginTop: "10%"}} type="submit" bsStyle={'primary'} onClick={ () => showModal() }>Add</Button>
       </div>
     </div>
   )

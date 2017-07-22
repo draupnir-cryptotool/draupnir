@@ -1,3 +1,16 @@
 .imgIcon:hover {
   cursor: pointer;
 }
+
+@font-face {
+  font-family: 'Roboto', sans-serif;
+  src: url('https://fonts.googleapis.com/css?family=Roboto')
+}
+
+.infoPage {
+  font-family: 'Roboto', sans-serif;
+}
+
+.infoPageP {
+  color: #4CC941;
+}
