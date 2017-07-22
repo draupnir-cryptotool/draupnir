@@ -405,7 +405,7 @@ class App extends Component {
           <div>
             <div>
             {
-            !!ausPrices && !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
+            !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
             !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings ? (
               <Header 
                 settings={ masterSettings }
@@ -428,7 +428,7 @@ class App extends Component {
             </div>
             <div>
             {
-              !!ausPrices && !!masterSettings ? (
+              !!masterSettings ? (
               <MainNav
                 ausPrices={ ausPrices }
                 changeRoute={ this.onClientPageRoute }
