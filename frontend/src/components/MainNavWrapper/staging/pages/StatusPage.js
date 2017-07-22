@@ -1,12 +1,19 @@
 import React from 'react'
+import _ from 'lodash'
+import Validated from './Validated'
+import NotValidated from './NotValidated'
 
 
 export default function StatusPage({
   status
 }){
-
+  var values = _.values(status)
   return (
     <div>
+      {
+        _.uniq(values).length === 1 ? <Validated /> : <NotValidated />
+      }
+
       {
         status.quoteSent ?
         <h3>Quote Sent: {status.quoteSent} <span>YES</span></h3>
