@@ -1,4 +1,14 @@
-.updateBtn {
-  margin-left: 6.7em;
-  margin-top: 2em;
+.floatUpdateBtn {
+  margin-left: 9.7em;
+}
+
+.walletUpdateBtn {
+  margin-left: 7em;
+  margin-bottom: 13%;
+}
+
+.settingsDivider {
+  border: solid 1px #525252;
+  margin-top: 5%;
+  margin-right: 4%
 }
