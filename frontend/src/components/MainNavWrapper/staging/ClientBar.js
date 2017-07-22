@@ -31,8 +31,9 @@ export default function ClientBar({
   uploadPhoto,
 }) {
   const imageDataFind = ((images, id) => {
+    if(!!images) {
     return images.filter((clientImages) => clientImages.clientId === id
-    )
+    )}
   })
 
   const imageData = imageDataFind(images, id)
