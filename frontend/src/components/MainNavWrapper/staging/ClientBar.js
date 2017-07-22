@@ -39,7 +39,7 @@ export default function ClientBar({
   return(
     <div className="clientBar">
         <div>
-          <div onClick={ onExpand } style={{ border: "solid 1px #3B3B3B" , margin: "2em 0", backgroundColor:                                        "#3B3B3B", color: "#969696", display: "flex" }}>
+          <div onClick={ onExpand } style={{ border: "solid 1px #3B3B3B" , margin: "2em 0 0", backgroundColor:                                        "#3B3B3B", color: "#969696", display: "flex" }}>
             <div style={{flexDirection: "row", width: "1%", backgroundColor: "red"}}></div>
             <div id="clientBarTitle" style={{flexDirection: "row", width: "90%", marginLeft: "8%"}}>
               <div><p>{ uniqId }</p></div>
