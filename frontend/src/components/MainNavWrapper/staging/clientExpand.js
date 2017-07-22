@@ -6,6 +6,7 @@ import LogsPage from './pages/LogsPage'
 import NotesPage from './pages/NotesPage'
 import OrderPage from './pages/OrderPage'
 import QuotePage from './pages/QuotePage'
+import './staging.css'
 
 export default function ClientExpand({
   ausPrices,
@@ -30,20 +31,25 @@ export default function ClientExpand({
   status,
   tempOrder,
   uploadPhoto,
+<<<<<<< HEAD
 })
 
 {
+=======
+}) {
+  const navStyle={ color: "#000000", textDecoration: "none", fontSize: "20px" }
+>>>>>>> master
   return (
       <div>
-        <Collapse isOpened={ expanded } fixedHeight={1000}>
+        <Collapse isOpened={ expanded } fixedHeight={1000} style={{width: "90%", backgroundColor: "#3B3B3B", margin: "0 auto"}}>
         <div>
-          <nav>
-            <a onClick={ () => changeRoute('status')}>STATUS</a>
-            <a onClick={ () => changeRoute('info') }>INFO</a>
-            <a onClick={ () => changeRoute('notes') }>NOTES</a>
-            <a onClick={ () => changeRoute('logs') }>LOGS</a>
-            <a onClick={ () => changeRoute('order') }>ORDER</a>
-            <a onClick={ () => changeRoute('quotes') }>QUOTES</a>
+          <nav style={{ backgroundColor: "#C4C4C4" }}>
+            <a style={ navStyle } onClick={ () => changeRoute('status')}>STATUS</a>
+            <a style={ navStyle } onClick={ () => changeRoute('info') }>INFO</a>
+            <a style={ navStyle } onClick={ () => changeRoute('notes') }>NOTES</a>
+            <a style={ navStyle } onClick={ () => changeRoute('logs') }>LOGS</a>
+            <a style={ navStyle } onClick={ () => changeRoute('order') }>ORDER</a>
+            <a style={ navStyle } onClick={ () => changeRoute('quotes') }>QUOTES</a>
           </nav>
           {
             clientPage === 'status' ?
