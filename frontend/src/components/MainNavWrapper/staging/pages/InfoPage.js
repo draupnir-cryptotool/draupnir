@@ -2,6 +2,8 @@ import React from 'react'
 import { Button, OverlayTrigger, Popover } from 'react-bootstrap'
 import ClientImageModal from '../../../Modal/ClientImageModal'
 import _ from 'lodash'
+import FaFileImg from 'react-icons/lib/fa/file-image-o'
+import './pages.css'
 
 export default function InfoPage({
   client, showModal, closeModal, showClientImageModal, closeImageModal,
@@ -10,7 +12,8 @@ export default function InfoPage({
   const viewImageStyle = {
     fontSize: '.7em',
     position: 'relative',
-    left: '15%'
+    left: '15%',
+    marginTop: '1.9em'
   }
 
   const imageOverlay = (image) => (
@@ -24,10 +27,15 @@ export default function InfoPage({
   return (
     <div style={{ display: 'flex' }}>
       <div style={{  marginRight: '20%' }}>
-        <h1>Contact</h1>
-        <h3>Name: <span>{client.firstname + " " + client.lastname}</span></h3>
-        <h3>Phone number: <span>{client.phone}</span></h3>
-        <h3>Email: <span>{client.email}</span></h3>
+        <h1 style={{color: 'white'}}>Contact</h1>
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gridGap: '5px', }}>
+            <h3 style={{textAlign: 'right', color: 'white'}}>Name:</h3> 
+            <h3 style={{gridColumn: '1/1', gridRow: '2', textAlign: 'right', color: 'white'}}>Number:</h3> 
+            <h3 style={{gridColumn: '1/1', gridRow: '3', textAlign: 'right', color: 'white'}}>Email:</h3> 
+            <p style={{marginTop: 'auto', marginLeft: '12%', fontSize: '1.2em'}}>{client.firstname + " " + client.lastname}</p>
+            <p style={{marginTop: 'auto', marginLeft: '12%', fontSize: '1.2em'}}>{client.phone}</p>
+            <p style={{marginTop: 'auto', marginLeft: '12%', fontSize: '1.2em'}}>{client.email}</p>
+        </div>
       </div>
       <ClientImageModal
         showClientImageModal={ showClientImageModal }
@@ -35,21 +43,20 @@ export default function InfoPage({
         uploadPhoto={ uploadPhoto }
         clientId={client._id} />
         <div>
-        <h1>ID</h1>
+          <h1 style={{color: 'white'}}>ID</h1>
           {
           imageData.map((image) => (
-          <div key={image._id}>
-          <h3>{image.idType} 
-          <span style={ viewImageStyle }><OverlayTrigger trigger="click" placement="top" overlay={imageOverlay(image)}>
-          <Button>View</Button>
-          </OverlayTrigger>
-          </span>
-          </h3>
+          <div key={image._id} style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gridGap: '5px'}}>
+            <h3 style={{color: 'white'}}>{image.idType}</h3>
+            <span className="imgIcon" style={ viewImageStyle }><OverlayTrigger trigger="click" placement="top" overlay={imageOverlay(image)}>
+            <FaFileImg size={30}/>
+            </OverlayTrigger>
+            </span>
           </div>
             ))
           }
-      </div>
         <Button type="submit" bsStyle={'primary'} onClick={ () => showModal() }>Add</Button>
+      </div>
     </div>
   )
 }
