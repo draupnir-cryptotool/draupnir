@@ -30,7 +30,7 @@ export default function Staging({
 }){
 
   return (
-    <div style={{ boxSizing: 'border-box', padding: "3em" }}>
+    <div style={{ boxSizing: 'border-box', padding: "3em"}}>
       <div className="addBtn">
         <span style={{color: 'white'}} onClick={() => (clientModal())}><FaPlus size={35}/></span>
       </div>

@@ -60,10 +60,10 @@ export default function ClientExpand({
             imageData ={ !!imageData ? imageData : "" } />
             :
             clientPage === 'notes' ?
-            <h1>notes</h1>
+            <h1 style={{ color: "#FFFFFF" }}>Notes</h1>
             :
             clientPage === 'logs' ?
-            <h1>logs</h1>
+            <h1 style={{ color: "#FFFFFF" }}>Logs</h1>
             :
             clientPage === 'order' ?
             <OrderPage
