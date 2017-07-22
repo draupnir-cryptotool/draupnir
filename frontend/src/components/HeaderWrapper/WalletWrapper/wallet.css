@@ -1,4 +1,8 @@
-.refreshBtn {
-  height: 30px;
-  margin-top: 10px;
+.refreshBtn:hover {
+ cursor: pointer;
+}
+
+.divider {
+  border: solid 1px;
+  width: 114%;
 }

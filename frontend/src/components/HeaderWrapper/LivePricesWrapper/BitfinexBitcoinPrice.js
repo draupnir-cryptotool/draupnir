@@ -5,7 +5,7 @@ export default function BitfinexBitcoinPrice({
 }) {
   return (
     <div>
-      <h4>{ bitfinexBtcValue }</h4>
+      <p style={{color: 'white', fontSize: '19px'}}>{ bitfinexBtcValue }</p>
     </div>
   )
 }

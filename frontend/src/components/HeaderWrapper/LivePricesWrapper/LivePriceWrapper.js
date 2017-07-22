@@ -13,33 +13,25 @@ export default function LivePriceWrapper({
   bitfinexBtcValue, bitfinexEthValue, btceBtcValue, btceEthValue, bitstampBtcValue, onCurrencyChangeUsd,
   onCurrencyChangeAud
 }) {
+
   return (
     <div>
-      <table>
-        <thead>
-          <tr className="livePriceHeader">
-            <th></th>
-            <th>Bitfinex</th>
-            <th>BTC-E</th>
-            <th>Bitstamp</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="livePricesRow">
-            <td><h4>BTC-E:</h4></td>
-            <td><BitfinexBitPrice bitfinexBtcValue={ parseFloat(bitfinexBtcValue).toFixed(2) }/> </td>
-            <td> <BtceBitcoinPrice btceBtcValue={ parseFloat(btceBtcValue).toFixed(2) }/> </td>
-            <td> <BitstampBitcoinPrice bitstampBtcValue={ parseFloat(bitstampBtcValue).toFixed(2) } /> </td>
-          </tr>
-          <tr className="livePricesRow">
-            <td><h4>ETH:</h4></td>
-            <td> <BitfinexEthPrice bitfinexEthValue={ parseFloat(bitfinexEthValue).toFixed(2) }/> </td>
-            <td> <BtceEthPrice btceEthValue={ parseFloat(btceEthValue).toFixed(2) }/> </td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-      <div style={{ textAlign: 'center', marginTop: "15%" }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gridGap: '5px', gridAutoRows: 'minmax(50px, auto)'}}>
+        <div></div>
+        <div><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Bitfinex</p></div>
+        <div><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>BTC-E</p></div>
+        <div><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Bitstamp</p></div>
+        <div><p style={{color: 'white', textAlign: 'right', marginRight: '10px', fontSize: '1.5em'}}>BTC-E:</p></div>
+        <div><BitfinexBitPrice bitfinexBtcValue={ parseFloat(bitfinexBtcValue).toFixed(2) }/></div>
+        <div><BtceBitcoinPrice btceBtcValue={ parseFloat(btceBtcValue).toFixed(2) }/></div>
+        <div><BitstampBitcoinPrice bitstampBtcValue={ parseFloat(bitstampBtcValue).toFixed(2) } /></div>
+
+        <div><p style={{color: 'white', textAlign: 'right', marginRight: '10px', fontSize: '1.5em'}}>ETH:</p></div>
+        <div><BitfinexEthPrice bitfinexEthValue={ parseFloat(bitfinexEthValue).toFixed(2) }/></div>
+        <div><BtceEthPrice btceEthValue={ parseFloat(btceEthValue).toFixed(2) }/></div>
+        
+      </div>
+      <div style={{textAlign: 'center'}}>
         <Button  className='currencySwitch' bsStyle='default' bsSize='lg' onClick={onCurrencyChangeUsd}>USD</Button>
         <Button  className='currencySwitch' bsStyle='default' bsSize='lg' onClick={onCurrencyChangeAud}>AUD</Button>
       </div>
