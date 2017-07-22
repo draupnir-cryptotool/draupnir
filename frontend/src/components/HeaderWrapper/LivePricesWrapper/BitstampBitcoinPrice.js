@@ -5,7 +5,7 @@ export default function BitstampBitcoinPrice({
 }) {
   return (
     <div>
-      <h4>{ bitstampBtcValue }</h4>
+      <p style={{color: 'white', fontSize: '19px'}}>{ bitstampBtcValue }</p>
     </div>
   )
 }

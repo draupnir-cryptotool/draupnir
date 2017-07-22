@@ -5,7 +5,7 @@ export default function BtceBitcoinPrice({
 }) {
   return (
     <div>
-      <h4>{ btceBtcValue }</h4>
+      <p style={{color: 'white', fontSize: '19px'}}>{ btceBtcValue }</p>
     </div>
   )
 }

@@ -17,8 +17,8 @@ class QuotePage extends React.Component{
   state = {
     client: this.props.client.firstname + ' ' + this.props.client.lastname,
     quoteId: 123,
-    orderAmount: 10000,
-    currency: 'Ethereum',
+    orderAmount: 5000,
+    currency: 'Bitcoin',
     exchange1: {
       name: '',
       bestPrice: 0,
@@ -29,7 +29,7 @@ class QuotePage extends React.Component{
     },
     average: 0,
     spotPrice: 0,
-    commission: 4,
+    commission: 0,
     totalPerCoin: 0,
     totalCoins: 0,
   };

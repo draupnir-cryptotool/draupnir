@@ -12,8 +12,7 @@ const divStyle = {
 const wrapperStyle = {
   padding: '30px',
   backgroundColor: '#3b3b3b',
-  borderRadius: '5px',
-  width: '25%'
+  borderRadius: '5px'
 }
 
 export default function Header ({

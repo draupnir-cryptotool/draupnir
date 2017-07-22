@@ -5,7 +5,7 @@ export default function BtceEthPrice({
 }) {
   return (
     <div>
-      <h4>{ btceEthValue }</h4>
+      <p style={{color: 'white', fontSize: '19px'}}>{ btceEthValue }</p>
     </div>
   )
 }

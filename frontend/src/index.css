@@ -2,7 +2,11 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+<<<<<<< HEAD
   background-color: #2E2E2E; 
+=======
+  background-color: #2E2E2E;   
+>>>>>>> master
 }
 
 .walletwrapper {

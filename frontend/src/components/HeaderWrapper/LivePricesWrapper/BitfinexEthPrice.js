@@ -5,7 +5,7 @@ export default function BitfinexEthPrice({
 }) {
   return (
     <div>
-      <h4>{ bitfinexEthValue }</h4>
+      <p style={{color: 'white', fontSize: '19px'}}>{ bitfinexEthValue }</p>
     </div>
   )
 }
