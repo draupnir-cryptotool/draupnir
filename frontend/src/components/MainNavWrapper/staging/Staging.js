@@ -30,15 +30,14 @@ export default function Staging({
 }){
 
   return (
-    <div style={{ boxSizing: 'border-box', padding: "3em" }}>
-      <div className="addBtn">
-        <span style={{color: 'white'}} onClick={() => (clientModal())}><FaPlus size={35}/></span>
-      </div>
+    <div style={{ boxSizing: 'border-box', padding: "3em"}}>
+      
       <div id="clientBarTitle" className="clientTitle" style={{display: 'flex', justifyContent: 'center',                                                                marginLeft: "10%"}}>
-        <div><p>CLIENT No.</p></div>
-        <div><p>NAME</p></div>
-        <div><p>DEPOSIT</p></div>
-        <div><p>CURRENCY</p></div>
+        <div><p style={{ marginTop: "3%" }}>CLIENT No.</p></div>
+        <div><p style={{ marginTop: "3%" }}>NAME</p></div>
+        <div><p style={{ marginTop: "3%" }}>DEPOSIT</p></div>
+        <div><p style={{ marginTop: "3%" }}>CURRENCY</p></div>
+        <span style={{color: 'white'}} onClick={() => (clientModal())}><FaPlus size={35}/></span>
       </div>
       {
         !!clients ? clients.map((client) => (

@@ -48,6 +48,11 @@ a:active {
   color: #FFFFFF
 }
 
+.statusPage h3 {
+  font-size: 17px;
+  color: #FFFFFF;
+}
+
 
 
 #clientBarTitle div:nth-of-type(1) {width: 300px;}

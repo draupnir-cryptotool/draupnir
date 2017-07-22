@@ -32,12 +32,16 @@ export default function ClientExpand({
   tempOrder,
   uploadPhoto,
 }) {
+<<<<<<< HEAD
   const navStyle= { 
     color: "#000000", 
     textDecoration: "none", 
     fontSize: "20px" 
   }
 
+=======
+  const navStyle={ color: "#000000", textDecoration: "none", fontSize: "20px" }
+>>>>>>> master
   return (
       <div>
         <Collapse isOpened={ expanded } fixedHeight={1000} style={{width: "90%", backgroundColor: "#3B3B3B", margin: "0 auto"}}>
@@ -65,10 +69,10 @@ export default function ClientExpand({
             imageData ={ !!imageData ? imageData : "" } />
             :
             clientPage === 'notes' ?
-            <h1>notes</h1>
+            <h1 style={{ color: "#FFFFFF" }}>Notes</h1>
             :
             clientPage === 'logs' ?
-            <h1>logs</h1>
+            <h1 style={{ color: "#FFFFFF" }}>Logs</h1>
             :
             clientPage === 'order' ?
             <OrderPage
