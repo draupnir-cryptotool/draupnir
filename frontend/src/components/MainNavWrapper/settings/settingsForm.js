@@ -45,7 +45,7 @@ class SettingsForm extends React.Component {
                 <FormControl type="text" ref="btceFloat" defaultValue={ `${this.props.settings.btceFloat}` } />
               </Col>
             </FormGroup>
-            <FormGroup controlId="formHorizontalName">
+            <FormGroup className="lastForm" controlId="formHorizontalName">
               <Col componentClass={ ControlLabel } sm={5}>
               <p style={labelStyle}>Bitstamp</p><span style={ dollarSymbolStyle }>$</span>
               </Col>
