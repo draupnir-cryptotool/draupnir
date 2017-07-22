@@ -1,8 +1,8 @@
 .refreshBtn:hover {
- cursor: pointer;
+  cursor: pointer;
 }
 
 .divider {
-  border: solid 1px;
   width: 114%;
+  border: solid 1px #525252;
 }
