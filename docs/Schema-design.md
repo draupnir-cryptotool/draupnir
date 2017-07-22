@@ -60,8 +60,11 @@
 {
     _id: String,
     message: String,
-    client: String(ClientId),
-    Admin: String(AdminId),
+    for: {
+      id: String,
+      role: String(admin || client)
+    },
+    from: String(userID)
     time: String(Javascript Date object - year, month, hours)
 }
 ```
