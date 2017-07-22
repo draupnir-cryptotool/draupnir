@@ -10,6 +10,7 @@
     "babel-preset-env": "^1.6.0",
     "event-emitter": "^0.3.5",
     "fbemitter": "^2.1.1",
+    "jwt-decode": "^2.2.0",
     "lodash": "^4.17.4",
     "mailgun-js": "^0.11.2",
     "pdfmake": "^0.1.31",

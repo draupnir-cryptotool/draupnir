@@ -23,6 +23,7 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 20. shortid
 21. react-motion
 22. react-collapse
+23. react-icons
 
 ## Order API Breakdown
 ### URL
