@@ -424,11 +424,7 @@ fetchAllAdminMessages = () => {
       tempOrder,
       token,
       adminMessages,
-<<<<<<< HEAD
       current_user
-=======
-      currentUser
->>>>>>> master
     } = this.state
     return (
       <Router>
