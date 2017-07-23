@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, NavLink as Link } from 'react-router-dom'
 import Staging from '../components/MainNavWrapper/staging/Staging'
-import Messages from '../components/MainNavWrapper/messages/MessagesWrapper'
+import MessagesWrapper from '../components/MainNavWrapper/messages/MessagesWrapper'
 import Logs from '../components/MainNavWrapper/Logs'
 import Graphs from '../components/MainNavWrapper/Graphs'
 import Settings from '../components/MainNavWrapper/settings/Settings'
@@ -41,7 +41,8 @@ export default function MainNav({
   onBtcUpdate,
   onEthUpdate,
   adminMessages,
-  onCreateMessage
+  onCreateMessage,
+  currentUser
 }) {
   const pageBodyStyle = {
     position: 'relative',
@@ -89,9 +90,11 @@ export default function MainNav({
         } />
         <Route path='/home/messages' render={() => (
           <div style={ pageBodyStyle }>
-            <Messages 
+            <MessagesWrapper
               adminMessages={ adminMessages }
-              onCreateMessage={ onCreateMessage } />
+              onCreateMessage={ onCreateMessage }
+              currentUser={ !!currentUser ? currentUser : "" }
+            />
           </div>
         )
         } />

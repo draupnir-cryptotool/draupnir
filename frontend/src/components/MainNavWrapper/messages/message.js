@@ -3,13 +3,19 @@ import { Button } from 'react-bootstrap'
 import './messages.css'
 
 export default function Message({
-  forId, message, onCreateMessage
+  forId, 
+  message, 
+  onCreateMessage, 
+  currentUser
 }) {
 
-  const handleCreateMessage = (e) => {
+  const handleCreateMessage = (e, onCreateMessage) => {
     e.preventDefault()
     const form = e.target
     const message = form.message.value
+    const currentUserId = currentUser._id
+    console.log(message, currentUserId)
+    onCreateMessage({currentUserId, message})
   }
 
   return (
@@ -26,7 +32,7 @@ export default function Message({
       </div>
       <div style={{width: '480px', marginLeft: '4em'}}>
         <p style={{color: 'white', fontSize: '2em'}}>Message</p>
-        <form onSubmit={(e) => handleCreateMessage(e)}>
+        <form onSubmit={(e) => handleCreateMessage(e, onCreateMessage)}>
           <textarea name="message" style={{background: 'none', border: 'solid 1px white', borderRadius: '5px', height: '9em', color: 'white', width: '100%', fontSize: '1.6em'}}/>
           <Button className="sendBtn" bsStyle="primary" type="submit">send</Button>
         </form>
