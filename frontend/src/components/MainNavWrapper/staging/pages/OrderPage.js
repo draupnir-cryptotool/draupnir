@@ -4,6 +4,7 @@ import { Button, FormGroup, ControlLabel, FormControl, Form, Col,
           Table      } from 'react-bootstrap'
 import _ from 'lodash'
 import * as orderAPI from '../../../../api/order'
+import HyperLink from './HyperLink'
 import './pages.css'
 
 class OrderPage extends React.Component{
@@ -101,19 +102,19 @@ class OrderPage extends React.Component{
           <div>
             <h1 style={{ textAlign: 'center', color: "#FFFFFF" }}>ORDER</h1>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '0', gridAutoRows: 'minmax(50px, auto)'}}>
-              <div className="orderGrid"><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Exchange</p></div>
-              <div className="orderGrid"><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Volume</p></div>
-              <div className="orderGrid"><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Total</p></div>
+              <div className="orderGrid"><p style={{color: 'white', fontSize: '1.5em' }}>Exchange</p></div>
+              <div className="orderGrid"><p style={{color: 'white', fontSize: '1.5em' }}>Volume</p></div>
+              <div className="orderGrid"><p style={{color: 'white', fontSize: '1.5em' }}>Total</p></div>
 
-              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}>Bitfinex</p></div>
+              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}><HyperLink exchangeName='bitfinex' /></p></div>
               <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.bitfinex.coinBought).toFixed(2) }</div>
               <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.bitfinex.usdSpent).toFixed(2) }</div>
 
-              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}>Btc-E</p></div>
+              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}><HyperLink exchangeName='btce' /></p></div>
               <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.btce.coinBought).toFixed(2) }</div>
               <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.btce.usdSpent).toFixed(2) }</div>
 
-              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}>Bitstamp</p></div>
+              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}><HyperLink exchangeName='bitstamp' /></p></div>
               <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.bitstamp.coinBought).toFixed(2) }</div>
               <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.bitstamp.usdSpent).toFixed(2) }</div>
 
