@@ -2,7 +2,7 @@ import React from 'react';
 import WalletWrapper from './HeaderWrapper/WalletWrapper/WalletWrapper'
 import LivePriceWrapper from '../components/HeaderWrapper/LivePricesWrapper/LivePriceWrapper'
 import XchangeBalanceWrapper from '../components/HeaderWrapper/XchangeBalanceWrapper/XchangeBalanceWrapper'
-import LoggedInUser from '../components/HeaderWrapper/LoggenInUser'
+import LoggedInUser from '../components/HeaderWrapper/LoggednInUser'
 
 const divStyle = {
   display: 'flex',

@@ -5,7 +5,7 @@ export default function LoggedInUser({
 }) {
   return (
     <div>
-      <p>{ currentUser.firstname + ' ' + currentUser.lastname} loggin in</p>
+      <p>{ currentUser.firstname + ' ' + currentUser.lastname} logged in</p>
     </div>
   )
 }
