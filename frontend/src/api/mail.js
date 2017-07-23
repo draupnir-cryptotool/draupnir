@@ -1,10 +1,12 @@
 import axios from './init'
 
 export function sendMail(emailProps) {
+  let email = emailProps.email;
   let subject = emailProps.subject;
   let text = emailProps.text;
   let file = emailProps.file;
   return axios.post('/api/mail', {
+      email,
       subject,
       text,
       file,

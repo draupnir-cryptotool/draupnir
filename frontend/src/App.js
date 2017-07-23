@@ -457,6 +457,7 @@ fetchAllAdminMessages = () => {
                 bitstampBtcValue={ currentCurrency === 'usd' ? bitstampBitcoinPrice.usdPrice : bitstampBitcoinPrice.audPrice }
                 onCurrencyChangeUsd={ this.onSwitchUSDCurrency }
                 onCurrencyChangeAud={ this.onSwitchAUDCurrency }
+                currentCurrency={ currentCurrency }
               /> 
             ) : (
               <p>loading..</p>

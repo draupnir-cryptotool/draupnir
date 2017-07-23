@@ -4,6 +4,8 @@ import { Button, FormGroup, ControlLabel, FormControl, Form, Col,
           Table      } from 'react-bootstrap'
 import _ from 'lodash'
 import * as orderAPI from '../../../../api/order'
+import HyperLink from './HyperLink'
+import './pages.css'
 
 class OrderPage extends React.Component{
 
@@ -26,13 +28,13 @@ class OrderPage extends React.Component{
     left: '26%'
     }
     return (
-      <div style={{display: 'flex'}}>
-        <div style={{display: 'flex', flexDirection: 'row', width: '50%'}}>
-          <div style={{ marginRight: '3em' }}>
+      <div className="orderPage" style={{display: 'flex', marginTop: "25px"}}>
+        <div className="orderForm" style={{display: 'flex', flexDirection: 'row', width: '50%' }}>
+          <div style={{ margin: '0 3em 0 3em' }}>
             <h1 style={{ textAlign: 'center' }}>FLOATS</h1>
             <Form horizontal>
 
-              <FormGroup controlId="formHorizontalName">
+              <FormGroup style={{ margin: "25px 0 25px 0" }} controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
                 Buying
                 </Col>
@@ -41,7 +43,7 @@ class OrderPage extends React.Component{
                 </Col>
               </FormGroup>
 
-              <FormGroup controlId="formHorizontalName">
+              <FormGroup style={{ margin: "30px 0 25px 0" }} controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
                   Coin
                 </Col>
@@ -57,7 +59,7 @@ class OrderPage extends React.Component{
                 </Col>
               </FormGroup>
 
-              <FormGroup controlId="formHorizontalName">
+              <FormGroup style={{ margin: "30px 0 25px 0" }} controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
                   Tally
                 </Col>
@@ -82,59 +84,45 @@ class OrderPage extends React.Component{
               <FormControl type="hidden" ref="bitstampFloat" defaultValue={ 
               `${this.props.settings.bitstampFloat}` }/>
 
+              <Button
+                style={{ marginLeft: "40.6%" }}
+                className={ "updateBtn" } 
+                bsSize="medium"
+                bsStyle="primary" type="submit" 
+                onClick={(event) => this.submitOrder(event, this.props.onOrder, this.props.onOrderId)}>
+                Query Order
+              </Button>
+
             </Form>
-            <Button 
-              className={ "updateBtn" } 
-              bsSize="large"
-              bsStyle="primary" type="submit" 
-              onClick={(event) => this.submitOrder(event, this.props.onOrder, this.props.onOrderId)}>
-              Query Order
-            </Button>
           </div>
         </div>
 
         <div style={{flexDirection: 'row', width: '50%'}}>
         { !_.isEmpty(this.props.tempOrder) && this.props.client._id === this.props.orderUserId ? (
           <div>
-            <h1 style={{ textAlign: 'center' }}>ORDER</h1>
-            <Table responsive>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Volume</th>
-                  <th>Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><h4>BITFINEX</h4></td>
-                  <td>{ parseFloat(this.props.tempOrder.exchanges.bitfinex.coinBought).toFixed(2) }</td>
-                  <td>{ parseFloat(this.props.tempOrder.exchanges.bitfinex.usdSpent).toFixed(2) }</td>
-                </tr>
-                <tr>
-                  <td><h4>BTC-E</h4></td>
-                  <td>{ parseFloat(this.props.tempOrder.exchanges.btce.coinBought).toFixed(2) }</td>
-                  <td>{ parseFloat(this.props.tempOrder.exchanges.btce.usdSpent).toFixed(2) }</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><h4>BITSTAMP</h4></td>
-                  <td>{ parseFloat(this.props.tempOrder.exchanges.bitstamp.coinBought).toFixed(2) }</td>
-                  <td>{ parseFloat(this.props.tempOrder.exchanges.bitstamp.usdSpent).toFixed(2) }</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><h4><strong>TOTAL</strong></h4></td>
-                  <td><strong>
-                    { parseFloat(this.props.tempOrder.totalCoinBought).toFixed(2) }
-                  </strong></td>
-                  <td><strong>
-                    { parseFloat(this.props.tempOrder.totalUsdSpent).toFixed(2) }
-                  </strong></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </Table>
+            <h1 style={{ textAlign: 'center', color: "#FFFFFF" }}>ORDER</h1>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '0', gridAutoRows: 'minmax(50px, auto)'}}>
+              <div className="orderGrid"><p style={{color: 'white', fontSize: '1.5em' }}>Exchange</p></div>
+              <div className="orderGrid"><p style={{color: 'white', fontSize: '1.5em' }}>Volume</p></div>
+              <div className="orderGrid"><p style={{color: 'white', fontSize: '1.5em' }}>Total</p></div>
+
+              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}><HyperLink exchangeName='bitfinex' /></p></div>
+              <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.bitfinex.coinBought).toFixed(2) }</div>
+              <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.bitfinex.usdSpent).toFixed(2) }</div>
+
+              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}><HyperLink exchangeName='btce' /></p></div>
+              <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.btce.coinBought).toFixed(2) }</div>
+              <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.btce.usdSpent).toFixed(2) }</div>
+
+              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}><HyperLink exchangeName='bitstamp' /></p></div>
+              <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.bitstamp.coinBought).toFixed(2) }</div>
+              <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.bitstamp.usdSpent).toFixed(2) }</div>
+
+              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}><strong>TOTAL</strong></p></div>
+              <div className="orderGridTotal">{ parseFloat(this.props.tempOrder.totalCoinBought).toFixed(2) }</div>
+              <div className="orderGridTotal">{ parseFloat(this.props.tempOrder.totalUsdSpent).toFixed(2) }</div>
+              
+            </div>
           </div> ) : ( ' ' )
         }
         </div>
@@ -144,3 +132,44 @@ class OrderPage extends React.Component{
 }
 
 export default OrderPage
+
+
+
+// <Table responsive>
+//               <thead>
+//                 <tr>
+//                   <th></th>
+//                   <th>Volume</th>
+//                   <th>Amount</th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 <tr>
+//                   <td><h4>BITFINEX</h4></td>
+//                   <td>{ parseFloat(this.props.tempOrder.exchanges.bitfinex.coinBought).toFixed(2) }</td>
+//                   <td>{ parseFloat(this.props.tempOrder.exchanges.bitfinex.usdSpent).toFixed(2) }</td>
+//                 </tr>
+//                 <tr>
+//                   <td><h4>BTC-E</h4></td>
+//                   <td>{ parseFloat(this.props.tempOrder.exchanges.btce.coinBought).toFixed(2) }</td>
+//                   <td>{ parseFloat(this.props.tempOrder.exchanges.btce.usdSpent).toFixed(2) }</td>
+//                   <td></td>
+//                 </tr>
+//                 <tr>
+//                   <td><h4>BITSTAMP</h4></td>
+//                   <td>{ parseFloat(this.props.tempOrder.exchanges.bitstamp.coinBought).toFixed(2) }</td>
+//                   <td>{ parseFloat(this.props.tempOrder.exchanges.bitstamp.usdSpent).toFixed(2) }</td>
+//                   <td></td>
+//                 </tr>
+//                 <tr>
+//                   <td><h4><strong>TOTAL</strong></h4></td>
+//                   <td><strong>
+//                     { parseFloat(this.props.tempOrder.totalCoinBought).toFixed(2) }
+//                   </strong></td>
+//                   <td><strong>
+//                     { parseFloat(this.props.tempOrder.totalUsdSpent).toFixed(2) }
+//                   </strong></td>
+//                   <td></td>
+//                 </tr>
+//               </tbody>
+//             </Table>
