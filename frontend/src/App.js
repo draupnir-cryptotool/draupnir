@@ -85,11 +85,16 @@ class App extends Component {
     .then((newMessage) => {
       if(newMessage.for.role === 'admin') {
         this.setState((prevState) => {
+        const newState = prevState.adminMessages
+        newState.unshift(newMessage)
           return {
-            adminMessages: prevState.adminMessages.concat(newMessage)
+            adminMessages: newState
           }
         })
       }
+    })
+    .catch((err) => {
+      this.setState({error: err})
     })
   }
 
@@ -103,6 +108,9 @@ class App extends Component {
           ))
         }
       })
+    })
+    .catch((err) => {
+      this.setState({error: err})
     })
   }
 
@@ -205,7 +213,7 @@ fetchSignedInAdminDetails = () => {
 fetchAllAdminMessages = () => {
   messageAPI.allAdminMessages()
   .then((adminMessages) => {
-  this.setState({ adminMessages: adminMessages })
+  this.setState({ adminMessages: adminMessages.reverse() })
 })
 }
 
