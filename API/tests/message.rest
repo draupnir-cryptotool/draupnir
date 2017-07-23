@@ -26,7 +26,7 @@ content-type: application/json
 }
 
 ###
-DELETE http://localhost:3000/message/595cfd7022aca608f1a81d19
+DELETE http://localhost:8000/api/message/5974646a6382321b8e973076
 
 ###
 GET http://localhost:8000/api/messages/admin
