@@ -24,6 +24,7 @@ A tool for calculating the best price of cryptocurrencies over multiple exchange
 21. react-motion
 22. react-collapse
 23. react-icons
+24. jwt-decode
 
 ## Order API Breakdown
 ### URL

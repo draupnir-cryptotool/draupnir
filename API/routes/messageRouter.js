@@ -2,6 +2,16 @@ const express = require('express')
 const Message = require('../models/Message')
 const router = express.Router()
 
+// get all messages
+router.get('/messages/admin', (req, res) => {
+  Message.find({"for.role": "admin"})
+  .then((messages) => {
+    res.json(messages)
+  })
+  .catch((err) => {
+    res.json({error: err})
+  })
+})
 
 // find all messages belonging to this particular id
 router.get('/messages/:clientid', (req, res) => {
