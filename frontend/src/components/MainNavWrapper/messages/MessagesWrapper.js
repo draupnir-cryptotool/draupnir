@@ -8,7 +8,8 @@ export default function MessagesWrapper({
   from, 
   message, 
   onCreateMessage, 
-  currentUser
+  currentUser,
+  onMessageDelete
 }) {
 
   const handleCreateMessage = (e, onCreateMessage) => {
@@ -24,21 +25,23 @@ export default function MessagesWrapper({
       <div>
       {
         adminMessages ? adminMessages.map((adminMessage) => (
-          <Message
+          <Message className='message'
             key={ adminMessage._id }
             message={ adminMessage.message }
+            messageId={ adminMessage._id }
             time={ adminMessage.time }
             from={ adminMessage.from }
+            onMessageDelete={ onMessageDelete }
           />
         ))
         :
         ""
       }
       </div>
-      <div style={{width: '480px', marginLeft: '4em'}}>
+      <div style={{width: '480px', marginLeft: '4em', marginTop: '1.4em'}}>
         <p style={{color: 'white', fontSize: '2em'}}>Message</p>
         <form onSubmit={(e) => handleCreateMessage(e, onCreateMessage)}>
-          <textarea id="message" name="message" style={{background: 'none', border: 'solid 1px white', borderRadius: '5px', height: '9em', color: 'white', width: '100%', fontSize: '1.6em'}}/>
+          <textarea id="message" name="message" placeholder="  type message.." style={{background: 'none', border: 'solid 1px white', borderRadius: '5px', height: '9em', color: 'white', width: '100%', fontSize: '1.6em'}}/>
           <Button className="sendBtn" bsStyle="primary" type="submit">send</Button>
         </form>
       </div>    

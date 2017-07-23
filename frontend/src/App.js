@@ -98,6 +98,22 @@ class App extends Component {
     })
   }
 
+  handleDeleteMessage = ({ messageId }) => {
+    messageAPI.deleteMessage({ messageId })
+    .then((deletedMessage) => {
+      this.setState(({ adminMessages }) => {
+        return {
+          adminMessages: adminMessages.filter((message) => {
+            return message._id !== deletedMessage._id
+          })
+        }
+      })
+    })
+    .catch((err) => {
+      this.setState({error: err})
+    })
+  }
+
   handleUpdateStatus = ({ clientId, statusType }) => {
     clientAPI.updateVerified({ clientId, statusType })
     .then((updatedClient) => {
@@ -503,7 +519,8 @@ fetchAllAdminMessages = () => {
                 onEthUpdate={ this.updateEthereumWalletAddress }
                 adminMessages={ adminMessages }
                 onCreateMessage={ this.handleCreateMessage }
-                currentUser ={ currentUser }
+                currentUser={ currentUser }
+                onMessageDelete={ this.handleDeleteMessage }
               />
                 ) : (
                 <p>loading..</p>

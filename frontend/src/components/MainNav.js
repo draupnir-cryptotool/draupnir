@@ -42,7 +42,8 @@ export default function MainNav({
   onEthUpdate,
   adminMessages,
   onCreateMessage,
-  currentUser
+  currentUser,
+  onMessageDelete
 }) {
   const pageBodyStyle = {
     position: 'relative',
@@ -94,6 +95,7 @@ export default function MainNav({
               adminMessages={ adminMessages }
               onCreateMessage={ onCreateMessage }
               currentUser={ !!currentUser ? currentUser : "" }
+              onMessageDelete={ onMessageDelete }
             />
           </div>
         )
