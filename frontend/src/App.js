@@ -451,7 +451,7 @@ fetchAllAdminMessages = () => {
             <div>
             {
             !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
-            !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings ? (
+            !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings && !!currentUser ? (
               <Header 
                 settings={ masterSettings }
                 bitBalance={ bitcoinBalance }
@@ -466,6 +466,7 @@ fetchAllAdminMessages = () => {
                 onCurrencyChangeUsd={ this.onSwitchUSDCurrency }
                 onCurrencyChangeAud={ this.onSwitchAUDCurrency }
                 currentCurrency={ currentCurrency }
+                currentUser={ currentUser }
               /> 
             ) : (
               <p>loading..</p>

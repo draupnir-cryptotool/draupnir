@@ -8,6 +8,7 @@ import {
   Form,
   FormControl,
   FormGroup,
+  Modal,
   Table,
 } from 'react-bootstrap'
 import _ from 'lodash';
@@ -34,6 +35,7 @@ class QuotePage extends React.Component{
     commission: 0,
     totalPerCoin: 0,
     totalCoins: 0,
+    emailModal: false,
   };
 
   setPrices = (e) => {
@@ -161,6 +163,15 @@ class QuotePage extends React.Component{
     });
   }
 
+  showEmailModal = (event) => {
+    event.preventDefault();
+    this.setState({ emailModal: true });
+  }
+
+  hideEmailModal = () => {
+    this.setState({ emailModal: false });
+  }
+
   render() {
     const {
       average,
@@ -174,6 +185,7 @@ class QuotePage extends React.Component{
       spotPrice,
       totalCoins,
       totalPerCoin,
+      emailModal,
     } = this.state;
 
     return (
@@ -336,7 +348,7 @@ class QuotePage extends React.Component{
               </Col>
             </FormGroup>
 
-            <Col componentClass={ ControlLabel } sm={9} smOffset={3}>
+            <Col  sm={9} smOffset={3}>
             <ButtonToolbar>
               <Button 
                 className={ "updateBtn" } 
@@ -350,28 +362,43 @@ class QuotePage extends React.Component{
                 className={ "updateBtn" } 
                 bsSize="small"
                 bsStyle="primary" type="submit" 
-                onClick={(event) => this.makePdf(event)}>
-                Generate PDF
-              </Button>
-
-              <Button 
-                className={ "updateBtn" } 
-                bsSize="small"
-                bsStyle="primary" type="submit" 
-                onClick={(event) => this.submitSendMail(event)}>
+                onClick={(event) => {this.showEmailModal(event)}}>
                 Email PDF
               </Button> 
             </ButtonToolbar>
             </Col>
+
+            <Modal show={this.state.emailModal} onHide={this.hideEmailModal}>
+              <Modal.Header closeButton>
+                <Modal.Title>Confirm Sending Email</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <p>You are about to send a quote to <strong>{client}</strong> at <strong>{this.props.client.email}</strong>.</p>
+                <p>Are you sure?</p>
+                <ButtonToolbar>
+                  <Button 
+                    className={ "updateBtn" } 
+                    bsSize="small"
+                    bsStyle="primary" type="submit" 
+                    onClick={(event) => this.submitSendMail(event)}>
+                    Send Email
+                  </Button> 
+
+                  <Button 
+                    className={ "updateBtn" } 
+                    bsSize="small"
+                    bsStyle="danger" type="submit" 
+                    onClick={(event) => this.hideEmailModal(event)}>
+                    Cancel
+                  </Button> 
+                </ButtonToolbar>
+              </Modal.Body>
+            </Modal>
           </Form>
         </div>
       </div>
     )
   }
-
-  // componentDidUpdate() {
-  //   this.updateTotal();
-  // }
 
   componentDidMount() {
     this.setPrices();
