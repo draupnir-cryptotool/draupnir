@@ -14,3 +14,40 @@
 .infoPageP {
   color: #4CC941;
 }
+
+.orderPage {
+  font-family: 'Roboto', sans-serif;
+}
+
+.orderForm {
+  color: #FFFFFF;
+}
+
+.orderGrid {
+  text-align: center;
+  margin-top: 0;
+  color: #26C026;
+}
+
+.orderGridTotal {
+  text-align: center;
+  margin-top: 0;
+  color: #FFFFFF;
+  font-size: 20px;
+}
+
+.hyperlinkDiv {
+  width: 80%;
+  margin: auto;
+  height: auto;
+  background-color: #1A7CD1;
+  border-radius: 4%;
+}
+
+.hyperlink, .hyperlink:hover,
+.hyperlink:active, .hyperlink:visited {
+  text-decoration-line: none;
+  color: #000000;
+  height: auto;
+  border-radius: 4%;
+}
