@@ -1,8 +1,9 @@
 const express = require('express')
 const Message = require('../models/Message')
 const router = express.Router()
+const _ = require('lodash')
 
-// get all messages
+// get all messages that belong to admins
 router.get('/messages/admin', (req, res) => {
   Message.find({"for.role": "admin"})
   .then((messages) => {
