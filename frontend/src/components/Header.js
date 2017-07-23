@@ -16,9 +16,19 @@ const wrapperStyle = {
 }
 
 export default function Header ({
-  settings, bitBalance, onBtcUpdate, etherBalance, onEthUpdate,
-  bitfinexBtcValue, bitfinexEthValue, btceBtcValue, btceEthValue,
-  bitstampBtcValue, onCurrencyChangeUsd, onCurrencyChangeAud
+  settings,
+  bitBalance,
+  onBtcUpdate,
+  etherBalance,
+  onEthUpdate,
+  bitfinexBtcValue,
+  bitfinexEthValue,
+  btceBtcValue,
+  btceEthValue,
+  bitstampBtcValue,
+  onCurrencyChangeUsd,
+  onCurrencyChangeAud,
+  currentCurrency
 }) {
 
   return (
@@ -45,6 +55,7 @@ export default function Header ({
           bitstampBtcValue={ bitstampBtcValue }
           onCurrencyChangeUsd={ onCurrencyChangeUsd }
           onCurrencyChangeAud={ onCurrencyChangeAud }
+          currentCurrency={ currentCurrency }
         />
         </div>
     </div>
