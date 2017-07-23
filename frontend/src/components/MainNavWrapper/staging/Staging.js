@@ -32,7 +32,7 @@ export default function Staging({
   return (
     <div style={{ boxSizing: 'border-box', padding: "3em"}}>
       
-      <div id="clientBarTitle" className="clientTitle" style={{display: 'flex', justifyContent: 'center',                                                                marginLeft: "10%"}}>
+      <div id="clientBarTitle" className="clientTitle" style={{display: 'flex', justifyContent: 'center',                                                                marginLeft: "10%", marginTop: "0"}}>
         <div><p style={{ marginTop: "3%" }}>CLIENT No.</p></div>
         <div><p style={{ marginTop: "3%" }}>NAME</p></div>
         <div><p style={{ marginTop: "3%" }}>DEPOSIT</p></div>
