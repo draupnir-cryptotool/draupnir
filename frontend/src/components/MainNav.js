@@ -51,7 +51,7 @@ export default function MainNav({
   return (
     <Router>
       <div>
-        <div className="mainNav" style={{ marginTop: '6%', border: 'solid 1px' }}>
+        <div className="mainNav" style={{ marginTop: '2%', border: 'solid 1px' }}>
           <div className="mainNavLink">
             <Link to={'/home/staging'} activeStyle={{ color: 'white'}}> Staging </Link>
             <Link to={'/home/messages'} activeStyle={{ color: 'white'}}> Messages </Link>

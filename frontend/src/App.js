@@ -424,6 +424,7 @@ fetchAllAdminMessages = () => {
       tempOrder,
       token,
       adminMessages,
+      current_user
     } = this.state
     return (
       <Router>
@@ -442,7 +443,7 @@ fetchAllAdminMessages = () => {
             <div>
             {
             !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
-            !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings ? (
+            !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings && !!current_user ? (
               <Header 
                 settings={ masterSettings }
                 bitBalance={ bitcoinBalance }
@@ -457,6 +458,7 @@ fetchAllAdminMessages = () => {
                 onCurrencyChangeUsd={ this.onSwitchUSDCurrency }
                 onCurrencyChangeAud={ this.onSwitchAUDCurrency }
                 currentCurrency={ currentCurrency }
+                current_user={ current_user }
               /> 
             ) : (
               <p>loading..</p>
