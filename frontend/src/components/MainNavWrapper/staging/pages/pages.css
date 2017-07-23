@@ -22,3 +22,16 @@
 .orderForm {
   color: #FFFFFF;
 }
+
+.orderGrid {
+  text-align: center;
+  margin-top: 0;
+  color: #26C026;
+}
+
+.orderGridTotal {
+  text-align: center;
+  margin-top: 0;
+  color: #26C026;
+  font-size: 20px;
+}

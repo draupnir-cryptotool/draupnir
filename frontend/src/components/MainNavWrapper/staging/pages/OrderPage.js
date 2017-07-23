@@ -27,13 +27,13 @@ class OrderPage extends React.Component{
     left: '26%'
     }
     return (
-      <div className="orderPage" style={{display: 'flex'}}>
-        <div className="orderForm" style={{display: 'flex', flexDirection: 'row', width: '50%'}}>
-          <div style={{ margin: '3em 3em 0 3em' }}>
+      <div className="orderPage" style={{display: 'flex', marginTop: "25px"}}>
+        <div className="orderForm" style={{display: 'flex', flexDirection: 'row', width: '50%' }}>
+          <div style={{ margin: '0 3em 0 3em' }}>
             <h1 style={{ textAlign: 'center' }}>FLOATS</h1>
             <Form horizontal>
 
-              <FormGroup controlId="formHorizontalName">
+              <FormGroup style={{ margin: "25px 0 25px 0" }} controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
                 Buying
                 </Col>
@@ -42,7 +42,7 @@ class OrderPage extends React.Component{
                 </Col>
               </FormGroup>
 
-              <FormGroup controlId="formHorizontalName">
+              <FormGroup style={{ margin: "30px 0 25px 0" }} controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
                   Coin
                 </Col>
@@ -58,7 +58,7 @@ class OrderPage extends React.Component{
                 </Col>
               </FormGroup>
 
-              <FormGroup controlId="formHorizontalName">
+              <FormGroup style={{ margin: "30px 0 25px 0" }} controlId="formHorizontalName">
                 <Col componentClass={ ControlLabel } sm={5}>
                   Tally
                 </Col>
@@ -84,9 +84,9 @@ class OrderPage extends React.Component{
               `${this.props.settings.bitstampFloat}` }/>
 
               <Button
-                style={{ marginLeft: "29%" }}
+                style={{ marginLeft: "40.6%" }}
                 className={ "updateBtn" } 
-                bsSize="large"
+                bsSize="medium"
                 bsStyle="primary" type="submit" 
                 onClick={(event) => this.submitOrder(event, this.props.onOrder, this.props.onOrderId)}>
                 Query Order
@@ -99,27 +99,27 @@ class OrderPage extends React.Component{
         <div style={{flexDirection: 'row', width: '50%'}}>
         { !_.isEmpty(this.props.tempOrder) && this.props.client._id === this.props.orderUserId ? (
           <div>
-            <h1 style={{ textAlign: 'center' }}>ORDER</h1>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '5px', gridAutoRows: 'minmax(50px, auto)'}}>
-              <div></div>
-              <div><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Volume</p></div>
-              <div><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Total</p></div>
-              
-              <div><p style={{color: 'white', textAlign: 'right', marginRight: '10px', fontSize: '1.5em'}}>BITFINEX</p></div>
-              <div>{ parseFloat(this.props.tempOrder.exchanges.bitfinex.coinBought).toFixed(2) }</div>
-              <div>{ parseFloat(this.props.tempOrder.exchanges.bitfinex.usdSpent).toFixed(2) }</div>
+            <h1 style={{ textAlign: 'center', color: "#FFFFFF" }}>ORDER</h1>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '0', gridAutoRows: 'minmax(50px, auto)'}}>
+              <div className="orderGrid"><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Exchange</p></div>
+              <div className="orderGrid"><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Volume</p></div>
+              <div className="orderGrid"><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Total</p></div>
 
-              <div><p style={{color: 'white', textAlign: 'right', marginRight: '10px', fontSize: '1.5em'}}>BTC-E</p></div>
-              <div>{ parseFloat(this.props.tempOrder.exchanges.btce.coinBought).toFixed(2) }</div>
-              <div>{ parseFloat(this.props.tempOrder.exchanges.btce.usdSpent).toFixed(2) }</div>
+              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}>Bitfinex</p></div>
+              <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.bitfinex.coinBought).toFixed(2) }</div>
+              <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.bitfinex.usdSpent).toFixed(2) }</div>
 
-              <div><p style={{color: 'white', textAlign: 'right', marginRight: '10px', fontSize: '1.5em'}}>BITSTAMP</p></div>
-              <div>{ parseFloat(this.props.tempOrder.exchanges.bitstamp.coinBought).toFixed(2) }</div>
-              <div>{ parseFloat(this.props.tempOrder.exchanges.bitstamp.usdSpent).toFixed(2) }</div>
+              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}>Btc-E</p></div>
+              <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.btce.coinBought).toFixed(2) }</div>
+              <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.btce.usdSpent).toFixed(2) }</div>
 
-              <div><p style={{color: 'white', textAlign: 'right', marginRight: '10px', fontSize: '1.5em'}}><strong>TOTAL</strong></p></div>
-              <div><strong>{ parseFloat(this.props.tempOrder.totalCoinBought).toFixed(2) }</strong></div>
-              <div><strong>{ parseFloat(this.props.tempOrder.totalUsdSpent).toFixed(2) }</strong></div>
+              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}>Bitstamp</p></div>
+              <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.bitstamp.coinBought).toFixed(2) }</div>
+              <div className="orderGrid">{ parseFloat(this.props.tempOrder.exchanges.bitstamp.usdSpent).toFixed(2) }</div>
+
+              <div className="orderGrid"><p style={{color: 'white', textAlign: 'center', marginRight: '10px', fontSize: '1.5em'}}><strong>TOTAL</strong></p></div>
+              <div className="orderGridTotal">{ parseFloat(this.props.tempOrder.totalCoinBought).toFixed(2) }</div>
+              <div className="orderGridTotal">{ parseFloat(this.props.tempOrder.totalUsdSpent).toFixed(2) }</div>
               
             </div>
           </div> ) : ( ' ' )
