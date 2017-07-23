@@ -9,6 +9,7 @@ import * as mailAPI from './api/mail'
 import * as orderAPI from './api/order'
 import * as pdfQuoteAPI from './api/pdfQuote'
 import * as settingsAPI from './api/settings'
+import * as messageAPI from './api/message'
 import ClientImageModal from './components/Modal/ClientImageModal'
 import ClientModal from './components/Modal/ClientModal'
 import Header from './components/Header';
@@ -22,7 +23,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 class App extends Component {
   state = {
-    token: null,
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhdEBtYW4uY29tIiwiaGFzVmVyaWZpZWQyRkEiOnRydWUsImlhdCI6MTUwMDc3MjQyOCwiZXhwIjoxNTAwNzc2MDI4LCJzdWIiOiI1OTYyZmY2YjUwMWQxNTY0ODUyMWQ1NDAifQ.iGToIuASfnIpkYU-E1-eoO1jmUUq5n9rU2i7bVZENw8",
     error: null,
     currentCurrency: 'usd',
     ausPrices: null,
@@ -42,8 +43,9 @@ class App extends Component {
     masterSettings: null,
     expandedClientID: null,
     tempOrder: null,
-    orderUserId: null
-
+    orderUserId: null,
+    adminMessages: null,
+    current_user: null,
   }
 
   // Fetching best order rates from exchanges
@@ -78,6 +80,19 @@ class App extends Component {
     }
 
 // HANDLER SECTION -------------------------------------------------------------------------
+  handleCreateMessage = ({ toId, toRole }) => { // toRole will be Admin || Client
+    messageAPI.createMessage({ toId, toRole })
+    .then((newMessage) => {
+      if(newMessage.to.role === 'admin') {
+        this.setState((prevState) => {
+          return {
+            adminMessages: prevState.adminMessages.concat(newMessage)
+          }
+        })
+      }
+    })
+  }
+
   handleUpdateStatus = ({ clientId, statusType }) => {
     clientAPI.updateVerified({ clientId, statusType })
     .then((updatedClient) => {
@@ -174,6 +189,26 @@ class App extends Component {
   }
 
 // FETCH SECTION ---------------------------------------------------------
+// fetch logged in Admins details
+fetchSignedInAdminDetails = () => {
+  const token = this.state.token
+  authAPI.signedInAdminDetails({ token })
+  .then((adminDetails) => {
+    this.setState({ current_user: adminDetails })
+  })
+  .catch((err) => {
+    this.setState({error: err})
+  })
+}
+
+// get all messages
+fetchAllAdminMessages = () => {
+  messageAPI.allAdminMessages()
+  .then((adminMessages) => {
+  this.setState({ adminMessages: adminMessages })
+})
+}
+
 // get all image data
   fetchImagesData = () => {
     imageAPI.allImageData()
@@ -388,6 +423,7 @@ class App extends Component {
       showModal,
       tempOrder,
       token,
+      adminMessages,
     } = this.state
     return (
       <Router>
@@ -454,6 +490,8 @@ class App extends Component {
                 uploadPhoto={ this.handleUploadPhoto }
                 onBtcUpdate={ this.updateBitcoinWalletAddress }
                 onEthUpdate={ this.updateEthereumWalletAddress }
+                adminMessages={ adminMessages }
+                onCreateMessage={ this.handleCreateMessage }
               />
                 ) : (
                 <p>loading..</p>
@@ -504,6 +542,9 @@ class App extends Component {
     this.fetchEthereumPrice()
     this.fetchImagesData()
     this.fetchSettings()
+    this.fetchAllAdminMessages()
+    this.fetchSignedInAdminDetails()
+    
   }
 }
 

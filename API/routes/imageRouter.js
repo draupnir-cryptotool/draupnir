@@ -43,7 +43,6 @@ let storage = multer.diskStorage({
 // });
 
 router.post('/images', upload.single('image'), function(req, res, next) {
-  console.log(req.file)
   // res.send(req.file);
   const imageName = req.file.originalname;
   const location = req.file.location;
