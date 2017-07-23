@@ -30,7 +30,7 @@ export default function Header ({
   onCurrencyChangeUsd,
   onCurrencyChangeAud,
   currentCurrency,
-  current_user
+  currentUser
 }) {
 
   return (
@@ -63,7 +63,7 @@ export default function Header ({
           </div>
       </div>
       <div style={{ margin: "2% 0 0 2%", color: "#FFFFFF", fontSize: "18px" }}>
-        <LoggedInUser current_user={ current_user } />
+        <LoggedInUser currentUser={ currentUser } />
       </div>
     </div>
   )

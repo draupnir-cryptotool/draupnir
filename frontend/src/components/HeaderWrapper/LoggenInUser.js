@@ -1,11 +1,11 @@
 import React from 'react'
 
 export default function LoggedInUser({
-  current_user
+  currentUser
 }) {
   return (
     <div>
-      <p>{ current_user.firstname + ' ' + current_user.lastname} loggin in</p>
+      <p>{ currentUser.firstname + ' ' + currentUser.lastname} loggin in</p>
     </div>
   )
 }
