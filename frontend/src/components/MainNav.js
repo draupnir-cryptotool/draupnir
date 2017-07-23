@@ -40,7 +40,8 @@ export default function MainNav({
   uploadPhoto,
   onBtcUpdate,
   onEthUpdate,
-  adminMessages
+  adminMessages,
+  onCreateMessage
 }) {
   const pageBodyStyle = {
     position: 'relative',
@@ -88,7 +89,9 @@ export default function MainNav({
         } />
         <Route path='/home/messages' render={() => (
           <div style={ pageBodyStyle }>
-            <Messages adminMessages={ adminMessages } />
+            <Messages 
+              adminMessages={ adminMessages }
+              onCreateMessage={ onCreateMessage } />
           </div>
         )
         } />

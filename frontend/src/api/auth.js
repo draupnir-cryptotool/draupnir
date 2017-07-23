@@ -18,3 +18,10 @@ export function register({ email, firstname, lastname, password }) {
   })
   .then(res => res.data)
 }
+
+export function signedInAdminDetails({ token }) {
+  return axios.post('/admin/details', {
+    token
+  })
+  .then(res => res.data)
+}

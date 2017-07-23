@@ -1,9 +1,16 @@
 import React from 'react'
+import { Button } from 'react-bootstrap'
+import './messages.css'
 
 export default function Message({
-  admin, message, time
+  forId, message, onCreateMessage
 }) {
 
+  const handleCreateMessage = (e) => {
+    e.preventDefault()
+    const form = e.target
+    const message = form.message.value
+  }
 
   return (
     <div style={{display: 'flex'}}>
@@ -17,9 +24,12 @@ export default function Message({
           <div></div>
         </div>
       </div>
-      <div>
-        <p style={{color: 'white'}}>Message</p>
-        <textarea style={{background: 'none', border: 'solid 1px white', borderRadius: '5px', height: '9em', color: 'white', width: '34em'}}/>
+      <div style={{width: '480px', marginLeft: '4em'}}>
+        <p style={{color: 'white', fontSize: '2em'}}>Message</p>
+        <form onSubmit={(e) => handleCreateMessage(e)}>
+          <textarea name="message" style={{background: 'none', border: 'solid 1px white', borderRadius: '5px', height: '9em', color: 'white', width: '100%', fontSize: '1.6em'}}/>
+          <Button className="sendBtn" bsStyle="primary" type="submit">send</Button>
+        </form>
       </div>        
     </div>
   )

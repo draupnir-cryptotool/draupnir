@@ -23,7 +23,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 class App extends Component {
   state = {
-    token: null,
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhdEBtYW4uY29tIiwiaGFzVmVyaWZpZWQyRkEiOnRydWUsImlhdCI6MTUwMDc3MjQyOCwiZXhwIjoxNTAwNzc2MDI4LCJzdWIiOiI1OTYyZmY2YjUwMWQxNTY0ODUyMWQ1NDAifQ.iGToIuASfnIpkYU-E1-eoO1jmUUq5n9rU2i7bVZENw8",
     error: null,
     currentCurrency: 'usd',
     ausPrices: null,
@@ -45,6 +45,7 @@ class App extends Component {
     tempOrder: null,
     orderUserId: null,
     adminMessages: null,
+    current_user: null,
   }
 
   // Fetching best order rates from exchanges
@@ -79,6 +80,19 @@ class App extends Component {
     }
 
 // HANDLER SECTION -------------------------------------------------------------------------
+  handleCreateMessage = ({ toId, toRole }) => { // toRole will be Admin || Client
+    messageAPI.createMessage({ toId, toRole })
+    .then((newMessage) => {
+      if(newMessage.to.role === 'admin') {
+        this.setState((prevState) => {
+          return {
+            adminMessages: prevState.adminMessages.concat(newMessage)
+          }
+        })
+      }
+    })
+  }
+
   handleUpdateStatus = ({ clientId, statusType }) => {
     clientAPI.updateVerified({ clientId, statusType })
     .then((updatedClient) => {
@@ -175,6 +189,18 @@ class App extends Component {
   }
 
 // FETCH SECTION ---------------------------------------------------------
+// fetch logged in Admins details
+fetchSignedInAdminDetails = () => {
+  const token = this.state.token
+  authAPI.signedInAdminDetails({ token })
+  .then((adminDetails) => {
+    this.setState({ current_user: adminDetails })
+  })
+  .catch((err) => {
+    this.setState({error: err})
+  })
+}
+
 // get all messages
 fetchAllAdminMessages = () => {
   messageAPI.allAdminMessages()
@@ -465,6 +491,7 @@ fetchAllAdminMessages = () => {
                 onBtcUpdate={ this.updateBitcoinWalletAddress }
                 onEthUpdate={ this.updateEthereumWalletAddress }
                 adminMessages={ adminMessages }
+                onCreateMessage={ this.handleCreateMessage }
               />
                 ) : (
                 <p>loading..</p>
@@ -516,6 +543,8 @@ fetchAllAdminMessages = () => {
     this.fetchImagesData()
     this.fetchSettings()
     this.fetchAllAdminMessages()
+    this.fetchSignedInAdminDetails()
+    
   }
 }
 
