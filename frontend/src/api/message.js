@@ -5,7 +5,10 @@ export function allAdminMessages() {
   .then(res => res.data)
 }
 
-export function createMessage() {
-  return axios.post('/api/messages')
+export function createMessage({ from, message }) {
+  return axios.post('/api/message/admin', {
+    from,
+    message
+  })
   .then(res => res.data)
 }

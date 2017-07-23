@@ -46,7 +46,7 @@ export default function ClientBar({
               <div><p>{ uniqId }</p></div>
               <div><p>{ firstname + " " + lastname }</p></div>
               <div><p>$20000</p></div>
-              <div><p>BTC-E</p></div>
+              <div><p>BTC</p></div>
             </div>
           </div>
           <ClientExpand 

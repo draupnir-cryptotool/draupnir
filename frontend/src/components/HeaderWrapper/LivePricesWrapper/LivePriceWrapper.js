@@ -10,8 +10,14 @@ import { Button } from 'react-bootstrap'
 import './livePrice.css'
 
 export default function LivePriceWrapper({
-  bitfinexBtcValue, bitfinexEthValue, btceBtcValue, btceEthValue, bitstampBtcValue, onCurrencyChangeUsd,
-  onCurrencyChangeAud
+  bitfinexBtcValue,
+  bitfinexEthValue,
+  btceBtcValue,
+  btceEthValue, 
+  bitstampBtcValue, 
+  onCurrencyChangeUsd,
+  onCurrencyChangeAud,
+  currentCurrency
 }) {
 
   return (
@@ -31,9 +37,15 @@ export default function LivePriceWrapper({
         <div><BtceEthPrice btceEthValue={ parseFloat(btceEthValue).toFixed(2) }/></div>
         
       </div>
-      <div style={{textAlign: 'center'}}>
-        <Button  className='currencySwitch' bsStyle='default' bsSize='small' onClick={onCurrencyChangeUsd}>USD</Button>
-        <Button  className='currencySwitch' bsStyle='default' bsSize='small' onClick={onCurrencyChangeAud}>AUD</Button>
+      <div style={{marginLeft: '35%', display: "flex"}}>
+        <div style={{ flexDirection: "row" }}>
+          <Button className='currencySwitch' bsStyle='default' bsSize='small' onClick={onCurrencyChangeUsd} style={{ backgroundColor: currentCurrency === 'usd' ? "#26C026" : '',
+                    borderColor: currentCurrency === 'usd' ? "#26C026" : ''  }}>USD</Button>
+        </div>
+        <div style={{ flexDirection: "row" }}>
+          <Button className='currencySwitch' bsStyle='default' bsSize='small' onClick={onCurrencyChangeAud} style={{ backgroundColor: currentCurrency === 'aud' ? "#26C026" : '',
+                    borderColor: currentCurrency === 'aud' ? "#26C026" : ''  }}>AUD</Button>
+        </div>
       </div>
     </div>
   )
