@@ -32,9 +32,9 @@ export default function InfoPage({
             <h3 style={{textAlign: 'left', color: 'white'}}>Name</h3> 
             <h3 style={{gridColumn: '1/1', gridRow: '2', textAlign: 'left', color: 'white'}}>Number</h3> 
             <h3 style={{gridColumn: '1/1', gridRow: '3', textAlign: 'left', color: 'white'}}>Email</h3> 
-            <p className="infoPageP" style={{marginTop: 'auto', marginLeft: '12%', fontSize: '1.2em'}}>{client.firstname + " " + client.lastname}</p>
-            <p className="infoPageP" style={{marginTop: 'auto', marginLeft: '12%', fontSize: '1.2em'}}>{client.phone}</p>
-            <p className="infoPageP" style={{marginTop: 'auto', marginLeft: '12%', fontSize: '1.2em'}}>{client.email}</p>
+            <p className="infoPageP" style={{marginTop: 'auto', fontSize: '1.2em'}}>{client.firstname + " " + client.lastname}</p>
+            <p className="infoPageP" style={{marginTop: 'auto', fontSize: '1.2em'}}>{client.phone}</p>
+            <p className="infoPageP" style={{marginTop: 'auto', fontSize: '1.2em'}}>{client.email}</p>
         </div>
       </div>
       <ClientImageModal
