@@ -45,7 +45,7 @@ class App extends Component {
     tempOrder: null,
     orderUserId: null,
     adminMessages: null,
-    current_user: null,
+    currentUser: null,
   }
 
   // Fetching best order rates from exchanges
@@ -80,10 +80,10 @@ class App extends Component {
     }
 
 // HANDLER SECTION -------------------------------------------------------------------------
-  handleCreateMessage = ({ toId, toRole }) => { // toRole will be Admin || Client
-    messageAPI.createMessage({ toId, toRole })
+  handleCreateMessage = ({ from, message  }) => { // toRole will be Admin || Client
+    messageAPI.createMessage({ from, message })
     .then((newMessage) => {
-      if(newMessage.to.role === 'admin') {
+      if(newMessage.for.role === 'admin') {
         this.setState((prevState) => {
           return {
             adminMessages: prevState.adminMessages.concat(newMessage)
@@ -194,7 +194,7 @@ fetchSignedInAdminDetails = () => {
   const token = this.state.token
   authAPI.signedInAdminDetails({ token })
   .then((adminDetails) => {
-    this.setState({ current_user: adminDetails })
+    this.setState({ currentUser: adminDetails })
   })
   .catch((err) => {
     this.setState({error: err})
@@ -424,6 +424,7 @@ fetchAllAdminMessages = () => {
       tempOrder,
       token,
       adminMessages,
+      currentUser
     } = this.state
     return (
       <Router>
@@ -493,6 +494,7 @@ fetchAllAdminMessages = () => {
                 onEthUpdate={ this.updateEthereumWalletAddress }
                 adminMessages={ adminMessages }
                 onCreateMessage={ this.handleCreateMessage }
+                currentUser ={ currentUser }
               />
                 ) : (
                 <p>loading..</p>

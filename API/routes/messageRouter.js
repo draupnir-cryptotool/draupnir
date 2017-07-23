@@ -25,12 +25,12 @@ router.get('/messages/:clientid', (req, res) => {
   })
 })
 
-// create new messages
-router.post('/message/new', (req, res) => {
+// create new messages for Admins only
+router.post('/message/admin', (req, res) => {
   const newMessage = req.body
-  Message.create(newMessage)
-  .then((client) => {
-    res.json(client)
+  Message.create({message: req.body.message, from: req.body.from, for: {role:  "admin" }})
+  .then((message) => {
+    res.json(message)
   })
   .catch((err) => {
     res.json({ err: "You fucked up" })
