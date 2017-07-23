@@ -12,3 +12,9 @@
   cursor: pointer;
   color: white;
 }
+
+.message {
+  height: 350px;
+  overflow-y: scroll;
+  min-width: 470px;
+}

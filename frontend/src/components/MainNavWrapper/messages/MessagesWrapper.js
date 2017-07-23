@@ -21,11 +21,11 @@ export default function MessagesWrapper({
     document.getElementById('message').value = ""
   }
   return (
-    <div style={{display: 'flex'}}>
-      <div>
+    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+      <div className='message'>
       {
         adminMessages ? adminMessages.map((adminMessage) => (
-          <Message className='message'
+          <Message
             key={ adminMessage._id }
             message={ adminMessage.message }
             messageId={ adminMessage._id }
@@ -38,7 +38,7 @@ export default function MessagesWrapper({
         ""
       }
       </div>
-      <div style={{width: '480px', marginLeft: '4em', marginTop: '1.4em'}}>
+      <div style={{width: '480px', marginTop: '1.4em'}}>
         <p style={{color: 'white', fontSize: '2em'}}>Message</p>
         <form onSubmit={(e) => handleCreateMessage(e, onCreateMessage)}>
           <textarea id="message" name="message" placeholder="  type message.." style={{background: 'none', border: 'solid 1px white', borderRadius: '5px', height: '9em', color: 'white', width: '100%', fontSize: '1.6em'}}/>
