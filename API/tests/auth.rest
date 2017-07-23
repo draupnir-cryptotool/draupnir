@@ -24,3 +24,11 @@ Content-Type: application/json
 
 GET http://localhost:8000/api/client/596060f69797ed2d0c4a0070
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhdEBtYW4uY29tIiwiaWF0IjoxNDk5NDk0MDQyLCJleHAiOjE0OTk1MTU2NDIsInN1YiI6IjU5NWY3N2FjOWU1MWRlMTI2OWIwYWZkMSJ9.SSwK3e9GHmFiLrQKyQZXCLUd8dEkZzj4BHk132SIo8Uhhq
+
+###
+POST http://localhost:8000/admin/details
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhdEBtYW4uY29tIiwiaGFzVmVyaWZpZWQyRkEiOnRydWUsImlhdCI6MTUwMDc3MjQyOCwiZXhwIjoxNTAwNzc2MDI4LCJzdWIiOiI1OTYyZmY2YjUwMWQxNTY0ODUyMWQ1NDAifQ.iGToIuASfnIpkYU-E1-eoO1jmUUq5n9rU2i7bVZENw8"
+}
