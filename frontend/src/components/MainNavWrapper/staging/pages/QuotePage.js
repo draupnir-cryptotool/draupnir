@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { 
   Button,
+  ButtonToolbar,
   Col,
   ControlLabel,
   Form,
@@ -9,6 +10,7 @@ import {
   FormGroup,
   Table,
 } from 'react-bootstrap'
+import _ from 'lodash';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -34,7 +36,11 @@ class QuotePage extends React.Component{
     totalCoins: 0,
   };
 
-  setPrices = () => {
+  setPrices = (e) => {
+    if (!_.isEmpty(e)) {
+      e.preventDefault();
+    } 
+
     let exchange1, exchange2;
     const currency = ReactDOM.findDOMNode(this.refs.currency).value;
 
@@ -84,9 +90,9 @@ class QuotePage extends React.Component{
           table: {
             widths: [ 'auto', 'auto'],
             body: [
-              [ this.state.exchange1.name + ' Best Price:', this.state.exchange1.bestPrice ],
-              [ this.state.exchange2.name + ' Best Price:', this.state.exchange2.bestPrice ],
-              [ 'Average Australian Price', this.state.average ],
+              [ 'Fair Price 1', this.state.exchange1.bestPrice ],
+              [ 'Fair Price 2', this.state.exchange2.bestPrice ],
+              [ 'Average Price', this.state.average ],
               [ 'Spot Price', this.state.spotPrice ],
               [ 'Commission', this.state.commission ],
               [ { text: 'Total Per Coin', bold: true }, this.state.totalPerCoin ],
@@ -108,8 +114,10 @@ class QuotePage extends React.Component{
   submitSendMail = (event) => {
     event.preventDefault()
     const subject = 'Caleb & Brown Brokerage Quote'
-    const text = 'Please find our quote attached'
+    const text = ReactDOM.findDOMNode(this.refs.emailMessage).value;
+    const email = ReactDOM.findDOMNode(this.refs.clientEmail).value;
     const emailProps = {
+      email: email,
       subject: subject,
       text: text,
       file: 0,
@@ -125,7 +133,6 @@ class QuotePage extends React.Component{
     const exchange2Value = ReactDOM.findDOMNode(this.refs.exchange2BestPrice).value;
     const exchange1 = {bestPrice: exchange1Value};
     const exchange2 = {bestPrice: exchange2Value};
-    // spotPrice = parseFloat(e.target.value);
     
     this.setState({
       spotPrice,
@@ -169,168 +176,194 @@ class QuotePage extends React.Component{
       totalPerCoin,
     } = this.state;
 
- 
-
     return (
-      <div style={{display: 'flex'}}>
-        <div style={{display: 'flex', flexDirection: 'row', width: '50%'}}>
-          <div style={{ marginRight: '3em' }}>
+      <div style={{display: 'flex', margin: '2rem'}}>
+        <div style={{display: 'flex', flexDirection: 'row', width: '25%'}}>
+          <Form horizontal style={{color: '#969696'}}>
+            <FormGroup controlId="formHorizontalName">
+              <Col componentClass={ ControlLabel } sm={4}>
+                Client
+              </Col>
+              <Col componentClass={ ControlLabel } sm={8}>
+                <FormControl
+                  type="text" 
+                  ref="orderAmount"
+                  value={ client }
+                />
+              </Col>
+            
+              <Col componentClass={ ControlLabel } sm={4}>
+                Coin 
+              </Col>
+              <Col componentClass={ ControlLabel } sm={8}>
+                <FormControl
+                  bsSize="md"
+                  componentClass="select"
+                  placeholder="select"
+                  ref="currency"
+                  onChange={(e) => this.setPrices(e)}>
+                >
+                  <option value="Bitcoin">Bitcoin</option>
+                  <option value="Ethereum">Ethereum</option>
+                </FormControl>
+              </Col>
 
-            <Form horizontal>
-              <FormGroup controlId="formHorizontalName">
-                <Col componentClass={ ControlLabel } sm={5}>
-                  Client: 
-                </Col>
-                <Col componentClass={ ControlLabel } sm={5}>
-                  {client}
-                </Col>
-              </FormGroup>
-              
-              <FormGroup controlId="formHorizontalName">
-                <Col componentClass={ ControlLabel } sm={5}>
-                  Coin: 
-                </Col>
-                <Col sm={5}>
-                  <FormControl
-                    componentClass="select"
-                    placeholder="select"
-                    ref="currency"
-                    onChange={ this.setPrices }
-                  >
-                    <option value="Bitcoin">Bitcoin</option>
-                    <option value="Ethereum">Ethereum</option>
-                  </FormControl>
-                </Col>
-              </FormGroup>
+              <Col componentClass={ ControlLabel } sm={4}>
+                Order Amount 
+              </Col>
+              <Col componentClass={ ControlLabel } sm={8}>
+                <FormControl
+                  type="text" 
+                  ref="orderAmount"
+                  value={ orderAmount }
+                  onChange={ this.handleChange }
+                />
+              </Col>
+            </FormGroup>
+          </Form>
+        </div>
 
-              <FormGroup controlId="formHorizontalName">
-                <Col componentClass={ ControlLabel } sm={5}>
-                  Order Amount: 
-                </Col>
-                <Col componentClass={ ControlLabel } sm={5}>
-                  <FormControl
-                    type="text" 
-                    ref="orderAmount"
-                    value={ orderAmount }
-                    onChange={ this.handleChange }
-                  />
-                </Col>
-              </FormGroup>
+        <div style={{display: 'flex', flexDirection: 'row', width: '25%'}}>
+          <Form horizontal style={{color: '#969696'}}>
+            <FormGroup controlId="formHorizontalName">
+              <Col componentClass={ ControlLabel } sm={6}>
+                Fair Price 1
+              </Col>
+              <Col componentClass={ ControlLabel } sm={6}>
+                <FormControl
+                  type="text" 
+                  ref="exchange1BestPrice"
+                  value={ exchange1.bestPrice }
+                  onChange={ this.handleChange }
+                />
+              </Col>
 
-              <FormGroup controlId="formHorizontalName">
-                <Col componentClass={ ControlLabel } sm={5}>
-                  Fair Price 1:
-                </Col>
-                <Col componentClass={ ControlLabel } sm={5}>
-                  <FormControl
-                    type="text" 
-                    ref="exchange1BestPrice"
-                    value={ exchange1.bestPrice }
-                    onChange={ this.handleChange }
-                  />
-                </Col>
-              </FormGroup>
+              <Col componentClass={ ControlLabel } sm={6}>
+                Fair Price 2
+              </Col>
+              <Col componentClass={ ControlLabel } sm={6}>
+                <FormControl
+                  type="text" 
+                  ref="exchange2BestPrice"
+                  value={ exchange2.bestPrice }
+                  onChange={ this.handleChange }
+                />
+              </Col>
 
-              <FormGroup controlId="formHorizontalName">
-                <Col componentClass={ ControlLabel } sm={5}>
-                  Fair Price 2:
-                </Col>
-                <Col componentClass={ ControlLabel } sm={5}>
-                  <FormControl
-                    type="text" 
-                    ref="exchange2BestPrice"
-                    value={ exchange2.bestPrice }
-                    onChange={ this.handleChange }
-                  />
-                </Col>
-              </FormGroup>
+              <Col componentClass={ ControlLabel } sm={6}>
+                Average Price 
+              </Col>
+              <Col componentClass={ ControlLabel } sm={6}>
+                <FormControl
+                  type="text" 
+                  ref="average"
+                  value={ average }
+                />
+              </Col>
 
-              <FormGroup controlId="formHorizontalName">
-                <Col componentClass={ ControlLabel } sm={5}>
-                  Average Australian Price: 
-                </Col>
-                <Col componentClass={ ControlLabel } sm={5}>
-                  {average}
-                </Col>
-              </FormGroup>
+              <Col componentClass={ ControlLabel } sm={6}>
+                Commission %
+              </Col>
+              <Col componentClass={ ControlLabel } sm={6}>
+                <FormControl
+                  type="text" 
+                  ref="commission"
+                  value={ commission }
+                  onChange={ this.handleChange }
+                />
+              </Col>
 
-              <FormGroup controlId="formHorizontalName">
-                <Col componentClass={ ControlLabel } sm={5}>
-                  Commission %
-                </Col>
-                <Col sm={5}>
-                  <FormControl
-                    type="text" 
-                    ref="commission"
-                    value={ commission }
-                    onChange={ this.handleChange }
-                  />
-                </Col>
-              </FormGroup>
+              <Col componentClass={ ControlLabel } sm={6}>
+                Spot Price
+              </Col>
+              <Col componentClass={ ControlLabel } sm={6}>
+                <FormControl
+                  type="text"
+                  ref="spotPrice"
+                  value={ spotPrice }
+                  placeholder="Spot Price"
+                  onChange={ this.handleChange }
+                />
+              </Col>
 
-              <FormGroup controlId="formHorizontalName">
-                <Col componentClass={ ControlLabel } sm={5}>
-                  Spot Price
-                </Col>
-                <Col sm={5}>
-                  <FormControl
-                    type="text"
-                    ref="spotPrice"
-                    value={ spotPrice }
-                    placeholder="Spot Price"
-                    onChange={ this.handleChange }
-                  />
-                </Col>
-              </FormGroup>
+              <Col componentClass={ ControlLabel } sm={6}>
+                Total Per Coin
+              </Col>
+              <Col componentClass={ ControlLabel } sm={6}>
+                <FormControl 
+                  type="text" 
+                  ref="totalPerCoin" 
+                  value={ totalPerCoin }/>
+              </Col>
 
-              <FormGroup controlId="formHorizontalName">
-                <Col componentClass={ ControlLabel } sm={5}>
-                  Total Per Coin:
-                </Col>
-                <Col sm={5}>
-                  <FormControl 
-                    type="text" 
-                    ref="totalPerCoin" 
-                    value={ totalPerCoin }/>
-                </Col>
-              </FormGroup>
+              <Col componentClass={ ControlLabel } sm={6}>
+                Total Coins
+              </Col>
+              <Col componentClass={ ControlLabel } sm={6}>
+                <FormControl 
+                  type="text" 
+                  ref="totalCoins" 
+                  value={ totalCoins }/>
+              </Col>
+            </FormGroup>
+          </Form>
+        </div>
 
-              <FormGroup controlId="formHorizontalName">
-                <Col componentClass={ ControlLabel } sm={5}>
-                  Total Coins:
-                </Col>
-                <Col sm={5}>
-                  <FormControl 
-                    type="text" 
-                    ref="totalCoins" 
-                    value={ totalCoins }/>
-                </Col>
-              </FormGroup>
-            </Form>
-            <Button 
-              className={ "updateBtn" } 
-              bsSize="large"
-              bsStyle="primary" type="submit" 
-              onClick={(event) => this.setPrices(event)}>
-              Refresh
-            </Button>
+        <div style={{display: 'flex', flexDirection: 'row', width: '55%'}}>
+          <Form horizontal style={{color: '#969696'}}>
+            <FormGroup controlId="formHorizontalName">
+              <Col componentClass={ ControlLabel } sm={3}>
+                Client Email
+              </Col>
+              <Col componentClass={ ControlLabel } sm={9}>
+                <FormControl
+                  type="text" 
+                  ref="clientEmail"
+                  value={ this.props.client.email }
+                />
+              </Col>
 
-            <Button 
-              className={ "updateBtn" } 
-              bsSize="large"
-              bsStyle="primary" type="submit" 
-              onClick={(event) => this.makePdf(event)}>
-              Generate PDF
-            </Button>
+              <Col componentClass={ ControlLabel } sm={3}>
+                Email Message
+              </Col>
+              <Col componentClass={ ControlLabel } sm={9}>
+                <FormControl
+                  type="textarea" 
+                  componentClass="textarea"
+                  ref="emailMessage"
+                  placeholder="Enter email message"
+                />
+              </Col>
+            </FormGroup>
 
-            <Button 
-              className={ "updateBtn" } 
-              bsSize="large"
-              bsStyle="primary" type="submit" 
-              onClick={(event) => this.submitSendMail(event)}>
-              Email PDF
-            </Button>
-          </div>
+            <Col componentClass={ ControlLabel } sm={9} smOffset={3}>
+            <ButtonToolbar>
+              <Button 
+                className={ "updateBtn" } 
+                bsSize="small"
+                bsStyle="primary" type="submit" 
+                onClick={(e) => this.setPrices(e)}>
+                Refresh Data
+              </Button>
+
+              <Button 
+                className={ "updateBtn" } 
+                bsSize="small"
+                bsStyle="primary" type="submit" 
+                onClick={(event) => this.makePdf(event)}>
+                Generate PDF
+              </Button>
+
+              <Button 
+                className={ "updateBtn" } 
+                bsSize="small"
+                bsStyle="primary" type="submit" 
+                onClick={(event) => this.submitSendMail(event)}>
+                Email PDF
+              </Button> 
+            </ButtonToolbar>
+            </Col>
+          </Form>
         </div>
       </div>
     )

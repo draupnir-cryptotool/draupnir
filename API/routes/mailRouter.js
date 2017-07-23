@@ -12,8 +12,8 @@ router.post('/mail', (req, res) => {
   let mailgunAttach = new mailgun.Attachment({data: buf, filename: 'C&BQuote.pdf'});
 
   let data = {
-    from: 'Excited User <postmaster@sandboxf47c6cc2f65a472b97244e383b08d3b8.mailgun.org>',
-    to: 'chrisxrobertson@gmail.com',
+    from: 'Caleb & Brown <postmaster@sandboxf47c6cc2f65a472b97244e383b08d3b8.mailgun.org>',
+    to: req.body.email,
     subject: req.body.subject,
     text: req.body.text,
     attachment: mailgunAttach,

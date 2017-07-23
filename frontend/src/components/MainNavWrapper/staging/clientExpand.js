@@ -35,7 +35,7 @@ export default function ClientExpand({
   const navStyle={ color: "#000000", textDecoration: "none", fontSize: "20px" }
   return (
       <div>
-        <Collapse isOpened={ expanded } fixedHeight={1000} style={{width: "90%", backgroundColor: "#3B3B3B", margin: "0 auto"}}>
+        <Collapse isOpened={ expanded } fixedHeight={500} style={{width: "90%", backgroundColor: "#3B3B3B", margin: "0 auto"}}>
         <div>
           <nav style={{ backgroundColor: "#C4C4C4" }}>
             <a style={ navStyle } onClick={ () => changeRoute('status')}>STATUS</a>
