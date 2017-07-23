@@ -30,3 +30,13 @@ DELETE http://localhost:3000/message/595cfd7022aca608f1a81d19
 
 ###
 GET http://localhost:8000/api/messages/admin
+
+###
+
+POST http://localhost:8000/api/message/admin
+Content-Type: application/json
+
+{
+    "message": "Again.. this Chris guy.. Silly bastard!",
+    "from": "595c87721bf2fd11256d870c"
+}
