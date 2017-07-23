@@ -4,6 +4,7 @@ import { Button, FormGroup, ControlLabel, FormControl, Form, Col,
           Table      } from 'react-bootstrap'
 import _ from 'lodash'
 import * as orderAPI from '../../../../api/order'
+import './pages.css'
 
 class OrderPage extends React.Component{
 
@@ -26,9 +27,9 @@ class OrderPage extends React.Component{
     left: '26%'
     }
     return (
-      <div style={{display: 'flex'}}>
-        <div style={{display: 'flex', flexDirection: 'row', width: '50%'}}>
-          <div style={{ marginRight: '3em' }}>
+      <div className="orderPage" style={{display: 'flex'}}>
+        <div className="orderForm" style={{display: 'flex', flexDirection: 'row', width: '50%'}}>
+          <div style={{ margin: '3em 3em 0 3em' }}>
             <h1 style={{ textAlign: 'center' }}>FLOATS</h1>
             <Form horizontal>
 
@@ -82,14 +83,16 @@ class OrderPage extends React.Component{
               <FormControl type="hidden" ref="bitstampFloat" defaultValue={ 
               `${this.props.settings.bitstampFloat}` }/>
 
+              <Button
+                style={{ marginLeft: "29%" }}
+                className={ "updateBtn" } 
+                bsSize="large"
+                bsStyle="primary" type="submit" 
+                onClick={(event) => this.submitOrder(event, this.props.onOrder, this.props.onOrderId)}>
+                Query Order
+              </Button>
+
             </Form>
-            <Button 
-              className={ "updateBtn" } 
-              bsSize="large"
-              bsStyle="primary" type="submit" 
-              onClick={(event) => this.submitOrder(event, this.props.onOrder, this.props.onOrderId)}>
-              Query Order
-            </Button>
           </div>
         </div>
 
