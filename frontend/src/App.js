@@ -87,11 +87,32 @@ class App extends Component {
     .then((newMessage) => {
       if(newMessage.for.role === 'admin') {
         this.setState((prevState) => {
+        const newState = prevState.adminMessages
+        newState.unshift(newMessage)
           return {
-            adminMessages: prevState.adminMessages.concat(newMessage)
+            adminMessages: newState
           }
         })
       }
+    })
+    .catch((err) => {
+      this.setState({error: err})
+    })
+  }
+
+  handleDeleteMessage = ({ messageId }) => {
+    messageAPI.deleteMessage({ messageId })
+    .then((deletedMessage) => {
+      this.setState(({ adminMessages }) => {
+        return {
+          adminMessages: adminMessages.filter((message) => {
+            return message._id !== deletedMessage._id
+          })
+        }
+      })
+    })
+    .catch((err) => {
+      this.setState({error: err})
     })
   }
 
@@ -105,6 +126,9 @@ class App extends Component {
           ))
         }
       })
+    })
+    .catch((err) => {
+      this.setState({error: err})
     })
   }
 
@@ -221,7 +245,7 @@ fetchSignedInAdminDetails = () => {
 fetchAllAdminMessages = () => {
   messageAPI.allAdminMessages()
   .then((adminMessages) => {
-  this.setState({ adminMessages: adminMessages })
+  this.setState({ adminMessages: adminMessages.reverse() })
 })
 }
 
@@ -511,6 +535,7 @@ fetchAllClientOrders = () => {
                 onClientBarExpand={ this.onSwitchClientBar}
                 onCreateMessage={ this.handleCreateMessage }
                 onEthUpdate={ this.updateEthereumWalletAddress }
+                onMessageDelete={ this.handleDeleteMessage }
                 onOrder={ this.handleQueryOrder }
                 onOrderId={ this.handleSetOrderId }
                 onSend={ this.handleSendMail }

@@ -35,19 +35,18 @@ export default function ClientExpand({
   tempOrder,
   uploadPhoto,
 }) {
-  const navStyle={ color: "#000000", textDecoration: "none", fontSize: "20px" }
+  
   return (
       <div>
         <Collapse isOpened={ expanded } fixedHeight={400} style={{width: "90%", backgroundColor: "#3B3B3B", margin: "0 auto"}}>
         <div>
-          <nav style={{ backgroundColor: "#C4C4C4" }}>
-            <a style={ navStyle } onClick={ () => changeRoute('status')}>STATUS</a>
-            <a style={ navStyle } onClick={ () => changeRoute('info') }>INFO</a>
-            <a style={ navStyle } onClick={ () => changeRoute('notes') }>NOTES</a>
-            <a style={ navStyle } onClick={ () => changeRoute('logs') }>LOGS</a>
-            <a style={ navStyle } onClick={ () => changeRoute('order') }>ORDER</a>
-            <a style={ navStyle } onClick={ () => changeRoute('quotes') }>QUOTES</a>
-            <a style={ navStyle } onClick={ () => changeRoute('orders') }>ORDERS</a>
+          <nav className="clientExpandSelection" style={{ backgroundColor: "#C4C4C4" }}>
+            <a activeStyle={{ color: 'white'}} onClick={ () => changeRoute('status')}>STATUS</a>
+            <a activeStyle={{ color: 'white'}} onClick={ () => changeRoute('info') }>INFO</a>
+            <a activeStyle={{ color: 'white'}} onClick={ () => changeRoute('notes') }>NOTES</a>
+            <a activeStyle={{ color: 'white'}} onClick={ () => changeRoute('logs') }>LOGS</a>
+            <a activeStyle={{ color: 'white'}} onClick={ () => changeRoute('order') }>ORDER</a>
+            <a activeStyle={{ color: 'white'}} onClick={ () => changeRoute('quotes') }>QUOTES</a>
           </nav>
           {
             clientPage === 'status' ?

@@ -1,8 +1,9 @@
 const express = require('express');
 const Message = require('../models/Message');
 const router = express.Router();
+const _ = require('lodash');
 
-// get all messages
+// get all messages that belong to admins
 router.get('/messages/admin', (req, res) => {
   Message.find({'for.role': 'admin'})
   .then((messages) => {
@@ -51,6 +52,9 @@ router.post('/message/:id', (req, res) => {
 // delete a particular message
 router.delete('/message/:id', (req, res) => {
   Message.findByIdAndRemove(req.params.id)
+  .then((deleted) => {
+    res.json(deleted);
+  })
   .catch((err) => {
     if (err) {
       resp.json({err: err});

@@ -15,7 +15,7 @@ export default function StatusPage({
     <div className="statusPage" style={{ marginLeft: "2%", marginTop: "2%" }}>
       
       {
-        _.includes(status, false) ? <NotValidated /> : <Validated />
+        !!_.includes(status, false) ? <NotValidated /> : <Validated />
       }
 
       {

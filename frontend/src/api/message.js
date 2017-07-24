@@ -12,3 +12,9 @@ export function createMessage({ from, message }) {
   })
   .then(res => res.data)
 }
+
+export function deleteMessage({ messageId }) {
+  return axios.delete(`/api/message/${messageId}`, {
+  })
+  .then(res => res.data)
+}
