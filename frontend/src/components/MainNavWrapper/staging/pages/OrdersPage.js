@@ -4,6 +4,7 @@ import {
   Button,
   ButtonToolbar,
   Col,
+  Collapse,
   ControlLabel,
   Form,
   FormControl,
@@ -22,7 +23,8 @@ export default function OrdersPage({
   handleDeleteOrder,
 }) {
 
-const createOrder = (event, handleCreateOrder) => {
+
+  const createOrder = (event, handleCreateOrder) => {
     event.preventDefault();
     const clientId = client._id;
     const amount = document.getElementById('amount').value
@@ -48,24 +50,24 @@ const createOrder = (event, handleCreateOrder) => {
             : <h4>No Client Orders</h4>
         }
       </div>
-      <Form horizontal style={{color: '#969696'}}>
+      <Form horizontal style={{color: '#969696', float: 'right', width: '50%'}}>
         <FormGroup>
         
-          <Col componentClass={ ControlLabel } sm={4}>
+          <Col componentClass={ ControlLabel } sm={6}>
             Order Amount 
           </Col>
-          <Col componentClass={ ControlLabel } sm={8}>
+          <Col componentClass={ ControlLabel } sm={6}>
             <FormControl
               type="text" 
               id="amount"
-              defaultValue='Enter order amount'
+              placeholder='Enter order amount'
             />
           </Col>
 
-          <Col componentClass={ ControlLabel } sm={4}>
+          <Col componentClass={ ControlLabel } sm={6}>
             Coin 
           </Col>
-          <Col componentClass={ ControlLabel } sm={8}>
+          <Col componentClass={ ControlLabel } sm={6}>
             <FormControl
               componentClass="select"
               placeholder="select"
@@ -78,12 +80,12 @@ const createOrder = (event, handleCreateOrder) => {
 
           <Button 
             className={ "updateBtn" } 
+            style={{float: 'right', margin: '1rem 2rem 1rem 2rem'}}
             bsSize="small"
             bsStyle="primary" type="submit" 
             onClick={(event) => createOrder(event, handleCreateOrder)}>
             Add Order
           </Button>
-
         </FormGroup>
       </Form>
     </div>
