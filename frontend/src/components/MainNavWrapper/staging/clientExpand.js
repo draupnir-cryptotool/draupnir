@@ -47,6 +47,7 @@ export default function ClientExpand({
             <a activeStyle={{ color: 'white'}} onClick={ () => changeRoute('logs') }>LOGS</a>
             <a activeStyle={{ color: 'white'}} onClick={ () => changeRoute('order') }>ORDER</a>
             <a activeStyle={{ color: 'white'}} onClick={ () => changeRoute('quotes') }>QUOTES</a>
+            <a activeStyle={{ color: 'white'}} onClick={ () => changeRoute('orders') }>ORDERS</a>
           </nav>
           {
             clientPage === 'status' ?
