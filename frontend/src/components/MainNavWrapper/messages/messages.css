@@ -1,3 +1,14 @@
 .sendBtn {
   margin-top: 1.5em;
 }
+
+.messageCrudBtn {
+  color: #a9a9a9;
+  margin-right: 8px;
+  font-size: 1.4em;
+}
+
+.messageCrudBtn:hover {
+  cursor: pointer;
+  color: white;
+}

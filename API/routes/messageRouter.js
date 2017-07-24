@@ -52,10 +52,11 @@ router.post('/message/:id', (req, res) => {
 // delete a particular message
 router.delete('/message/:id', (req, res) => {
   Message.findByIdAndRemove(req.params.id)
-  .catch((err) => {
-    if(err) {
-      resp.json({err: err})
-    }
+  .then((deleted) => {
+    res.json(deleted)
   })
+  .catch((err) => {
+      resp.json({err: err})
+    })
 })
 module.exports = router
