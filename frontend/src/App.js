@@ -204,7 +204,7 @@ class App extends Component {
     .then(newOrder => {
       this.setState((prevState) => {
         return {
-          clientsOrders: prevState.clientsOrders.concat(newOrder)
+          clientOrders: prevState.clientOrders.concat(newOrder)
         }
       })
     })
@@ -253,6 +253,9 @@ fetchAllClientOrders = () => {
   clientOrdersAPI.allClientOrders()
     .then((clientOrders) => {
       this.setState({clientOrders: clientOrders})
+    })
+    .catch((err) => {
+      this.setState({error: err});
     })
 }
 
