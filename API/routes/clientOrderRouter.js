@@ -50,7 +50,7 @@ router.patch('/clientorders/:id', (req, res) => {
 });
 
 // delete an order
-router.delete('/clientorder/:id', (req, res) => {
+router.delete('/clientorders/:id', (req, res) => {
   ClientOrder.findByIdAndRemove(req.params.id)
   .then((removedClientOrder) => {
     resp.json(removedClientOrder);

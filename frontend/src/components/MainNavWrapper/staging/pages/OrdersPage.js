@@ -19,6 +19,7 @@ export default function OrdersPage({
   client,
   clientOrders,
   handleCreateOrder,
+  handleDeleteOrder,
 }) {
 
 const createOrder = (event, handleCreateOrder) => {
@@ -39,6 +40,7 @@ const createOrder = (event, handleCreateOrder) => {
                 (order.clientId === client._id)
                 ?  <Order
                      order={ order }
+                     handleDeleteOrder={ handleDeleteOrder }
                      key={ order._id }
                    />
                 : ''

@@ -25,6 +25,7 @@ export default function MainNav({
   closeModal,
   expandedClientID,
   handleCreateOrder,
+  handleDeleteOrder,
   handlePdfQuote,
   images,
   onClientBarExpand,
@@ -76,6 +77,7 @@ export default function MainNav({
             closeModal={ closeModal }
             expandedClientID={ expandedClientID }
             handleCreateOrder={ handleCreateOrder }
+            handleDeleteOrder={ handleDeleteOrder }
             handlePdfQuote={ handlePdfQuote }
             images={images}
             onClientBarExpand={ onClientBarExpand } 

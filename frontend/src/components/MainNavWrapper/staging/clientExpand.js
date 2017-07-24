@@ -20,6 +20,7 @@ export default function ClientExpand({
   closeModal,
   expanded,
   handleCreateOrder,
+  handleDeleteOrder,
   handlePdfQuote,
   imageData,
   onOrder,
@@ -94,6 +95,7 @@ export default function ClientExpand({
               client={ client }
               clientOrders={ clientOrders }
               handleCreateOrder={ handleCreateOrder }
+              handleDeleteOrder={ handleDeleteOrder }
             />
             :
             ""

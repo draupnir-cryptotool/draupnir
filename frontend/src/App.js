@@ -213,6 +213,16 @@ class App extends Component {
     })
   }
 
+  handleDeleteOrder = ({ orderId }) => {
+    clientOrdersAPI.deleteOrder({ orderId })
+    .catch(error => {
+      this.setState({ error })
+    })
+    .then(() => {
+      this.fetchAllClientOrders();
+      })
+  }
+  
   // create a new client
   handleCreateClient = ({ firstname, lastname, email, phone }) => {
     clientAPI.createClient({firstname, lastname, email, phone})
@@ -465,6 +475,7 @@ fetchAllClientOrders = () => {
       error,
       ethereumBalance,
       expandedClientID,
+      handleDeleteOrder,
       images,
       masterSettings,
       orderUserId,
@@ -532,6 +543,7 @@ fetchAllClientOrders = () => {
                 currentUser={ currentUser }
                 expandedClientID={ expandedClientID }
                 handleCreateOrder={ this.handleCreateOrder }
+                handleDeleteOrder={ this.handleDeleteOrder }
                 handlePdfQuote={ this.handlePdfQuote }
                 images={ images }
                 onBtcUpdate={ this.updateBitcoinWalletAddress }

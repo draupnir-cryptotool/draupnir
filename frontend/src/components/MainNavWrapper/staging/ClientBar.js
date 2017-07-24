@@ -13,6 +13,7 @@ export default function ClientBar({
   expanded = false,
   firstname,
   handleCreateOrder,
+  handleDeleteOrder,
   handlePdfQuote,
   id,
   images,
@@ -62,6 +63,7 @@ export default function ClientBar({
             closeModal={ closeModal }
             expanded={ expanded } 
             handleCreateOrder={ handleCreateOrder }
+            handleDeleteOrder={ handleDeleteOrder }
             handlePdfQuote={ handlePdfQuote }
             imageData={ imageData }
             onOrder={ onOrder }

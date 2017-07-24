@@ -15,6 +15,7 @@ export default function Staging({
   closeModal,
   expandedClientID,
   handleCreateOrder,
+  handleDeleteOrder,
   handlePdfQuote,
   images,
   onClientBarExpand,
@@ -54,6 +55,7 @@ export default function Staging({
             expanded={ expandedClientID === client._id }
             firstname={ client.firstname } 
             handleCreateOrder={ handleCreateOrder }
+            handleDeleteOrder={ handleDeleteOrder }
             handlePdfQuote={ handlePdfQuote }
             id={ client._id } 
             images={images}
