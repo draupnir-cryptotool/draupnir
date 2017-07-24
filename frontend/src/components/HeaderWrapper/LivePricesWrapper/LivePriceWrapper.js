@@ -27,7 +27,7 @@ export default function LivePriceWrapper({
         <div><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Bitfinex</p></div>
         <div><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>BTC-E</p></div>
         <div><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Bitstamp</p></div>
-        <div><p style={{color: 'white', textAlign: 'right', marginRight: '10px', fontSize: '1.5em'}}>BTC-E:</p></div>
+        <div><p style={{color: 'white', textAlign: 'right', marginRight: '10px', fontSize: '1.5em'}}>BTC:</p></div>
         <div><BitfinexBitPrice bitfinexBtcValue={ parseFloat(bitfinexBtcValue).toFixed(2) }/></div>
         <div><BtceBitcoinPrice btceBtcValue={ parseFloat(btceBtcValue).toFixed(2) }/></div>
         <div><BitstampBitcoinPrice bitstampBtcValue={ parseFloat(bitstampBtcValue).toFixed(2) } /></div>
