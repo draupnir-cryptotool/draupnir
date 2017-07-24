@@ -13,17 +13,18 @@ import * as messageAPI from './api/message'
 import ClientImageModal from './components/Modal/ClientImageModal'
 import ClientModal from './components/Modal/ClientModal'
 import Header from './components/Header';
+import Order from './components/Order'
 import Image from './components/Image';
 import LogInform from './components/logIn/LogInForm';
 import Mail from './components/Mail';
 import MainNav from './components/MainNav';
-import Order from './components/Order';
 import PdfForm from './components/pdfForm';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 class App extends Component {
   state = {
-    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhdEBtYW4uY29tIiwiaGFzVmVyaWZpZWQyRkEiOnRydWUsImlhdCI6MTUwMDc3MjQyOCwiZXhwIjoxNTAwNzc2MDI4LCJzdWIiOiI1OTYyZmY2YjUwMWQxNTY0ODUyMWQ1NDAifQ.iGToIuASfnIpkYU-E1-eoO1jmUUq5n9rU2i7bVZENw8",
+    token: null,
     error: null,
     currentCurrency: 'usd',
     ausPrices: null,
@@ -92,22 +93,6 @@ class App extends Component {
           }
         })
       }
-    })
-    .catch((err) => {
-      this.setState({error: err})
-    })
-  }
-
-  handleDeleteMessage = ({ messageId }) => {
-    messageAPI.deleteMessage({ messageId })
-    .then((deletedMessage) => {
-      this.setState(({ adminMessages }) => {
-        return {
-          adminMessages: adminMessages.filter((message) => {
-            return message._id !== deletedMessage._id
-          })
-        }
-      })
     })
     .catch((err) => {
       this.setState({error: err})
@@ -453,127 +438,118 @@ fetchAllAdminMessages = () => {
     return (
       <Router>
         <main>
-        <Route exact path='/login' render={() => (
-          <div>
-          { !!error && <p>{ error.message }</p> }
-      
-          <LogInform onSignIn={ this.handleSignIn } />
-          </div>
-        )
-        }/>
-        <Route path='/home' render={() => (
+          <Route path='/login' render={() => (
+            <div>
+              { !!error && <p>{ error.message }</p> }
 
-          <div>
-            <div>
-            {
-            !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
-            !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings && !!currentUser ? (
-              <Header 
-                settings={ masterSettings }
-                bitBalance={ bitcoinBalance }
-                onBtcUpdate={ this.fetchBitcoinPrice }
-                etherBalance={ ethereumBalance }
-                onEthUpdate={ this.fetchEthereumPrice }
-                bitfinexBtcValue={ currentCurrency === 'usd' ? bitfinexBitcoinPrice.usdPrice : bitfinexBitcoinPrice.audPrice }
-                bitfinexEthValue={ currentCurrency === 'usd' ? bitfinexEthPrice.usdPrice : bitfinexEthPrice.audPrice }
-                btceBtcValue={ currentCurrency === 'usd' ? btceBitcoinPrice.usdPrice : btceBitcoinPrice.audPrice }
-                btceEthValue={ currentCurrency === 'usd' ? btceEthPrice.usdPrice : btceEthPrice.audPrice }
-                bitstampBtcValue={ currentCurrency === 'usd' ? bitstampBitcoinPrice.usdPrice : bitstampBitcoinPrice.audPrice }
-                onCurrencyChangeUsd={ this.onSwitchUSDCurrency }
-                onCurrencyChangeAud={ this.onSwitchAUDCurrency }
-                currentCurrency={ currentCurrency }
-                currentUser={ currentUser }
-              /> 
-            ) : (
-              <p>loading..</p>
-            )
-            }  
-            </div>
-            <div>
-            {
-              !!masterSettings ? (
-              <MainNav
-                ausPrices={ ausPrices }
-                changeRoute={ this.onClientPageRoute }
-                clientModal={ this.handleOpenClientModal }
-                clientPage={ clientPage }
-                clients={ clients }
-                closeImageModal={ this.handleCloseClientImageModal }
-                closeModal={ this.handleCloseClientImageModal}
-                expandedClientID={ expandedClientID }
-                handlePdfQuote={ this.handlePdfQuote }
-                images={ images }
-                onClientBarExpand={ this.onSwitchClientBar}
-                onOrder={ this.handleQueryOrder }
-                onOrderId={ this.handleSetOrderId }
-                onSend={ this.handleSendMail }
-                onUpdate={ this.handleUpdateSettings }
-                orderUserId={ orderUserId }
-                orders={ orders }
-                settings={ masterSettings }
-                showClientImageModal={ showClientImageModal }
-                showModal={ this.handleOpenClientImageModal } 
-                tempOrder={ tempOrder }
-                uploadPhoto={ this.handleUploadPhoto }
-                onBtcUpdate={ this.updateBitcoinWalletAddress }
-                onEthUpdate={ this.updateEthereumWalletAddress }
-                adminMessages={ adminMessages }
-                onCreateMessage={ this.handleCreateMessage }
-                currentUser={ currentUser }
-                onMessageDelete={ this.handleDeleteMessage }
-              />
+              {
+                !!token ? (
+                  <Redirect to='/home' />
                 ) : (
-                <p>loading..</p>
-              )
-
-            }
+                  <LogInform onSignIn={ this.handleSignIn } />
+                )
+              }
             </div>
-            <ClientModal showModal={ showModal } closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
-            </div>
-        )
-        } />
-        <Route path='/order' render={() => (
-
-          <div>
-            <Order />
-          </div>
-        )
-      } />
-        <Route path='/image' render={() => (
-            
+            ) 
+          }/>
+          {
+          <Route exact to='/home' render={() => (
+            !!token ? (
             <div>
-              <Image />
+              <div>
+              {
+              !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
+              !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings && !!currentUser ? (
+                <Header 
+                  settings={ masterSettings }
+                  bitBalance={ bitcoinBalance }
+                  onBtcUpdate={ this.fetchBitcoinPrice }
+                  etherBalance={ ethereumBalance }
+                  onEthUpdate={ this.fetchEthereumPrice }
+                  bitfinexBtcValue={ currentCurrency === 'usd' ? bitfinexBitcoinPrice.usdPrice : bitfinexBitcoinPrice.audPrice }
+                  bitfinexEthValue={ currentCurrency === 'usd' ? bitfinexEthPrice.usdPrice : bitfinexEthPrice.audPrice }
+                  btceBtcValue={ currentCurrency === 'usd' ? btceBitcoinPrice.usdPrice : btceBitcoinPrice.audPrice }
+                  btceEthValue={ currentCurrency === 'usd' ? btceEthPrice.usdPrice : btceEthPrice.audPrice }
+                  bitstampBtcValue={ currentCurrency === 'usd' ? bitstampBitcoinPrice.usdPrice : bitstampBitcoinPrice.audPrice }
+                  onCurrencyChangeUsd={ this.onSwitchUSDCurrency }
+                  onCurrencyChangeAud={ this.onSwitchAUDCurrency }
+                  currentCurrency={ currentCurrency }
+                  currentUser={ currentUser }
+                /> 
+                ) : (
+                  <p>loading..</p>
+                )
+                }  
+              </div>
+              <div>
+              {
+                !!masterSettings ? (
+                <MainNav
+                  ausPrices={ ausPrices }
+                  changeRoute={ this.onClientPageRoute }
+                  clientModal={ this.handleOpenClientModal }
+                  clientPage={ clientPage }
+                  clients={ clients }
+                  closeImageModal={ this.handleCloseClientImageModal }
+                  closeModal={ this.handleCloseClientImageModal}
+                  expandedClientID={ expandedClientID }
+                  handlePdfQuote={ this.handlePdfQuote }
+                  images={ images }
+                  onClientBarExpand={ this.onSwitchClientBar}
+                  onOrder={ this.handleQueryOrder }
+                  onOrderId={ this.handleSetOrderId }
+                  onSend={ this.handleSendMail }
+                  onUpdate={ this.handleUpdateSettings }
+                  orderUserId={ orderUserId }
+                  orders={ orders }
+                  settings={ masterSettings }
+                  showClientImageModal={ showClientImageModal }
+                  showModal={ this.handleOpenClientImageModal } 
+                  tempOrder={ tempOrder }
+                  uploadPhoto={ this.handleUploadPhoto }
+                  onBtcUpdate={ this.updateBitcoinWalletAddress }
+                  onEthUpdate={ this.updateEthereumWalletAddress }
+                  adminMessages={ adminMessages }
+                  onCreateMessage={ this.handleCreateMessage }
+                  currentUser ={ currentUser }
+                />
+                  ) : (
+                  <p>loading..</p>
+                )
+              }
+              </div>
+              <ClientModal showModal={ showModal } closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
             </div>
-          )
-        } />
-        <Route path='/mail' render={() => (
-            
-            <div>
-              <Mail onSend={ this.handleSendMail }/>
-            </div>
-          )
-        } />
+            ) : (
+              <Redirect to='/login' />
+            )
+            )} />
+          } 
         </main>
       </Router>
     );
   }
 
-  componentDidMount() {
-    this.fetchAllClients()
-    this.fetchAllOrders()
-    this.fetchAusPrices()
-    this.fetchBitcoinPrice()
-    this.fetchBitfinexBitcoinPrice()
-    this.fetchBitfinexEthPrice()
-    this.fetchBitstampBitcoinPrice()
-    this.fetchBtceBitcoinPrice()
-    this.fetchBtceEthPrice()
-    this.fetchEthereumPrice()
-    this.fetchImagesData()
-    this.fetchSettings()
-    this.fetchAllAdminMessages()
-    this.fetchSignedInAdminDetails()
-    
+  componentDidUpdate(prevProps, prevState) {
+    const { token } = this.state
+    const justSignedIn = !!token && (prevState.token != token)
+
+    if (justSignedIn) {
+      this.fetchAllClients()
+      this.fetchAllOrders()
+      this.fetchAusPrices()
+      this.fetchBitcoinPrice()
+      this.fetchBitfinexBitcoinPrice()
+      this.fetchBitfinexEthPrice()
+      this.fetchBitstampBitcoinPrice()
+      this.fetchBtceBitcoinPrice()
+      this.fetchBtceEthPrice()
+      this.fetchEthereumPrice()
+      this.fetchImagesData()
+      this.fetchSettings()
+      this.fetchAllAdminMessages()
+      this.fetchSignedInAdminDetails()
+    }
   }
 }
 
