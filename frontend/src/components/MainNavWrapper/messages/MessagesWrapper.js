@@ -24,7 +24,11 @@ export default function MessagesWrapper({
   return (
     <div style={{display: 'flex', justifyContent: 'space-between'}}>
       <div className='message'>
-        <ReactCSSTransitionGroup>
+        <ReactCSSTransitionGroup
+          transitionName="messageLoad"
+          transitionEnterTimeout={600}
+          transitionLeaveTimeout={300}
+          >
       {
         adminMessages ? adminMessages.map((adminMessage) => (
             <Message
