@@ -31,6 +31,7 @@ export default function ClientExpand({
   status,
   tempOrder,
   uploadPhoto,
+  onUpdateStatus
 }) {
   
   return (
@@ -47,7 +48,11 @@ export default function ClientExpand({
           </nav>
           {
             clientPage === 'status' ?
-            <StatusPage status={ status }/>
+            <StatusPage
+            status={ status }
+            client={ client }
+            onUpdateStatus= { onUpdateStatus }
+            />
             :
             clientPage === 'info' ?
             <InfoPage 

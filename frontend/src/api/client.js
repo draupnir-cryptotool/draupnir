@@ -18,10 +18,10 @@ export function createClient({ firstname, lastname, email, phone }) {
 }
 
 const statusTypeToField = {
-  id: 'idVerified',
-  quoteSent: 'quoteSentVerified',
-  quoteAccepted: 'quoteAcceptedVerified',
-  depositCleared: 'depositClearedVerified'
+  idVerified: 'idVerified',
+  quoteSent: 'quoteSent',
+  quoteAccepted: 'quoteAccepted',
+  depositCleared: 'depositCleared'
 }
 
 export function updateVerified({ clientId, statusType }) {

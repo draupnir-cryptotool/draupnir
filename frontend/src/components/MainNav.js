@@ -43,7 +43,8 @@ export default function MainNav({
   adminMessages,
   onCreateMessage,
   currentUser,
-  onMessageDelete
+  onMessageDelete,
+  onUpdateStatus
 }) {
   const pageBodyStyle = {
     position: 'relative',
@@ -86,6 +87,7 @@ export default function MainNav({
             showModal={ showModal }
             tempOrder={ tempOrder }
             uploadPhoto={uploadPhoto}
+            onUpdateStatus={ onUpdateStatus }
           />
         )
         } />

@@ -115,6 +115,7 @@ class App extends Component {
   }
 
   handleUpdateStatus = ({ clientId, statusType }) => {
+    console.log(statusType)
     clientAPI.updateVerified({ clientId, statusType })
     .then((updatedClient) => {
       this.setState(({ clients }) => {
@@ -530,6 +531,7 @@ fetchAllAdminMessages = () => {
                 onCreateMessage={ this.handleCreateMessage }
                 currentUser={ currentUser }
                 onMessageDelete={ this.handleDeleteMessage }
+                onUpdateStatus={ this.handleUpdateStatus }
               />
                 ) : (
                 <p>loading..</p>
