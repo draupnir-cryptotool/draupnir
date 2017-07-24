@@ -5883,6 +5883,12 @@ react-motion@^0.5.0:
     prop-types "^15.5.8"
     raf "^3.1.0"
 
+react-number-format@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-2.0.2.tgz#b753b1cf65918f02a18079164afce148d150ed00"
+  dependencies:
+    prop-types "^15.5.8"
+
 react-overlays@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.7.0.tgz#531898ff566c7e5c7226ead2863b8cf9fbb5a981"

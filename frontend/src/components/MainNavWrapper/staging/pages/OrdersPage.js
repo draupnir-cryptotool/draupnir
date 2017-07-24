@@ -31,7 +31,7 @@ const createOrder = (event, handleCreateOrder) => {
   }
   
   return (
-    <div>
+    <div style={{margin: '1rem'}}>
       <div>
         { // Check if this client has any orders, then display them
           (clientOrders)
