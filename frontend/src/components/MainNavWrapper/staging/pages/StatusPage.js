@@ -8,8 +8,8 @@ import './pages.css'
 
 export default function StatusPage({
   status,
-  client,
-  onUpdateStatus
+  onUpdateStatus,
+  client
 }){
   const quoteField = { 
     flexDirection: "row",
@@ -37,29 +37,27 @@ export default function StatusPage({
     depositCleared: 'depositCleared'
   }
 
-  const handleUpdateStatus = (clientId, onUpdateStatus, fieldName) => {
+  const handleUpdateStatus = (clientId, fieldName, onUpdateStatus) => {
     const statusType = statusTypeToField[fieldName]
     onUpdateStatus({ clientId, statusType })
   }
 
   return (
     <div className="statusPage" style={{ marginLeft: "2%", marginTop: "2%" }}>
-      
       {
         !!_.includes(status, false) ? <NotValidated /> : <Validated />
       }
-
       {
         status.quoteSent ?
         <div style={{ display: "flex", width: "25%" }}>
           <h3 style={ quoteField }>Quote Sent</h3><span style={ quoteTrue }>
-          <GoCheck onClick={() => handleUpdateStatus(client._id, onUpdateStatus, "quoteSent" ) }
+          <GoCheck onClick={() => handleUpdateStatus(client._id, "quoteSent", onUpdateStatus)}
           className="toggleVerification" size={20}/></span>
         </div>
           :
         <div style={{ display: "flex", width: "25%" }}>
           <h3 style={ quoteField }>Quote Sent</h3><span style={ quoteFalse }>
-          <GoX onClick={() => handleUpdateStatus(client._id,onUpdateStatus, "quoteSent") } 
+          <GoX onClick={() => handleUpdateStatus(client._id, "quoteSent", onUpdateStatus)} 
             className="toggleVerification" size={20} /></span>
         </div>
       }
@@ -67,13 +65,13 @@ export default function StatusPage({
         status.quoteAccepted ?
         <div style={{ display: "flex", width: "25%" }}>
           <h3 style={ quoteField }>Quote Accepted</h3><span style={ quoteTrue }>
-          <GoCheck onClick={() => handleUpdateStatus(client._id, onUpdateStatus, "quoteAccepted") }
+          <GoCheck onClick={() => handleUpdateStatus(client._id, "quoteAccepted", onUpdateStatus)}
           className="toggleVerification" size={20}/></span>
         </div>
           :
         <div style={{ display: "flex", width: "25%" }}>
           <h3 style={ quoteField }>Quote Accepted</h3><span style={ quoteFalse }>
-          <GoX onClick={() => handleUpdateStatus(client._id, onUpdateStatus, "quoteAccepted") } 
+          <GoX onClick={() => handleUpdateStatus(client._id, "quoteAccepted", onUpdateStatus)} 
             className="toggleVerification" size={20} /></span>
         </div>
       }
@@ -81,13 +79,13 @@ export default function StatusPage({
         status.idVerified ?
         <div style={{ display: "flex", width: "25%" }}>
           <h3 style={ quoteField }>Id Verified</h3><span style={ quoteTrue }>
-          <GoCheck onClick={() => handleUpdateStatus(client._id, onUpdateStatus, "idVerified") }
-          className="toggleVerification" size={20}/></span>
+          <GoCheck onClick={() => handleUpdateStatus(client._id, "idVerified", onUpdateStatus) }
+            className="toggleVerification" size={20}/></span>
         </div>
         :
         <div style={{ display: "flex", width: "25%" }}>
           <h3 style={ quoteField }>Id Verified</h3><span style={ quoteFalse }>
-          <GoX onClick={() => handleUpdateStatus(client._id, onUpdateStatus, "idVerified") } 
+          <GoX onClick={() => handleUpdateStatus(client._id, "idVerified", onUpdateStatus) }
             className="toggleVerification" size={20} /></span>
         </div>
       }
@@ -95,13 +93,13 @@ export default function StatusPage({
         status.depositCleared ?
         <div style={{ display: "flex", width: "25%" }}>
           <h3 style={ quoteField }>Deposit Cleared</h3><span style={ quoteTrue }>
-          <GoCheck onClick={() => handleUpdateStatus(client._id, onUpdateStatus, "depositCleared") }
+          <GoCheck onClick={() => handleUpdateStatus(client._id, "depositCleared", onUpdateStatus) }
           className="toggleVerification" size={20}/></span>
         </div>
         :
         <div style={{ display: "flex", width: "25%" }}>
           <h3 style={ quoteField }>Deposit Cleared</h3><span style={ quoteFalse }>
-          <GoX onClick={() => handleUpdateStatus(client._id, onUpdateStatus, "depositCleared") } 
+          <GoX onClick={() => handleUpdateStatus(client._id, "depositCleared", onUpdateStatus) } 
             className="toggleVerification" size={20} /></span>
         </div>
       }
