@@ -18,11 +18,13 @@ export default function MainNav({
   ausPrices,
   changeRoute,
   clientModal,
+  clientOrders,
   clientPage,
   clients,
   closeImageModal,
   closeModal,
   expandedClientID,
+  handleCreateOrder,
   handlePdfQuote,
   images,
   onClientBarExpand,
@@ -66,11 +68,13 @@ export default function MainNav({
             ausPrices={ ausPrices }
             changeRoute={ changeRoute }
             clientModal={ clientModal } 
+            clientOrders={ clientOrders }
             clientPage={ clientPage }
             clients={ clients }
             closeImageModal={closeImageModal}
             closeModal={ closeModal }
             expandedClientID={ expandedClientID }
+            handleCreateOrder={ handleCreateOrder }
             handlePdfQuote={ handlePdfQuote }
             images={images}
             onClientBarExpand={ onClientBarExpand } 

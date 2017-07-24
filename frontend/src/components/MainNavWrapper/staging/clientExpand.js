@@ -2,6 +2,7 @@ import React from 'react'
 import { UnmountClosed as Collapse } from 'react-collapse'
 import StatusPage from './pages/StatusPage'
 import InfoPage from './pages/InfoPage'
+import OrdersPage from './pages/OrdersPage'
 import LogsPage from './pages/LogsPage'
 import NotesPage from './pages/NotesPage'
 import OrderPage from './pages/OrderPage'
@@ -13,10 +14,12 @@ export default function ClientExpand({
   changeRoute,
   client,
   clientId,
+  clientOrders,
   clientPage,
   closeImageModal,
   closeModal,
   expanded,
+  handleCreateOrder,
   handlePdfQuote,
   imageData,
   onOrder,
@@ -35,7 +38,7 @@ export default function ClientExpand({
   const navStyle={ color: "#000000", textDecoration: "none", fontSize: "20px" }
   return (
       <div>
-        <Collapse isOpened={ expanded } fixedHeight={500} style={{width: "90%", backgroundColor: "#3B3B3B", margin: "0 auto"}}>
+        <Collapse isOpened={ expanded } fixedHeight={400} style={{width: "90%", backgroundColor: "#3B3B3B", margin: "0 auto"}}>
         <div>
           <nav style={{ backgroundColor: "#C4C4C4" }}>
             <a style={ navStyle } onClick={ () => changeRoute('status')}>STATUS</a>
@@ -44,6 +47,7 @@ export default function ClientExpand({
             <a style={ navStyle } onClick={ () => changeRoute('logs') }>LOGS</a>
             <a style={ navStyle } onClick={ () => changeRoute('order') }>ORDER</a>
             <a style={ navStyle } onClick={ () => changeRoute('quotes') }>QUOTES</a>
+            <a style={ navStyle } onClick={ () => changeRoute('orders') }>ORDERS</a>
           </nav>
           {
             clientPage === 'status' ?
@@ -83,6 +87,13 @@ export default function ClientExpand({
               onSend={ onSend }
               client={ client }
               orderUserId={ orderUserId }
+            />
+            :
+            clientPage === 'orders' ?
+            <OrdersPage
+              client={ client }
+              clientOrders={ clientOrders }
+              handleCreateOrder={ handleCreateOrder }
             />
             :
             ""

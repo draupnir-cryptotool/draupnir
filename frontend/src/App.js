@@ -3,6 +3,7 @@ import './App.css';
 import * as ausPricesAPI from './api/ausPrices'
 import * as authAPI from './api/auth';
 import * as clientAPI from './api/client'
+import * as clientOrdersAPI from './api/clientOrders.js'
 import * as imageAPI from './api/image'
 import * as livePriceApi from './api/livePrice'
 import * as mailAPI from './api/mail'
@@ -46,6 +47,7 @@ class App extends Component {
     orderUserId: null,
     adminMessages: null,
     currentUser: null,
+    clientOrders: null,
   }
 
   // Fetching best order rates from exchanges
@@ -173,6 +175,20 @@ class App extends Component {
     pdfQuoteAPI.generatePdf({ exchange1 })
   }
 
+  handleCreateOrder = ({ clientId, amount, coin }) => {
+    clientOrdersAPI.createOrder({ clientId, amount, coin })
+    .then(newOrder => {
+      this.setState((prevState) => {
+        return {
+          clientsOrders: prevState.clientsOrders.concat(newOrder)
+        }
+      })
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
+  }
+
   // create a new client
   handleCreateClient = ({ firstname, lastname, email, phone }) => {
     clientAPI.createClient({firstname, lastname, email, phone})
@@ -207,6 +223,13 @@ fetchAllAdminMessages = () => {
   .then((adminMessages) => {
   this.setState({ adminMessages: adminMessages })
 })
+}
+
+fetchAllClientOrders = () => {
+  clientOrdersAPI.allClientOrders()
+    .then((clientOrders) => {
+      this.setState({clientOrders: clientOrders})
+    })
 }
 
 // get all image data
@@ -424,7 +447,8 @@ fetchAllAdminMessages = () => {
       tempOrder,
       token,
       adminMessages,
-      currentUser
+      currentUser,
+      clientOrders,
     } = this.state
     return (
       <Router>
@@ -469,17 +493,24 @@ fetchAllAdminMessages = () => {
             {
               !!masterSettings ? (
               <MainNav
+                adminMessages={ adminMessages }
                 ausPrices={ ausPrices }
                 changeRoute={ this.onClientPageRoute }
                 clientModal={ this.handleOpenClientModal }
+                clientOrders={ clientOrders }
                 clientPage={ clientPage }
                 clients={ clients }
                 closeImageModal={ this.handleCloseClientImageModal }
                 closeModal={ this.handleCloseClientImageModal}
+                currentUser={ currentUser }
                 expandedClientID={ expandedClientID }
+                handleCreateOrder={ this.handleCreateOrder }
                 handlePdfQuote={ this.handlePdfQuote }
                 images={ images }
+                onBtcUpdate={ this.updateBitcoinWalletAddress }
                 onClientBarExpand={ this.onSwitchClientBar}
+                onCreateMessage={ this.handleCreateMessage }
+                onEthUpdate={ this.updateEthereumWalletAddress }
                 onOrder={ this.handleQueryOrder }
                 onOrderId={ this.handleSetOrderId }
                 onSend={ this.handleSendMail }
@@ -488,14 +519,9 @@ fetchAllAdminMessages = () => {
                 orders={ orders }
                 settings={ masterSettings }
                 showClientImageModal={ showClientImageModal }
-                showModal={ this.handleOpenClientImageModal } 
+                showModal={ this.handleOpenClientImageModal }
                 tempOrder={ tempOrder }
                 uploadPhoto={ this.handleUploadPhoto }
-                onBtcUpdate={ this.updateBitcoinWalletAddress }
-                onEthUpdate={ this.updateEthereumWalletAddress }
-                adminMessages={ adminMessages }
-                onCreateMessage={ this.handleCreateMessage }
-                currentUser ={ currentUser }
               />
                 ) : (
                 <p>loading..</p>
@@ -534,6 +560,8 @@ fetchAllAdminMessages = () => {
   }
 
   componentDidMount() {
+    this.fetchAllAdminMessages()
+    this.fetchAllClientOrders()
     this.fetchAllClients()
     this.fetchAllOrders()
     this.fetchAusPrices()
@@ -546,9 +574,7 @@ fetchAllAdminMessages = () => {
     this.fetchEthereumPrice()
     this.fetchImagesData()
     this.fetchSettings()
-    this.fetchAllAdminMessages()
     this.fetchSignedInAdminDetails()
-    
   }
 }
 
