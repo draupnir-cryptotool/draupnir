@@ -238,6 +238,16 @@ class App extends Component {
     })
   }
 
+  handleDeleteClient = ({ clientId }) => {
+    clientAPI.deleteClient({ clientId })
+    .catch((err) => {
+      this.setState({error: err})
+    })
+    .then(() => {
+      this.fetchAllClients()
+    })
+  }
+
 // FETCH SECTION ---------------------------------------------------------
 // fetch logged in Admins details
 fetchSignedInAdminDetails = () => {
@@ -571,6 +581,7 @@ fetchAllClientOrders = () => {
                 showModal={ this.handleOpenClientImageModal }
                 tempOrder={ tempOrder }
                 uploadPhoto={ this.handleUploadPhoto }
+                onDeleteClient={ this.handleDeleteClient }
               />
                 ) : (
                 <p>loading..</p>
