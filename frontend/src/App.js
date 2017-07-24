@@ -230,6 +230,9 @@ fetchAllAdminMessages = () => {
   messageAPI.allAdminMessages()
   .then((adminMessages) => {
   this.setState({ adminMessages: adminMessages.reverse() })
+  })
+.catch((err) => {
+  this.setState({error: err})
 })
 }
 

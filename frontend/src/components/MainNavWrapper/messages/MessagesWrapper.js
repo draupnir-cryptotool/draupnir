@@ -2,6 +2,7 @@ import React from 'react'
 import Message from './message'
 import { Button } from 'react-bootstrap'
 import _ from 'lodash'
+import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 export default function MessagesWrapper({
   adminMessages, 
@@ -23,20 +24,22 @@ export default function MessagesWrapper({
   return (
     <div style={{display: 'flex', justifyContent: 'space-between'}}>
       <div className='message'>
+        <ReactCSSTransitionGroup>
       {
         adminMessages ? adminMessages.map((adminMessage) => (
-          <Message
-            key={ adminMessage._id }
-            message={ adminMessage.message }
-            messageId={ adminMessage._id }
-            time={ adminMessage.time }
-            from={ adminMessage.from }
-            onMessageDelete={ onMessageDelete }
-          />
+            <Message
+              key={ adminMessage._id }
+              message={ adminMessage.message }
+              messageId={ adminMessage._id }
+              time={ adminMessage.time }
+              from={ adminMessage.from }
+              onMessageDelete={ onMessageDelete }
+            />
         ))
         :
         ""
       }
+      </ReactCSSTransitionGroup>
       </div>
       <div style={{width: '480px', marginTop: '1.4em'}}>
         <p style={{color: 'white', fontSize: '2em'}}>Message</p>
