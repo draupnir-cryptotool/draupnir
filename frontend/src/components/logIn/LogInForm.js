@@ -27,26 +27,28 @@ export default function LogInForm({
   const loginStyle = {
     display: 'flex',
     justifyContent: 'space-around',
-    marginTop: '30%'
+    marginTop: '20%',
   }
   return (
-    
-    <div style={loginStyle}>
-      <div>
-        <h1 style={{fontSize: '4em', color: 'white'}}>Caleb and Brown</h1>
-        <h3 style={{textAlign: 'center', letterSpacing: '4px', color: 'white'}}>CONSULTANTS</h3>
+    <div> 
+      <div style={loginStyle}>
+        <div>
+          <h1 style={{fontSize: '4em', color: 'white'}}>Caleb and Brown</h1>
+          <h3 style={{textAlign: 'center', letterSpacing: '4px', color: 'white'}}>CONSULTANTS</h3>
+        </div>
+        <div style={dividerStyle}></div>
+        <div style={wellStyles}>
+          <form onSubmit={ (event) => submitSignIn(event, onSignIn) }>
+            <FormGroup controlId="formBasicText">
+              <FormControl className="formInput" type="text" name="email" placeholder="email"/>
+              <FormControl className="formInput" type="password" name="password" placeholder="password"/>
+              <FormControl className="formInput" type="text" name="OTP" placeholder="Auth Code"/>
+              <Button className="submitBtn" bsStyle="default" type="submit" block>Sign In</Button>
+            </FormGroup>
+          </form>
+        </div>
       </div>
-      <div style={dividerStyle}></div>
-      <div style={wellStyles}>
-        <form onSubmit={ (event) => submitSignIn(event, onSignIn) }>
-          <FormGroup controlId="formBasicText">
-            <FormControl className="formInput" type="text" name="email" placeholder="email"/>
-            <FormControl className="formInput" type="password" name="password" placeholder="password"/>
-            <FormControl className="formInput" type="text" name="OTP" placeholder="Auth Code"/>
-            <Button className="submitBtn" bsStyle="default" type="submit" block>Sign In</Button>
-          </FormGroup>
-        </form>
-      </div>
+      <div style={{ color: "#FFFFFF", position: "relative", textAlign: "center", top: "175px"}}><p>Powered by dRAUPNIR</p></div>
     </div>
   )
 }
