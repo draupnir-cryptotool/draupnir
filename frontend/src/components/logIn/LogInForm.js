@@ -48,7 +48,7 @@ export default function LogInForm({
           </form>
         </div>
       </div>
-      <div style={{ color: "#FFFFFF", position: "relative", textAlign: "center", top: "175px"}}><p>Powered by dRAUPNIR</p></div>
+      <div style={{ color: "#FFFFFF", position: "absolute", bottom: "0", width: "100%", textAlign: "center"}}><p>Powered by dRAUPNIR</p></div>
     </div>
   )
 }
