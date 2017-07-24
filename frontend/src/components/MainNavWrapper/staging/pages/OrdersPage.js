@@ -22,7 +22,7 @@ export default function OrdersPage({
   handleDeleteOrder,
 }) {
 
-const createOrder = (event, handleCreateOrder) => {
+  const createOrder = (event, handleCreateOrder) => {
     event.preventDefault();
     const clientId = client._id;
     const amount = document.getElementById('amount').value
