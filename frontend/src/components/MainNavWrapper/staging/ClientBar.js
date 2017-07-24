@@ -42,12 +42,12 @@ export default function ClientBar({
         <div>
           <div onClick={ onExpand } style={{ border: "solid 1px #3B3B3B" , margin: "2em 0 0", backgroundColor:                                        "#3B3B3B", color: "#969696", display: "flex" }}>
             <div style={{flexDirection: "row", width: "1%", backgroundColor: "red"}}></div>
-            <div id="clientBarTitle" style={{flexDirection: "row", width: "90%", marginLeft: "8%"}}>
-              <div><p>{ uniqId }</p></div>
-              <div><p>{ firstname + " " + lastname }</p></div>
-              <div><p>$20000</p></div>
-              <div><p>BTC</p></div>
-            </div>
+              <div id="clientBarTitle" style={{flexDirection: "row", width: "90%", marginLeft: "8%"}}>
+                <div><p>{ uniqId }</p></div>
+                <div><p>{ firstname + " " + lastname }</p></div>
+                <div><p>$20000</p></div>
+                <div><p>BTC</p></div>
+              </div>
           </div>
           <ClientExpand 
             ausPrices={ ausPrices }

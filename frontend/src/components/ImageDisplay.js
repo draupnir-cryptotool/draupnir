@@ -11,7 +11,6 @@ class ImageDisplay extends React.Component  {
   const clientId = this.props.clientId
     let file = image[0]
     console.log(image)
-
     uploadPhoto({ file, idType, clientId })
   }
 
