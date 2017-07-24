@@ -230,7 +230,10 @@ fetchAllAdminMessages = () => {
   messageAPI.allAdminMessages()
   .then((adminMessages) => {
   this.setState({ adminMessages: adminMessages.reverse() })
-})
+  })
+  .catch((err) => {
+    this.setState({error: err})
+  })
 }
 
 // get all image data
@@ -239,6 +242,9 @@ fetchAllAdminMessages = () => {
     .then((allImages) => {
       this.setState({images: allImages})
     })
+    .catch((err) => {
+      this.setState({error: err})
+    })
   }
 
   // get all clients
@@ -246,6 +252,9 @@ fetchAllAdminMessages = () => {
     clientAPI.allClients()
     .then(clients => {
       this.setState({ clients })
+    })
+    .catch((err) => {
+      this.setState({error: err})
     })
   }
 

@@ -12,3 +12,27 @@
   cursor: pointer;
   color: white;
 }
+
+.message {
+  height: 350px;
+  overflow-y: scroll;
+  min-width: 470px;
+}
+
+.messageLoad-enter {
+  opacity: 0.01;
+}
+
+.messageLoad-enter.messageLoad-enter-active {
+  opacity: 1;
+  transition: opacity 600ms ease-in;
+}
+
+.messageLoad-leave {
+  opacity: 1;
+}
+
+.messageLoad-leave.messageLoad-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
