@@ -3,6 +3,7 @@ import './App.css';
 import * as ausPricesAPI from './api/ausPrices'
 import * as authAPI from './api/auth';
 import * as clientAPI from './api/client'
+import * as clientOrdersAPI from './api/clientOrders.js'
 import * as imageAPI from './api/image'
 import * as livePriceApi from './api/livePrice'
 import * as mailAPI from './api/mail'
@@ -46,6 +47,7 @@ class App extends Component {
     orderUserId: null,
     adminMessages: null,
     currentUser: null,
+    clientOrders: null,
   }
 
   // Fetching best order rates from exchanges
@@ -197,6 +199,30 @@ class App extends Component {
     pdfQuoteAPI.generatePdf({ exchange1 })
   }
 
+  handleCreateOrder = ({ clientId, amount, coin }) => {
+    clientOrdersAPI.createOrder({ clientId, amount, coin })
+    .then(newOrder => {
+      this.setState((prevState) => {
+        return {
+          clientOrders: prevState.clientOrders.concat(newOrder)
+        }
+      })
+    })
+    .catch(error => {
+      this.setState({ error })
+    })
+  }
+
+  handleDeleteOrder = ({ orderId }) => {
+    clientOrdersAPI.deleteOrder({ orderId })
+    .catch(error => {
+      this.setState({ error })
+    })
+    .then(() => {
+      this.fetchAllClientOrders();
+      })
+  }
+  
   // create a new client
   handleCreateClient = ({ firstname, lastname, email, phone }) => {
     clientAPI.createClient({firstname, lastname, email, phone})
@@ -209,6 +235,16 @@ class App extends Component {
     })
     .catch(error => {
       this.setState({ error })
+    })
+  }
+
+  handleDeleteClient = ({ clientId }) => {
+    clientAPI.deleteClient({ clientId })
+    .catch((err) => {
+      this.setState({error: err})
+    })
+    .then(() => {
+      this.fetchAllClients()
     })
   }
 
@@ -234,6 +270,16 @@ fetchAllAdminMessages = () => {
   .catch((err) => {
     this.setState({error: err})
   })
+}
+
+fetchAllClientOrders = () => {
+  clientOrdersAPI.allClientOrders()
+    .then((clientOrders) => {
+      this.setState({clientOrders: clientOrders})
+    })
+    .catch((err) => {
+      this.setState({error: err});
+    })
 }
 
 // get all image data
@@ -448,6 +494,7 @@ fetchAllAdminMessages = () => {
       error,
       ethereumBalance,
       expandedClientID,
+      handleDeleteOrder,
       images,
       masterSettings,
       orderUserId,
@@ -457,7 +504,8 @@ fetchAllAdminMessages = () => {
       tempOrder,
       token,
       adminMessages,
-      currentUser
+      currentUser,
+      clientOrders,
     } = this.state
     return (
       <Router>
@@ -502,17 +550,26 @@ fetchAllAdminMessages = () => {
             {
               !!masterSettings ? (
               <MainNav
+                adminMessages={ adminMessages }
                 ausPrices={ ausPrices }
                 changeRoute={ this.onClientPageRoute }
                 clientModal={ this.handleOpenClientModal }
+                clientOrders={ clientOrders }
                 clientPage={ clientPage }
                 clients={ clients }
                 closeImageModal={ this.handleCloseClientImageModal }
                 closeModal={ this.handleCloseClientImageModal}
+                currentUser={ currentUser }
                 expandedClientID={ expandedClientID }
+                handleCreateOrder={ this.handleCreateOrder }
+                handleDeleteOrder={ this.handleDeleteOrder }
                 handlePdfQuote={ this.handlePdfQuote }
                 images={ images }
+                onBtcUpdate={ this.updateBitcoinWalletAddress }
                 onClientBarExpand={ this.onSwitchClientBar}
+                onCreateMessage={ this.handleCreateMessage }
+                onEthUpdate={ this.updateEthereumWalletAddress }
+                onMessageDelete={ this.handleDeleteMessage }
                 onOrder={ this.handleQueryOrder }
                 onOrderId={ this.handleSetOrderId }
                 onSend={ this.handleSendMail }
@@ -521,15 +578,10 @@ fetchAllAdminMessages = () => {
                 orders={ orders }
                 settings={ masterSettings }
                 showClientImageModal={ showClientImageModal }
-                showModal={ this.handleOpenClientImageModal } 
+                showModal={ this.handleOpenClientImageModal }
                 tempOrder={ tempOrder }
                 uploadPhoto={ this.handleUploadPhoto }
-                onBtcUpdate={ this.updateBitcoinWalletAddress }
-                onEthUpdate={ this.updateEthereumWalletAddress }
-                adminMessages={ adminMessages }
-                onCreateMessage={ this.handleCreateMessage }
-                currentUser={ currentUser }
-                onMessageDelete={ this.handleDeleteMessage }
+                onDeleteClient={ this.handleDeleteClient }
               />
                 ) : (
                 <p>loading..</p>
@@ -568,6 +620,8 @@ fetchAllAdminMessages = () => {
   }
 
   componentDidMount() {
+    this.fetchAllAdminMessages()
+    this.fetchAllClientOrders()
     this.fetchAllClients()
     this.fetchAllOrders()
     this.fetchAusPrices()
@@ -580,9 +634,7 @@ fetchAllAdminMessages = () => {
     this.fetchEthereumPrice()
     this.fetchImagesData()
     this.fetchSettings()
-    this.fetchAllAdminMessages()
     this.fetchSignedInAdminDetails()
-    
   }
 }
 

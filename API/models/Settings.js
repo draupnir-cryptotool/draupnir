@@ -1,20 +1,20 @@
-const mongoose = require('./init')
+const mongoose = require('./init');
 
 settingsSchema = mongoose.Schema({
-  bitfinexFloat: { 
-    type: Number, 
-    default: 0 
+  bitfinexFloat: {
+    type: Number,
+    default: 0,
   },
-  btceFloat: { 
-    type: Number, 
-    default: 0 
+  btceFloat: {
+    type: Number,
+    default: 0,
   },
-  bitstampFloat: { 
-    type: Number, 
-    default: 0 
+  bitstampFloat: {
+    type: Number,
+    default: 0,
   },
   ethWalletAddress: String,
-  btceWalletAddress: String
+  btceWalletAddress: String,
 });
 
 const Settings = mongoose.model('Settings', settingsSchema);

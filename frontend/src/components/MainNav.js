@@ -18,11 +18,14 @@ export default function MainNav({
   ausPrices,
   changeRoute,
   clientModal,
+  clientOrders,
   clientPage,
   clients,
   closeImageModal,
   closeModal,
   expandedClientID,
+  handleCreateOrder,
+  handleDeleteOrder,
   handlePdfQuote,
   images,
   onClientBarExpand,
@@ -43,7 +46,8 @@ export default function MainNav({
   adminMessages,
   onCreateMessage,
   currentUser,
-  onMessageDelete
+  onMessageDelete,
+  onDeleteClient
 }) {
   const pageBodyStyle = {
     position: 'relative',
@@ -67,11 +71,14 @@ export default function MainNav({
             ausPrices={ ausPrices }
             changeRoute={ changeRoute }
             clientModal={ clientModal } 
+            clientOrders={ clientOrders }
             clientPage={ clientPage }
             clients={ clients }
-            closeImageModal={closeImageModal}
+            closeImageModal={ closeImageModal }
             closeModal={ closeModal }
             expandedClientID={ expandedClientID }
+            handleCreateOrder={ handleCreateOrder }
+            handleDeleteOrder={ handleDeleteOrder }
             handlePdfQuote={ handlePdfQuote }
             images={images}
             onClientBarExpand={ onClientBarExpand } 
@@ -85,7 +92,8 @@ export default function MainNav({
             showClientImageModal={showClientImageModal}
             showModal={ showModal }
             tempOrder={ tempOrder }
-            uploadPhoto={uploadPhoto}
+            uploadPhoto={ uploadPhoto }
+            onDeleteClient={ onDeleteClient }
           />
         )
         } />

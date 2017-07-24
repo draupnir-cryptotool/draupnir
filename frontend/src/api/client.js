@@ -17,6 +17,11 @@ export function createClient({ firstname, lastname, email, phone }) {
   .then(res => res.data)
 }
 
+export function deleteClient({ clientId }) {
+  return axios.delete(`/api/client/${clientId}`)
+  .then(res => res.data)
+}
+
 const statusTypeToField = {
   id: 'idVerified',
   quoteSent: 'quoteSentVerified',
