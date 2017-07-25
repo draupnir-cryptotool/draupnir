@@ -7,6 +7,7 @@ const usersRouter = require('./routes/usersRouter');
 const clientRouter = require('./routes/clientRouter');
 const orderRouter = require('./routes/orderRouter');
 const messageRouter = require('./routes/messageRouter');
+const clientorders = require('./routes/clientOrderRouter');
 const GraphRouter = require('./routes/graphRouter');
 const liveCoinPricesRouter = require('./routes/liveCoinPricesRouter');
 const order = require('./routes/order');
@@ -41,6 +42,7 @@ server.use(authRouter);
 server.use('/api', [
   GraphRouter,
   ausPrices,
+  clientorders,
   clientRouter,
   forexRates,
   imageRouter,
