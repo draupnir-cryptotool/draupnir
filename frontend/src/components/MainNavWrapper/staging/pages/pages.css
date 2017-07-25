@@ -51,3 +51,7 @@
   height: auto;
   border-radius: 4%;
 }
+
+.toggleVerification:hover {
+  cursor: pointer
+}
