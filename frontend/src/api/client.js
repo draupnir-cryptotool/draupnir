@@ -30,6 +30,7 @@ export function updateVerifiedTrue({ clientId, statusType }) {
     // Take advantage of MongoDB’s ability to use key paths
     [`status.${fieldName}`]: true 
   })
+  .then(res => res.data)
 }
 
 export function updateVerifiedFalse({ clientId, statusType }) {
@@ -38,4 +39,5 @@ export function updateVerifiedFalse({ clientId, statusType }) {
     // Take advantage of MongoDB’s ability to use key paths
     [`status.${fieldName}`]: false
   })
+  .then(res => res.data)
 }

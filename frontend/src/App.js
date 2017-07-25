@@ -115,14 +115,14 @@ class App extends Component {
   }
 
   handleUpdateStatusTrue = ({ clientId, statusType }) => {
-    console.log(statusType)
     clientAPI.updateVerifiedTrue({ clientId, statusType })
     .then((updatedClient) => {
       this.setState((prevState) => {
-        return {
+        return { 
           clients: prevState.clients.map(client => (
             (client._id === updatedClient._id) ? updatedClient : client
           ))
+
         }
       })
     })
@@ -133,10 +133,10 @@ class App extends Component {
 
 
   handleUpdateStatusFalse = ({ clientId, statusType }) => {
-    console.log(statusType)
     clientAPI.updateVerifiedFalse({ clientId, statusType })
     .then((updatedClient) => {
       this.setState((prevState) => {
+        console.log(updatedClient)
         return {
           clients: prevState.clients.map(client => (
             (client._id === updatedClient._id) ? updatedClient : client

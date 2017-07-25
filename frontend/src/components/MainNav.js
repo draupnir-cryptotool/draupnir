@@ -62,7 +62,7 @@ export default function MainNav({
             <Link to={'/home/logs'} activeStyle={{ color: 'white'}}> Logs </Link>
             <Link to={'/home/graphs'} activeStyle={{ color: 'white'}}> Graphs </Link>
             <Link to={'/home/settings'} activeStyle={{ color: 'white'}}> Settings </Link>
-          </div>          
+          </div>       
         </div>
         <Route path='/home/staging' render={ () => (
           <Staging
