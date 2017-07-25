@@ -36,10 +36,18 @@ clientSchema.statics.updateStatus = function(id, keyName, status) {
   const options = {new: true}
   const key = 'status.' + [keyName]
   console.log(id, keyName, status, key)
+
+  const Client = this.model('Client')
+  Client.findById(id)
+    .then(client => {
+      console.log('findById', id, client);
+    })
   
-  return this.model('Client')
+  return Client
     .findOneAndUpdate(id, {$set: {[key]: status}}, options )
-    .then(client => (client)) //returns promise with client
+    .then(client => {(client)
+    console.log('findOneAndUpdate', id, client);}
+  ) //returns promise with client
 }
 
 const Client = mongoose.model('Client', clientSchema);
