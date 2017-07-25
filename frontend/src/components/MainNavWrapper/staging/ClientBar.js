@@ -29,7 +29,8 @@ export default function ClientBar({
   tempOrder,
   uniqId,
   uploadPhoto,
-  onUpdateStatus
+  onUpdateStatusTrue,
+  onUpdateStatusFalse
 }) {
   const imageDataFind = ((images, id) => {
     if(!!images) {
@@ -73,7 +74,8 @@ export default function ClientBar({
             tempOrder={ tempOrder }
             uniqId={ uniqId }
             uploadPhoto={uploadPhoto}
-            onUpdateStatus={ onUpdateStatus }
+            onUpdateStatusTrue={ onUpdateStatusTrue }
+            onUpdateStatusFalse={ onUpdateStatusFalse }
           />
         </div>
     </div>

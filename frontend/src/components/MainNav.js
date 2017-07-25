@@ -44,7 +44,8 @@ export default function MainNav({
   onCreateMessage,
   currentUser,
   onMessageDelete,
-  onUpdateStatus
+  onUpdateStatusTrue,
+  onUpdateStatusFalse
 }) {
   const pageBodyStyle = {
     position: 'relative',
@@ -64,7 +65,7 @@ export default function MainNav({
           </div>          
         </div>
         <Route path='/home/staging' render={ () => (
-          <Staging 
+          <Staging
             ausPrices={ ausPrices }
             changeRoute={ changeRoute }
             clientModal={ clientModal } 
@@ -87,7 +88,8 @@ export default function MainNav({
             showModal={ showModal }
             tempOrder={ tempOrder }
             uploadPhoto={uploadPhoto}
-            onUpdateStatus={ onUpdateStatus }
+            onUpdateStatusTrue={ onUpdateStatusTrue }
+            onUpdateStatusFalse={ onUpdateStatusFalse }
           />
         )
         } />

@@ -24,10 +24,18 @@ const statusTypeToField = {
   depositCleared: 'depositCleared'
 }
 
-export function updateVerified({ clientId, statusType }) {
+export function updateVerifiedTrue({ clientId, statusType }) {
   const fieldName = statusTypeToField[statusType]
   return axios.patch(`/api/client/${clientId}`,  {
     // Take advantage of MongoDB’s ability to use key paths
-    [`status.${fieldName}`]: true
+    [`status.${fieldName}`]: true 
+  })
+}
+
+export function updateVerifiedFalse({ clientId, statusType }) {
+  const fieldName = statusTypeToField[statusType]
+  return axios.patch(`/api/client/${clientId}`,  {
+    // Take advantage of MongoDB’s ability to use key paths
+    [`status.${fieldName}`]: false
   })
 }

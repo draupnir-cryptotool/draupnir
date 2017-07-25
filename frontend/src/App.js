@@ -114,13 +114,31 @@ class App extends Component {
     })
   }
 
-  handleUpdateStatus = ({ clientId, statusType }) => {
+  handleUpdateStatusTrue = ({ clientId, statusType }) => {
     console.log(statusType)
-    clientAPI.updateVerified({ clientId, statusType })
+    clientAPI.updateVerifiedTrue({ clientId, statusType })
     .then((updatedClient) => {
-      this.setState(({ clients }) => {
+      this.setState((prevState) => {
         return {
-          clients: clients.map(client => (
+          clients: prevState.clients.map(client => (
+            (client._id === updatedClient._id) ? updatedClient : client
+          ))
+        }
+      })
+    })
+    .catch((err) => {
+      this.setState({error: err})
+    })
+  }
+
+
+  handleUpdateStatusFalse = ({ clientId, statusType }) => {
+    console.log(statusType)
+    clientAPI.updateVerifiedFalse({ clientId, statusType })
+    .then((updatedClient) => {
+      this.setState((prevState) => {
+        return {
+          clients: prevState.clients.map(client => (
             (client._id === updatedClient._id) ? updatedClient : client
           ))
         }
@@ -531,7 +549,8 @@ fetchAllAdminMessages = () => {
                 onCreateMessage={ this.handleCreateMessage }
                 currentUser={ currentUser }
                 onMessageDelete={ this.handleDeleteMessage }
-                onUpdateStatus={ this.handleUpdateStatus }
+                onUpdateStatusTrue={ this.handleUpdateStatusTrue }
+                onUpdateStatusFalse={ this.handleUpdateStatusFalse }
               />
                 ) : (
                 <p>loading..</p>
