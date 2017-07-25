@@ -2,6 +2,7 @@ import React from 'react'
 import { UnmountClosed as Collapse } from 'react-collapse'
 import StatusPage from './pages/StatusPage'
 import InfoPage from './pages/InfoPage'
+import OrdersPage from './pages/OrdersPage'
 import LogsPage from './pages/LogsPage'
 import NotesPage from './pages/NotesPage'
 import OrderPage from './pages/OrderPage'
@@ -13,10 +14,13 @@ export default function ClientExpand({
   changeRoute,
   client,
   clientId,
+  clientOrders,
   clientPage,
   closeImageModal,
   closeModal,
   expanded,
+  handleCreateOrder,
+  handleDeleteOrder,
   handlePdfQuote,
   imageData,
   onOrder,
@@ -37,7 +41,7 @@ export default function ClientExpand({
   
   return (
       <div>
-        <Collapse isOpened={ expanded } fixedHeight={500} style={{width: "90%", backgroundColor: "#3B3B3B", margin: "0 auto"}}>
+        <Collapse isOpened={ expanded } fixedHeight={400} style={{width: "90%", backgroundColor: "#3B3B3B", margin: "0 auto"}}>
         <div>
           <nav className="clientExpandSelection" style={{ backgroundColor: "#C4C4C4" }}>
             <a onClick={ () => changeRoute('status')}>STATUS</a>
@@ -46,6 +50,7 @@ export default function ClientExpand({
             <a onClick={ () => changeRoute('logs') }>LOGS</a>
             <a onClick={ () => changeRoute('order') }>ORDER</a>
             <a onClick={ () => changeRoute('quotes') }>QUOTES</a>
+            <a onClick={ () => changeRoute('orders') }>ORDERS</a>
           </nav>
           {
             clientPage === 'status' ?
@@ -90,6 +95,14 @@ export default function ClientExpand({
               onSend={ onSend }
               client={ client }
               orderUserId={ orderUserId }
+            />
+            :
+            clientPage === 'orders' ?
+            <OrdersPage
+              client={ client }
+              clientOrders={ clientOrders }
+              handleCreateOrder={ handleCreateOrder }
+              handleDeleteOrder={ handleDeleteOrder }
             />
             :
             ""
