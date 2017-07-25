@@ -27,6 +27,7 @@ const statusTypeToField = {
 export function updateVerified({ clientId, statusType }) {
   const fieldName = statusTypeToField[statusType]
   return axios.patch(`/api/client/${clientId}`,  {
+    // Take advantage of MongoDB’s ability to use key paths
     [`status.${fieldName}`]: true
   })
 }
