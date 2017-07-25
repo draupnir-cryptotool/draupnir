@@ -27,6 +27,6 @@ const statusTypeToField = {
 export function updateVerified({ clientId, statusType }) {
   const fieldName = statusTypeToField[statusType]
   return axios.patch(`/api/client/${clientId}`,  {
-    [fieldName]: true
+    [`status.${fieldName}`]: true
   })
 }
