@@ -18,7 +18,7 @@ const authRouter = require('./routes/auth');
 const settingsRouter = require('./routes/settingsRouter');
 const cors = require('cors');
 const imageRouter = require('./routes/imageRouter');
-const mailRouter = require('./routes/mailRouter')
+const mailRouter = require('./routes/mailRouter');
 
 
 const server = express();
