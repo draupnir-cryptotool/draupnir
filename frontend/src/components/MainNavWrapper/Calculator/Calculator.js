@@ -29,7 +29,7 @@ class Calculator extends React.Component{
       <div className="orderPage" style={{display: 'flex', marginTop: "25px"}}>
         <div className="orderForm" style={{display: 'flex', flexDirection: 'row', width: '50%' }}>
           <div style={{ margin: '0 3em 0 3em' }}>
-            <h1 style={{ textAlign: 'center' }}>FLOATS</h1>
+            <h1 style={{ color: '#EF940D', textAlign: 'center' }}>Best Order Calculator</h1>
             <Form horizontal>
 
               <FormGroup style={{ margin: "25px 0 25px 0" }} controlId="formHorizontalName">
