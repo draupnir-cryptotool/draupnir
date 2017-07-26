@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom'
 import { Button, FormGroup, ControlLabel, FormControl, Form, Col,
           Table      } from 'react-bootstrap'
 import _ from 'lodash'
-import * as orderAPI from '../../../../api/order'
+import * as orderAPI from '../../../api/order'
 import HyperLink from './HyperLink'
 import './pages.css'
 
-class OrderPage extends React.Component{
+class Calculator extends React.Component{
 
   submitOrder = (event, onOrder, onOrderId) => {
     event.preventDefault()
@@ -18,8 +18,6 @@ class OrderPage extends React.Component{
     const btceLimit = ReactDOM.findDOMNode(this.refs.btceFloat).value
     const bitstampLimit = ReactDOM.findDOMNode(this.refs.bitstampFloat).value
     onOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit })
-    const reqId = this.props.client._id
-    onOrderId({ reqId })
   }
 
   render() {
@@ -131,45 +129,4 @@ class OrderPage extends React.Component{
   }
 }
 
-export default OrderPage
-
-
-
-// <Table responsive>
-//               <thead>
-//                 <tr>
-//                   <th></th>
-//                   <th>Volume</th>
-//                   <th>Amount</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 <tr>
-//                   <td><h4>BITFINEX</h4></td>
-//                   <td>{ parseFloat(this.props.tempOrder.exchanges.bitfinex.coinBought).toFixed(2) }</td>
-//                   <td>{ parseFloat(this.props.tempOrder.exchanges.bitfinex.usdSpent).toFixed(2) }</td>
-//                 </tr>
-//                 <tr>
-//                   <td><h4>BTC-E</h4></td>
-//                   <td>{ parseFloat(this.props.tempOrder.exchanges.btce.coinBought).toFixed(2) }</td>
-//                   <td>{ parseFloat(this.props.tempOrder.exchanges.btce.usdSpent).toFixed(2) }</td>
-//                   <td></td>
-//                 </tr>
-//                 <tr>
-//                   <td><h4>BITSTAMP</h4></td>
-//                   <td>{ parseFloat(this.props.tempOrder.exchanges.bitstamp.coinBought).toFixed(2) }</td>
-//                   <td>{ parseFloat(this.props.tempOrder.exchanges.bitstamp.usdSpent).toFixed(2) }</td>
-//                   <td></td>
-//                 </tr>
-//                 <tr>
-//                   <td><h4><strong>TOTAL</strong></h4></td>
-//                   <td><strong>
-//                     { parseFloat(this.props.tempOrder.totalCoinBought).toFixed(2) }
-//                   </strong></td>
-//                   <td><strong>
-//                     { parseFloat(this.props.tempOrder.totalUsdSpent).toFixed(2) }
-//                   </strong></td>
-//                   <td></td>
-//                 </tr>
-//               </tbody>
-//             </Table>
+export default Calculator
