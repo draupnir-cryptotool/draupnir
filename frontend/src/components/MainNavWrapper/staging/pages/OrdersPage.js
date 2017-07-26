@@ -50,17 +50,17 @@ export default function OrdersPage({
             : <h4>No Client Orders</h4>
         }
       </div>
-      <Form horizontal style={{color: '#969696', float: 'right', width: '50%'}}>
+      <Form horizontal style={{color: '#969696', float: 'right', width: '250'}}>
         <FormGroup>
         
           <Col componentClass={ ControlLabel } sm={6}>
-            Order Amount 
+            Amount 
           </Col>
           <Col componentClass={ ControlLabel } sm={6}>
             <FormControl
               type="text" 
               id="amount"
-              placeholder='Enter order amount'
+              placeholder='Amount'
             />
           </Col>
 

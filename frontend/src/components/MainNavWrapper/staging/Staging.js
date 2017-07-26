@@ -33,6 +33,10 @@ export default function Staging({
   onDeleteClient,
   warningDeleteModal,
   showWarningDeleteModal,
+
+  onUpdateStatusTrue,
+  onUpdateStatusFalse,
+
 }){
 
   return (
@@ -76,7 +80,9 @@ export default function Staging({
             status={ client.status }
             tempOrder={ tempOrder }
             uniqId={ client.uniqId } 
-            uploadPhoto={ uploadPhoto }
+            uploadPhoto={uploadPhoto}
+            onUpdateStatusTrue={ onUpdateStatusTrue }
+            onUpdateStatusFalse={ onUpdateStatusFalse }
             onDeleteClient={ onDeleteClient }
             warningDeleteModal={ warningDeleteModal }
             showWarningDeleteModal={ showWarningDeleteModal }

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, NavLink as Link } from 'react-router-do
 import Staging from '../components/MainNavWrapper/staging/Staging'
 import MessagesWrapper from '../components/MainNavWrapper/messages/MessagesWrapper'
 import Logs from '../components/MainNavWrapper/Logs'
+import Calculator from '../components/MainNavWrapper/Calculator/Calculator'
 import Graphs from '../components/MainNavWrapper/Graphs'
 import Settings from '../components/MainNavWrapper/settings/Settings'
 import './component.css'
@@ -47,10 +48,14 @@ export default function MainNav({
   onCreateMessage,
   currentUser,
   onMessageDelete,
+
   onDeleteClient,
   warningDeleteModal,
   showWarningDeleteModal,
-  onCloseWarningDeleteModal
+  onCloseWarningDeleteModal,
+  onUpdateStatusTrue,
+  onUpdateStatusFalse,
+
 }) {
   const pageBodyStyle = {
     position: 'relative',
@@ -63,14 +68,15 @@ export default function MainNav({
         <div className="mainNav" style={{ marginTop: '2%', border: 'solid 1px' }}>
           <div className="mainNavLink">
             <Link to={'/home/staging'} activeStyle={{ color: 'white'}}> Staging </Link>
+            <Link to={'/home/calculator'} activeStyle={{ color: 'white'}}> Calculator </Link>
             <Link to={'/home/messages'} activeStyle={{ color: 'white'}}> Messages </Link>
             <Link to={'/home/logs'} activeStyle={{ color: 'white'}}> Logs </Link>
             <Link to={'/home/graphs'} activeStyle={{ color: 'white'}}> Graphs </Link>
             <Link to={'/home/settings'} activeStyle={{ color: 'white'}}> Settings </Link>
-          </div>          
+          </div>       
         </div>
         <Route path='/home/staging' render={ () => (
-          <Staging 
+          <Staging
             ausPrices={ ausPrices }
             changeRoute={ changeRoute }
             clientModal={ clientModal } 
@@ -95,11 +101,26 @@ export default function MainNav({
             showClientImageModal={showClientImageModal}
             showModal={ showModal }
             tempOrder={ tempOrder }
+            onUpdateStatusTrue={ onUpdateStatusTrue }
+            onUpdateStatusFalse={ onUpdateStatusFalse }
             uploadPhoto={ uploadPhoto }
             onDeleteClient={ onDeleteClient }
             warningDeleteModal={ warningDeleteModal }
             showWarningDeleteModal={ showWarningDeleteModal }
           />
+        )
+        } />
+        <Route path='/home/calculator' render={() => (
+          <div style={ pageBodyStyle }>
+            <Calculator
+              settings={ settings }
+              orders={ orders }
+              tempOrder={ tempOrder }
+              onOrder={ onOrder }
+              onOrderId={ onOrderId }
+              orderUserId={ orderUserId }
+            />
+          </div>
         )
         } />
         <Route path='/home/messages' render={() => (
