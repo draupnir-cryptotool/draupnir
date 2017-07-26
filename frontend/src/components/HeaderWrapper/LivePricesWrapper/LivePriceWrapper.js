@@ -90,36 +90,40 @@ export default function LivePriceWrapper({
         </tbody>
       </Table>
     </div>
-      <div style={{marginLeft: '35%', display: "flex"}}>
-        <div style={{ flexDirection: "row" }}>
-          <Button
-            className='currencySwitch'
-            bsStyle='default'
-            bsSize='small'
-            onClick={onCurrencyChangeUsd}
-            style={{
-              backgroundColor: currentCurrency === 'usd' ? '#EF940D' : "#969696",
-              borderColor: currentCurrency === 'usd' ? '#EF940D' : "#969696",
-            }}
-          >
-            USD
-          </Button>
-        </div>
-        <div style={{ flexDirection: "row" }}>
-          <Button
-            className='currencySwitch'
-            bsStyle='default'
-            bsSize='small'
-            onClick={onCurrencyChangeAud}
-            style={{
-              backgroundColor: currentCurrency === 'aud' ? '#EF940D' : "#969696",
-              borderColor: currentCurrency === 'aud' ? '#EF940D' : "#969696",
-            }}
-          >
-            AUD
-          </Button>
-        </div>
+    <div style={{
+        float: 'right',
+        marginLeft: '35%',
+        display: "flex"
+      }}>
+      <div style={{ flexDirection: "row" }}>
+        <Button
+          className='currencySwitch'
+          bsStyle='default'
+          bsSize='small'
+          onClick={onCurrencyChangeUsd}
+          style={{
+            backgroundColor: currentCurrency === 'usd' ? '#EF940D' : "#969696",
+            borderColor: currentCurrency === 'usd' ? '#EF940D' : "#969696",
+          }}
+        >
+          USD
+        </Button>
+      </div>
+      <div style={{ flexDirection: "row" }}>
+        <Button
+          className='currencySwitch'
+          bsStyle='default'
+          bsSize='small'
+          onClick={onCurrencyChangeAud}
+          style={{
+            backgroundColor: currentCurrency === 'aud' ? '#EF940D' : "#969696",
+            borderColor: currentCurrency === 'aud' ? '#EF940D' : "#969696",
+          }}
+        >
+          AUD
+        </Button>
       </div>
     </div>
+  </div>
   )
 }
