@@ -30,6 +30,9 @@ export default function Staging({
   showModal,
   tempOrder,
   uploadPhoto,
+  onUpdateStatusTrue,
+  onUpdateStatusFalse,
+  onDeleteClient
 }){
 
   return (
@@ -74,6 +77,9 @@ export default function Staging({
             tempOrder={ tempOrder }
             uniqId={ client.uniqId } 
             uploadPhoto={uploadPhoto}
+            onUpdateStatusTrue={ onUpdateStatusTrue }
+            onUpdateStatusFalse={ onUpdateStatusFalse }
+            onDeleteClient={ onDeleteClient }
           />
         ))
         :

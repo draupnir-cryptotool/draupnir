@@ -46,7 +46,10 @@ export default function MainNav({
   adminMessages,
   onCreateMessage,
   currentUser,
-  onMessageDelete
+  onMessageDelete,
+  onUpdateStatusTrue,
+  onUpdateStatusFalse,
+  onDeleteClient
 }) {
   const pageBodyStyle = {
     position: 'relative',
@@ -63,17 +66,17 @@ export default function MainNav({
             <Link to={'/home/logs'} activeStyle={{ color: 'white'}}> Logs </Link>
             <Link to={'/home/graphs'} activeStyle={{ color: 'white'}}> Graphs </Link>
             <Link to={'/home/settings'} activeStyle={{ color: 'white'}}> Settings </Link>
-          </div>          
+          </div>       
         </div>
         <Route path='/home/staging' render={ () => (
-          <Staging 
+          <Staging
             ausPrices={ ausPrices }
             changeRoute={ changeRoute }
             clientModal={ clientModal } 
             clientOrders={ clientOrders }
             clientPage={ clientPage }
             clients={ clients }
-            closeImageModal={closeImageModal}
+            closeImageModal={ closeImageModal }
             closeModal={ closeModal }
             expandedClientID={ expandedClientID }
             handleCreateOrder={ handleCreateOrder }
@@ -91,7 +94,10 @@ export default function MainNav({
             showClientImageModal={showClientImageModal}
             showModal={ showModal }
             tempOrder={ tempOrder }
-            uploadPhoto={uploadPhoto}
+            onUpdateStatusTrue={ onUpdateStatusTrue }
+            onUpdateStatusFalse={ onUpdateStatusFalse }
+            uploadPhoto={ uploadPhoto }
+            onDeleteClient={ onDeleteClient }
           />
         )
         } />
