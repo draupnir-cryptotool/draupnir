@@ -33,6 +33,8 @@ export default function ClientBar({
   tempOrder,
   uniqId,
   uploadPhoto,
+  onUpdateStatusTrue,
+  onUpdateStatusFalse,
   onDeleteClient
 }) {
     const handleDeleteClient = (onDeleteClient) => {
@@ -87,6 +89,8 @@ export default function ClientBar({
             tempOrder={ tempOrder }
             uniqId={ uniqId }
             uploadPhoto={uploadPhoto}
+            onUpdateStatusTrue={ onUpdateStatusTrue }
+            onUpdateStatusFalse={ onUpdateStatusFalse }
           />
         </div>
     </div>
