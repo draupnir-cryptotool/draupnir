@@ -21,6 +21,7 @@ import MainNav from './components/MainNav';
 import Order from './components/Order';
 import PdfForm from './components/pdfForm';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import WarningDeleteModal from './components/Modal/warningDeleteModal'
 
 class App extends Component {
   state = {
@@ -37,6 +38,7 @@ class App extends Component {
     bitstampBitcoinPrice: null,
     showModal: false,
     showClientImageModal: false,
+    showWarningDeleteModal: false,
     clients: null,
     clientPage: null,
     orders: null,
@@ -478,6 +480,10 @@ fetchAllClientOrders = () => {
     this.setState({ showModal: false })
   }
 
+  handleModal = (modal) => {
+      this.setState({[modal]: !this.state[modal]})
+  }
+
   handleOpenClientImageModal = () => {
     this.setState({ showClientImageModal: true })
   }
@@ -519,6 +525,7 @@ fetchAllClientOrders = () => {
       orderUserId,
       orders,
       showClientImageModal,
+      showWarningDeleteModal,
       showModal,
       tempOrder,
       token,
@@ -609,6 +616,8 @@ fetchAllClientOrders = () => {
                 onUpdateStatusTrue={ this.handleUpdateStatusTrue }
                 onUpdateStatusFalse={ this.handleUpdateStatusFalse }
                 onDeleteClient={ this.handleDeleteClient }
+                warningDeleteModal={ this.handleModal}
+                showWarningDeleteModal={ showWarningDeleteModal }
               />
                 ) : (
                 <p>loading..</p>
