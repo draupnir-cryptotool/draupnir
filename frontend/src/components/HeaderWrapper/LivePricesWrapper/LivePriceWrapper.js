@@ -1,12 +1,10 @@
 import React from 'react'
 // import BitfinexWrapper from './BitfinexWrapper'
-import { Table } from 'react-bootstrap'
-import BitfinexBitPrice from './BitfinexBitcoinPrice'
-import BitfinexEthPrice from './BitfinexEthPrice'
-import BtceBitcoinPrice from './BtceBitcoinPrice'
-import BitstampBitcoinPrice from './BitstampBitcoinPrice'
-import BtceEthPrice from './BtceEthPrice'
-import { Button } from 'react-bootstrap'
+import {
+  Table,
+  Button,
+} from 'react-bootstrap'
+import NumberFormat from 'react-number-format'
 import './livePrice.css'
 
 export default function LivePriceWrapper({
@@ -22,29 +20,104 @@ export default function LivePriceWrapper({
 
   return (
     <div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gridGap: '5px', gridAutoRows: 'minmax(50px, auto)'}}>
-        <div></div>
-        <div><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Bitfinex</p></div>
-        <div><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>BTC-E</p></div>
-        <div><p style={{color: 'white', fontSize: '1.5em', color: '#3E47FF'}}>Bitstamp</p></div>
-        <div><p style={{color: 'white', textAlign: 'right', marginRight: '10px', fontSize: '1.5em'}}>BTC:</p></div>
-        <div><BitfinexBitPrice bitfinexBtcValue={ parseFloat(bitfinexBtcValue).toFixed(2) }/></div>
-        <div><BtceBitcoinPrice btceBtcValue={ parseFloat(btceBtcValue).toFixed(2) }/></div>
-        <div><BitstampBitcoinPrice bitstampBtcValue={ parseFloat(bitstampBtcValue).toFixed(2) } /></div>
-
-        <div><p style={{color: 'white', textAlign: 'right', marginRight: '10px', fontSize: '1.5em'}}>ETH:</p></div>
-        <div><BitfinexEthPrice bitfinexEthValue={ parseFloat(bitfinexEthValue).toFixed(2) }/></div>
-        <div><BtceEthPrice btceEthValue={ parseFloat(btceEthValue).toFixed(2) }/></div>
-        
-      </div>
+    <div style={{color: '#969696', fontSize: '2rem'}}>
+      <Table>
+        <thead style={{color: '#EF940D'}}>
+          <tr>
+            <th>Exchange</th>
+            <th>BTC</th>
+            <th>ETH</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bitfinex</td>
+            <td>
+              <NumberFormat
+                value={bitfinexBtcValue}
+                decimalPrecision={2}
+                displayType={'text'}
+                thousandSeparator={true}
+                prefix={'$'}
+              />
+            </td>
+            <td>
+              <NumberFormat
+                value={bitfinexEthValue}
+                decimalPrecision={2}
+                displayType={'text'}
+                thousandSeparator={true}
+                prefix={'$'}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Bitstamp</td>
+            <td>
+              <NumberFormat
+                value={bitstampBtcValue}
+                decimalPrecision={2}
+                displayType={'text'}
+                thousandSeparator={true}
+                prefix={'$'}
+              />
+            </td>
+            <td>
+              NA
+            </td>
+          </tr>
+          <tr>
+            <td>BTC-e</td>
+            <td>
+              <NumberFormat
+                value={btceBtcValue}
+                decimalPrecision={2}
+                displayType={'text'}
+                thousandSeparator={true}
+                prefix={'$'}
+              />
+            </td>
+            <td>
+              <NumberFormat
+                value={btceEthValue}
+                decimalPrecision={2}
+                displayType={'text'}
+                thousandSeparator={true}
+                prefix={'$'}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+    </div>
       <div style={{marginLeft: '35%', display: "flex"}}>
         <div style={{ flexDirection: "row" }}>
-          <Button className='currencySwitch' bsStyle='default' bsSize='small' onClick={onCurrencyChangeUsd} style={{ backgroundColor: currentCurrency === 'usd' ? "#26C026" : '',
-                    borderColor: currentCurrency === 'usd' ? "#26C026" : ''  }}>USD</Button>
+          <Button
+            className='currencySwitch'
+            bsStyle='default'
+            bsSize='small'
+            onClick={onCurrencyChangeUsd}
+            style={{
+              backgroundColor: currentCurrency === 'usd' ? '#EF940D' : "#969696",
+              borderColor: currentCurrency === 'usd' ? '#EF940D' : "#969696",
+            }}
+          >
+            USD
+          </Button>
         </div>
         <div style={{ flexDirection: "row" }}>
-          <Button className='currencySwitch' bsStyle='default' bsSize='small' onClick={onCurrencyChangeAud} style={{ backgroundColor: currentCurrency === 'aud' ? "#26C026" : '',
-                    borderColor: currentCurrency === 'aud' ? "#26C026" : ''  }}>AUD</Button>
+          <Button
+            className='currencySwitch'
+            bsStyle='default'
+            bsSize='small'
+            onClick={onCurrencyChangeAud}
+            style={{
+              backgroundColor: currentCurrency === 'aud' ? '#EF940D' : "#969696",
+              borderColor: currentCurrency === 'aud' ? '#EF940D' : "#969696",
+            }}
+          >
+            AUD
+          </Button>
         </div>
       </div>
     </div>
