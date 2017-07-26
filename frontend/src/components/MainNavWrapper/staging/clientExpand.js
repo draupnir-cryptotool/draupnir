@@ -48,7 +48,6 @@ export default function ClientExpand({
             <a onClick={ () => changeRoute('info') }>INFO</a>
             <a onClick={ () => changeRoute('notes') }>NOTES</a>
             <a onClick={ () => changeRoute('logs') }>LOGS</a>
-            <a onClick={ () => changeRoute('order') }>ORDER</a>
             <a onClick={ () => changeRoute('quotes') }>QUOTES</a>
             <a onClick={ () => changeRoute('orders') }>ORDERS</a>
           </nav>
@@ -76,17 +75,6 @@ export default function ClientExpand({
             :
             clientPage === 'logs' ?
             <h1 style={{ color: "#FFFFFF" }}>Logs</h1>
-            :
-            clientPage === 'order' ?
-            <OrderPage
-              settings={ settings }
-              orders={ orders }
-              tempOrder={ tempOrder }
-              onOrder={ onOrder }
-              client={ client }
-              onOrderId={ onOrderId }
-              orderUserId={ orderUserId }
-            />
             :
             clientPage === 'quotes' ?
             <QuotePage 
