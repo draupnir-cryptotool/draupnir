@@ -7,10 +7,10 @@ import * as clientOrdersAPI from './api/clientOrders.js';
 import * as imageAPI from './api/image';
 import * as livePriceApi from './api/livePrice';
 import * as mailAPI from './api/mail';
+import * as messageAPI from './api/message';
 import * as orderAPI from './api/order';
 import * as pdfQuoteAPI from './api/pdfQuote';
 import * as settingsAPI from './api/settings';
-import * as messageAPI from './api/message';
 import ClientImageModal from './components/Modal/ClientImageModal';
 import ClientModal from './components/Modal/ClientModal';
 import Header from './components/Header';
@@ -21,6 +21,7 @@ import Mail from './components/Mail';
 import MainNav from './components/MainNav';
 import Order from './components/Order';
 import PdfForm from './components/pdfForm';
+import WarningDeleteModal from './components/Modal/warningDeleteModal'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class App extends Component {
@@ -49,6 +50,7 @@ class App extends Component {
     orders: null,
     showClientImageModal: false,
     showModal: false,
+    showWarningDeleteModal: false,
     tempOrder: null,
   }
 
@@ -480,6 +482,10 @@ fetchAllClientOrders = () => {
     this.setState({ showModal: false })
   }
 
+  handleModal = (modal) => {
+      this.setState({[modal]: !this.state[modal]})
+  }
+
   handleOpenClientImageModal = () => {
     this.setState({ showClientImageModal: true })
   }
@@ -525,6 +531,7 @@ fetchAllClientOrders = () => {
       orderUserId,
       orders,
       showClientImageModal,
+      showWarningDeleteModal,
       showModal,
       tempOrder,
       token,
@@ -592,8 +599,10 @@ fetchAllClientOrders = () => {
                 settings={ masterSettings }
                 showClientImageModal={ showClientImageModal }
                 showModal={ this.handleOpenClientImageModal }
+                showWarningDeleteModal={ showWarningDeleteModal }
                 tempOrder={ tempOrder }
                 uploadPhoto={ this.handleUploadPhoto }
+                warningDeleteModal={ this.handleModal}
               />
                 ) : (
                 <p>loading..</p>

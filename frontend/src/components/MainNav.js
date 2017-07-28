@@ -48,9 +48,14 @@ export default function MainNav({
   onCreateMessage,
   currentUser,
   onMessageDelete,
+
+  onDeleteClient,
+  warningDeleteModal,
+  showWarningDeleteModal,
+  onCloseWarningDeleteModal,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
-  onDeleteClient
+
 }) {
   const pageBodyStyle = {
     position: 'relative',
@@ -100,6 +105,8 @@ export default function MainNav({
             onUpdateStatusFalse={ onUpdateStatusFalse }
             uploadPhoto={ uploadPhoto }
             onDeleteClient={ onDeleteClient }
+            warningDeleteModal={ warningDeleteModal }
+            showWarningDeleteModal={ showWarningDeleteModal }
           />
         )
         } />
