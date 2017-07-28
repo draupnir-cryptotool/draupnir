@@ -1,0 +1,33 @@
+.loading_spinner-wrap {
+  width: 100%;
+  padding: 50px 0;
+}
+
+.loading_spinner {
+  display: block;
+  margin: 0 auto;
+  fill: #EF940D;
+}
+
+circle {
+  animation-name: upAndDown;
+  animation-duration: 2s;
+  animation-timing-function: cubic-bezier(.05, .2, .35, 1);
+  animation-iteration-count: infinite;
+}
+
+.loading_spinner:nth-child(2) circle{
+  animation-delay: .18s;
+}
+
+.loading_spinner:nth-child(3) circle{
+  animation-delay: .36s;
+}
+
+
+@keyframes upAndDown {
+  0% { opacity: 0; transform: translateY(0); }
+  25% { opacity: 1; transform: translateY(-10px); }
+  75% { opacity: 1; transform: translateY(-10px); }
+  100% { opacity: 0; transform: translateY(0); }
+}
