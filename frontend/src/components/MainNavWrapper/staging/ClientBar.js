@@ -40,7 +40,6 @@ export default function ClientBar({
   showWarningDeleteModal,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
-
 }) {
 
   const imageDataFind = ((images, id) => {
@@ -75,6 +74,7 @@ const modal = "showWarningDeleteModal"
             showWarningDeleteModal={ showWarningDeleteModal }
             warningDeleteModal={ warningDeleteModal }
             onDeleteClient={ onDeleteClient }
+            model={ 'client' }
             id={ id }
         />
           <ClientExpand 

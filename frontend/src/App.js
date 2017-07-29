@@ -483,7 +483,7 @@ fetchAllClientOrders = () => {
   handleModal = (modal) => {
       this.setState({[modal]: !this.state[modal]})
   }
-
+    
   handleOpenClientImageModal = () => {
     this.setState({ showClientImageModal: true })
   }
@@ -493,7 +493,8 @@ fetchAllClientOrders = () => {
   }
 
   // Expands client bar
-  onSwitchClientBar = (clientID) => {
+  onSwitchClientBar = (e, clientID) => {
+    e.preventDefault()
     this.setState((prevState) => ({
       expandedClientID:
         (prevState.expandedClientID === clientID) ? null : clientID
