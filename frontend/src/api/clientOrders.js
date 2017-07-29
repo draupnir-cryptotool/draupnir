@@ -29,3 +29,27 @@ export function deleteOrder({ orderId }) {
   })
 }
 
+const statusTypeToField = {
+  quoteSent: 'quoteSent',
+  quoteAccepted: 'quoteAccepted',
+  depositCleared: 'depositCleared',
+  orderComplete: 'orderComplete'
+}
+
+export function updateVerifiedTrue({ orderId, statusType }) {
+  const fieldName = statusTypeToField[statusType]
+  return axios.patch(`/api/clientorders/${orderId}`,  {
+    // Take advantage of MongoDB’s ability to use key paths
+    [`status.${fieldName}`]: true 
+  })
+  .then(res => res.data)
+}
+
+export function updateVerifiedFalse({ orderId, statusType }) {
+  const fieldName = statusTypeToField[statusType]
+  return axios.patch(`/api/clientorders/${orderId}`,  {
+    // Take advantage of MongoDB’s ability to use key paths
+    [`status.${fieldName}`]: false
+  })
+  .then(res => res.data)
+}
