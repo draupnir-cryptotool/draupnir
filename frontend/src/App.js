@@ -1,55 +1,57 @@
 import React, { Component } from 'react';
 import './App.css';
-import * as ausPricesAPI from './api/ausPrices'
+import * as ausPricesAPI from './api/ausPrices';
 import * as authAPI from './api/auth';
-import * as clientAPI from './api/client'
-import * as clientOrdersAPI from './api/clientOrders.js'
-import * as imageAPI from './api/image'
-import * as livePriceApi from './api/livePrice'
-import * as mailAPI from './api/mail'
-import * as orderAPI from './api/order'
-import * as pdfQuoteAPI from './api/pdfQuote'
-import * as settingsAPI from './api/settings'
-import * as messageAPI from './api/message'
-import ClientImageModal from './components/Modal/ClientImageModal'
-import ClientModal from './components/Modal/ClientModal'
+import * as clientAPI from './api/client';
+import * as clientOrdersAPI from './api/clientOrders.js';
+import * as imageAPI from './api/image';
+import * as livePriceApi from './api/livePrice';
+import * as mailAPI from './api/mail';
+import * as messageAPI from './api/message';
+import * as orderAPI from './api/order';
+import * as pdfQuoteAPI from './api/pdfQuote';
+import * as settingsAPI from './api/settings';
+import ClientImageModal from './components/Modal/ClientImageModal';
+import ClientModal from './components/Modal/ClientModal';
 import Header from './components/Header';
 import Image from './components/Image';
+import Loader from 'react-loader';
 import LogInform from './components/logIn/LogInForm';
 import Mail from './components/Mail';
 import MainNav from './components/MainNav';
 import Order from './components/Order';
 import PdfForm from './components/pdfForm';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import WarningDeleteModal from './components/Modal/warningDeleteModal'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class App extends Component {
   state = {
     token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhdEBtYW4uY29tIiwiaGFzVmVyaWZpZWQyRkEiOnRydWUsImlhdCI6MTUwMDc3MjQyOCwiZXhwIjoxNTAwNzc2MDI4LCJzdWIiOiI1OTYyZmY2YjUwMWQxNTY0ODUyMWQ1NDAifQ.iGToIuASfnIpkYU-E1-eoO1jmUUq5n9rU2i7bVZENw8",
-    error: null,
-    currentCurrency: 'usd',
+    adminMessages: null,
     ausPrices: null,
     bitcoinBalance: null,
-    ethereumBalance: null,
     bitfinexBitcoinPrice: null,
     bitfinexEthPrice: null,
+    bitstampBitcoinPrice: null,
     btceBitcoinPrice: null,
     btceEthPrice: null,
-    bitstampBitcoinPrice: null,
-    showModal: false,
-    showClientImageModal: false,
-    showWarningDeleteModal: false,
-    clients: null,
-    clientPage: null,
-    orders: null,
-    images: null,
-    masterSettings: null,
-    expandedClientID: null,
-    tempOrder: null,
-    orderUserId: null,
-    adminMessages: null,
-    currentUser: null,
     clientOrders: null,
+    clientPage: null,
+    clients: null,
+    currentCurrency: 'usd',
+    currentUser: null,
+    error: null,
+    ethereumBalance: null,
+    expandedClientID: null,
+    images: null,
+    loader: false,
+    masterSettings: null,
+    orderUserId: null,
+    orders: null,
+    showClientImageModal: false,
+    showModal: false,
+    showWarningDeleteModal: false,
+    tempOrder: null,
   }
 
   // Fetching best order rates from exchanges
@@ -504,6 +506,7 @@ fetchAllClientOrders = () => {
 
   render() {
     const { 
+      adminMessages,
       ausPrices,
       bitcoinBalance,
       bitfinexBitcoinPrice,
@@ -511,14 +514,17 @@ fetchAllClientOrders = () => {
       bitstampBitcoinPrice,
       btceBitcoinPrice,
       btceEthPrice,
+      clientOrders,
       clientPage,
       clients,
       currentCurrency,
+      currentUser,
       error,
       ethereumBalance,
       expandedClientID,
       handleDeleteOrder,
       images,
+      loader,
       masterSettings,
       orderUserId,
       orders,
@@ -527,9 +533,6 @@ fetchAllClientOrders = () => {
       showModal,
       tempOrder,
       token,
-      adminMessages,
-      currentUser,
-      clientOrders,
     } = this.state
     return (
       <Router>
@@ -546,29 +549,17 @@ fetchAllClientOrders = () => {
 
           <div>
             <div>
-            {
-            !!bitcoinBalance && !!ethereumBalance && !!!!bitfinexBitcoinPrice &&
-            !!bitfinexEthPrice && !!btceBitcoinPrice && !!btceEthPrice && !!bitstampBitcoinPrice && !!masterSettings && !!currentUser ? (
               <Header 
-                settings={ masterSettings }
                 bitBalance={ bitcoinBalance }
-                onBtcUpdate={ this.fetchBitcoinPrice }
-                etherBalance={ ethereumBalance }
-                onEthUpdate={ this.fetchEthereumPrice }
-                bitfinexBtcValue={ currentCurrency === 'usd' ? bitfinexBitcoinPrice.usdPrice : bitfinexBitcoinPrice.audPrice }
-                bitfinexEthValue={ currentCurrency === 'usd' ? bitfinexEthPrice.usdPrice : bitfinexEthPrice.audPrice }
-                btceBtcValue={ currentCurrency === 'usd' ? btceBitcoinPrice.usdPrice : btceBitcoinPrice.audPrice }
-                btceEthValue={ currentCurrency === 'usd' ? btceEthPrice.usdPrice : btceEthPrice.audPrice }
-                bitstampBtcValue={ currentCurrency === 'usd' ? bitstampBitcoinPrice.usdPrice : bitstampBitcoinPrice.audPrice }
-                onCurrencyChangeUsd={ this.onSwitchUSDCurrency }
-                onCurrencyChangeAud={ this.onSwitchAUDCurrency }
                 currentCurrency={ currentCurrency }
                 currentUser={ currentUser }
+                etherBalance={ ethereumBalance }
+                onBtcUpdate={ this.fetchBitcoinPrice }
+                onCurrencyChangeAud={ this.onSwitchAUDCurrency }
+                onCurrencyChangeUsd={ this.onSwitchUSDCurrency }
+                onEthUpdate={ this.fetchEthereumPrice }
+                settings={ masterSettings }
               /> 
-            ) : (
-              <p>loading..</p>
-            )
-            }  
             </div>
             <div>
             {
@@ -592,30 +583,24 @@ fetchAllClientOrders = () => {
                 onBtcUpdate={ this.updateBitcoinWalletAddress }
                 onClientBarExpand={ this.onSwitchClientBar}
                 onCreateMessage={ this.handleCreateMessage }
+                onDeleteClient={ this.handleDeleteClient }
                 onEthUpdate={ this.updateEthereumWalletAddress }
                 onMessageDelete={ this.handleDeleteMessage }
                 onOrder={ this.handleQueryOrder }
                 onOrderId={ this.handleSetOrderId }
                 onSend={ this.handleSendMail }
                 onUpdate={ this.handleUpdateSettings }
+                onUpdateStatusFalse={ this.handleUpdateStatusFalse }
+                onUpdateStatusTrue={ this.handleUpdateStatusTrue }
                 orderUserId={ orderUserId }
                 orders={ orders }
                 settings={ masterSettings }
                 showClientImageModal={ showClientImageModal }
                 showModal={ this.handleOpenClientImageModal }
+                showWarningDeleteModal={ showWarningDeleteModal }
                 tempOrder={ tempOrder }
                 uploadPhoto={ this.handleUploadPhoto }
-                onBtcUpdate={ this.updateBitcoinWalletAddress }
-                onEthUpdate={ this.updateEthereumWalletAddress }
-                adminMessages={ adminMessages }
-                onCreateMessage={ this.handleCreateMessage }
-                currentUser={ currentUser }
-                onMessageDelete={ this.handleDeleteMessage }
-                onUpdateStatusTrue={ this.handleUpdateStatusTrue }
-                onUpdateStatusFalse={ this.handleUpdateStatusFalse }
-                onDeleteClient={ this.handleDeleteClient }
                 warningDeleteModal={ this.handleModal}
-                showWarningDeleteModal={ showWarningDeleteModal }
               />
                 ) : (
                 <p>loading..</p>
@@ -623,30 +608,13 @@ fetchAllClientOrders = () => {
 
             }
             </div>
-            <ClientModal showModal={ showModal } closeModal={ this.handleCloseModal } createClient={ this.handleCreateClient }/>
+            <ClientModal
+              showModal={ showModal }
+              closeModal={ this.handleCloseModal }
+              createClient={ this.handleCreateClient }
+            />
             </div>
         )
-        } />
-        <Route path='/order' render={() => (
-
-          <div>
-            <Order />
-          </div>
-        )
-      } />
-        <Route path='/image' render={() => (
-            
-            <div>
-              <Image />
-            </div>
-          )
-        } />
-        <Route path='/mail' render={() => (
-            
-            <div>
-              <Mail onSend={ this.handleSendMail }/>
-            </div>
-          )
         } />
         </main>
       </Router>
@@ -669,6 +637,7 @@ fetchAllClientOrders = () => {
     this.fetchImagesData()
     this.fetchSettings()
     this.fetchSignedInAdminDetails()
+    this.setState({loader: true})
   }
 }
 
