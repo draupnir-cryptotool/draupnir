@@ -59,8 +59,8 @@ const modal = "showWarningDeleteModal"
             {
               clientOrders.map((order) => (
                 !!_.includes(order.status, false) && order.clientId === client._id ?
-              <div style={{flexDirection: "row", width: "1%", backgroundColor: "red"}}></div> :
-              <div style={{flexDirection: "row", width: "1%", backgroundColor: "green"}}></div>
+              <div style={{flexDirection: "row", width: "1%", backgroundColor: "#CB2424"}}></div> :
+              <div style={{flexDirection: "row", width: "1%", backgroundColor: "#4CC941"}}></div>
               ))
             }
             <div onClick={ onExpand } id="clientBarTitle" style={{flexDirection: "row", width: "90%", marginLeft: "8%"}}>
