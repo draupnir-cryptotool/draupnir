@@ -33,8 +33,15 @@ export default function Staging({
   onDeleteClient,
   warningDeleteModal,
   showWarningDeleteModal,
+<<<<<<< HEAD
   onUpdateStatusTrue,
   onUpdateStatusFalse,
+=======
+
+  onUpdateStatusTrue,
+  onUpdateStatusFalse,
+
+>>>>>>> master
 }){
 
   return (

@@ -39,6 +39,10 @@ export default function ClientBar({
   showWarningDeleteModal,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 }) {
 
   const imageDataFind = ((images, id) => {
