@@ -36,7 +36,9 @@ export default function ClientBar({
   uploadPhoto,
   onDeleteClient,
   warningDeleteModal,
-  showWarningDeleteModal
+  showWarningDeleteModal,
+  onUpdateStatusTrue,
+  onUpdateStatusFalse,
 }) {
 
   const imageDataFind = ((images, id) => {
@@ -65,6 +67,7 @@ const modal = "showWarningDeleteModal"
             showWarningDeleteModal={ showWarningDeleteModal }
             warningDeleteModal={ warningDeleteModal }
             onDeleteClient={ onDeleteClient }
+            model={ 'client' }
             id={ id }
         />
           <ClientExpand 
@@ -93,6 +96,8 @@ const modal = "showWarningDeleteModal"
             tempOrder={ tempOrder }
             uniqId={ uniqId }
             uploadPhoto={uploadPhoto}
+            onUpdateStatusTrue={ onUpdateStatusTrue }
+            onUpdateStatusFalse={ onUpdateStatusFalse }
           />
         </div>
     </div>

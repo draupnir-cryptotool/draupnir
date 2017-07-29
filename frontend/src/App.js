@@ -118,12 +118,31 @@ class App extends Component {
     })
   }
 
-  handleUpdateStatus = ({ clientId, statusType }) => {
-    clientAPI.updateVerified({ clientId, statusType })
+  handleUpdateStatusTrue = ({ clientId, statusType }) => {
+    clientAPI.updateVerifiedTrue({ clientId, statusType })
     .then((updatedClient) => {
-      this.setState(({ clients }) => {
+      this.setState((prevState) => {
+        return { 
+          clients: prevState.clients.map(client => (
+            (client._id === updatedClient._id) ? updatedClient : client
+          ))
+
+        }
+      })
+    })
+    .catch((err) => {
+      this.setState({error: err})
+    })
+  }
+
+
+  handleUpdateStatusFalse = ({ clientId, statusType }) => {
+    clientAPI.updateVerifiedFalse({ clientId, statusType })
+    .then((updatedClient) => {
+      this.setState((prevState) => {
+        console.log(updatedClient)
         return {
-          clients: clients.map(client => (
+          clients: prevState.clients.map(client => (
             (client._id === updatedClient._id) ? updatedClient : client
           ))
         }
@@ -464,7 +483,7 @@ fetchAllClientOrders = () => {
   handleModal = (modal) => {
       this.setState({[modal]: !this.state[modal]})
   }
-
+    
   handleOpenClientImageModal = () => {
     this.setState({ showClientImageModal: true })
   }
@@ -474,7 +493,8 @@ fetchAllClientOrders = () => {
   }
 
   // Expands client bar
-  onSwitchClientBar = (clientID) => {
+  onSwitchClientBar = (e, clientID) => {
+    e.preventDefault()
     this.setState((prevState) => ({
       expandedClientID:
         (prevState.expandedClientID === clientID) ? null : clientID
@@ -588,6 +608,14 @@ fetchAllClientOrders = () => {
                 showModal={ this.handleOpenClientImageModal }
                 tempOrder={ tempOrder }
                 uploadPhoto={ this.handleUploadPhoto }
+                onBtcUpdate={ this.updateBitcoinWalletAddress }
+                onEthUpdate={ this.updateEthereumWalletAddress }
+                adminMessages={ adminMessages }
+                onCreateMessage={ this.handleCreateMessage }
+                currentUser={ currentUser }
+                onMessageDelete={ this.handleDeleteMessage }
+                onUpdateStatusTrue={ this.handleUpdateStatusTrue }
+                onUpdateStatusFalse={ this.handleUpdateStatusFalse }
                 onDeleteClient={ this.handleDeleteClient }
                 warningDeleteModal={ this.handleModal}
                 showWarningDeleteModal={ showWarningDeleteModal }

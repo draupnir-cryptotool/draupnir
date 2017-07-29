@@ -23,15 +23,26 @@ export function deleteClient({ clientId }) {
 }
 
 const statusTypeToField = {
-  id: 'idVerified',
-  quoteSent: 'quoteSentVerified',
-  quoteAccepted: 'quoteAcceptedVerified',
-  depositCleared: 'depositClearedVerified'
+  idVerified: 'idVerified',
+  quoteSent: 'quoteSent',
+  quoteAccepted: 'quoteAccepted',
+  depositCleared: 'depositCleared'
 }
 
-export function updateVerified({ clientId, statusType }) {
+export function updateVerifiedTrue({ clientId, statusType }) {
   const fieldName = statusTypeToField[statusType]
   return axios.patch(`/api/client/${clientId}`,  {
-    [fieldName]: true
+    // Take advantage of MongoDB’s ability to use key paths
+    [`status.${fieldName}`]: true 
   })
+  .then(res => res.data)
+}
+
+export function updateVerifiedFalse({ clientId, statusType }) {
+  const fieldName = statusTypeToField[statusType]
+  return axios.patch(`/api/client/${clientId}`,  {
+    // Take advantage of MongoDB’s ability to use key paths
+    [`status.${fieldName}`]: false
+  })
+  .then(res => res.data)
 }
