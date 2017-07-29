@@ -71,7 +71,7 @@ export default function Order({
           {' of ' + order.coin + ' '}
         </div>
         
-        <div style={{ flexDirection: "row", width: "15%" }}>
+        <div style={{ flexDirection: "row", width: "14%" }}>
         {
           order.status.quoteSent ?
           <div style={{ display: "flex" }}>
@@ -88,7 +88,7 @@ export default function Order({
         }
         </div>
 
-        <div style={{ flexDirection: "row", width: "15%" }}>
+        <div style={{ flexDirection: "row", width: "14%" }}>
         {
           order.status.quoteAccepted ?
           <div style={{ display: "flex" }}>
@@ -105,7 +105,7 @@ export default function Order({
         }
         </div>
 
-        <div style={{ flexDirection: "row", width: "15%" }}>
+        <div style={{ flexDirection: "row", width: "14%" }}>
         {
           order.status.depositCleared ?
           <div style={{ display: "flex" }}>
@@ -122,7 +122,7 @@ export default function Order({
         }
         </div>
 
-        <div style={{ flexDirection: "row", width: "15%" }}>
+        <div style={{ flexDirection: "row", width: "14%" }}>
         {
           order.status.orderComplete ?
           <div style={{ display: "flex" }}>
@@ -148,7 +148,7 @@ export default function Order({
           </Button>
         </div>
 
-        <div style={{  flexDirection: "row", width: "10%", textAlign: "right" }}>
+        <div style={{  flexDirection: "row", width: "14%", textAlign: "right" }}>
           <Moment style={{color: "#a9a9a9" }} 
           fromNow interval={0} date={order.created} />
         </div>

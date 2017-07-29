@@ -42,11 +42,11 @@ export default function ClientBar({
   onUpdateStatusFalse,
 }) {
 
-  const imageDataFind = ((images, id) => {
-    if(!!images) {
-    return images.filter((clientImages) => clientImages.clientId === id
-    )}
-  })
+const imageDataFind = ((images, id) => {
+  if(!!images) {
+  return images.filter((clientImages) => clientImages.clientId === id
+  )}
+})
 
 const modal = "showWarningDeleteModal"
 
@@ -56,12 +56,13 @@ const modal = "showWarningDeleteModal"
         <div>
           <div style={{ border: "solid 1px #3B3B3B" , margin: "2em 0 0", backgroundColor: "#3B3B3B", color: "#969696", display: "flex" }}>
             {
-              clientOrders.map((order) => (
-                !!_.includes(order.status, false) && order.clientId === client._id ?
+              clientOrders.map((clientOrder) => (
+                !!_.includes(clientOrder.status, false) && clientOrder.clientId === client._id ?
               <div style={{flexDirection: "row", width: "1%", backgroundColor: "#CB2424"}}></div> :
               <div style={{flexDirection: "row", width: "1%", backgroundColor: "#4CC941"}}></div>
               ))
             }
+            
             <div onClick={ onExpand } id="clientBarTitle" style={{flexDirection: "row", width: "90%", marginLeft: "8%"}}>
               <div><p>{ uniqId }</p></div>
               <div><p>{ firstname + " " + lastname }</p></div>

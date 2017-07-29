@@ -48,20 +48,12 @@ export default function MainNav({
   onCreateMessage,
   currentUser,
   onMessageDelete,
-<<<<<<< HEAD
-=======
-
->>>>>>> master
   onDeleteClient,
   warningDeleteModal,
   showWarningDeleteModal,
   onCloseWarningDeleteModal,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 }) {
   const pageBodyStyle = {
     position: 'relative',
