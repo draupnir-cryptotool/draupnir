@@ -40,13 +40,14 @@ router.post('/clientorders/new', (req, res) => {
 
 // edit order
 router.patch('/clientorders/:id', (req, res) => {
-  ClientOrder.findByIdAndUpdate(req.params.id, req.body, {new: true})
-  .then((clientOrder) => {
-    res.json(clientOrder);
-  })
-  .catch((err) => {
-    res.json({err: err});
-  });
+  const id = req.params.id
+  ClientOrder.findByIdAndUpdate(id, { $set: req.body }, {new: true } )
+    .then((client) => {
+      res.json(client)
+    })
+    .catch((error) => {
+      res.json({ error: error })
+    })
 });
 
 // delete an order

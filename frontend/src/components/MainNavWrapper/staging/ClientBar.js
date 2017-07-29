@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import './staging.css'
 import ClientExpand from './clientExpand'
 import DeleteIcon from 'react-icons/lib/go/x'
@@ -55,7 +56,13 @@ const modal = "showWarningDeleteModal"
     <div className="clientBar">
         <div>
           <div style={{ border: "solid 1px #3B3B3B" , margin: "2em 0 0", backgroundColor: "#3B3B3B", color: "#969696", display: "flex" }}>
-            <div style={{flexDirection: "row", width: "1%", backgroundColor: "red"}}></div>
+            {
+              clientOrders.map((order) => (
+                !!_.includes(order.status, false) && order.clientId === client._id ?
+              <div style={{flexDirection: "row", width: "1%", backgroundColor: "#CB2424"}}></div> :
+              <div style={{flexDirection: "row", width: "1%", backgroundColor: "#4CC941"}}></div>
+              ))
+            }
             <div onClick={ onExpand } id="clientBarTitle" style={{flexDirection: "row", width: "90%", marginLeft: "8%"}}>
               <div><p>{ uniqId }</p></div>
               <div><p>{ firstname + " " + lastname }</p></div>
