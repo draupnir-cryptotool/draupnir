@@ -32,7 +32,8 @@ export default function Staging({
   uploadPhoto,
   onDeleteClient,
   warningDeleteModal,
-  showWarningDeleteModal,
+  showWarningDeleteModalClient,
+  showWarningDeleteModalOrder,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
 }){
@@ -55,7 +56,7 @@ export default function Staging({
             client={ client }
             clientOrders={ clientOrders }
             clientPage={ clientPage }
-            closeImageModal={closeImageModal}
+            closeImageModal={ closeImageModal }
             closeModal={ closeModal }
             expanded={ expandedClientID === client._id }
             firstname={ client.firstname } 
@@ -73,7 +74,7 @@ export default function Staging({
             orderUserId={ orderUserId }
             orders={ orders }
             settings={ settings }
-            showClientImageModal={showClientImageModal}
+            showClientImageModal={ showClientImageModal }
             showModal={ showModal }
             status={ client.status }
             tempOrder={ tempOrder }
@@ -83,7 +84,8 @@ export default function Staging({
             onUpdateStatusFalse={ onUpdateStatusFalse }
             onDeleteClient={ onDeleteClient }
             warningDeleteModal={ warningDeleteModal }
-            showWarningDeleteModal={ showWarningDeleteModal }
+            showWarningDeleteModalClient={ showWarningDeleteModalClient }
+            showWarningDeleteModalOrder={ showWarningDeleteModalOrder }
           />
         ))
         :

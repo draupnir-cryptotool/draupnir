@@ -3,18 +3,15 @@ import { Button, Modal, ButtonToolbar } from 'react-bootstrap'
 
 export default function WarningDeleteModal({
 model, 
-executeFunction, 
-modelParameter, 
-showWarningDeleteModal,
-warningDeleteModal,
-onDeleteClient,
+showWarningDeleteModal, //will be either true or false
+warningDeleteModal, //
+deleteFunction,
+showModalStateName, //name of the state that shows this modal
 id
 }) {
-    const handleDeleteClient = (onDeleteClient) => {
-    const clientId = id
-    console.log(clientId)
-    onDeleteClient({clientId})
-    warningDeleteModal("showWarningDeleteModal")
+    const handleDelete = (deleteFunction) => {
+    deleteFunction({id})
+    warningDeleteModal(showModalStateName)
   }
 
   const modelTitle = {
@@ -23,15 +20,10 @@ id
     messages: `Are you sure you want to delete this ${model}`
   }
 
-    const handleExecution = () => (
-      executeFunction(modelParameter)
-    )
-
-
   return (
     <div className="static-modal">
       <Modal show={ showWarningDeleteModal }>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title><p>{modelTitle[model]}</p></Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -41,7 +33,7 @@ id
               bsStyle="primary" 
               bsSize="small"
               type="submit"
-              onClick={ () => ( handleDeleteClient(onDeleteClient)) }>
+              onClick={ () => ( handleDelete(deleteFunction)) }>
               {
                 "delete" + " " + model
               }
@@ -50,7 +42,7 @@ id
               bsStyle="default"
               bsSize="small" 
               type="submit"
-              onClick={ () => (warningDeleteModal("showWarningDeleteModal"))}
+              onClick={ () => (warningDeleteModal(showModalStateName))}
               >
               Cancel
             </Button>

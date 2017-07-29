@@ -7,14 +7,19 @@ import Moment from 'react-moment'
 import NumberFormat from 'react-number-format'
 import GoCheck from 'react-icons/lib/go/check'
 import GoX from 'react-icons/lib/go/x'
+import WarningDeleteModal from '../../../Modal/warningDeleteModal'
 import './pages.css'
 
 export default function Order({
   order,
   handleDeleteOrder,
   onUpdateStatusTrue,
-  onUpdateStatusFalse
+  onUpdateStatusFalse,
+  showWarningDeleteModalOrder,
+  warningDeleteModal
 }) {
+
+  const showModalStateName = "showWarningDeleteModalOrder"
 
   const quoteField = { 
     flexDirection: "row",
@@ -44,11 +49,11 @@ export default function Order({
     color: "#CB2424"
   }
 
-  const deleteOrder = (event) => {
-    event.preventDefault();
-    const orderId = order._id;
-    handleDeleteOrder({ orderId });
-  }
+  // const deleteOrder = (event, warningDeleteModal) => {
+  //   event.preventDefault();
+  //   const orderId = order._id;
+  //   handleDeleteOrder({ orderId });
+  // }
 
   const manageClientStatusTrue = (orderId, fieldName, onUpdateStatusTrue) => {
     const statusType = statusTypeToField[fieldName]
@@ -138,12 +143,20 @@ export default function Order({
           </div>
         }
         </div>
+        <WarningDeleteModal
+          showWarningDeleteModal={ showWarningDeleteModalOrder }
+          warningDeleteModal={ warningDeleteModal } // set state to show modal
+          deleteFunction={ handleDeleteOrder } //
+          model={ 'order' } //
+          showModalStateName={ showModalStateName } //
+          id={ order._id } //
+        />
         
         <div style={{flexDirection: "row", width: "10%", textAlign: "center" }} >
           <Button 
             bsSize="xsmall"
             bsStyle="danger" type="submit" 
-            onClick={(event) => deleteOrder(event)}>
+            onClick={ () => warningDeleteModal(showModalStateName) }>
             Delete
           </Button>
         </div>

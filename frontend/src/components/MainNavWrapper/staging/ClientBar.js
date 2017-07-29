@@ -1,6 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import './staging.css'
+import './modal.css'
 import ClientExpand from './clientExpand'
 import DeleteIcon from 'react-icons/lib/go/x'
 import WarningDeleteModal from '../../Modal/warningDeleteModal'
@@ -37,7 +38,8 @@ export default function ClientBar({
   uploadPhoto,
   onDeleteClient,
   warningDeleteModal,
-  showWarningDeleteModal,
+  showWarningDeleteModalClient,
+  showWarningDeleteModalOrder,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
 }) {
@@ -48,7 +50,7 @@ export default function ClientBar({
     )}
   })
 
-const modal = "showWarningDeleteModal"
+  const showModalStateName = "showWarningDeleteModalClient" //name of state that shows this modal
 
   const imageData = imageDataFind(images, id)
   return(
@@ -68,15 +70,16 @@ const modal = "showWarningDeleteModal"
               <div><p>Active Orders</p></div>
               <div><p>BTC</p></div>
             </div>
-              <span onClick={ () => (warningDeleteModal("showWarningDeleteModal")) } style={{ position: 'absolute', right: '4em', marginTop: '0.7em'}}>{<DeleteIcon size={25}/>}</span>
+              <span onClick={ () => (warningDeleteModal(showModalStateName)) } style={{ position: 'absolute', right: '4em', marginTop: '0.7em'}}>{<DeleteIcon size={25}/>}</span>
           </div>
           <WarningDeleteModal
-            showWarningDeleteModal={ showWarningDeleteModal }
+            showWarningDeleteModal={ showWarningDeleteModalClient }
             warningDeleteModal={ warningDeleteModal }
-            onDeleteClient={ onDeleteClient }
+            deleteFunction={ onDeleteClient }
             model={ 'client' }
+            showModalStateName={ showModalStateName }
             id={ id }
-        />
+          />
           <ClientExpand 
             ausPrices={ ausPrices }
             changeRoute={ changeRoute}
@@ -105,6 +108,8 @@ const modal = "showWarningDeleteModal"
             uploadPhoto={uploadPhoto}
             onUpdateStatusTrue={ onUpdateStatusTrue }
             onUpdateStatusFalse={ onUpdateStatusFalse }
+            showWarningDeleteModalOrder={ showWarningDeleteModalOrder }
+            warningDeleteModal={ warningDeleteModal }
           />
         </div>
     </div>

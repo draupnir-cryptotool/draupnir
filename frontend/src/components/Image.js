@@ -4,13 +4,18 @@ import Photo from './Photo'
 import * as imageAPI from '../api/image'
 
 export default function Image({
-  uploadPhoto, image, clientId
+  uploadPhoto, 
+  image, 
+  clientId, 
+  closeImageModal
 }) {
     return (
       <div>
         <ImageDisplay 
           uploadPhoto = { uploadPhoto }
-          clientId={clientId} />
+          clientId={ clientId }
+          closeImageModal={ closeImageModal }
+        />
         {
           !! image ? (
             <Photo url={ image.s3URL } />

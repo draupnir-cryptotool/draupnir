@@ -25,6 +25,7 @@ class ClientImageModal extends React.Component {
             <Image 
               uploadPhoto={ this.props.uploadPhoto }
               clientId={this.props.clientId}
+              closeImageModal={ this.props.closeImageModal }
             />
           </div>
         <div>

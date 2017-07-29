@@ -50,7 +50,8 @@ class App extends Component {
     orders: null,
     showClientImageModal: false,
     showModal: false,
-    showWarningDeleteModal: false,
+    showWarningDeleteModalClient: false,
+    showWarningDeleteModalOrder: false,
     tempOrder: null,
   }
 
@@ -530,7 +531,8 @@ fetchAllClientOrders = () => {
       orderUserId,
       orders,
       showClientImageModal,
-      showWarningDeleteModal,
+      showWarningDeleteModalClient,
+      showWarningDeleteModalOrder,
       showModal,
       tempOrder,
       token,
@@ -598,10 +600,11 @@ fetchAllClientOrders = () => {
                 settings={ masterSettings }
                 showClientImageModal={ showClientImageModal }
                 showModal={ this.handleOpenClientImageModal }
-                showWarningDeleteModal={ showWarningDeleteModal }
+                showWarningDeleteModalClient={ showWarningDeleteModalClient }
+                showWarningDeleteModalOrder={ showWarningDeleteModalOrder }
                 tempOrder={ tempOrder }
                 uploadPhoto={ this.handleUploadPhoto }
-                warningDeleteModal={ this.handleModal}
+                warningDeleteModal={ this.handleModal }
               />
                 ) : (
                 <p>loading..</p>
