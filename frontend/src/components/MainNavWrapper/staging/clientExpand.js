@@ -91,6 +91,8 @@ export default function ClientExpand({
               clientOrders={ clientOrders }
               handleCreateOrder={ handleCreateOrder }
               handleDeleteOrder={ handleDeleteOrder }
+              onUpdateStatusTrue= { onUpdateStatusTrue }
+              onUpdateStatusFalse={ onUpdateStatusFalse }
             />
             :
             ""

@@ -118,13 +118,13 @@ class App extends Component {
     })
   }
 
-  handleUpdateStatusTrue = ({ clientId, statusType }) => {
-    clientAPI.updateVerifiedTrue({ clientId, statusType })
-    .then((updatedClient) => {
+  handleUpdateStatusTrue = ({ orderId, statusType }) => {
+    clientOrdersAPI.updateVerifiedTrue({ orderId, statusType })
+    .then((updatedClientOrder) => {
       this.setState((prevState) => {
         return { 
-          clients: prevState.clients.map(client => (
-            (client._id === updatedClient._id) ? updatedClient : client
+          clientOrders: prevState.clientOrders.map(clientOrder => (
+            (clientOrder._id === updatedClientOrder._id) ? updatedClientOrder : clientOrder
           ))
 
         }
@@ -135,15 +135,13 @@ class App extends Component {
     })
   }
 
-
-  handleUpdateStatusFalse = ({ clientId, statusType }) => {
-    clientAPI.updateVerifiedFalse({ clientId, statusType })
-    .then((updatedClient) => {
+  handleUpdateStatusFalse = ({ orderId, statusType }) => {
+    clientOrdersAPI.updateVerifiedFalse({ orderId, statusType })
+    .then((updatedClientOrder) => {
       this.setState((prevState) => {
-        console.log(updatedClient)
         return {
-          clients: prevState.clients.map(client => (
-            (client._id === updatedClient._id) ? updatedClient : client
+          clientOrders: prevState.clientOrders.map(clientOrder => (
+            (clientOrder._id === updatedClientOrder._id) ? updatedClientOrder : clientOrder
           ))
         }
       })
