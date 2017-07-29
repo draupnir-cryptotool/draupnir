@@ -2,6 +2,7 @@ import React from 'react'
 import './staging.css'
 import ClientExpand from './clientExpand'
 import DeleteIcon from 'react-icons/lib/go/x'
+import WarningDeleteModal from '../../Modal/warningDeleteModal'
 
 export default function ClientBar({
   ausPrices,
@@ -33,21 +34,21 @@ export default function ClientBar({
   tempOrder,
   uniqId,
   uploadPhoto,
+  onDeleteClient,
+  warningDeleteModal,
+  showWarningDeleteModal,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
-  onDeleteClient
+
 }) {
-    const handleDeleteClient = (onDeleteClient) => {
-    const clientId = id
-    console.log(clientId)
-    onDeleteClient({clientId})
-  }
 
   const imageDataFind = ((images, id) => {
     if(!!images) {
     return images.filter((clientImages) => clientImages.clientId === id
     )}
   })
+
+const modal = "showWarningDeleteModal"
 
   const imageData = imageDataFind(images, id)
   return(
@@ -61,8 +62,14 @@ export default function ClientBar({
               <div><p>Active Orders</p></div>
               <div><p>BTC</p></div>
             </div>
-              <span onClick={() => (handleDeleteClient(onDeleteClient))} style={{ position: 'absolute', right: '4em', marginTop: '0.7em'}}>{<DeleteIcon size={25}/>}</span>
+              <span onClick={ () => (warningDeleteModal("showWarningDeleteModal")) } style={{ position: 'absolute', right: '4em', marginTop: '0.7em'}}>{<DeleteIcon size={25}/>}</span>
           </div>
+          <WarningDeleteModal
+            showWarningDeleteModal={ showWarningDeleteModal }
+            warningDeleteModal={ warningDeleteModal }
+            onDeleteClient={ onDeleteClient }
+            id={ id }
+        />
           <ClientExpand 
             ausPrices={ ausPrices }
             changeRoute={ changeRoute}
