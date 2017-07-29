@@ -21,6 +21,8 @@ export default function OrdersPage({
   clientOrders,
   handleCreateOrder,
   handleDeleteOrder,
+  onUpdateStatusTrue,
+  onUpdateStatusFalse
 }) {
 
 
@@ -40,11 +42,13 @@ export default function OrdersPage({
           (clientOrders)
             ? clientOrders.map((order) => (
                 (order.clientId === client._id)
-                ?  <Order
-                     order={ order }
-                     handleDeleteOrder={ handleDeleteOrder }
-                     key={ order._id }
-                   />
+                ? <Order
+                    order={ order }
+                    handleDeleteOrder={ handleDeleteOrder }
+                    key={ order._id }
+                    onUpdateStatusTrue= { onUpdateStatusTrue }
+                    onUpdateStatusFalse={ onUpdateStatusFalse }
+                  />
                 : ''
             ))
             : <h4>No Client Orders</h4>
