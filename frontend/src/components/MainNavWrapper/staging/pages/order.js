@@ -62,7 +62,6 @@ export default function Order({
 
   return (
     <div style={{ color: '#969696'}}>
-    {console.log(order)}
       <Well style={{backgroundColor: '#3b3b3b', borderColor: '#c4c4c4', marginBottom: '1rem', display: "flex", 
         height: "40px" }} bsSize='small'>
         
