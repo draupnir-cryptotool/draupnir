@@ -1,4 +1,4 @@
-const express = require('express');
+  const express = require('express');
 const ClientOrder = require('../models/ClientOrder');
 const router = express.Router();
 
@@ -54,7 +54,7 @@ router.patch('/clientorders/:id', (req, res) => {
 router.delete('/clientorders/:id', (req, res) => {
   ClientOrder.findByIdAndRemove(req.params.id)
   .then((removedClientOrder) => {
-    resp.json(removedClientOrder);
+    res.json(removedClientOrder);
   })
   .catch((err) => {
     if (err) {

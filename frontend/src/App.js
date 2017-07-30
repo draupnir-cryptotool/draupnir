@@ -21,7 +21,6 @@ import Mail from './components/Mail';
 import MainNav from './components/MainNav';
 import Order from './components/Order';
 import PdfForm from './components/pdfForm';
-import WarningDeleteModal from './components/Modal/warningDeleteModal'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class App extends Component {
@@ -50,7 +49,8 @@ class App extends Component {
     orders: null,
     showClientImageModal: false,
     showModal: false,
-    showWarningDeleteModal: false,
+    showWarningDeleteModalClientClientId: null,
+    showWarningDeleteModalOrderOrderId: null,
     tempOrder: null,
   }
 
@@ -234,8 +234,9 @@ class App extends Component {
     })
   }
 
-  handleDeleteOrder = ({ orderId }) => {
-    clientOrdersAPI.deleteOrder({ orderId })
+  handleDeleteOrder = ({ id }) => {
+    console.log(`order id to delete ---------${id}`)
+    clientOrdersAPI.deleteOrder({ id })
     .catch(error => {
       this.setState({ error })
     })
@@ -259,8 +260,8 @@ class App extends Component {
     })
   }
 
-  handleDeleteClient = ({ clientId }) => {
-    clientAPI.deleteClient({ clientId })
+  handleDeleteClient = ({ id }) => {
+    clientAPI.deleteClient({ id })
     .catch((err) => {
       this.setState({error: err})
     })
@@ -480,10 +481,6 @@ fetchAllClientOrders = () => {
     this.setState({ showModal: false })
   }
 
-  handleModal = (modal) => {
-      this.setState({[modal]: !this.state[modal]})
-  }
-    
   handleOpenClientImageModal = () => {
     this.setState({ showClientImageModal: true })
   }
@@ -498,6 +495,22 @@ fetchAllClientOrders = () => {
     this.setState((prevState) => ({
       expandedClientID:
         (prevState.expandedClientID === clientID) ? null : clientID
+    }))
+  }
+
+  onOpenWarningDeleteModalClient = (clientID) => {
+    // e.preventDefault()
+    this.setState((prevState) => ({
+      showWarningDeleteModalClientClientId:
+        (prevState.showWarningDeleteModalClientClientId === clientID) ? null : clientID
+    }))
+  }
+
+  onOpenWarningDeleteModalOrder = (clientID) => {
+    // e.preventDefault()
+    this.setState((prevState) => ({
+      showWarningDeleteModalOrderOrderId:
+        (prevState.showWarningDeleteModalOrderOrderId === clientID) ? null : clientID
     }))
   }
 
@@ -530,7 +543,8 @@ fetchAllClientOrders = () => {
       orderUserId,
       orders,
       showClientImageModal,
-      showWarningDeleteModal,
+      showWarningDeleteModalClientClientId,
+      showWarningDeleteModalOrderOrderId,
       showModal,
       tempOrder,
       token,
@@ -598,10 +612,12 @@ fetchAllClientOrders = () => {
                 settings={ masterSettings }
                 showClientImageModal={ showClientImageModal }
                 showModal={ this.handleOpenClientImageModal }
-                showWarningDeleteModal={ showWarningDeleteModal }
                 tempOrder={ tempOrder }
                 uploadPhoto={ this.handleUploadPhoto }
-                warningDeleteModal={ this.handleModal}
+                showWarningDeleteModalClientClientId={ showWarningDeleteModalClientClientId }
+                showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
+                openWarningDeleteModalClient={ this.onOpenWarningDeleteModalClient }
+                openWarningDeleteModalOrder={ this.onOpenWarningDeleteModalOrder }
               />
                 ) : (
                 <p>loading..</p>

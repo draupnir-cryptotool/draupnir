@@ -1,6 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import './staging.css'
+import './modal.css'
 import ClientExpand from './clientExpand'
 import DeleteIcon from 'react-icons/lib/go/x'
 import WarningDeleteModal from '../../Modal/warningDeleteModal'
@@ -36,10 +37,13 @@ export default function ClientBar({
   uniqId,
   uploadPhoto,
   onDeleteClient,
-  warningDeleteModal,
-  showWarningDeleteModal,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
+  openWarningDeleteModalClient,
+  openWarningDeleteModalOrder,
+  openWarningClientModal,
+  openWarningOrderModal,
+  showWarningDeleteModalOrderOrderId
 }) {
 
 const imageDataFind = ((images, id) => {
@@ -48,15 +52,8 @@ const imageDataFind = ((images, id) => {
   )}
 })
 
-const checkTrue = (element, index, array) => {
-  return (element.status.quoteSent === false ||element.status.quoteAccepted === false ||
-  element.status.depositCleared === false || element.status.orderComplete === false) && 
-  element.clientId === client._id
-}
+const imageData = imageDataFind(images, id)
 
-const modal = "showWarningDeleteModal"
-
-  const imageData = imageDataFind(images, id)
   return(
     <div className="clientBar">
         <div>
@@ -73,13 +70,13 @@ const modal = "showWarningDeleteModal"
               <div><p>Active Orders</p></div>
               <div><p>BTC</p></div>
             </div>
-              <span onClick={ () => (warningDeleteModal("showWarningDeleteModal")) } style={{ position: 'absolute', right: '4em', marginTop: '0.7em'}}>{<DeleteIcon size={25}/>}</span>
+              <span onClick={ openWarningDeleteModalClient } style={{ position: 'absolute', right: '4em', marginTop: '0.7em'}}>{<DeleteIcon size={25}/>}</span>
           </div>
 
           <WarningDeleteModal
-            showWarningDeleteModal={ showWarningDeleteModal }
-            warningDeleteModal={ warningDeleteModal }
-            onDeleteClient={ onDeleteClient }
+            showWarningDeleteModal={ openWarningClientModal }
+            warningDeleteModal={ openWarningDeleteModalClient }
+            deleteFunction={ onDeleteClient }
             model={ 'client' }
             id={ id }
           />
@@ -112,6 +109,8 @@ const modal = "showWarningDeleteModal"
             uploadPhoto={uploadPhoto}
             onUpdateStatusTrue={ onUpdateStatusTrue }
             onUpdateStatusFalse={ onUpdateStatusFalse }
+            openWarningDeleteModalOrder={ openWarningDeleteModalOrder }
+            showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
           />
         </div>
     </div>

@@ -30,12 +30,16 @@ export default function ClientExpand({
   orders,
   settings,
   showClientImageModal,
+  showWarningDeleteModalOrder,
+  warningDeleteModal,
   showModal,
   status,
   tempOrder,
   uploadPhoto,
   onUpdateStatusTrue,
-  onUpdateStatusFalse
+  onUpdateStatusFalse,
+  openWarningDeleteModalOrder,
+  showWarningDeleteModalOrderOrderId
 }) {
   
   return (
@@ -83,6 +87,10 @@ export default function ClientExpand({
               handleDeleteOrder={ handleDeleteOrder }
               onUpdateStatusTrue= { onUpdateStatusTrue }
               onUpdateStatusFalse={ onUpdateStatusFalse }
+              showWarningDeleteModalOrder={ showWarningDeleteModalOrder }
+              warningDeleteModal={ warningDeleteModal }
+              openWarningDeleteModalOrder={ openWarningDeleteModalOrder }
+              showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
             />
             :
             ""

@@ -17,8 +17,8 @@ export function createClient({ firstname, lastname, email, phone }) {
   .then(res => res.data)
 }
 
-export function deleteClient({ clientId }) {
-  return axios.delete(`/api/client/${clientId}`)
+export function deleteClient({ id }) {
+  return axios.delete(`/api/client/${id}`)
   .then(res => res.data)
 }
 
