@@ -37,13 +37,13 @@ export default function ClientBar({
   uniqId,
   uploadPhoto,
   onDeleteClient,
-  warningDeleteModal,
-  showWarningDeleteModalClient,
-  showWarningDeleteModalOrder,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
-  openWarningDeleteModal,
-  openWarningClientModal
+  openWarningDeleteModalClient,
+  openWarningDeleteModalOrder,
+  openWarningClientModal,
+  openWarningOrderModal,
+  showWarningDeleteModalOrderOrderId
 }) {
 
 const imageDataFind = ((images, id) => {
@@ -51,8 +51,6 @@ const imageDataFind = ((images, id) => {
   return images.filter((clientImages) => clientImages.clientId === id
   )}
 })
-
-  const showModalStateName = "showWarningDeleteModalClient" //name of state that shows this modal
 
   const imageData = imageDataFind(images, id)
   return(
@@ -73,14 +71,13 @@ const imageDataFind = ((images, id) => {
               <div><p>Active Orders</p></div>
               <div><p>BTC</p></div>
             </div>
-              <span onClick={ openWarningDeleteModal } style={{ position: 'absolute', right: '4em', marginTop: '0.7em'}}>{<DeleteIcon size={25}/>}</span>
+              <span onClick={ openWarningDeleteModalClient } style={{ position: 'absolute', right: '4em', marginTop: '0.7em'}}>{<DeleteIcon size={25}/>}</span>
           </div>
           <WarningDeleteModal
             showWarningDeleteModal={ openWarningClientModal }
-            warningDeleteModal={ openWarningDeleteModal }
+            warningDeleteModal={ openWarningDeleteModalClient }
             deleteFunction={ onDeleteClient }
             model={ 'client' }
-            showModalStateName={ showModalStateName }
             id={ id }
           />
           <ClientExpand 
@@ -111,8 +108,8 @@ const imageDataFind = ((images, id) => {
             uploadPhoto={uploadPhoto}
             onUpdateStatusTrue={ onUpdateStatusTrue }
             onUpdateStatusFalse={ onUpdateStatusFalse }
-            showWarningDeleteModalOrder={ showWarningDeleteModalOrder }
-            warningDeleteModal={ warningDeleteModal }
+            openWarningDeleteModalOrder={ openWarningDeleteModalOrder }
+            showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
           />
         </div>
     </div>

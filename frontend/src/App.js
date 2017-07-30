@@ -481,10 +481,6 @@ fetchAllClientOrders = () => {
     this.setState({ showModal: false })
   }
 
-  handleModal = (modal) => {
-      this.setState({[modal]: !this.state[modal]})
-  }
-    
   handleOpenClientImageModal = () => {
     this.setState({ showClientImageModal: true })
   }
@@ -502,11 +498,19 @@ fetchAllClientOrders = () => {
     }))
   }
 
-  onOpenWarningDeleteModal = (clientID) => {
+  onOpenWarningDeleteModalClient = (clientID) => {
     // e.preventDefault()
     this.setState((prevState) => ({
       showWarningDeleteModalClientClientId:
         (prevState.showWarningDeleteModalClientClientId === clientID) ? null : clientID
+    }))
+  }
+
+  onOpenWarningDeleteModalOrder = (clientID) => {
+    // e.preventDefault()
+    this.setState((prevState) => ({
+      showWarningDeleteModalOrderOrderId:
+        (prevState.showWarningDeleteModalOrderOrderId === clientID) ? null : clientID
     }))
   }
 
@@ -608,12 +612,12 @@ fetchAllClientOrders = () => {
                 settings={ masterSettings }
                 showClientImageModal={ showClientImageModal }
                 showModal={ this.handleOpenClientImageModal }
-                showWarningDeleteModalClientClientId={ showWarningDeleteModalClientClientId }
-                showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
                 tempOrder={ tempOrder }
                 uploadPhoto={ this.handleUploadPhoto }
-                warningDeleteModal={ this.handleModal }
-                openWarningDeleteModal={ this.onOpenWarningDeleteModal }
+                showWarningDeleteModalClientClientId={ showWarningDeleteModalClientClientId }
+                showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
+                openWarningDeleteModalClient={ this.onOpenWarningDeleteModalClient }
+                openWarningDeleteModalOrder={ this.onOpenWarningDeleteModalOrder }
               />
                 ) : (
                 <p>loading..</p>
