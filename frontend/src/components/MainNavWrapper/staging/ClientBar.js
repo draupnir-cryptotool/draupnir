@@ -54,7 +54,7 @@ const imageDataFind = ((images, id) => {
 
 const imageData = imageDataFind(images, id)
 
-const  checkTrue = (element, index, array) => { 
+const checkTrue = (element, index, array) => { 
   return (element.status.quoteSent === false ||element.status.quoteAccepted === false || 
   element.status.depositCleared === false || element.status.orderComplete === false) &&  
   element.clientId === client._id 
