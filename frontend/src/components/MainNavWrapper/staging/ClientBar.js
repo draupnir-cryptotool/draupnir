@@ -48,7 +48,7 @@ const imageDataFind = ((images, id) => {
   )}
 })
 
-const  checkTrue = (element, index, array) => {
+const checkTrue = (element, index, array) => {
   return (element.status.quoteSent === false ||element.status.quoteAccepted === false ||
   element.status.depositCleared === false || element.status.orderComplete === false) && 
   element.clientId === client._id
@@ -75,13 +75,15 @@ const modal = "showWarningDeleteModal"
             </div>
               <span onClick={ () => (warningDeleteModal("showWarningDeleteModal")) } style={{ position: 'absolute', right: '4em', marginTop: '0.7em'}}>{<DeleteIcon size={25}/>}</span>
           </div>
+
           <WarningDeleteModal
             showWarningDeleteModal={ showWarningDeleteModal }
             warningDeleteModal={ warningDeleteModal }
             onDeleteClient={ onDeleteClient }
             model={ 'client' }
             id={ id }
-        />
+          />
+          
           <ClientExpand 
             ausPrices={ ausPrices }
             changeRoute={ changeRoute}
