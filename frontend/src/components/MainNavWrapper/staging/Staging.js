@@ -32,9 +32,11 @@ export default function Staging({
   uploadPhoto,
   onDeleteClient,
   warningDeleteModal,
-  showWarningDeleteModal,
+  showWarningDeleteModalClientClientId,
+  showWarningDeleteModalOrderOrderId,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
+  openWarningDeleteModal
 }){
 
   return (
@@ -55,9 +57,8 @@ export default function Staging({
             client={ client }
             clientOrders={ clientOrders }
             clientPage={ clientPage }
-            closeImageModal={closeImageModal}
+            closeImageModal={ closeImageModal }
             closeModal={ closeModal }
-            expanded={ expandedClientID === client._id }
             firstname={ client.firstname } 
             handleCreateOrder={ handleCreateOrder }
             handleDeleteOrder={ handleDeleteOrder }
@@ -67,13 +68,17 @@ export default function Staging({
             key={ client._id } 
             lastname={ client.lastname }
             onExpand={ (e) => onClientBarExpand(e, client._id) }
+            expanded={ expandedClientID === client._id }
+            openWarningDeleteModal={ () => (openWarningDeleteModal(client._id)) }
+            showWarningDeleteModalClientClientId={ showWarningDeleteModalClientClientId }
+            openWarningClientModal={ showWarningDeleteModalClientClientId === client._id }
             onOrder={ onOrder }
             onOrderId={ onOrderId }
             onSend={ onSend }
             orderUserId={ orderUserId }
             orders={ orders }
             settings={ settings }
-            showClientImageModal={showClientImageModal}
+            showClientImageModal={ showClientImageModal }
             showModal={ showModal }
             status={ client.status }
             tempOrder={ tempOrder }
@@ -83,7 +88,7 @@ export default function Staging({
             onUpdateStatusFalse={ onUpdateStatusFalse }
             onDeleteClient={ onDeleteClient }
             warningDeleteModal={ warningDeleteModal }
-            showWarningDeleteModal={ showWarningDeleteModal }
+            showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
           />
         ))
         :

@@ -22,8 +22,8 @@ export function createOrder({ clientId, amount, coin }) {
   .then(res => res.data)
 }
 
-export function deleteOrder({ orderId }) {
-  return axios.delete(`/api/clientorders/${orderId}`)
+export function deleteOrder({ id }) {
+  return axios.delete(`/api/clientorders/${id}`)
   .catch((err) => {
     console.log('Error in frontend API deleteOrder: ' + err);
   })
