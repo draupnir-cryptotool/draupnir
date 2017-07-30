@@ -55,10 +55,7 @@ export default function MainNav({
   onCloseWarningDeleteModal,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
-<<<<<<< HEAD
   openWarningDeleteModal
-=======
->>>>>>> master
 }) {
   const pageBodyStyle = {
     position: 'relative',
