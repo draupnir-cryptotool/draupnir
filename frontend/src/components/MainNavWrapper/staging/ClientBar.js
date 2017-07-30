@@ -60,17 +60,10 @@ const imageDataFind = ((images, id) => {
         <div>
           <div style={{ border: "solid 1px #3B3B3B" , margin: "2em 0 0", backgroundColor: "#3B3B3B", color: "#969696", display: "flex" }}>
             {
-<<<<<<< HEAD
-              clientOrders.map((order) => (
-                !!_.includes(order.status, false) && order.clientId === client._id ?
-              <div key={ order._id } style={{ flexDirection: "row", width: "1%", backgroundColor: "#CB2424" }}></div> :
-              <div key={ order._id } style={{ flexDirection: "row", width: "1%", backgroundColor: "#4CC941" }}></div>
-=======
               clientOrders.map((clientOrder) => (
                 !!_.includes(clientOrder.status, false) && clientOrder.clientId === client._id ?
               <div style={{flexDirection: "row", width: "1%", backgroundColor: "#CB2424"}}></div> :
               <div style={{flexDirection: "row", width: "1%", backgroundColor: "#4CC941"}}></div>
->>>>>>> master
               ))
             }
             
