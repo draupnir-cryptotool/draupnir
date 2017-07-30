@@ -6,7 +6,6 @@ model,
 showWarningDeleteModal, //will be either true or false
 warningDeleteModal, //
 deleteFunction,
-showModalStateName, //name of the state that shows this modal
 id
 }) {
     const handleDelete = () => {
@@ -43,7 +42,7 @@ id
               bsStyle="default"
               bsSize="small" 
               type="submit"
-              onClick={ () => (warningDeleteModal(showModalStateName))}
+              onClick={ () => (warningDeleteModal())}
               >
               Cancel
             </Button>

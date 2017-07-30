@@ -15,12 +15,11 @@ export default function Order({
   handleDeleteOrder,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
-  showWarningDeleteModalOrder,
   warningDeleteModal,
-  clientId
+  clientId,
+  openWarningDeleteModalOrder,
+  openWarningOrderModal
 }) {
-
-  const showModalStateName = "showWarningDeleteModalOrder"
 
   const quoteField = { 
     flexDirection: "row",
@@ -143,25 +142,21 @@ export default function Order({
           </div>
         }
         </div>
-        {
-          order.clientId === clientId ?
+  
+
         <WarningDeleteModal
-          showWarningDeleteModal={ showWarningDeleteModalOrder }
-          warningDeleteModal={ warningDeleteModal } // set state to show modal
+          showWarningDeleteModal={ openWarningOrderModal }
+          warningDeleteModal={ openWarningDeleteModalOrder } // set state to show modal
           deleteFunction={ handleDeleteOrder } //
-          model={ 'order' } //
-          showModalStateName={ showModalStateName } //
-          id={ order.clientId === clientId ? order._id : "" }
+          model={ 'order' } ////
+          id={ order._id }
         />
-          :
-          ""
-        }
           
         <div style={{flexDirection: "row", width: "10%", textAlign: "center" }} >
           <Button 
             bsSize="xsmall"
             bsStyle="danger" type="submit" 
-            onClick={ () => warningDeleteModal(showModalStateName) }>
+            onClick={ openWarningDeleteModalOrder }>
             Delete
           </Button> 
         </div>
