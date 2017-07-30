@@ -41,7 +41,7 @@ export default function InfoPage({
         showClientImageModal={ showClientImageModal }
         closeImageModal={ closeImageModal }
         uploadPhoto={ uploadPhoto }
-        clientId={client._id} />
+        clientId={ client._id } />
         <div>
           <h1 style={{color: 'white'}}>ID</h1>
           {

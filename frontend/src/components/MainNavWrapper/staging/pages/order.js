@@ -7,13 +7,18 @@ import Moment from 'react-moment'
 import NumberFormat from 'react-number-format'
 import GoCheck from 'react-icons/lib/go/check'
 import GoX from 'react-icons/lib/go/x'
+import WarningDeleteModal from '../../../Modal/warningDeleteModal'
 import './pages.css'
 
 export default function Order({
   order,
   handleDeleteOrder,
   onUpdateStatusTrue,
-  onUpdateStatusFalse
+  onUpdateStatusFalse,
+  warningDeleteModal,
+  clientId,
+  openWarningDeleteModalOrder,
+  openWarningOrderModal
 }) {
 
   const quoteField = { 
@@ -44,11 +49,11 @@ export default function Order({
     color: "#CB2424"
   }
 
-  const deleteOrder = (event) => {
-    event.preventDefault();
-    const orderId = order._id;
-    handleDeleteOrder({ orderId });
-  }
+  // const deleteOrder = (event, warningDeleteModal) => {
+  //   event.preventDefault();
+  //   const orderId = order._id;
+  //   handleDeleteOrder({ orderId });
+  // }
 
   const manageClientStatusTrue = (orderId, fieldName, onUpdateStatusTrue) => {
     const statusType = statusTypeToField[fieldName]
@@ -62,7 +67,6 @@ export default function Order({
 
   return (
     <div style={{ color: '#969696'}}>
-    {console.log(order)}
       <Well style={{backgroundColor: '#3b3b3b', borderColor: '#c4c4c4', marginBottom: '1rem', display: "flex", 
         height: "40px" }} bsSize='small'>
         
@@ -71,7 +75,7 @@ export default function Order({
           {' of ' + order.coin + ' '}
         </div>
         
-        <div style={{ flexDirection: "row", width: "15%" }}>
+        <div style={{ flexDirection: "row", width: "14%" }}>
         {
           order.status.quoteSent ?
           <div style={{ display: "flex" }}>
@@ -88,7 +92,7 @@ export default function Order({
         }
         </div>
 
-        <div style={{ flexDirection: "row", width: "15%" }}>
+        <div style={{ flexDirection: "row", width: "14%" }}>
         {
           order.status.quoteAccepted ?
           <div style={{ display: "flex" }}>
@@ -105,7 +109,7 @@ export default function Order({
         }
         </div>
 
-        <div style={{ flexDirection: "row", width: "15%" }}>
+        <div style={{ flexDirection: "row", width: "14%" }}>
         {
           order.status.depositCleared ?
           <div style={{ display: "flex" }}>
@@ -122,7 +126,7 @@ export default function Order({
         }
         </div>
 
-        <div style={{ flexDirection: "row", width: "15%" }}>
+        <div style={{ flexDirection: "row", width: "14%" }}>
         {
           order.status.orderComplete ?
           <div style={{ display: "flex" }}>
@@ -138,17 +142,26 @@ export default function Order({
           </div>
         }
         </div>
-        
+  
+
+        <WarningDeleteModal
+          showWarningDeleteModal={ openWarningOrderModal }
+          warningDeleteModal={ openWarningDeleteModalOrder } // set state to show modal
+          deleteFunction={ handleDeleteOrder } //
+          model={ 'order' } ////
+          id={ order._id }
+        />
+          
         <div style={{flexDirection: "row", width: "10%", textAlign: "center" }} >
           <Button 
             bsSize="xsmall"
             bsStyle="danger" type="submit" 
-            onClick={(event) => deleteOrder(event)}>
+            onClick={ openWarningDeleteModalOrder }>
             Delete
-          </Button>
+          </Button> 
         </div>
 
-        <div style={{  flexDirection: "row", width: "10%", textAlign: "right" }}>
+        <div style={{  flexDirection: "row", width: "14%", textAlign: "right" }}>
           <Moment style={{color: "#a9a9a9" }} 
           fromNow interval={0} date={order.created} />
         </div>

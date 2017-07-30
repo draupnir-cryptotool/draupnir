@@ -10,7 +10,7 @@ import {
   FormControl,
   FormGroup,
   Modal,
-  Table,
+  Table
 } from 'react-bootstrap';
 import * as clientOrdersAPI from '../../../../api/clientOrders.js';
 import _ from 'lodash';
@@ -22,7 +22,11 @@ export default function OrdersPage({
   handleCreateOrder,
   handleDeleteOrder,
   onUpdateStatusTrue,
-  onUpdateStatusFalse
+  onUpdateStatusFalse,
+  showWarningDeleteModalOrder,
+  warningDeleteModal,
+  openWarningDeleteModalOrder,
+  showWarningDeleteModalOrderOrderId
 }) {
 
 
@@ -48,6 +52,12 @@ export default function OrdersPage({
                     key={ order._id }
                     onUpdateStatusTrue= { onUpdateStatusTrue }
                     onUpdateStatusFalse={ onUpdateStatusFalse }
+                    showWarningDeleteModalOrder={ showWarningDeleteModalOrder }
+                    warningDeleteModal={ warningDeleteModal }
+                    clientId={ client._id}
+                    openWarningDeleteModalOrder={ openWarningDeleteModalOrder }
+                    openWarningDeleteModalOrder={ () => (openWarningDeleteModalOrder(order._id)) }
+                    openWarningOrderModal={ showWarningDeleteModalOrderOrderId === order._id }
                   />
                 : ''
             ))
