@@ -16,7 +16,8 @@ export default function Order({
   onUpdateStatusTrue,
   onUpdateStatusFalse,
   showWarningDeleteModalOrder,
-  warningDeleteModal
+  warningDeleteModal,
+  clientId
 }) {
 
   const showModalStateName = "showWarningDeleteModalOrder"
@@ -67,7 +68,6 @@ export default function Order({
 
   return (
     <div style={{ color: '#969696'}}>
-    {console.log(order)}
       <Well style={{backgroundColor: '#3b3b3b', borderColor: '#c4c4c4', marginBottom: '1rem', display: "flex", 
         height: "40px" }} bsSize='small'>
         
@@ -143,22 +143,27 @@ export default function Order({
           </div>
         }
         </div>
+        {
+          order.clientId === clientId ?
         <WarningDeleteModal
           showWarningDeleteModal={ showWarningDeleteModalOrder }
           warningDeleteModal={ warningDeleteModal } // set state to show modal
           deleteFunction={ handleDeleteOrder } //
           model={ 'order' } //
           showModalStateName={ showModalStateName } //
-          id={ order._id } //
+          id={ order.clientId === clientId ? order._id : "" }
         />
-        
+          :
+          ""
+        }
+          
         <div style={{flexDirection: "row", width: "10%", textAlign: "center" }} >
           <Button 
             bsSize="xsmall"
             bsStyle="danger" type="submit" 
             onClick={ () => warningDeleteModal(showModalStateName) }>
             Delete
-          </Button>
+          </Button> 
         </div>
 
         <div style={{  flexDirection: "row", width: "10%", textAlign: "right" }}>

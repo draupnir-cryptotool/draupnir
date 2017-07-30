@@ -52,6 +52,7 @@ export default function OrdersPage({
                     onUpdateStatusFalse={ onUpdateStatusFalse }
                     showWarningDeleteModalOrder={ showWarningDeleteModalOrder }
                     warningDeleteModal={ warningDeleteModal }
+                    clientId={ client._id}
                   />
                 : ''
             ))

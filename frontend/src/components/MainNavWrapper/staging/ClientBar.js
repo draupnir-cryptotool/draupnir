@@ -42,6 +42,8 @@ export default function ClientBar({
   showWarningDeleteModalOrder,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
+  openWarningDeleteModal,
+  openWarningClientModal
 }) {
 
   const imageDataFind = ((images, id) => {
@@ -60,8 +62,8 @@ export default function ClientBar({
             {
               clientOrders.map((order) => (
                 !!_.includes(order.status, false) && order.clientId === client._id ?
-              <div style={{flexDirection: "row", width: "1%", backgroundColor: "#CB2424"}}></div> :
-              <div style={{flexDirection: "row", width: "1%", backgroundColor: "#4CC941"}}></div>
+              <div key={ order._id } style={{ flexDirection: "row", width: "1%", backgroundColor: "#CB2424" }}></div> :
+              <div key={ order._id } style={{ flexDirection: "row", width: "1%", backgroundColor: "#4CC941" }}></div>
               ))
             }
             <div onClick={ onExpand } id="clientBarTitle" style={{flexDirection: "row", width: "90%", marginLeft: "8%"}}>
@@ -70,11 +72,11 @@ export default function ClientBar({
               <div><p>Active Orders</p></div>
               <div><p>BTC</p></div>
             </div>
-              <span onClick={ () => (warningDeleteModal(showModalStateName)) } style={{ position: 'absolute', right: '4em', marginTop: '0.7em'}}>{<DeleteIcon size={25}/>}</span>
+              <span onClick={ openWarningDeleteModal } style={{ position: 'absolute', right: '4em', marginTop: '0.7em'}}>{<DeleteIcon size={25}/>}</span>
           </div>
           <WarningDeleteModal
-            showWarningDeleteModal={ showWarningDeleteModalClient }
-            warningDeleteModal={ warningDeleteModal }
+            showWarningDeleteModal={ openWarningClientModal }
+            warningDeleteModal={ openWarningDeleteModal }
             deleteFunction={ onDeleteClient }
             model={ 'client' }
             showModalStateName={ showModalStateName }

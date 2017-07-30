@@ -9,9 +9,10 @@ deleteFunction,
 showModalStateName, //name of the state that shows this modal
 id
 }) {
-    const handleDelete = (deleteFunction) => {
-    deleteFunction({id})
-    warningDeleteModal(showModalStateName)
+    const handleDelete = () => {
+    deleteFunction({ id })
+    console.log(id)
+    warningDeleteModal
   }
 
   const modelTitle = {
@@ -33,7 +34,7 @@ id
               bsStyle="primary" 
               bsSize="small"
               type="submit"
-              onClick={ () => ( handleDelete(deleteFunction)) }>
+              onClick={ () => ( handleDelete()) }>
               {
                 "delete" + " " + model
               }

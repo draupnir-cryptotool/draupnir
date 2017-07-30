@@ -50,11 +50,12 @@ export default function MainNav({
   onMessageDelete,
   onDeleteClient,
   warningDeleteModal,
-  showWarningDeleteModalClient,
-  showWarningDeleteModalOrder,
+  showWarningDeleteModalClientClientId,
+  showWarningDeleteModalOrderOrderId,
   onCloseWarningDeleteModal,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
+  openWarningDeleteModal
 }) {
   const pageBodyStyle = {
     position: 'relative',
@@ -105,8 +106,9 @@ export default function MainNav({
             uploadPhoto={ uploadPhoto }
             onDeleteClient={ onDeleteClient }
             warningDeleteModal={ warningDeleteModal }
-            showWarningDeleteModalClient={ showWarningDeleteModalClient }
-            showWarningDeleteModalOrder={ showWarningDeleteModalOrder }
+            showWarningDeleteModalClientClientId={ showWarningDeleteModalClientClientId }
+            showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
+            openWarningDeleteModal={ openWarningDeleteModal }
           />
         )
         } />
