@@ -55,6 +55,7 @@ router.get('/order', function(req, res, next) {
     })
     .then((res) => res.json())
     .then((json) => {
+      console.log('bitstamp');
       orderBook = json.asks;
       massagedOrderBook = [];
 
@@ -84,6 +85,7 @@ router.get('/order', function(req, res, next) {
     })
     .then((res) => res.json())
     .then((json) => {
+      console.log(res);
       orderBook = json[`${qs.buying}_usd`].asks;
       massagedOrderBook = [];
 

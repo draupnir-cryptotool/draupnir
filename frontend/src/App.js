@@ -15,7 +15,6 @@ import ClientImageModal from './components/Modal/ClientImageModal';
 import ClientModal from './components/Modal/ClientModal';
 import Header from './components/Header';
 import Image from './components/Image';
-import Loader from 'react-loader';
 import LogInform from './components/logIn/LogInForm';
 import Mail from './components/Mail';
 import MainNav from './components/MainNav';
@@ -30,11 +29,11 @@ class App extends Component {
     adminMessages: null,
     ausPrices: null,
     bitcoinBalance: null,
-    bitfinexBitcoinPrice: null,
-    bitfinexEthPrice: null,
-    bitstampBitcoinPrice: null,
-    btceBitcoinPrice: null,
-    btceEthPrice: null,
+    bitfinexBtcValue: null,
+    bitfinexEthValue: null,
+    bitstampBtcValue: null,
+    btceBtcValue: null,
+    btceEthValue: null,
     clientOrders: null,
     clientPage: null,
     clients: null,
@@ -44,7 +43,6 @@ class App extends Component {
     ethereumBalance: null,
     expandedClientID: null,
     images: null,
-    loader: false,
     masterSettings: null,
     orderUserId: null,
     orders: null,
@@ -384,8 +382,8 @@ fetchAllClientOrders = () => {
   fetchBitfinexBitcoinPrice = () => {
     // Fetching from axios folder, fetchBitfinexBitcoinPrice()
     livePriceApi.fetchBitfinexBitcoinPrice()
-      .then(bitfinexBitcoinPrice => {
-        this.setState({ bitfinexBitcoinPrice })
+      .then(bitfinexBtcValue => {
+        this.setState({ bitfinexBtcValue })
         // fetch data from api every 10 seconds
         setTimeout(this.fetchBitfinexBitcoinPrice, 10000)
       })
@@ -399,8 +397,8 @@ fetchAllClientOrders = () => {
   fetchBitfinexEthPrice = () => {
     // Fetching from axios folder, fetchBitfinexBitcoinPrice()
     livePriceApi.fetchBitfinexEthPrice()
-      .then(bitfinexEthPrice => {
-        this.setState({ bitfinexEthPrice })
+      .then(bitfinexEthValue => {
+        this.setState({ bitfinexEthValue })
         // fetch data from api every 10 seconds
         setTimeout(this.fetchBitfinexEthPrice, 10000)
       })
@@ -414,8 +412,8 @@ fetchAllClientOrders = () => {
   fetchBtceBitcoinPrice = () => {
     // Fetching from axios folder, fetchBtceBitcoinPrice()
     livePriceApi.fetchBtceBitcoinPrice()
-      .then(btceBitcoinPrice => {
-        this.setState({ btceBitcoinPrice })
+      .then(btceBtcValue => {
+        this.setState({ btceBtcValue })
         // fetch data from api every 10 seconds
         setTimeout(this.fetchBtceBitcoinPrice, 10000)
       })
@@ -429,8 +427,8 @@ fetchAllClientOrders = () => {
   fetchBtceEthPrice = () => {
     // Fetching from axios folder, fetchBtceEthPrice()
     livePriceApi.fetchBtceEthPrice()
-      .then(btceEthPrice => {
-        this.setState({ btceEthPrice })
+      .then(btceEthValue => {
+        this.setState({ btceEthValue })
         // fetch data from api every 10 seconds
         setTimeout(this.fetchBtceEthPrice, 10000)
       })
@@ -444,8 +442,8 @@ fetchAllClientOrders = () => {
   fetchBitstampBitcoinPrice = () => {
     // Fetching from axios folder, fetchBitstampBitcoinPrice()
     livePriceApi.fetchBitstampBitcoinPrice()
-      .then(bitstampBitcoinPrice => {
-        this.setState({ bitstampBitcoinPrice })
+      .then(bitstampBtcValue => {
+        this.setState({ bitstampBtcValue })
         // fetch data from api every 10 seconds
         setTimeout(this.fetchBitstampBitcoinPrice, 10000)
       })
@@ -511,11 +509,11 @@ fetchAllClientOrders = () => {
       adminMessages,
       ausPrices,
       bitcoinBalance,
-      bitfinexBitcoinPrice,
-      bitfinexEthPrice,
-      bitstampBitcoinPrice,
-      btceBitcoinPrice,
-      btceEthPrice,
+      bitfinexBtcValue,
+      bitfinexEthValue,
+      bitstampBtcValue,
+      btceBtcValue,
+      btceEthValue,
       clientOrders,
       clientPage,
       clients,
@@ -526,7 +524,6 @@ fetchAllClientOrders = () => {
       expandedClientID,
       handleDeleteOrder,
       images,
-      loader,
       masterSettings,
       orderUserId,
       orders,
@@ -553,6 +550,11 @@ fetchAllClientOrders = () => {
             <div>
               <Header 
                 bitBalance={ bitcoinBalance }
+                bitfinexBtcValue={ bitfinexBtcValue }
+                bitfinexEthValue={ bitfinexEthValue }
+                bitstampBtcValue={ bitstampBtcValue }
+                btceBtcValue={ btceBtcValue }
+                btceEthValue={ btceEthValue }
                 currentCurrency={ currentCurrency }
                 currentUser={ currentUser }
                 etherBalance={ ethereumBalance }
@@ -639,7 +641,6 @@ fetchAllClientOrders = () => {
     this.fetchImagesData()
     this.fetchSettings()
     this.fetchSignedInAdminDetails()
-    this.setState({loader: true})
   }
 }
 
