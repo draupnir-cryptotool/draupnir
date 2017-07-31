@@ -6,7 +6,7 @@ import FaFileImg from 'react-icons/lib/fa/file-image-o'
 import './pages.css'
 
 export default function InfoPage({
-  client, showModal, closeModal, showClientImageModal, closeImageModal,
+  client, showModal, showClientImageModal, closeImageModal,
   uploadPhoto, imageData
 }){
   const viewImageStyle = {

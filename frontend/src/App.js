@@ -48,7 +48,7 @@ class App extends Component {
     orderUserId: null,
     orders: null,
     showClientImageModal: false,
-    showModal: false,
+    showAddClientModal: false,
     showWarningDeleteModalClientClientId: null,
     showWarningDeleteModalOrderOrderId: null,
     tempOrder: null,
@@ -473,12 +473,8 @@ fetchAllClientOrders = () => {
     })
   }
 // controls new client modal
-  handleOpenClientModal = () => {
-    this.setState({ showModal: true })
-  }
-
-  handleCloseModal = () => {
-    this.setState({ showModal: false })
+  handleClientModal = () => {
+    this.setState({ showAddClientModal: !this.state.showAddClientModal })
   }
 
   handleOpenClientImageModal = () => {
@@ -545,7 +541,7 @@ fetchAllClientOrders = () => {
       showClientImageModal,
       showWarningDeleteModalClientClientId,
       showWarningDeleteModalOrderOrderId,
-      showModal,
+      showAddClientModal,
       tempOrder,
       token,
     } = this.state
@@ -583,7 +579,7 @@ fetchAllClientOrders = () => {
                 adminMessages={ adminMessages }
                 ausPrices={ ausPrices }
                 changeRoute={ this.onClientPageRoute }
-                clientModal={ this.handleOpenClientModal }
+                clientModal={ this.handleClientModal }
                 clientOrders={ clientOrders }
                 clientPage={ clientPage }
                 clients={ clients }
@@ -626,8 +622,8 @@ fetchAllClientOrders = () => {
             }
             </div>
             <ClientModal
-              showModal={ showModal }
-              closeModal={ this.handleCloseModal }
+              showAddClientModal={ showAddClientModal }
+              closeClientModal={ this.handleClientModal }
               createClient={ this.handleCreateClient }
             />
             </div>

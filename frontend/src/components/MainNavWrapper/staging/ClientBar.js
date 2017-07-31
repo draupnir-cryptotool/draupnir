@@ -13,7 +13,6 @@ export default function ClientBar({
   clientOrders,
   clientPage,
   closeImageModal,
-  closeModal,
   expanded = false,
   firstname,
   handleCreateOrder,
@@ -95,7 +94,6 @@ const checkTrue = (element, index, array) => {
             clientOrders={ clientOrders }
             clientPage={ clientPage }
             closeImageModal={closeImageModal}
-            closeModal={ closeModal }
             expanded={ expanded } 
             handleCreateOrder={ handleCreateOrder }
             handleDeleteOrder={ handleDeleteOrder }
