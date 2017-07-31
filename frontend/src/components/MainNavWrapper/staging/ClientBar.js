@@ -13,7 +13,6 @@ export default function ClientBar({
   clientOrders,
   clientPage,
   closeImageModal,
-  closeModal,
   expanded = false,
   firstname,
   handleCreateOrder,
@@ -88,7 +87,6 @@ const imageDataFind = ((images, id) => {
             clientOrders={ clientOrders }
             clientPage={ clientPage }
             closeImageModal={closeImageModal}
-            closeModal={ closeModal }
             expanded={ expanded } 
             handleCreateOrder={ handleCreateOrder }
             handleDeleteOrder={ handleDeleteOrder }

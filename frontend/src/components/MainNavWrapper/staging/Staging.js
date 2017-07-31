@@ -12,7 +12,6 @@ export default function Staging({
   clientPage,
   clients,
   closeImageModal, 
-  closeModal,
   expandedClientID,
   handleCreateOrder,
   handleDeleteOrder,
@@ -58,7 +57,6 @@ export default function Staging({
             clientOrders={ clientOrders }
             clientPage={ clientPage }
             closeImageModal={ closeImageModal }
-            closeModal={ closeModal }
             firstname={ client.firstname } 
             handleCreateOrder={ handleCreateOrder }
             handleDeleteOrder={ handleDeleteOrder }

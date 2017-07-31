@@ -16,7 +16,6 @@ export default function ClientExpand({
   clientOrders,
   clientPage,
   closeImageModal,
-  closeModal,
   expanded,
   handleCreateOrder,
   handleDeleteOrder,
@@ -58,7 +57,6 @@ export default function ClientExpand({
             <InfoPage 
             client={ client }
             showModal={ showModal }
-            closeModal={ closeModal }
             showClientImageModal={showClientImageModal}
             closeImageModal={closeImageModal}
             uploadPhoto={uploadPhoto}

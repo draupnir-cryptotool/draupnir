@@ -23,7 +23,6 @@ export default function MainNav({
   clientPage,
   clients,
   closeImageModal,
-  closeModal,
   expandedClientID,
   handleCreateOrder,
   handleDeleteOrder,
@@ -84,7 +83,6 @@ export default function MainNav({
             clientPage={ clientPage }
             clients={ clients }
             closeImageModal={ closeImageModal }
-            closeModal={ closeModal }
             expandedClientID={ expandedClientID }
             handleCreateOrder={ handleCreateOrder }
             handleDeleteOrder={ handleDeleteOrder }

@@ -17,12 +17,13 @@ class ClientModal extends React.Component {
   const email = ReactDOM.findDOMNode(this.refs.email).value
   const phone = ReactDOM.findDOMNode(this.refs.phone).value
   createClient({ firstname, lastname, email, phone })
+  this.props.closeClientModal()
 }
   render() {
   return (
   <div>
     <ReactModal
-      isOpen={this.props.showModal}
+      isOpen={this.props.showAddClientModal}
       contentLabel="Minimal Modal Example" 
       style={{overlay: {
         width: '50%',
@@ -75,7 +76,7 @@ class ClientModal extends React.Component {
         </Col>
       </FormGroup>
     </Form>
-          <Button type="submit" onClick={() => this.props.closeModal()} bsStyle="default">Cancel</Button>
+          <Button type="submit" onClick={() => this.props.closeClientModal()} bsStyle="default">Cancel</Button>
     </ReactModal>
   </div>
   )}
