@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactModal from 'react-modal'
-import { Button, FormGroup, ControlLabel, FormControl, Form, Col } from 'react-bootstrap'
+import { Button, FormGroup, ControlLabel, FormControl, Form, Col, Modal } from 'react-bootstrap'
 import './modal.css'
 import ReactDOM from 'react-dom'
 
@@ -21,18 +21,15 @@ class ClientModal extends React.Component {
 }
   render() {
   return (
-  <div>
-    <ReactModal
-      isOpen={this.props.showAddClientModal}
-      contentLabel="Minimal Modal Example" 
-      style={{overlay: {
-        width: '50%',
-        height: '45%',
-        margin: 'auto'
-      },
-      }}
+
+    <Modal
+      show={this.props.showAddClientModal}
+      style={{ marginTop: '-10%'}}
     >
-    <h1>Add Client</h1>
+    <Modal.Header>
+      <Modal.Title><p>Add Client</p></Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
     <Form horizontal onSubmit={ (event) => this.submitClient(event, this.props.createClient) }>
       <FormGroup controlId="formHorizontalName">
         <Col componentClass={ControlLabel} sm={2}>
@@ -76,9 +73,10 @@ class ClientModal extends React.Component {
         </Col>
       </FormGroup>
     </Form>
-          <Button type="submit" onClick={() => this.props.closeClientModal()} bsStyle="default">Cancel</Button>
-    </ReactModal>
-  </div>
+      <Button type="submit" onClick={() => this.props.closeClientModal()} bsStyle="default">Cancel</Button>
+    </Modal.Body>
+    </Modal>
+
   )}
 }
 
