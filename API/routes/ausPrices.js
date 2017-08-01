@@ -25,8 +25,7 @@ router.get('/ausPrices', function(req, res, next) {
     .then((json) => {
       ausPrices.BTC.acxBestBTC = parseFloat(json.btcaud.ticker.sell);
       return;
-    })
-    .catch((err) => console.log(err));
+    });
 
   const btcmFetchBTC = fetch('https://api.btcmarkets.net/market/BTC/AUD/tick')
     .then((res) => res.json())
@@ -35,19 +34,21 @@ router.get('/ausPrices', function(req, res, next) {
       return;
     });
 
-  const btcmFetchETH = (fetch('https://api.btcmarkets.net/market/ETH/AUD/tick')
+  const btcmFetchETH = fetch('https://api.btcmarkets.net/market/ETH/AUD/tick')
     .then((res) => res.json())
     .then((json) => {
       ausPrices.ETH.btcmBestETH = json.bestAsk;
       return;
-    }));
+    })
+    .catch((err) => res.data);
 
   const irFetch = fetch('https://api.independentreserve.com/Public/GetMarketSummary?primaryCurrencyCode=eth&secondaryCurrencyCode=aud')
     .then((res) => res.json())
     .then((json) => {
       ausPrices.ETH.irBestETH = json.CurrentLowestOfferPrice;
       return;
-    });
+    })
+    .catch((err) => res.data);
 
   exchangeAPIs = [
     acxFetch,
@@ -83,7 +84,7 @@ router.get('/ausPrices', function(req, res, next) {
       ausPrices.averageETH = (priceSumETH / nonZeroExchangesETH).toFixed(2);
       res.send(ausPrices);
     })
-    .catch((err) => console.log(err.message));
+    .catch((err) => next(err));
 });
 
 module.exports = router;

@@ -23,6 +23,11 @@ const mailRouter = require('./routes/mailRouter');
 
 const server = express();
 
+logErrors = (err) => {
+  console.error(err.stack);
+  next(err);
+};
+
 // middleware
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
@@ -56,13 +61,15 @@ server.use('/api', [
   usersRouter,
 ]);
 
+server.use(logErrors);
+
 // Handle errors by returning JSON
-server.use((error, req, res, next) => {
-  const status = error.status || 500;
-  res.status(status).json({
-    error: {message: error.message},
-  });
-});
+// server.use((error, req, res, next) => {
+//   const status = error.status || 500;
+//   res.status(status).json({
+//     error: {message: error.message},
+//   });
+// });
 
 
 server.listen(8000, () => {

@@ -45,7 +45,7 @@ router.get('/livecoinprices/btc-e/btc', (req,res) => {
   // get convertion rate when api is called
   Promise.all([
     fetchAudRate(),
-    fetch('https://btc-e.com/api/3/ticker/btc_usd')
+    fetch('https://btc-e.com/api/3/ticker/btc_usd', {timeout: 5000})
       .then((apiRes) => apiRes.json())
   ])
   .then(([audRate, json]) => {
@@ -115,7 +115,7 @@ router.get('/livecoinprices/btc-e/eth', (req,res) => {
   // get convertion rate when api is called
   Promise.all([
     fetchAudRate(),
-    fetch('https://btc-e.com/api/3/ticker/eth_usd')
+    fetch('https://btc-e.com/api/3/ticker/eth_usd', {timeout: 5000})
       .then((apiRes) => apiRes.json())
   ])
   .then(([audRate, json]) => {
