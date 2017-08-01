@@ -1,6 +1,5 @@
 import React from 'react'
 import { UnmountClosed as Collapse } from 'react-collapse'
-import StatusPage from './pages/StatusPage'
 import InfoPage from './pages/InfoPage'
 import OrdersPage from './pages/OrdersPage'
 import LogsPage from './pages/LogsPage'
@@ -17,7 +16,6 @@ export default function ClientExpand({
   clientOrders,
   clientPage,
   closeImageModal,
-  closeModal,
   expanded,
   handleCreateOrder,
   handleDeleteOrder,
@@ -31,12 +29,16 @@ export default function ClientExpand({
   orders,
   settings,
   showClientImageModal,
+  showWarningDeleteModalOrder,
+  warningDeleteModal,
   showModal,
   status,
   tempOrder,
   uploadPhoto,
   onUpdateStatusTrue,
-  onUpdateStatusFalse
+  onUpdateStatusFalse,
+  openWarningDeleteModalOrder,
+  showWarningDeleteModalOrderOrderId
 }) {
   
   return (
@@ -44,7 +46,6 @@ export default function ClientExpand({
         <Collapse isOpened={ expanded } fixedHeight={400} style={{width: "90%", backgroundColor: "#3B3B3B", margin: "0 auto"}}>
         <div>
           <nav className="clientExpandSelection" style={{ backgroundColor: "#C4C4C4" }}>
-            <a onClick={ () => changeRoute('status')}>STATUS</a>
             <a onClick={ () => changeRoute('info') }>INFO</a>
             <a onClick={ () => changeRoute('notes') }>NOTES</a>
             <a onClick={ () => changeRoute('logs') }>LOGS</a>
@@ -52,19 +53,10 @@ export default function ClientExpand({
             <a onClick={ () => changeRoute('orders') }>ORDERS</a>
           </nav>
           {
-            clientPage === 'status' ?
-            <StatusPage
-            status={ status }
-            client={ client }
-            onUpdateStatusTrue= { onUpdateStatusTrue }
-            onUpdateStatusFalse={ onUpdateStatusFalse }
-            />
-            :
             clientPage === 'info' ?
             <InfoPage 
             client={ client }
             showModal={ showModal }
-            closeModal={ closeModal }
             showClientImageModal={showClientImageModal}
             closeImageModal={closeImageModal}
             uploadPhoto={uploadPhoto}
@@ -91,6 +83,12 @@ export default function ClientExpand({
               clientOrders={ clientOrders }
               handleCreateOrder={ handleCreateOrder }
               handleDeleteOrder={ handleDeleteOrder }
+              onUpdateStatusTrue= { onUpdateStatusTrue }
+              onUpdateStatusFalse={ onUpdateStatusFalse }
+              showWarningDeleteModalOrder={ showWarningDeleteModalOrder }
+              warningDeleteModal={ warningDeleteModal }
+              openWarningDeleteModalOrder={ openWarningDeleteModalOrder }
+              showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
             />
             :
             ""

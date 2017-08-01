@@ -1,5 +1,7 @@
 import React from 'react'
+import _ from 'lodash'
 import './staging.css'
+import './modal.css'
 import ClientExpand from './clientExpand'
 import DeleteIcon from 'react-icons/lib/go/x'
 import WarningDeleteModal from '../../Modal/warningDeleteModal'
@@ -11,7 +13,6 @@ export default function ClientBar({
   clientOrders,
   clientPage,
   closeImageModal,
-  closeModal,
   expanded = false,
   firstname,
   handleCreateOrder,
@@ -35,41 +36,56 @@ export default function ClientBar({
   uniqId,
   uploadPhoto,
   onDeleteClient,
-  warningDeleteModal,
-  showWarningDeleteModal,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
-
+  openWarningDeleteModalClient,
+  openWarningDeleteModalOrder,
+  openWarningClientModal,
+  openWarningOrderModal,
+  showWarningDeleteModalOrderOrderId
 }) {
 
-  const imageDataFind = ((images, id) => {
-    if(!!images) {
-    return images.filter((clientImages) => clientImages.clientId === id
-    )}
-  })
+const imageDataFind = ((images, id) => {
+  if(!!images) {
+  return images.filter((clientImages) => clientImages.clientId === id
+  )}
+})
 
-const modal = "showWarningDeleteModal"
+const imageData = imageDataFind(images, id)
 
-  const imageData = imageDataFind(images, id)
+const checkTrue = (element, index, array) => { 
+  return (element.status.quoteSent === false ||element.status.quoteAccepted === false || 
+  element.status.depositCleared === false || element.status.orderComplete === false) &&  
+  element.clientId === client._id 
+} 
+
   return(
     <div className="clientBar">
         <div>
           <div style={{ border: "solid 1px #3B3B3B" , margin: "2em 0 0", backgroundColor: "#3B3B3B", color: "#969696", display: "flex" }}>
-            <div style={{flexDirection: "row", width: "1%", backgroundColor: "red"}}></div>
+            {
+              clientOrders.some(checkTrue) ?
+              <div style={{flexDirection: "row", width: "1%", backgroundColor: "#CB2424"}}></div> :
+              <div style={{flexDirection: "row", width: "1%", backgroundColor: "#4CC941"}}></div>
+            }
+
             <div onClick={ onExpand } id="clientBarTitle" style={{flexDirection: "row", width: "90%", marginLeft: "8%"}}>
               <div><p>{ uniqId }</p></div>
               <div><p>{ firstname + " " + lastname }</p></div>
               <div><p>Active Orders</p></div>
               <div><p>BTC</p></div>
             </div>
-              <span onClick={ () => (warningDeleteModal("showWarningDeleteModal")) } style={{ position: 'absolute', right: '4em', marginTop: '0.7em'}}>{<DeleteIcon size={25}/>}</span>
+              <span onClick={ openWarningDeleteModalClient } style={{ position: 'absolute', right: '4em', marginTop: '0.7em'}}>{<DeleteIcon size={25}/>}</span>
           </div>
+
           <WarningDeleteModal
-            showWarningDeleteModal={ showWarningDeleteModal }
-            warningDeleteModal={ warningDeleteModal }
-            onDeleteClient={ onDeleteClient }
+            showWarningDeleteModal={ openWarningClientModal }
+            warningDeleteModal={ openWarningDeleteModalClient }
+            deleteFunction={ onDeleteClient }
+            model={ 'client' }
             id={ id }
-        />
+          />
+          
           <ClientExpand 
             ausPrices={ ausPrices }
             changeRoute={ changeRoute}
@@ -78,7 +94,6 @@ const modal = "showWarningDeleteModal"
             clientOrders={ clientOrders }
             clientPage={ clientPage }
             closeImageModal={closeImageModal}
-            closeModal={ closeModal }
             expanded={ expanded } 
             handleCreateOrder={ handleCreateOrder }
             handleDeleteOrder={ handleDeleteOrder }
@@ -98,6 +113,8 @@ const modal = "showWarningDeleteModal"
             uploadPhoto={uploadPhoto}
             onUpdateStatusTrue={ onUpdateStatusTrue }
             onUpdateStatusFalse={ onUpdateStatusFalse }
+            openWarningDeleteModalOrder={ openWarningDeleteModalOrder }
+            showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
           />
         </div>
     </div>

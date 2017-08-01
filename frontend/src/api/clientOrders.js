@@ -22,10 +22,34 @@ export function createOrder({ clientId, amount, coin }) {
   .then(res => res.data)
 }
 
-export function deleteOrder({ orderId }) {
-  return axios.delete(`/api/clientorders/${orderId}`)
+export function deleteOrder({ id }) {
+  return axios.delete(`/api/clientorders/${id}`)
   .catch((err) => {
     console.log('Error in frontend API deleteOrder: ' + err);
   })
 }
 
+const statusTypeToField = {
+  quoteSent: 'quoteSent',
+  quoteAccepted: 'quoteAccepted',
+  depositCleared: 'depositCleared',
+  orderComplete: 'orderComplete'
+}
+
+export function updateVerifiedTrue({ orderId, statusType }) {
+  const fieldName = statusTypeToField[statusType]
+  return axios.patch(`/api/clientorders/${orderId}`,  {
+    // Take advantage of MongoDB’s ability to use key paths
+    [`status.${fieldName}`]: true 
+  })
+  .then(res => res.data)
+}
+
+export function updateVerifiedFalse({ orderId, statusType }) {
+  const fieldName = statusTypeToField[statusType]
+  return axios.patch(`/api/clientorders/${orderId}`,  {
+    // Take advantage of MongoDB’s ability to use key paths
+    [`status.${fieldName}`]: false
+  })
+  .then(res => res.data)
+}

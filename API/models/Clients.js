@@ -10,24 +10,6 @@ const clientSchema = mongoose.Schema({
     type: String,
     default: shortid.generate()
   },
-  status: {
-    quoteSent: {
-      type: Boolean,
-      default: false
-    } ,
-    quoteAccepted: {
-      type: Boolean,
-      default: false
-    },
-    depositCleared: {
-      type: Boolean,
-      default: false
-    },
-    idVerified: {
-      type: Boolean,
-      default: false
-    }
-  },
 });
 
 

@@ -12,7 +12,6 @@ export default function Staging({
   clientPage,
   clients,
   closeImageModal, 
-  closeModal,
   expandedClientID,
   handleCreateOrder,
   handleDeleteOrder,
@@ -31,12 +30,12 @@ export default function Staging({
   tempOrder,
   uploadPhoto,
   onDeleteClient,
-  warningDeleteModal,
-  showWarningDeleteModal,
-
+  showWarningDeleteModalClientClientId,
+  showWarningDeleteModalOrderOrderId,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
-
+  openWarningDeleteModalClient,
+  openWarningDeleteModalOrder
 }){
 
   return (
@@ -57,9 +56,7 @@ export default function Staging({
             client={ client }
             clientOrders={ clientOrders }
             clientPage={ clientPage }
-            closeImageModal={closeImageModal}
-            closeModal={ closeModal }
-            expanded={ expandedClientID === client._id }
+            closeImageModal={ closeImageModal }
             firstname={ client.firstname } 
             handleCreateOrder={ handleCreateOrder }
             handleDeleteOrder={ handleDeleteOrder }
@@ -68,14 +65,19 @@ export default function Staging({
             images={images}
             key={ client._id } 
             lastname={ client.lastname }
-            onExpand={ () => onClientBarExpand(client._id) }
+            onExpand={ (e) => onClientBarExpand(e, client._id) }
+            expanded={ expandedClientID === client._id }
+            openWarningDeleteModalClient={ () => (openWarningDeleteModalClient(client._id)) }
+            openWarningClientModal={ showWarningDeleteModalClientClientId === client._id }
+            openWarningDeleteModalOrder={ openWarningDeleteModalOrder }
+            showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
             onOrder={ onOrder }
             onOrderId={ onOrderId }
             onSend={ onSend }
             orderUserId={ orderUserId }
             orders={ orders }
             settings={ settings }
-            showClientImageModal={showClientImageModal}
+            showClientImageModal={ showClientImageModal }
             showModal={ showModal }
             status={ client.status }
             tempOrder={ tempOrder }
@@ -84,8 +86,6 @@ export default function Staging({
             onUpdateStatusTrue={ onUpdateStatusTrue }
             onUpdateStatusFalse={ onUpdateStatusFalse }
             onDeleteClient={ onDeleteClient }
-            warningDeleteModal={ warningDeleteModal }
-            showWarningDeleteModal={ showWarningDeleteModal }
           />
         ))
         :

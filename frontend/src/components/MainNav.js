@@ -23,7 +23,6 @@ export default function MainNav({
   clientPage,
   clients,
   closeImageModal,
-  closeModal,
   expandedClientID,
   handleCreateOrder,
   handleDeleteOrder,
@@ -48,14 +47,14 @@ export default function MainNav({
   onCreateMessage,
   currentUser,
   onMessageDelete,
-
   onDeleteClient,
-  warningDeleteModal,
-  showWarningDeleteModal,
+  showWarningDeleteModalClientClientId,
+  showWarningDeleteModalOrderOrderId,
   onCloseWarningDeleteModal,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
-
+  openWarningDeleteModalClient,
+  openWarningDeleteModalOrder
 }) {
   const pageBodyStyle = {
     position: 'relative',
@@ -84,7 +83,6 @@ export default function MainNav({
             clientPage={ clientPage }
             clients={ clients }
             closeImageModal={ closeImageModal }
-            closeModal={ closeModal }
             expandedClientID={ expandedClientID }
             handleCreateOrder={ handleCreateOrder }
             handleDeleteOrder={ handleDeleteOrder }
@@ -105,8 +103,10 @@ export default function MainNav({
             onUpdateStatusFalse={ onUpdateStatusFalse }
             uploadPhoto={ uploadPhoto }
             onDeleteClient={ onDeleteClient }
-            warningDeleteModal={ warningDeleteModal }
-            showWarningDeleteModal={ showWarningDeleteModal }
+            showWarningDeleteModalClientClientId={ showWarningDeleteModalClientClientId }
+            showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
+            openWarningDeleteModalClient={ openWarningDeleteModalClient }
+            openWarningDeleteModalOrder={ openWarningDeleteModalOrder }
           />
         )
         } />

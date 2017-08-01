@@ -1,4 +1,4 @@
-const express = require('express');
+  const express = require('express');
 const ClientOrder = require('../models/ClientOrder');
 const router = express.Router();
 
@@ -40,20 +40,21 @@ router.post('/clientorders/new', (req, res) => {
 
 // edit order
 router.patch('/clientorders/:id', (req, res) => {
-  ClientOrder.findByIdAndUpdate(req.params.id, req.body, {new: true})
-  .then((clientOrder) => {
-    res.json(clientOrder);
-  })
-  .catch((err) => {
-    res.json({err: err});
-  });
+  const id = req.params.id
+  ClientOrder.findByIdAndUpdate(id, { $set: req.body }, {new: true } )
+    .then((client) => {
+      res.json(client)
+    })
+    .catch((error) => {
+      res.json({ error: error })
+    })
 });
 
 // delete an order
 router.delete('/clientorders/:id', (req, res) => {
   ClientOrder.findByIdAndRemove(req.params.id)
   .then((removedClientOrder) => {
-    resp.json(removedClientOrder);
+    res.json(removedClientOrder);
   })
   .catch((err) => {
     if (err) {

@@ -20,7 +20,6 @@ import Mail from './components/Mail';
 import MainNav from './components/MainNav';
 import Order from './components/Order';
 import PdfForm from './components/pdfForm';
-import WarningDeleteModal from './components/Modal/warningDeleteModal'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class App extends Component {
@@ -47,8 +46,9 @@ class App extends Component {
     orderUserId: null,
     orders: null,
     showClientImageModal: false,
-    showModal: false,
-    showWarningDeleteModal: false,
+    showAddClientModal: false,
+    showWarningDeleteModalClientClientId: null,
+    showWarningDeleteModalOrderOrderId: null,
     tempOrder: null,
   }
 
@@ -118,13 +118,13 @@ class App extends Component {
     })
   }
 
-  handleUpdateStatusTrue = ({ clientId, statusType }) => {
-    clientAPI.updateVerifiedTrue({ clientId, statusType })
-    .then((updatedClient) => {
+  handleUpdateStatusTrue = ({ orderId, statusType }) => {
+    clientOrdersAPI.updateVerifiedTrue({ orderId, statusType })
+    .then((updatedClientOrder) => {
       this.setState((prevState) => {
         return { 
-          clients: prevState.clients.map(client => (
-            (client._id === updatedClient._id) ? updatedClient : client
+          clientOrders: prevState.clientOrders.map(clientOrder => (
+            (clientOrder._id === updatedClientOrder._id) ? updatedClientOrder : clientOrder
           ))
 
         }
@@ -135,15 +135,13 @@ class App extends Component {
     })
   }
 
-
-  handleUpdateStatusFalse = ({ clientId, statusType }) => {
-    clientAPI.updateVerifiedFalse({ clientId, statusType })
-    .then((updatedClient) => {
+  handleUpdateStatusFalse = ({ orderId, statusType }) => {
+    clientOrdersAPI.updateVerifiedFalse({ orderId, statusType })
+    .then((updatedClientOrder) => {
       this.setState((prevState) => {
-        console.log(updatedClient)
         return {
-          clients: prevState.clients.map(client => (
-            (client._id === updatedClient._id) ? updatedClient : client
+          clientOrders: prevState.clientOrders.map(clientOrder => (
+            (clientOrder._id === updatedClientOrder._id) ? updatedClientOrder : clientOrder
           ))
         }
       })
@@ -234,8 +232,9 @@ class App extends Component {
     })
   }
 
-  handleDeleteOrder = ({ orderId }) => {
-    clientOrdersAPI.deleteOrder({ orderId })
+  handleDeleteOrder = ({ id }) => {
+    console.log(`order id to delete ---------${id}`)
+    clientOrdersAPI.deleteOrder({ id })
     .catch(error => {
       this.setState({ error })
     })
@@ -259,8 +258,8 @@ class App extends Component {
     })
   }
 
-  handleDeleteClient = ({ clientId }) => {
-    clientAPI.deleteClient({ clientId })
+  handleDeleteClient = ({ id }) => {
+    clientAPI.deleteClient({ id })
     .catch((err) => {
       this.setState({error: err})
     })
@@ -472,16 +471,8 @@ fetchAllClientOrders = () => {
     })
   }
 // controls new client modal
-  handleOpenClientModal = () => {
-    this.setState({ showModal: true })
-  }
-
-  handleCloseModal = () => {
-    this.setState({ showModal: false })
-  }
-
-  handleModal = (modal) => {
-      this.setState({[modal]: !this.state[modal]})
+  handleClientModal = () => {
+    this.setState({ showAddClientModal: !this.state.showAddClientModal })
   }
 
   handleOpenClientImageModal = () => {
@@ -493,10 +484,27 @@ fetchAllClientOrders = () => {
   }
 
   // Expands client bar
-  onSwitchClientBar = (clientID) => {
+  onSwitchClientBar = (e, clientID) => {
+    e.preventDefault()
     this.setState((prevState) => ({
       expandedClientID:
         (prevState.expandedClientID === clientID) ? null : clientID
+    }))
+  }
+
+  onOpenWarningDeleteModalClient = (clientID) => {
+    // e.preventDefault()
+    this.setState((prevState) => ({
+      showWarningDeleteModalClientClientId:
+        (prevState.showWarningDeleteModalClientClientId === clientID) ? null : clientID
+    }))
+  }
+
+  onOpenWarningDeleteModalOrder = (clientID) => {
+    // e.preventDefault()
+    this.setState((prevState) => ({
+      showWarningDeleteModalOrderOrderId:
+        (prevState.showWarningDeleteModalOrderOrderId === clientID) ? null : clientID
     }))
   }
 
@@ -528,8 +536,9 @@ fetchAllClientOrders = () => {
       orderUserId,
       orders,
       showClientImageModal,
-      showWarningDeleteModal,
-      showModal,
+      showWarningDeleteModalClientClientId,
+      showWarningDeleteModalOrderOrderId,
+      showAddClientModal,
       tempOrder,
       token,
     } = this.state
@@ -572,7 +581,7 @@ fetchAllClientOrders = () => {
                 adminMessages={ adminMessages }
                 ausPrices={ ausPrices }
                 changeRoute={ this.onClientPageRoute }
-                clientModal={ this.handleOpenClientModal }
+                clientModal={ this.handleClientModal }
                 clientOrders={ clientOrders }
                 clientPage={ clientPage }
                 clients={ clients }
@@ -601,10 +610,12 @@ fetchAllClientOrders = () => {
                 settings={ masterSettings }
                 showClientImageModal={ showClientImageModal }
                 showModal={ this.handleOpenClientImageModal }
-                showWarningDeleteModal={ showWarningDeleteModal }
                 tempOrder={ tempOrder }
                 uploadPhoto={ this.handleUploadPhoto }
-                warningDeleteModal={ this.handleModal}
+                showWarningDeleteModalClientClientId={ showWarningDeleteModalClientClientId }
+                showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
+                openWarningDeleteModalClient={ this.onOpenWarningDeleteModalClient }
+                openWarningDeleteModalOrder={ this.onOpenWarningDeleteModalOrder }
               />
                 ) : (
                 <p>loading..</p>
@@ -613,8 +624,8 @@ fetchAllClientOrders = () => {
             }
             </div>
             <ClientModal
-              showModal={ showModal }
-              closeModal={ this.handleCloseModal }
+              showAddClientModal={ showAddClientModal }
+              closeClientModal={ this.handleClientModal }
               createClient={ this.handleCreateClient }
             />
             </div>

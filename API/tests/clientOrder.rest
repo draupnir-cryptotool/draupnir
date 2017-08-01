@@ -1,0 +1,11 @@
+PATCH http://localhost:8000/api/clientorders/5975a5f11db8ff45c6b6207b
+content-type: application/json
+
+{
+  "status": {
+    "quoteSent": true,
+    "quoteAccepted": true,
+    "depositCleared": true,
+    "idVerified": false
+  }
+}

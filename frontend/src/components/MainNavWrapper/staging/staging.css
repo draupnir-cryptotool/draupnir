@@ -26,6 +26,10 @@ li {
   margin-top: 1em;
 }
 
+#clientBarTitle:hover {
+  cursor: pointer;
+}
+
 @font-face {
   font-family: 'Roboto', sans-serif;
   src: url('https://fonts.googleapis.com/css?family=Roboto')

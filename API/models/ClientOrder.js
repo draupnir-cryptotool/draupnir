@@ -8,6 +8,24 @@ const clientOrderSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  status: {
+    quoteSent: {
+      type: Boolean,
+      default: false
+    } ,
+    quoteAccepted: {
+      type: Boolean,
+      default: false
+    },
+    depositCleared: {
+      type: Boolean,
+      default: false
+    },
+    orderComplete: {
+      type: Boolean,
+      default: false
+    }
+  }
 });
 
 ClientOrder = mongoose.model('ClientOrder', clientOrderSchema);
