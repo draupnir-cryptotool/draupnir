@@ -17,7 +17,7 @@ export function queryOrder({ buying, tally, amount, bitfinexLimit, btceLimit, bi
     }
   })
     .catch((error) => {
-      console.log(error)
+      res => res.data
     })
   .then(res => res.data)
 }

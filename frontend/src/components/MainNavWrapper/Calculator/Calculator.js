@@ -96,7 +96,7 @@ class Calculator extends React.Component{
         </div>
 
         <div style={{flexDirection: 'row', width: '50%'}}>
-        { !_.isEmpty(this.props.tempOrder) && this.props.client._id === this.props.orderUserId ? (
+        { !_.isEmpty(this.props.tempOrder) ? (
           <div>
             <h1 style={{ textAlign: 'center', color: "#FFFFFF" }}>ORDER</h1>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '0', gridAutoRows: 'minmax(50px, auto)'}}>

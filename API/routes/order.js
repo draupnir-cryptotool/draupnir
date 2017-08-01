@@ -30,6 +30,7 @@ router.get('/order', function(req, res, next) {
     .then((res) => res.json())
     // When the parsed JSON is ready we can muck around with it
     .then((json) => {
+      console.log('Bitfinex order book fetched...');
       // Just take the part of the returned order book that we want
       orderBook = json.asks;
       // Setup an array to store the orders from the exchange
@@ -55,7 +56,7 @@ router.get('/order', function(req, res, next) {
     })
     .then((res) => res.json())
     .then((json) => {
-      console.log('bitstamp');
+      console.log('Bitstamp order book fetched...');
       orderBook = json.asks;
       massagedOrderBook = [];
 
@@ -79,13 +80,10 @@ router.get('/order', function(req, res, next) {
     });
 
   const fetchBTCe = fetch(`https://btc-e.com/api/3/depth/${qs.buying}_usd/\
-                           ?limit=5000`)
-    .catch((err) => {
-      console.log('Fetching from BTC-e failed with: ' + err);
-    })
+                           ?limit=5000`, {method: 'GET', timeout: 5000})
     .then((res) => res.json())
     .then((json) => {
-      console.log(res);
+      console.log('BTC-e order book fetched...');
       orderBook = json[`${qs.buying}_usd`].asks;
       massagedOrderBook = [];
 
@@ -101,12 +99,19 @@ router.get('/order', function(req, res, next) {
         massagedOrderBook.push(massagedOrder);
       });
       return massagedOrderBook;
+    })
+    .catch((err) => {
+      console.log('Fetching from BTC-e failed with: ' + err);
+      console.error(err);
+      return;
     });
 
   // Wait for all the API calls to return before we play with the data
-  Promise.all([fetchBTCe, fetchBitfinex, fetchBitstamp])
+  // Promise.all([fetchBTCe, fetchBitfinex, fetchBitstamp])
+  Promise.all([fetchBitfinex, fetchBitstamp])
     .catch((err) => {
       console.log('Promise.all failed with: ' + err);
+      console.error(err);
     })
     .then((orderBooks) => {
       // Promise.all gives us an array of the returned values, so we flatten
