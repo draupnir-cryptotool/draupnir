@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactModal from 'react-modal'
-
-import Image from '../Image'
-import { Button } from 'react-bootstrap'
+import { Button, Modal, ButtonToolbar } from 'react-bootstrap'
+import UploadImage from '../uploadImage'
 import './modalStyles.css'
 
 class ClientImageModal extends React.Component {
@@ -10,28 +9,25 @@ class ClientImageModal extends React.Component {
   render() {
     return (
       <div>
-        <ReactModal 
-          isOpen={this.props.showClientImageModal}
-          contentLabel="Minimal Modal Example" 
-          style={{overlay: {
-          width: '50%',
-          height: '50%',
-          margin: 'auto'
-          },
-          }}
+        <Modal
+          show={this.props.showClientImageModal}
         >
-        <h2>Client ID</h2>
+        <Modal.Header>
+          <Modal.Title><p>Client ID</p></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div style={{ margin: '10% 0 0 10%' }}>
-            <Image 
+            <UploadImage 
               uploadPhoto={ this.props.uploadPhoto }
               clientId={this.props.clientId}
               closeImageModal={ this.props.closeImageModal }
             />
           </div>
-        <div>
-          <Button type="button" bsStyle="default" onClick={() => this.props.closeImageModal()}> Cancel</Button>
-        </div>
-        </ReactModal>
+          <div>
+            <Button type="button" bsStyle="default" onClick={() => this.props.closeImageModal()}> Cancel</Button>
+          </div>
+        </Modal.Body>
+        </Modal>
       </div>
     )
   }

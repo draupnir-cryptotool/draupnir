@@ -14,7 +14,6 @@ import * as settingsAPI from './api/settings';
 import ClientImageModal from './components/Modal/ClientImageModal';
 import ClientModal from './components/Modal/ClientModal';
 import Header from './components/Header';
-import Image from './components/Image';
 import LogInform from './components/logIn/LogInForm';
 import Mail from './components/Mail';
 import MainNav from './components/MainNav';
@@ -49,8 +48,10 @@ class App extends Component {
     showAddClientModal: false,
     showWarningDeleteModalClientClientId: null,
     showWarningDeleteModalOrderOrderId: null,
+    showWarningDeleteModalImageImageId: null,
     tempOrder: null,
   }
+// HANDLER SECTION -------------------------------------------------------------------------
 
   // Fetching best order rates from exchanges
   handleQueryOrder = ({ buying, tally, amount, bitfinexLimit, btceLimit, bitstampLimit }) => {
@@ -83,7 +84,22 @@ class App extends Component {
       })
     }
 
-// HANDLER SECTION -------------------------------------------------------------------------
+    handleDeleteImage = ({ id }) => {
+      imageAPI.deleteImage({ id })
+      .then(deletedImage => {
+        this.setState(({ images }) => {
+          return {
+            images: images.filter((image) => {
+              return image._id !== deletedImage._id
+            })
+          }
+        })
+      })
+      .catch((err) => {
+        this.setState({error: err})
+      })
+    }
+
   handleCreateMessage = ({ from, message  }) => { // toRole will be Admin || Client
     messageAPI.createMessage({ from, message })
     .then((newMessage) => {
@@ -508,6 +524,13 @@ fetchAllClientOrders = () => {
     }))
   }
 
+  onOpenWarningDeleteModalImage = (clientID) => {
+    this.setState((prevState) => ({
+      showWarningDeleteModalImageImageId:
+        (prevState.showWarningDeleteModalImageImageId === clientID) ? null : clientID
+    }))
+  }
+
   onClientPageRoute = (route) => {
     this.setState({ clientPage: route })
   }
@@ -538,6 +561,7 @@ fetchAllClientOrders = () => {
       showClientImageModal,
       showWarningDeleteModalClientClientId,
       showWarningDeleteModalOrderOrderId,
+      showWarningDeleteModalImageImageId,
       showAddClientModal,
       tempOrder,
       token,
@@ -599,6 +623,7 @@ fetchAllClientOrders = () => {
                 onDeleteClient={ this.handleDeleteClient }
                 onEthUpdate={ this.updateEthereumWalletAddress }
                 onMessageDelete={ this.handleDeleteMessage }
+                onImageDelete={ this.handleDeleteImage }
                 onOrder={ this.handleQueryOrder }
                 onOrderId={ this.handleSetOrderId }
                 onSend={ this.handleSendMail }
@@ -614,13 +639,14 @@ fetchAllClientOrders = () => {
                 uploadPhoto={ this.handleUploadPhoto }
                 showWarningDeleteModalClientClientId={ showWarningDeleteModalClientClientId }
                 showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
+                showWarningDeleteModalImageImageId={ showWarningDeleteModalImageImageId }
                 openWarningDeleteModalClient={ this.onOpenWarningDeleteModalClient }
                 openWarningDeleteModalOrder={ this.onOpenWarningDeleteModalOrder }
+                openWarningDeleteModalImage={ this.onOpenWarningDeleteModalImage }
               />
                 ) : (
                 <p>loading..</p>
               )
-
             }
             </div>
             <ClientModal

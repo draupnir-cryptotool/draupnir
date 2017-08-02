@@ -30,7 +30,7 @@ export default function MessagesWrapper({
           transitionLeaveTimeout={300}
           >
       {
-        adminMessages ? adminMessages.map((adminMessage) => (
+        adminMessages.length > 0 ? adminMessages.map((adminMessage) => (
             <Message
               key={ adminMessage._id }
               message={ adminMessage.message }
@@ -41,7 +41,7 @@ export default function MessagesWrapper({
             />
         ))
         :
-        ""
+        <h1 style={{color: 'white', position: 'absolute', top: '4em'}}>No messages...</h1>
       }
       </ReactCSSTransitionGroup>
       </div>

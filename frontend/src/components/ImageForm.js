@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone'
 import ReactDOM from 'react-dom'
 import { Button, FormGroup, ControlLabel, FormControl, Form, Col } from 'react-bootstrap'
 
-class ImageDisplay extends React.Component  {
+class ImageForm extends React.Component  {
 // clientId sent in from parent
   submitImage = (image, uploadPhoto) => {
   const idType = ReactDOM.findDOMNode(this.refs[this.props.clientId]).value
@@ -37,4 +37,4 @@ class ImageDisplay extends React.Component  {
     )
   }
 }
-export default ImageDisplay
+export default ImageForm

@@ -13,3 +13,8 @@ export function allImageData() {
   return axios.get('./api/images')
   .then(res => res.data)
 }
+
+export function deleteImage({ id }) {
+  return axios.delete(`./api/image/${id}`)
+  .then(res => res.data)
+}
