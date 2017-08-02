@@ -30,12 +30,15 @@ export default function Staging({
   tempOrder,
   uploadPhoto,
   onDeleteClient,
-  showWarningDeleteModalClientClientId,
-  showWarningDeleteModalOrderOrderId,
   onUpdateStatusTrue,
   onUpdateStatusFalse,
+  showWarningDeleteModalClientClientId,
+  showWarningDeleteModalOrderOrderId,
+  showWarningDeleteModalImageImageId,
   openWarningDeleteModalClient,
-  openWarningDeleteModalOrder
+  openWarningDeleteModalOrder,
+  openWarningDeleteModalImage,
+  onImageDelete
 }){
 
   return (
@@ -71,6 +74,8 @@ export default function Staging({
             openWarningClientModal={ showWarningDeleteModalClientClientId === client._id }
             openWarningDeleteModalOrder={ openWarningDeleteModalOrder }
             showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
+            showWarningDeleteModalImageImageId={ showWarningDeleteModalImageImageId }
+            openWarningDeleteModalImage={ openWarningDeleteModalImage }
             onOrder={ onOrder }
             onOrderId={ onOrderId }
             onSend={ onSend }
@@ -86,6 +91,7 @@ export default function Staging({
             onUpdateStatusTrue={ onUpdateStatusTrue }
             onUpdateStatusFalse={ onUpdateStatusFalse }
             onDeleteClient={ onDeleteClient }
+            onImageDelete={ onImageDelete }
           />
         ))
         :

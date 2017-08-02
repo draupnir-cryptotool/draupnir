@@ -55,7 +55,6 @@ export default function OrdersPage({
                     showWarningDeleteModalOrder={ showWarningDeleteModalOrder }
                     warningDeleteModal={ warningDeleteModal }
                     clientId={ client._id}
-                    openWarningDeleteModalOrder={ openWarningDeleteModalOrder }
                     openWarningDeleteModalOrder={ () => (openWarningDeleteModalOrder(order._id)) }
                     openWarningOrderModal={ showWarningDeleteModalOrderOrderId === order._id }
                   />

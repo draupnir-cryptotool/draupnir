@@ -14,10 +14,12 @@ id
     warningDeleteModal
   }
 
+  // Model is passed in when rendering e.g. <WarningDelteModal model="order"/>
   const modelTitle = {
     client: `Are you sure you want to delete this ${model}?`,
-    order: `Are you sure you want to delete this ${model}`,
-    messages: `Are you sure you want to delete this ${model}`
+    order: `Are you sure you want to delete this ${model}?`,
+    messages: `Are you sure you want to delete this ${model}?`,
+    image: `Are you sure you want to delete this ${model}?`
   }
 
   return (

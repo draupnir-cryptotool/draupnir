@@ -1,0 +1,4 @@
+DELETE http://localhost:8000/api/image/59754d32bc41f3215a0afb2e
+
+###
+GET http://localhost:8000/api/images

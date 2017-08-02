@@ -42,7 +42,10 @@ export default function ClientBar({
   openWarningDeleteModalOrder,
   openWarningClientModal,
   openWarningOrderModal,
-  showWarningDeleteModalOrderOrderId
+  showWarningDeleteModalOrderOrderId,
+  showWarningDeleteModalImageImageId,
+  openWarningDeleteModalImage,
+  onImageDelete
 }) {
 
 const imageDataFind = ((images, id) => {
@@ -115,6 +118,9 @@ const checkTrue = (element, index, array) => {
             onUpdateStatusFalse={ onUpdateStatusFalse }
             openWarningDeleteModalOrder={ openWarningDeleteModalOrder }
             showWarningDeleteModalOrderOrderId={ showWarningDeleteModalOrderOrderId }
+            showWarningDeleteModalImageImageId={ showWarningDeleteModalImageImageId }
+            openWarningDeleteModalImage={ openWarningDeleteModalImage }
+            onImageDelete={ onImageDelete }
           />
         </div>
     </div>

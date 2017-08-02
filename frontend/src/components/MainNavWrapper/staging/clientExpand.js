@@ -38,7 +38,10 @@ export default function ClientExpand({
   onUpdateStatusTrue,
   onUpdateStatusFalse,
   openWarningDeleteModalOrder,
-  showWarningDeleteModalOrderOrderId
+  showWarningDeleteModalOrderOrderId,
+  showWarningDeleteModalImageImageId,
+  openWarningDeleteModalImage,
+  onImageDelete
 }) {
   
   return (
@@ -60,6 +63,9 @@ export default function ClientExpand({
             showClientImageModal={showClientImageModal}
             closeImageModal={closeImageModal}
             uploadPhoto={uploadPhoto}
+            showWarningDeleteModalImageImageId={ showWarningDeleteModalImageImageId }
+            openWarningDeleteModalImage={ openWarningDeleteModalImage }
+            onImageDelete={ onImageDelete }
             imageData ={ !!imageData ? imageData : "" } />
             :
             clientPage === 'notes' ?

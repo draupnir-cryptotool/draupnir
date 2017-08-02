@@ -1,52 +1,51 @@
-import React, { Component } from 'react';
-import ImageDisplay from './ImageDisplay'
-import Photo from './Photo'
-import * as imageAPI from '../api/image'
+import React from 'react'
+import FaFileImg from 'react-icons/lib/fa/file-image-o'
+import { Button, OverlayTrigger, Popover } from 'react-bootstrap'
+import WarningDeleteModal from '../components/Modal/warningDeleteModal'
 
 export default function Image({
-  uploadPhoto, 
-  image, 
-  clientId, 
-  closeImageModal
+  image,
+  openWarningDeleteModalImage,
+  openWarningImageModal,
+  handleDeleteImage
+
 }) {
-    return (
-      <div>
-        <ImageDisplay 
-          uploadPhoto = { uploadPhoto }
-          clientId={ clientId }
-          closeImageModal={ closeImageModal }
-        />
-        {
-          !! image ? (
-            <Photo url={ image.s3URL } />
-          ) :
-          (
-            <p>Loading..</p>
-          )
-        }  
-      </div>
-    )
+
+  const viewImageStyle = {
+    fontSize: '.7em',
+    position: 'relative',
+    left: '15%',
+    marginTop: '1.9em'
   }
-// <Dropzone onDrop={ this.onDrop }>
-//           <p>Try dropping some files here, or click to select files to upload.</p>
-//         </Dropzone>
-//         {
-//           !!image ? (
-//             <Photo url={ image }/>
-//           ) : (
-//             <p>loading..</p>
-//           )
-//         }
 
+  const imageOverlay = (image) => (
+    <Popover id="popover-positioned-top" title="Client ID">
+      <div>
+        <img width={ 200 } height={ 200 } src={image.s3URL} alt="id"/>
+      </div>
+    </Popover>
+  )
 
-  // onDrop(image) {
-  //   let file = image[0]
-  //   imageAPI.createImage({ file })
-  //   .then(image => {
-  //       console.log(image);
-  //       this.props.setState({ image: image })
-  //   })
-  //   .catch(error => {
-  //     this.setState({ error })
-  //   })
-  // }
+  return (
+    <div>
+
+      <WarningDeleteModal
+        showWarningDeleteModal={ openWarningImageModal }
+        warningDeleteModal={ openWarningDeleteModalImage }
+        deleteFunction={ handleDeleteImage }
+        model={ 'image' }
+        id={ image._id }
+      />
+
+      <div key={image._id} style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gridGap: '5px', color: "#CB2424"}}>
+            <h3 style={{color: 'white'}}>{image.idType}</h3>
+            <span className="imgIcon" style={ viewImageStyle }>
+              <OverlayTrigger trigger="click" placement="top" overlay={imageOverlay(image)}>
+                <FaFileImg size={30}/>
+              </OverlayTrigger>
+            </span>
+            <span onClick={ openWarningDeleteModalImage }><p>[ delete ]</p></span>
+          </div>
+    </div>
+  )
+}

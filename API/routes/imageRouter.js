@@ -77,4 +77,14 @@ router.get('/images', (req, res) => {
   })
 });
 
+router.delete('/image/:id', (req, res) => {
+  Image.findByIdAndRemove(req.params.id)
+  .then((deleted) => {
+    res.json(deleted)
+  })
+  .catch((err) => {
+    res.json({ err: err })
+  })
+})
+
 module.exports = router

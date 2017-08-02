@@ -146,7 +146,7 @@ export default function Order({
 
         <WarningDeleteModal
           showWarningDeleteModal={ openWarningOrderModal }
-          warningDeleteModal={ openWarningDeleteModalOrder } // set state to show modal
+          warningDeleteModal={ openWarningDeleteModalOrder } // set state to show/hide modal
           deleteFunction={ handleDeleteOrder } //
           model={ 'order' } ////
           id={ order._id }
