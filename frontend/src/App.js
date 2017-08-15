@@ -570,7 +570,7 @@ fetchAllClientOrders = () => {
     return (
       <Router>
         <main>
-        <Route exact path='/login' render={() => (
+        <Route path='/login' render={() => (
           <div>
           { !!error && <p>{ error.message }</p> }
 
@@ -584,7 +584,7 @@ fetchAllClientOrders = () => {
           </div>
         )
         }/>
-        <Route path='/home' render={() => (
+        <Route exact to='/home' render={() => (
           !!token ? (
           <div>
             <div>
