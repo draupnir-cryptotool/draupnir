@@ -607,7 +607,7 @@ fetchAllClientOrders = () => {
             </div>
             <div>
             {
-              !!masterSettings ? (
+              !!token ? (
               <MainNav
                 adminMessages={ adminMessages }
                 ausPrices={ ausPrices }
