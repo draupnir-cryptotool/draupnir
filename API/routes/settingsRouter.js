@@ -64,7 +64,7 @@ router.get('/bitcoinBalance', (req, res) => {
 // calculate our eth wallet balance
 router.get('/ethereumBalance', (req, res) => {
   Settings.findById({_id: "5992c2f1660951f72d4a6cfe"})
-  .then((settings) => { 
+  .then((settings) => {
     return fetch(`https://etherchain.org/api/account/${settings.ethWalletAddress}`)
   })
     .then((apiRes) => apiRes.json())
