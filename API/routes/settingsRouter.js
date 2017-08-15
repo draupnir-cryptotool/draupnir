@@ -44,7 +44,7 @@ router.patch('/settings/:id', (req, res) => {
 // wallet address coming from DB
 // calculate our btc wallet balance
 router.get('/bitcoinBalance', (req, res) => {
-  Settings.findById({_id: "59703a98ae87e52a7dfe210a" })
+  Settings.findById({_id: "5992c2f1660951f72d4a6cfe" })
   .then((settings) => {
     return fetch(`https://blockchain.info/balance?active=${settings.btceWalletAddress}`)
     .then((apiRes) => apiRes.json())
@@ -63,7 +63,7 @@ router.get('/bitcoinBalance', (req, res) => {
 // wallet address coming from DB
 // calculate our eth wallet balance
 router.get('/ethereumBalance', (req, res) => {
-  Settings.findById({_id: "59703a98ae87e52a7dfe210a"})
+  Settings.findById({_id: "5992c2f1660951f72d4a6cfe"})
   .then((settings) => { 
     return fetch(`https://etherchain.org/api/account/${settings.ethWalletAddress}`)
   })
