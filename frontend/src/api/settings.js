@@ -8,7 +8,7 @@ export function fetchSettings() {
 
 export function updateSettings({ bitfinexFloat, btceFloat, bitstampFloat, btceWalletAddress, ethWalletAddress }) {
   // TODO: send id to env variable
-  return axios.patch('/api/settings/59703a98ae87e52a7dfe210a', {
+  return axios.patch('/api/settings/5992c2f1660951f72d4a6cfers', {
       bitfinexFloat,
       btceFloat,
       bitstampFloat,
