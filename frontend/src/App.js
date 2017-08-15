@@ -20,10 +20,11 @@ import MainNav from './components/MainNav';
 import Order from './components/Order';
 import PdfForm from './components/pdfForm';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class App extends Component {
   state = {
-    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhdEBtYW4uY29tIiwiaGFzVmVyaWZpZWQyRkEiOnRydWUsImlhdCI6MTUwMDc3MjQyOCwiZXhwIjoxNTAwNzc2MDI4LCJzdWIiOiI1OTYyZmY2YjUwMWQxNTY0ODUyMWQ1NDAifQ.iGToIuASfnIpkYU-E1-eoO1jmUUq5n9rU2i7bVZENw8",
+    token: null,
     adminMessages: null,
     ausPrices: null,
     bitcoinBalance: null,
@@ -572,13 +573,19 @@ fetchAllClientOrders = () => {
         <Route exact path='/login' render={() => (
           <div>
           { !!error && <p>{ error.message }</p> }
-      
-          <LogInform onSignIn={ this.handleSignIn } />
+
+          {
+            !!token ? (
+              <Redirect to='/home' />
+            ) : (
+              <LogInform onSignIn={ this.handleSignIn } />
+            )
+          }
           </div>
         )
         }/>
         <Route path='/home' render={() => (
-
+          !!token ? (
           <div>
             <div>
               <Header 
@@ -655,6 +662,9 @@ fetchAllClientOrders = () => {
               createClient={ this.handleCreateClient }
             />
             </div>
+          ) : (
+            <Redirect to='/login' />
+          )
         )
         } />
         </main>
