@@ -10,7 +10,7 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:8000/api/settings/59642ab99039a21b6839c24e
+PATCH http://localhost:8000/api/settings/5992c2f1660951f72d4a6cfe
 content-type: application/json
 
 {
