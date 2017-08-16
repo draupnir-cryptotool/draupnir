@@ -1,31 +1,46 @@
-# draupnir
-A tool for calculating the best price of cryptocurrencies over multiple exchanges.
-## Dependencies added
-1. express
-2. mongoose
-3. body-parser
-4. nodemon
-5. node-fetch
-6. eslint
-7. lodash
-8. cors
-9. dotenv
-10. jsonwebtoken
-11. passport-jwt
-12. passport-local
-13. passport-local-mongoose
-14. axios
-15. react-router-dom
-16. react-bootstrap
-17. lodash(react)
-18. babel-plugin-lodash(react)
-19. babel-preset-env(react)
-20. shortid
-21. react-motion
-22. react-collapse
-23. react-icons
-24. jwt-decode
-25. react-transition-group@1.x
+## Backend
+
+Draupnir is running a Node.js server with Express routing and a MongoDB database.
+
+The backend performs a number of tasks, including;
+ - Fetching foreign exchange rates
+ - Fetching cryptocurrency live price ticker data from various exchanges
+ - Creating pdf quotes and emailing them to customers
+ - Fetching cryptocurrency prices from Australian exchanges
+ - Authenticating users
+
+One of the major functions of the backend API is to calculate the most cost effective orders to purchase over multiple exchanges, given certain information.
+
+The logic for this order calculation changed dramatically over the span of the project, as more use cases and scenarios became apparent from our process of testing and running user flow analysis.
+
+The current logic flow of the order calculator is outlined below.
+
+If a customer wants to purchase $10,000 of Bitcoin, the following logic steps are executed:
+ 1. The frontend sends a get request to the API with a large query string. Details of which are below.
+ 2. The API sends out fetch requests to all of the configured exchanges, and recieves their complete order books.
+ 3. As every exchange formats their API response differently, the responses have to be transformed into a uniform structure.
+ 4. Once all of the exchanges have returned their orders, they are combined into a single list.
+ 5. Every order is looked at, starting with the cheapest. For each order, various factors are considered:
+   1. Has the total required order amount already been filled?
+   2. Does the exchange have funds remaining in its float?
+   3. Can we take all, or just part of the order?
+ 6. When the order total has been fulfilled this way, it tallys how much is being purchased from each exchange.
+ 7. USD to AUD exchange rates are fetched, and all prices are converted into AUD.
+ 8. Both USD and AUD figures are returned to the frontend.
+
+There are a lot of different use cases and edge cases that need to be taken into account when calculating the optimal order.
+ - The user is able to specify if they want to purchase up to an amount of USD, or up to an amount of crytocurrency. For example, they can ask for $10,000 worth of Bitcoin, or 5 Bitcoins. This affects how the calculations are performed.
+ - The brokers using Draupnir will have different amounts of funds availiable on exchanges at different times. These floats need to be taken into account for each order, so as to not advise the user to make purchases on an exchange where they don't have the funds to cover it.
+ - It is possible to only take a part of a single order from an exchange. For example, if the client has asked for 2 Bitcoin, and there is and order on the exchange selling 4 Bitcoin, we can take just half of the order. This is taken into account to allow us to fill user oreder amounts exactly to the cent.
+
+## Issues and Improvements
+The order API could be improved in many ways.
+
+The HTTP method could be changed to POST, and all of the information currently being passed in the query string can be sent in the body in a standard JSON format.
+
+The API could initially perform health checks on all of the external exchange APIs. This would allow us to only add excahnges that are responding to be added to the call queue, and would let us give the users error information when echanges are down.
+
+Currently we only use the public APIs from the cryptocurrency exchanges. These exchanges all provide authenticated APIs that allow you to perform various trades. This tool could be extended to allow automatic trading. This would of course greatly increase financial risks from any errors in the code and would need to be carefully tested.
 
 ## Order API Breakdown
 ### URL
