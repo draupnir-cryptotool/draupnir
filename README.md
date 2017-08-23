@@ -28,7 +28,7 @@ https://draupnir.netlify.com
 
 To login
 
-- Scan the following wr code onto google authenticator(you will need to download it from the app store onto your phone)
+- Scan the following qr code onto google authenticator(you will need to download it from the app store onto your phone)
 - username: bat@man.com
 - password: password
 - enter the otp from google authenticator
@@ -159,9 +159,9 @@ Currently, we only use the public APIs from the cryptocurrency exchanges. These 
 
 The frontend was built using react.js which communicates with our api and renders interactive and dynamic templates. 
 
-Most of the business logic comes from out server, and react does a very good job of acting as a messenger which carries input to and from the api. 
+Most of the business logic comes from our server, and react does a very good job of acting as a messenger which carries input to and from the api. 
 
-We went for a very lightweight approach by managing the state that react depends upon to render components at the highest possible level, and all subcomponents are just functional and stateless. By doing this we only had to worry about handlers at the top most levels and jsut pass on the necessery obects to the respective components.
+We went for a very lightweight approach by managing the state that react depends upon to render components at the highest possible level, and all subcomponents are just functional and stateless. By doing this we only had to worry about handlers at the top most levels and just pass on the necessery obects to the respective components.
 
 We also used bootstrap to style the entire project. Flexbox has been heavily used and we also managed to implement CSS grid for a few components.
 
